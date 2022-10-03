@@ -156,20 +156,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40b7250511034630beac501ea4333b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   audioSource: {fileID: 0}
+=======
+>>>>>>> audiotesting
   bpm: 100
   crotchet: 0
   songPosition: 0
   deltaSongPosition: 0
   lastHit: 0
   actualLastHit: 0
+<<<<<<< HEAD
   nextBeatTime: 0
+=======
+>>>>>>> audiotesting
   offset: 0.07
   offseted: 0
   beatNumber: 0
   barNumber: 0
   beatsPerBar: 4
+<<<<<<< HEAD
   tempSongPosition: 0
+=======
+>>>>>>> audiotesting
 --- !u!102 &42173311
 TextMesh:
   serializedVersion: 3
@@ -358,6 +367,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+<<<<<<< HEAD
 --- !u!114 &280773332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,12 +375,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 3152407877444847948}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1355523350}
+=======
+--- !u!114 &280773332 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3152407877717724056, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
+  m_PrefabInstance: {fileID: 3152407877444847948}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+>>>>>>> audiotesting
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bb22cae51bf5c0e46869115c1e98d740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   conductor: {fileID: 42173310}
+=======
+>>>>>>> audiotesting
 --- !u!1 &332459509
 GameObject:
   m_ObjectHideFlags: 0
@@ -710,9 +731,12 @@ MonoBehaviour:
   canBePressed: 0
   particles: {fileID: 5667863053512256358, guid: 761bad68aa6355c46af9aa5e6ae1202d, type: 3}
   sounds: []
+<<<<<<< HEAD
   lastBeat: 0
   myLight: {fileID: 0}
   mySprite: {fileID: 0}
+=======
+>>>>>>> audiotesting
 --- !u!4 &577649643
 Transform:
   m_ObjectHideFlags: 0
@@ -1052,8 +1076,11 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   note: {fileID: 280773332}
   spawnNum: 0
+<<<<<<< HEAD
   lastBeat: 0
   spawn: 0
+=======
+>>>>>>> audiotesting
 --- !u!212 &811195215
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1121,6 +1148,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1355523350
 GameObject:
   m_ObjectHideFlags: 0
@@ -1223,6 +1251,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> audiotesting
 --- !u!1 &1910709857
 GameObject:
   m_ObjectHideFlags: 0
