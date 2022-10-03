@@ -29,12 +29,16 @@ public class Conductor : MonoBehaviour
     public int barNumber = 1;
     public int beatsPerBar = 4;
 
+    private float tempSongPosition;
+
     // Start is called before the first frame update
     void Start()
-    {
+    { 
         audioSource = GetComponent<AudioSource>();
+        tempSongPosition = (float)AudioSettings.dspTime * audioSource.pitch;
         crotchet = 60 / bpm;
         songPosition = 0.0f;
+        audioSource.Play();
     }
 
     public void OutputDebugString()
@@ -42,7 +46,7 @@ public class Conductor : MonoBehaviour
         string debugString = "Song Position: ";
 
         debugString += songPosition;
-
+        
         GetComponent<TextMesh>().text = debugString;
     }
 
@@ -63,7 +67,7 @@ public class Conductor : MonoBehaviour
         CheckInput();
 
         float oldSongPosition = songPosition;
-        songPosition = (float)AudioSettings.dspTime * audioSource.pitch - offset;
+        songPosition = (float)AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition;
                                             // NOTE(alex): - dsptimesong) might be needed
                                             // "Every frame that I play the song, I record the dspTime at that moment."
         deltaSongPosition = songPosition - oldSongPosition;
