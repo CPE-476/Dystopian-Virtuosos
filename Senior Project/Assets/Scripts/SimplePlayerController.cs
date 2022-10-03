@@ -14,12 +14,15 @@ namespace ClearSky
         bool isJumping = false;
         private bool alive = true;
 
+        public CamerController cam;
+
 
         // Start is called before the first frame update
         void Start()
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
+            // cam = GetComponent<CamerController>();
         }
 
         private void Update()
@@ -43,30 +46,40 @@ namespace ClearSky
 
         void Run()
         {
-            Vector3 moveVelocity = Vector3.zero;
-            anim.SetBool("isRun", false);
-
-
-            if (Input.GetAxisRaw("Horizontal") < 0)
-            {
-                direction = -1;
-                moveVelocity = Vector3.left;
-
-                transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
-                if (!anim.GetBool("isJump"))
-                    anim.SetBool("isRun", true);
-
-            }
-            if (Input.GetAxisRaw("Horizontal") > 0)
-            {
+            Vector3 moveVelocity;
+            if (cam.isMoving) {
                 direction = 1;
                 moveVelocity = Vector3.right;
 
                 transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
                 if (!anim.GetBool("isJump"))
                     anim.SetBool("isRun", true);
-
             }
+            else {
+                moveVelocity = Vector3.zero;
+                anim.SetBool("isRun", false);
+            }
+
+            // if (Input.GetAxisRaw("Horizontal") < 0)
+            // {
+            //     direction = -1;
+            //     moveVelocity = Vector3.left;
+
+            //     transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
+            //     if (!anim.GetBool("isJump"))
+            //         anim.SetBool("isRun", true);
+
+            // }
+            // if (Input.GetAxisRaw("Horizontal") > 0)
+            // {
+            //     direction = 1;
+            //     moveVelocity = Vector3.right;
+
+            //     transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
+            //     if (!anim.GetBool("isJump"))
+            //         anim.SetBool("isRun", true);
+
+            // }
             transform.position += moveVelocity * movePower * Time.deltaTime;
         }
         void Jump()
