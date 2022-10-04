@@ -8,7 +8,7 @@ public class CamerController : MonoBehaviour {
     public float clampRight;
     public bool isMoving;
 
-    private float cameraX;
+    public float cameraX;
 
 
     // Use this for initialization
@@ -33,6 +33,10 @@ public class CamerController : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.D)){
             isMoving = true;
+        }
+        if (transform.position.x >= 6.0f)
+        {
+            transform.Translate(new Vector3(-28f, 0, 0));
         }
         if (isMoving)
         {
