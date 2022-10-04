@@ -22,7 +22,6 @@ namespace ClearSky
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
-            // cam = GetComponent<CamerController>();
         }
 
         private void Update()
@@ -80,7 +79,14 @@ namespace ClearSky
             //         anim.SetBool("isRun", true);
 
             // }
-            transform.position += moveVelocity * movePower * Time.deltaTime;
+            if (transform.position.x >= 0.0f)
+            {
+                transform.Translate(new Vector3(-28f, 0, 0));
+            }
+            else
+            {
+                transform.position += moveVelocity * movePower * Time.deltaTime;
+            }
         }
         void Jump()
         {
