@@ -55114,6 +55114,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   player: {fileID: 0}
   plane: {fileID: 7128484699611235144}
+  map_start: 0
 --- !u!1 &7128484699630864012
 GameObject:
   m_ObjectHideFlags: 0
@@ -73296,7 +73297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7128484700050564708}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c6e0cde32178e94abad347bdf030b85, type: 3}
   m_Name: 
@@ -73305,6 +73306,7 @@ MonoBehaviour:
   cam: {fileID: 0}
   player: {fileID: 0}
   plane: {fileID: 7128484699611235144}
+  map_start: 0
 --- !u!1 &7128484700060277508
 GameObject:
   m_ObjectHideFlags: 0
