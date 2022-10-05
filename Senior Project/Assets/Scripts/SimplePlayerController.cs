@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
 
-namespace ClearSky
-{
     public class SimplePlayerController : MonoBehaviour
     {
         public float movePower = 4f;
@@ -9,10 +7,11 @@ namespace ClearSky
 
         private Rigidbody2D rb;
         private Animator anim;
-        Vector3 movement;
         private int direction = 1;
         bool isJumping = false;
         private bool alive = true;
+        public float startX;
+        public bool reset = false;
 
         public CamerController cam;
 
@@ -22,6 +21,8 @@ namespace ClearSky
         {
             rb = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
+            startX = rb.transform.position.x;
+            reset = true;
         }
 
         private void Update()
@@ -49,7 +50,6 @@ namespace ClearSky
             if (cam.isMoving) {
                 direction = 1;
                 moveVelocity = Vector3.right;
-
                 transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
                 if (!anim.GetBool("isJump"))
                     anim.SetBool("isRun", true);
@@ -59,34 +59,7 @@ namespace ClearSky
                 anim.SetBool("isRun", false);
             }
 
-            // if (Input.GetAxisRaw("Horizontal") < 0)
-            // {
-            //     direction = -1;
-            //     moveVelocity = Vector3.left;
-
-            //     transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
-            //     if (!anim.GetBool("isJump"))
-            //         anim.SetBool("isRun", true);
-
-            // }
-            // if (Input.GetAxisRaw("Horizontal") > 0)
-            // {
-            //     direction = 1;
-            //     moveVelocity = Vector3.right;
-
-            //     transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
-            //     if (!anim.GetBool("isJump"))
-            //         anim.SetBool("isRun", true);
-
-            // }
-            if (transform.position.x >= 0.0f)
-            {
-                transform.Translate(new Vector3(-28f, 0, 0));
-            }
-            else
-            {
-                transform.position += moveVelocity * movePower * Time.deltaTime;
-            }
+            transform.position += moveVelocity * movePower * Time.deltaTime;
         }
         void Jump()
         {
@@ -143,4 +116,3 @@ namespace ClearSky
             }
         }
     }
-}

@@ -42,7 +42,7 @@ public class Dialogue : MonoBehaviour
         {
             if (!isStart){
                 StartDialogue();
-                audioSource.Play();
+                /*audioSource.Play();*/
                 isStart = true;
             }
             textComponment.enabled = true;
@@ -78,11 +78,13 @@ public class Dialogue : MonoBehaviour
 
     IEnumerator TypeLine()
     {
+        audioSource.Play();
         foreach (char c in lines[index].ToCharArray())
         {
             textComponment.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        audioSource.Pause();
     }
 
     void NextLine()

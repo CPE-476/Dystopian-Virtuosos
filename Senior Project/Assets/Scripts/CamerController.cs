@@ -34,10 +34,10 @@ public class CamerController : MonoBehaviour {
         if (Input.GetKey(KeyCode.D)){
             isMoving = true;
         }
-        if (transform.position.x >= 6.0f)
+/*        if (transform.position.x >= 6.0f)
         {
             transform.Translate(new Vector3(-28f, 0, 0));
-        }
+        }*/
         if (isMoving)
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
@@ -46,5 +46,6 @@ public class CamerController : MonoBehaviour {
         {
             Debug.Log(cameraX);
         }
+        cameraX = transform.position.x;
     }
 }
