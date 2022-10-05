@@ -18,15 +18,21 @@ public class Dialogue : MonoBehaviour
 
     private int index;
 
+    private bool isStart = false;
+
     public CamerController cam;
+
+    AudioSource audioSource; 
+
 
     // Start is called before the first frame update
     void Start()
     {
         textComponment.text = string.Empty;
-        StartDialogue();
+        // StartDialogue();
         textComponment.enabled = false;
         textbox.enabled = false;
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,6 +40,11 @@ public class Dialogue : MonoBehaviour
     {
         if (!cam.isMoving)
         {
+            if (!isStart){
+                StartDialogue();
+                audioSource.Play();
+                isStart = true;
+            }
             textComponment.enabled = true;
             textbox.enabled = true;
             if (Input.GetMouseButtonDown(0))
@@ -44,6 +55,7 @@ public class Dialogue : MonoBehaviour
                 }
                 else
                 {
+                    audioSource.enabled = false;
                     textbox.enabled = false;
                     StopAllCoroutines();
                     textComponment.text = string.Empty;
