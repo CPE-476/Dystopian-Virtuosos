@@ -15,7 +15,7 @@ public class Conductor : MonoBehaviour
     InputLegend input;
     AudioSource audioSource;
 
-    public float bpm = 100;
+    public float bpm = 95;
     public float crotchet;
     public float songPosition;
     public float deltaSongPosition;
