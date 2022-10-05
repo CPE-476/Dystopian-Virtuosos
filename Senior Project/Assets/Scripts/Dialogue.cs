@@ -1,39 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponment;
+
+    public NPC npc;
+
+    public Image textbox;
+
     public string[] lines;
+
     public float textSpeed;
+
     private int index;
 
     public CamerController cam;
-
 
     // Start is called before the first frame update
     void Start()
     {
         textComponment.text = string.Empty;
         StartDialogue();
+        textComponment.enabled = false;
+        textbox.enabled = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!cam.isMoving)
         {
-            if (textComponment.text == lines[index])
+            textComponment.enabled = true;
+            textbox.enabled = true;
+            if (Input.GetMouseButtonDown(0))
             {
-                NextLine();
+                if (textComponment.text == lines[index])
+                {
+                    NextLine();
+                }
+                else
+                {
+                    textbox.enabled = false;
+                    StopAllCoroutines();
+                    textComponment.text = string.Empty;
+                }
             }
-            else
-            {
-                StopAllCoroutines();
-                textComponment.text = lines[index];
-            }
+        }
+        else
+        {
+            index = 0;
+            textComponment.enabled = false;
+            textbox.enabled = false;
         }
     }
 
@@ -60,9 +81,9 @@ public class Dialogue : MonoBehaviour
             textComponment.text = string.Empty;
             StartCoroutine(TypeLine());
         }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        // else
+        // {
+        //     gameObject.SetActive(false);
+        // }
     }
 }
