@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class CamerController : MonoBehaviour {
     public float speed;
-    public float clampLeft;
-    public float clampRight;
     public bool isMoving;
+    public GameObject staticBackground;
 
     public float cameraX;
 
@@ -19,14 +18,7 @@ public class CamerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        // if (Input.GetKey(KeyCode.D) && transform.position.x < clampRight)
-        // {
-        //     transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-        // }
-        // if (Input.GetKey(KeyCode.A) && transform.position.x > clampLeft)
-        // {
-        //     transform.Translate(new Vector3(-speed * Time.deltaTime, 0, 0));
-        // }
+
         if (Input.GetKey(KeyCode.S))
         {
             isMoving = false;
@@ -41,6 +33,7 @@ public class CamerController : MonoBehaviour {
         if (isMoving)
         {
             transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+            staticBackground.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
         }
         if (Input.GetKey(KeyCode.Space))
         {
