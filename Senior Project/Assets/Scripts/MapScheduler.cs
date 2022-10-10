@@ -9,7 +9,7 @@ public class MapScheduler : MonoBehaviour
 
     public CamerController cam;
 
-    public SimplePlayerController player;
+    //public SimplePlayerController player;
 
     private GameObject clone;
 
@@ -27,7 +27,6 @@ public class MapScheduler : MonoBehaviour
 
     void Update()
     {
-
         if(cam.transform.position.x > map_start)
         {
             Destroy(clone.gameObject, 15f);
