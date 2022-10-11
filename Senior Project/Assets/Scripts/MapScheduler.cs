@@ -12,27 +12,54 @@ public class MapScheduler : MonoBehaviour
     //public SimplePlayerController player;
 
     private GameObject clone;
+    private GameObject clone2;
 
     public GameObject plane;
 
-    float dx = 42f;
+    public float CharacterSpeed;
 
-    public float map_start;
+    float dx = 40f;
+
+    private float map_end;
 
     void Start()
     {
-        map_start = plane.transform.position.x;
-        clone = Instantiate(map, new Vector3(map_start, map.transform.position.y, 0f), Quaternion.identity);
+        map_end = plane.transform.position.x;
+        clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
+        map_end += dx;
     }
 
     void Update()
     {
-        if(cam.transform.position.x > map_start)
-        {
-            Destroy(clone.gameObject, 15f);
-            clone = Instantiate(map, new Vector3(map_start + dx, map.transform.position.y, 0f), Quaternion.identity);
-            map_start += dx;
+        if (cam.isMoving){
+            if (clone != null){
+                clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+            }
+            if (clone2 != null){
+                clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+            }
+            map_end -= CharacterSpeed * Time.deltaTime;
         }
+        if(map_end < 20)
+        {
+            if (clone2 == null){
+                clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
+                clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+                Destroy(clone.gameObject, 5f);
+            }
+            if (clone == null){
+                clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
+                clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+                Destroy(clone2.gameObject, 5f);
+            }
+            map_end = dx;
+        }
+        // if(clone.transform.position.x + dx < -10){
+        //     Destroy(clone.gameObject, 15f);
+        // }
+        // if(clone2.transform.position.x + dx < -10){
+        //     Destroy(clone2.gameObject, 15f);
+        // }
     }
 
 }

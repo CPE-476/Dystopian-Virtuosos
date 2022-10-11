@@ -30,15 +30,15 @@ public class CamerController : MonoBehaviour {
         {
             transform.Translate(new Vector3(-28f, 0, 0));
         }*/
-        if (isMoving)
-        {
-            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-            staticBackground.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
-        }
-        if (Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log(cameraX);
-        }
-        cameraX = transform.position.x;
+        // if (isMoving)
+        // {
+        //     transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+        //     staticBackground.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
+        // }
+        // if (Input.GetKey(KeyCode.Space))
+        // {
+        //     Debug.Log(cameraX);
+        // }
+        // cameraX = transform.position.x;
     }
 }

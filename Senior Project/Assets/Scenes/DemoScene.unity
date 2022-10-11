@@ -1073,7 +1073,7 @@ MonoBehaviour:
   map: {fileID: 8710704520973269429, guid: 41057665445a97e4d8bad51f5d16d1ef, type: 3}
   cam: {fileID: 510236666}
   plane: {fileID: 2115960594531632023, guid: 5a321b81ddf4cae45b72bcd0a3c89cda, type: 3}
-  map_start: 0
+  CharacterSpeed: 3
 --- !u!4 &1094314702
 Transform:
   m_ObjectHideFlags: 0

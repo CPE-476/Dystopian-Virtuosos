@@ -59,7 +59,7 @@
                 anim.SetBool("isRun", false);
             }
 
-            transform.position += moveVelocity * movePower * Time.deltaTime;
+            // transform.position += moveVelocity * movePower * Time.deltaTime;
         }
         void Jump()
         {
