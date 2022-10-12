@@ -18,7 +18,9 @@ public class MapScheduler : MonoBehaviour
 
     public float CharacterSpeed;
 
-    float dx = 40f;
+    float dx = 42f;
+
+    float offset = 18f;
 
     private float map_end;
 
@@ -45,21 +47,27 @@ public class MapScheduler : MonoBehaviour
             if (clone2 == null){
                 clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
                 clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
-                Destroy(clone.gameObject, 5f);
             }
             if (clone == null){
                 clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
                 clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
-                Destroy(clone2.gameObject, 5f);
             }
             map_end = dx;
         }
-        // if(clone.transform.position.x + dx < -10){
-        //     Destroy(clone.gameObject, 15f);
-        // }
-        // if(clone2.transform.position.x + dx < -10){
-        //     Destroy(clone2.gameObject, 15f);
-        // }
+        if (clone != null){
+            if (clone.transform.position.x + dx < 0)
+            {
+                Destroy(clone.gameObject, 0f);
+            }
+        }
+
+        if(clone2 != null)
+        {
+            if (clone2.transform.position.x + dx < 0)
+            {
+                Destroy(clone2.gameObject, 0f);
+            }
+        }
     }
 
 }
