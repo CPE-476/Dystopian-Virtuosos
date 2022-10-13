@@ -20,14 +20,14 @@ public class MapScheduler : MonoBehaviour
 
     float dx = 42f;
 
-    float offset = 18f;
-
     private float map_end;
 
     void Start()
     {
         map_end = plane.transform.position.x;
         clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
+        map_end += dx;
+        clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
         map_end += dx;
     }
 
@@ -42,17 +42,16 @@ public class MapScheduler : MonoBehaviour
             }
             map_end -= CharacterSpeed * Time.deltaTime;
         }
-        if(map_end < 20)
-        {
+
             if (clone2 == null){
                 clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
                 clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
-            }
+            map_end += dx;
+        }
             if (clone == null){
                 clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
                 clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
-            }
-            map_end = dx;
+            map_end += dx;
         }
         if (clone != null){
             if (clone.transform.position.x + dx < 0)
