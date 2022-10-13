@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
+public enum HitCategory
+{
+	NONE,
+	WEAK,
+	GOOD
+};
+
 public class NoteTrigger : MonoBehaviour
 {
-	public float minIntensity;
-	public float maxIntensity;
-	public bool startAtMin;
 	public Conductor conductor;
 	public bool canBePressed;
 	public ParticleSystem particles;
@@ -15,7 +19,14 @@ public class NoteTrigger : MonoBehaviour
 	//Temporary Metronome
 	public AudioSource[] sounds;
 
-    float lastBeat;
+    public float currentBeat;
+	public float lowerGoodBound;
+	public float lowerWeakBound;
+	public float upperGoodBound;
+	public float upperWeakBound;
+	public float threshold = 0.1f;
+
+	public HitCategory hc;
 
 	Light myLight;
 	SpriteRenderer mySprite;
@@ -24,80 +35,69 @@ public class NoteTrigger : MonoBehaviour
     void Start()
     {
         sounds = GetComponents<AudioSource>();
-        lastBeat = 0.0f;
+        currentBeat = 0.0f;
 		myLight = GetComponent<Light>();
 		mySprite = GetComponent<SpriteRenderer>();
-		myLight.intensity = startAtMin ? minIntensity : maxIntensity;
     }
 
     // Update is called once per frame
     void Update()
     {
-		if(Input.GetKey(KeyCode.Space) && canBePressed)
+		if (conductor.songPosition > lowerGoodBound &&
+			conductor.songPosition < upperGoodBound)
 		{
-			sounds[1].Play();
-            ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
-			Destroy(clone.gameObject, 0.5f);
-			canBePressed = false;
+			myLight.color = Color.green;
+			hc = HitCategory.GOOD;
+		}
+		else if (conductor.songPosition > lowerWeakBound &&
+			conductor.songPosition < upperWeakBound)
+		{
+			myLight.color = Color.blue;
+			hc = HitCategory.WEAK;
+		}
+		else
+        {
+			myLight.color = Color.red;
+			hc = HitCategory.NONE;
         }
-        if (conductor.songPosition > lastBeat + conductor.crotchet)
+
+		if (Input.GetKeyDown(KeyCode.Space) && canBePressed)
 		{
-			ToggleLight();
-			ToggleSprite(0);
+			if (hc == HitCategory.NONE)
+			{
+				sounds[1].Play();
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				mySprite.color = Color.red;
+				Destroy(clone.gameObject, 0.5f);
+			}
+			else if (hc == HitCategory.WEAK)
+			{
+				sounds[2].Play();
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				mySprite.color = Color.blue;
+				Destroy(clone.gameObject, 0.5f);
+			}
+			else if (hc == HitCategory.GOOD)
+			{
+				sounds[3].Play();
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				clone.startColor = Color.green;
+				mySprite.color = Color.green;
+				Destroy(clone.gameObject, 0.5f);
+			}
+			canBePressed = false;
+		}
+
+		// Set the next beat when current beat is over.
+        if (conductor.songPosition > currentBeat + (conductor.crotchet / 2.0f))
+		{
 			sounds[0].Play(); //metronome
-			lastBeat += conductor.crotchet;
-		}
-	}
-
-	// function to toggle between two intensities
-	public void ToggleLight()
-	{
-		if(myLight.intensity == minIntensity)
-		{
-			myLight.intensity = maxIntensity;
-		}
-		else if(myLight.intensity == maxIntensity)
-		{
-			myLight.intensity = minIntensity;
-		}
-		else
-		{
-			Debug.Log("LightToggler ERROR\n");
-		}
-	}
-
-	// function to toggle a cube on/off
-	public void ToggleSprite(int score)
-	{
-		Color[] colors = {Color.black, Color.green, Color.yellow};
-
-		if(mySprite.color !=  Color.white)
-		{
-			mySprite.color = Color.white;
-		}
-		else if(mySprite.color == Color.white)
-		{
-			mySprite.color = colors[score];
-		}
-		else
-		{
-			Debug.Log("LightToggler ERROR\n");
-		}
-	}
-
-	private void OnTriggerEnter2D(Collider2D collision)
-	{
-		if(collision.tag == "Note")
-		{
+			currentBeat += conductor.crotchet;
+			lowerGoodBound = currentBeat - threshold;
+			lowerWeakBound = currentBeat - threshold * 2;
+			upperGoodBound = currentBeat + threshold;
+			upperWeakBound = currentBeat + threshold * 2;
 			canBePressed = true;
 		}
 	}
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "Note")
-        {
-            canBePressed = false;
-        }
-    }
 }

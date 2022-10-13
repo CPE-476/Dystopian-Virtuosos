@@ -4,23 +4,14 @@ using System.Net.Http.Headers;
 using TMPro;
 using UnityEngine;
 
-struct InputLegend
-{
-    public bool Space;
-}
-
 [RequireComponent(typeof(AudioSource))]
 public class Conductor : MonoBehaviour
 {
-    InputLegend input;
     AudioSource audioSource;
 
     public float bpm = 95;
     public float crotchet;
     public float songPosition;
-    public float deltaSongPosition;
-    public float lastHit;           // The last snapped to beat time the spacebar was pressed.
-    public float actualLastHit;
     float nextBeatTime = 0.0f;
     public float offset = 0.2f;
     public bool offseted = false;
@@ -50,29 +41,13 @@ public class Conductor : MonoBehaviour
         GetComponent<TextMesh>().text = debugString;
     }
 
-    public void CheckInput()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            input.Space = true;
-        }
-    }
-
     public void Update()
     {
         // Change Debug Text Per Frame
         OutputDebugString();
-
-        // Check Inputs
-        CheckInput();
-
-        float oldSongPosition = songPosition;
         songPosition = (float)AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition;
                                             // NOTE(alex): - dsptimesong) might be needed
                                             // "Every frame that I play the song, I record the dspTime at that moment."
-        deltaSongPosition = songPosition - oldSongPosition;
-
-        nextBeatTime += deltaSongPosition;
 
         if(nextBeatTime > crotchet)
         {
