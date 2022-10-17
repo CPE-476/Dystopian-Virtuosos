@@ -9,28 +9,33 @@ public class Conductor : MonoBehaviour
 {
     // Constants
     public const int SPOTS_PER_BEAT = 4; // Sixteenth Notes
-    public const int BEATS_PER_BAR = 4;
+    public const int BEATS_PER_BAR = 4;  // 4/4 Time
 
     AudioSource audioSource;
 
-    public float bpm = 100;
+    public float bpm;
     public float crotchet;
     public float spotLength;
 
     public double songPosition;
-    double nextSpotTime = 0.0f;
-    public float offset = 0.3f;
-    public bool offseted = false;
+    double nextSpotTime;
+    public float offset;
 
-    public int spotNumber = 1;
-    public int beatNumber = 1;
-    public int barNumber = 1;
+    public int spotNumber;
+    public int beatNumber;
+    public int barNumber;
 
     private double tempSongPosition;
 
     // Start is called before the first frame update
     void Start()
     { 
+        bpm = 100;
+        nextSpotTime = 0.0;
+        offset = 0.0f;
+        spotNumber = 0;
+        beatNumber = 0;
+        barNumber = 0;
         audioSource = GetComponent<AudioSource>();
         audioSource.Play();
         tempSongPosition = (double)AudioSettings.dspTime * audioSource.pitch;
@@ -48,17 +53,18 @@ public class Conductor : MonoBehaviour
         nextSpotTime += newSongPosition - songPosition;
         songPosition = newSongPosition;
 
+        // Updates Bar, Beat, Spot based on Song Position.
         if(nextSpotTime > spotLength)
         {
             ++spotNumber;
             nextSpotTime = nextSpotTime - spotLength;
-            if(spotNumber > SPOTS_PER_BEAT)
+            if(spotNumber == SPOTS_PER_BEAT)
             {
-                spotNumber = 1;
+                spotNumber = 0;
                 ++beatNumber;
-                if(beatNumber > BEATS_PER_BAR)
+                if(beatNumber == BEATS_PER_BAR)
                 {
-                    beatNumber = 1;
+                    beatNumber = 0;
                     ++barNumber;
                 }
             }
