@@ -7,56 +7,60 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class Conductor : MonoBehaviour
 {
+    // Constants
+    public const int SPOTS_PER_BEAT = 4; // Sixteenth Notes
+    public const int BEATS_PER_BAR = 4;
+
     AudioSource audioSource;
 
-    public float bpm = 95;
+    public float bpm = 100;
     public float crotchet;
-    public float songPosition;
-    float nextBeatTime = 0.0f;
-    public float offset = 0.2f;
+    public float spotLength;
+
+    public double songPosition;
+    double nextSpotTime = 0.0f;
+    public float offset = 0.3f;
     public bool offseted = false;
 
+    public int spotNumber = 1;
     public int beatNumber = 1;
     public int barNumber = 1;
-    public int beatsPerBar = 4;
 
-    private float tempSongPosition;
+    private double tempSongPosition;
 
     // Start is called before the first frame update
     void Start()
     { 
         audioSource = GetComponent<AudioSource>();
-        tempSongPosition = (float)AudioSettings.dspTime * audioSource.pitch;
-        crotchet = 60 / bpm;
-        songPosition = 0.0f;
         audioSource.Play();
-    }
-
-    public void OutputDebugString()
-    {
-        string debugString = "Song Position: ";
-
-        debugString += songPosition;
-        
-        GetComponent<TextMesh>().text = debugString;
+        tempSongPosition = (double)AudioSettings.dspTime * audioSource.pitch;
+        crotchet = 60 / bpm;
+        spotLength = crotchet / SPOTS_PER_BEAT;
+        songPosition = 0.0f;
     }
 
     public void Update()
     {
-        // Change Debug Text Per Frame
-        OutputDebugString();
-        songPosition = (float)AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition;
-                                            // NOTE(alex): - dsptimesong) might be needed
-                                            // "Every frame that I play the song, I record the dspTime at that moment."
+        double newSongPosition = AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition;
+                                                    // NOTE(alex): - dsptimesong) might be needed
+                                                    // "Every frame that I play the song, I record the dspTime at that moment."
 
-        if(nextBeatTime > crotchet)
+        nextSpotTime += newSongPosition - songPosition;
+        songPosition = newSongPosition;
+
+        if(nextSpotTime > spotLength)
         {
-            nextBeatTime = 0.0f;
-            ++beatNumber;
-            if(beatNumber > beatsPerBar)
+            ++spotNumber;
+            nextSpotTime = nextSpotTime - spotLength;
+            if(spotNumber > SPOTS_PER_BEAT)
             {
-                beatNumber = 1;
-                ++barNumber;
+                spotNumber = 1;
+                ++beatNumber;
+                if(beatNumber > BEATS_PER_BAR)
+                {
+                    beatNumber = 1;
+                    ++barNumber;
+                }
             }
         }
     }

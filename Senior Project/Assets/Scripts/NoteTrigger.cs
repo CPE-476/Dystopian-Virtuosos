@@ -17,16 +17,20 @@ public class NoteTrigger : MonoBehaviour
 	public ParticleSystem particles;
 
 	//Temporary Metronome
-	public AudioSource[] sounds;
+	public SFX sfx;
+
+	public ScoreManager scoreManager;
 
     public float currentBeat;
 	public float lowerGoodBound;
 	public float lowerWeakBound;
 	public float upperGoodBound;
 	public float upperWeakBound;
-	public float threshold = 0.1f;
+	public float innerThreshold = 0.05f;
+	public float outerThreshold = 0.10f;
 
-	public HitCategory hc;
+	[SerializeReference]
+	private HitCategory hc;
 
 	Light myLight;
 	SpriteRenderer mySprite;
@@ -34,7 +38,6 @@ public class NoteTrigger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        sounds = GetComponents<AudioSource>();
         currentBeat = 0.0f;
 		myLight = GetComponent<Light>();
 		mySprite = GetComponent<SpriteRenderer>();
@@ -61,43 +64,66 @@ public class NoteTrigger : MonoBehaviour
 			hc = HitCategory.NONE;
         }
 
-		if (Input.GetKeyDown(KeyCode.Space) && canBePressed)
-		{
-			if (hc == HitCategory.NONE)
-			{
-				sounds[1].Play();
-				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
-				mySprite.color = Color.red;
-				Destroy(clone.gameObject, 0.5f);
-			}
-			else if (hc == HitCategory.WEAK)
-			{
-				sounds[2].Play();
-				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
-				mySprite.color = Color.blue;
-				Destroy(clone.gameObject, 0.5f);
-			}
-			else if (hc == HitCategory.GOOD)
-			{
-				sounds[3].Play();
-				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
-				clone.startColor = Color.green;
-				mySprite.color = Color.green;
-				Destroy(clone.gameObject, 0.5f);
-			}
-			canBePressed = false;
-		}
+		checkHit(KeyCode.H);
+		checkHit(KeyCode.J);
+		checkHit(KeyCode.K);
+		checkHit(KeyCode.L);
 
 		// Set the next beat when current beat is over.
         if (conductor.songPosition > currentBeat + (conductor.crotchet / 2.0f))
 		{
-			sounds[0].Play(); //metronome
 			currentBeat += conductor.crotchet;
-			lowerGoodBound = currentBeat - threshold;
-			lowerWeakBound = currentBeat - threshold * 2;
-			upperGoodBound = currentBeat + threshold;
-			upperWeakBound = currentBeat + threshold * 2;
+			lowerGoodBound = currentBeat - innerThreshold;
+			lowerWeakBound = currentBeat - innerThreshold - outerThreshold;
+			upperGoodBound = currentBeat + innerThreshold;
+			upperWeakBound = currentBeat + innerThreshold + outerThreshold;
 			canBePressed = true;
 		}
+
+		// metronome
+		if (conductor.songPosition > currentBeat + conductor.crotchet)
+		{
+			sfx.sounds[0].Play();
+		}
 	}
+
+	// Checks for a hit on a given keycode.
+	// Returns true if hit, false if not.
+	private bool checkHit(KeyCode kc)
+	{
+		if (Input.GetKeyDown(kc) && canBePressed)
+		{
+			if (hc == HitCategory.NONE)
+			{
+				sfx.sounds[3].Play();
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				mySprite.color = Color.red;
+				Destroy(clone.gameObject, 0.5f);
+				scoreManager.score += -1;
+			}
+			else if (hc == HitCategory.WEAK)
+			{
+				sfx.sounds[2].Play();
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				mySprite.color = Color.blue;
+				Destroy(clone.gameObject, 0.5f);
+				scoreManager.score += 1;
+			}
+			else if (hc == HitCategory.GOOD)
+			{
+				sfx.sounds[1].Play();
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				mySprite.color = Color.green;
+				Destroy(clone.gameObject, 0.5f);
+				Debug.Log(scoreManager.score);
+				scoreManager.score += 2;
+				Debug.Log(scoreManager.score);
+			}
+
+			canBePressed = false;
+			return true;
+		}
+		return false;
+	}
+
 }
