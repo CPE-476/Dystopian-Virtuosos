@@ -15,7 +15,7 @@ public class NoteObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position -= new Vector3(Time.deltaTime/conductor.crotchet * 1, 0f, 0f);
+        transform.position -= new Vector3(Time.deltaTime/conductor.crotchet * 0.5f, 0f, 0f);
 
         if (transform.position.x < 0 && transform.position.y < 10)
         {
@@ -23,7 +23,5 @@ public class NoteObject : MonoBehaviour
         }
         else
             transform.localScale = new Vector3(0.5f, 0.5f, 0.0f);
-
-
     }
 }
