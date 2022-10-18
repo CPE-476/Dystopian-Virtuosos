@@ -605,7 +605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conductor: {fileID: 42173310}
-  trackMaster: {fileID: 1617083860}
+  trackMaster: {fileID: 1617083862}
   particles: {fileID: 5667863053512256358, guid: 761bad68aa6355c46af9aa5e6ae1202d, type: 3}
   top: {fileID: 1018172145}
   high: {fileID: 1229566512}
@@ -901,7 +901,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1617083861}
-  - component: {fileID: 1617083860}
+  - component: {fileID: 1617083862}
   m_Layer: 0
   m_Name: TrackMaster
   m_TagString: Untagged
@@ -909,22 +909,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1617083860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1617083859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3a70322686d845038d7ff83e6ff12d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  conductor: {fileID: 42173310}
-  track: 
-  pressable: 
-  index: 0
 --- !u!4 &1617083861
 Transform:
   m_ObjectHideFlags: 0
@@ -940,6 +924,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1617083862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617083859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5571b0926ce904788b1ab8db4804f904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  conductor: {fileID: 42173310}
+  track: 
+  pressable: 
+  index: 0
 --- !u!1 &1794664646
 GameObject:
   m_ObjectHideFlags: 0

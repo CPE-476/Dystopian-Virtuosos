@@ -16,10 +16,10 @@ public class TrackMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        track = new uint[] {1, 0, 2, 0,
-                            4, 0, 8, 0,
-                            1, 0, 2, 0,
-                            4, 0, 8, 0};
+        track = new uint[] {1, 0, 0, 0,
+                            2, 0, 0, 0,
+                            4, 0, 0, 0,
+                            8, 0, 0, 0};
         pressable = new bool[] {false, false, false, false};
     }
 
