@@ -8,7 +8,7 @@ using UnityEngine;
 public class Conductor : MonoBehaviour
 {
     // Constants
-    public const int SPOTS_PER_BEAT = 4; // Sixteenth Notes
+    public const int SPOTS_PER_BEAT = 1; // Sixteenth Notes
     public const int BEATS_PER_BAR = 4;  // 4/4 Time
 
     AudioSource audioSource;

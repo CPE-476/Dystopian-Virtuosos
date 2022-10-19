@@ -105,7 +105,7 @@ public class NoteTrigger : MonoBehaviour
 				if (hc == HitCategory.WEAK)
 				{
 					sfx.sounds[2].Play();
-					ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 					sprite.color = Color.blue;
 					Destroy(clone.gameObject, 0.5f);
 					scoreManager.score += 1;
@@ -113,7 +113,7 @@ public class NoteTrigger : MonoBehaviour
 				else if (hc == HitCategory.GOOD)
 				{
 					sfx.sounds[1].Play();
-					ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 					sprite.color = Color.green;
 					Destroy(clone.gameObject, 0.5f);
 					Debug.Log(scoreManager.score);
@@ -124,7 +124,7 @@ public class NoteTrigger : MonoBehaviour
 			else
 			{
 				sfx.sounds[3].Play();
-				ParticleSystem clone = (ParticleSystem)Instantiate(particles, transform.position, Quaternion.identity);
+				ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 				sprite.color = Color.red;
 				Destroy(clone.gameObject, 0.5f);
 				scoreManager.score += -1;
