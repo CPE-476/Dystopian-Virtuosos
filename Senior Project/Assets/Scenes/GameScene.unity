@@ -288,6 +288,10 @@ PrefabInstance:
       propertyPath: conductor
       value: 
       objectReference: {fileID: 42173310}
+    - target: {fileID: 3152407877717724056, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
+      propertyPath: notetrigger
+      value: 
+      objectReference: {fileID: 577649642}
     - target: {fileID: 3152407877717724058, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
       propertyPath: m_RootOrder
       value: 0
