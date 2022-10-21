@@ -22,17 +22,12 @@ public class NoteObject : MonoBehaviour
     {
         float interpRatio = ((float)conductor.songPosition-localSpot)/(conductor.spotLength*3);
 
-        Vector3 interpedPostion = Vector3.Lerp(spawner.transform.position, new Vector3(0f, spawner.transform.position.y, 0f), interpRatio);
+        Vector3 interpedPostion = Vector3.Lerp(spawner.transform.position, new Vector3(notetrigger.transform.position.x, spawner.transform.position.y, 0f), interpRatio);
         transform.position = interpedPostion;
 
         if (interpRatio > 1.0f)
             GetComponent<SpriteRenderer>().enabled = false;
 
-        if (transform.position.x < 0 && transform.position.y < 3)
-        {
-            transform.localScale -= new Vector3(0.5f*Time.deltaTime, 0.5f * Time.deltaTime, 0.5f * Time.deltaTime);
-        }
-        else
-            transform.localScale = new Vector3(0.5f, 0.5f, 0.0f);
+        transform.localScale = new Vector3(0.5f, 0.5f, 0.0f);
     }
 }

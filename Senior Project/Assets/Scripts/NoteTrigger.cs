@@ -98,21 +98,15 @@ public class NoteTrigger : MonoBehaviour
 	// Returns true if hit, false if not.
 	private void checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite)
 	{
-		if (trackMaster.pressable[trackNumber])
-		{
-			sprite.color = Color.yellow;
-		}
-		else
-			sprite.color = Color.gray;
 
 		if (Input.GetKeyDown(kc))
 		{
 			if(trackMaster.pressable[trackNumber])
 			{
-				sprite.color = Color.yellow;
 				if (hc == HitCategory.WEAK)
 				{
 					sfx.sounds[2].Play();
+					particles.startColor = Color.blue;
 					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 					sprite.color = Color.blue;
 					Destroy(clone.gameObject, 0.5f);
@@ -121,6 +115,7 @@ public class NoteTrigger : MonoBehaviour
 				else if (hc == HitCategory.GOOD)
 				{
 					sfx.sounds[1].Play();
+					particles.startColor = Color.green;
 					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 					sprite.color = Color.green;
 					Destroy(clone.gameObject, 0.5f);
@@ -132,6 +127,7 @@ public class NoteTrigger : MonoBehaviour
 			else
 			{
 				sfx.sounds[3].Play();
+				particles.startColor = Color.red;
 				ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 				sprite.color = Color.red;
 				Destroy(clone.gameObject, 0.5f);

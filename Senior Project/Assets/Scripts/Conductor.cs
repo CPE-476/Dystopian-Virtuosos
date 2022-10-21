@@ -32,7 +32,7 @@ public class Conductor : MonoBehaviour
     { 
         bpm = 100;
         nextSpotTime = 0.0;
-        offset = 0.0f;
+        offset = 0.07f;
         spotNumber = 0;
         beatNumber = 0;
         barNumber = 0;
