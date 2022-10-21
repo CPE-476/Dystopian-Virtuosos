@@ -98,10 +98,18 @@ public class NoteTrigger : MonoBehaviour
 	// Returns true if hit, false if not.
 	private void checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite)
 	{
+		if (trackMaster.pressable[trackNumber])
+		{
+			sprite.color = Color.yellow;
+		}
+		else
+			sprite.color = Color.gray;
+
 		if (Input.GetKeyDown(kc))
 		{
 			if(trackMaster.pressable[trackNumber])
 			{
+				sprite.color = Color.yellow;
 				if (hc == HitCategory.WEAK)
 				{
 					sfx.sounds[2].Play();

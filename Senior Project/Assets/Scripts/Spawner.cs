@@ -6,10 +6,10 @@ public class Spawner : MonoBehaviour
 {
 
     public Conductor conductor;
-    public TrackMaster trackmaster;
     public NoteObject note;
     public int spawnNum = 0;
     float lastBeat;
+    public bool spawn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,12 +20,13 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (conductor.songPosition > lastBeat + conductor.crotchet)
+        if (conductor.songPosition > lastBeat + conductor.crotchet && spawn)
         {
-            NoteObject clone = (NoteObject)Instantiate(note, new Vector3(5f, 0f, 0f), Quaternion.identity);
+            NoteObject clone = (NoteObject)Instantiate(note, transform.position, Quaternion.identity);
             Destroy(clone.gameObject, 7f);
             lastBeat += conductor.spotLength;
             spawnNum++;
+            spawn = false;
         }
         else if(conductor.songPosition > lastBeat + conductor.crotchet)
         {

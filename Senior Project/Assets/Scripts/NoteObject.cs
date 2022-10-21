@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NoteObject : MonoBehaviour
 {
+    public Spawner spawner;
     public Conductor conductor;
     public NoteTrigger notetrigger;
     float localSpot;
@@ -12,24 +13,25 @@ public class NoteObject : MonoBehaviour
     void Start()
     {
         localSpot = notetrigger.currentSpot;
+        //localSpot -= conductor.spotLength * 3;
         GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        float interpRatio = ((float)conductor.songPosition-localSpot)/conductor.spotLength;
+        float interpRatio = ((float)conductor.songPosition-localSpot)/(conductor.spotLength*4);
 
         Debug.Log("INTERP RATIO: " + interpRatio);
         Debug.Log((float)conductor.songPosition + " notetrigger.currentSpot: " + localSpot);
 
-        Vector3 interpedPostion = Vector3.Lerp(new Vector3(5f, 0f, 0f), new Vector3(0f, 0f, 0f), interpRatio);
+        Vector3 interpedPostion = Vector3.Lerp(spawner.transform.position, new Vector3(0f, spawner.transform.position.y, 0f), interpRatio);
         transform.position = interpedPostion;
 
         if (interpRatio > 1.0f)
             GetComponent<SpriteRenderer>().enabled = false;
 
-        if (transform.position.x < 0 && transform.position.y < 10)
+        if (transform.position.x < 0 && transform.position.y < 3)
         {
             transform.localScale -= new Vector3(0.5f*Time.deltaTime, 0.5f * Time.deltaTime, 0.5f * Time.deltaTime);
         }
