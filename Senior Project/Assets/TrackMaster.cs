@@ -16,35 +16,39 @@ public class TrackMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        track = new uint[] {1, 0, 1, 0,
-                            2, 0, 2, 0,
-                            4, 0, 4, 0,
-                            8, 0, 8, 0};
+        track = new uint[] {1, 1, 1, 1,
+                            2, 1, 2, 1,
+                            9, 1, 6, 1,
+                            8, 1, 8, 1};
         pressable = new bool[] {false, false, false, false};
     }
 
     // Update is called once per frame
     void Update()
     {
-        // TODO(alex): Call this code only when we change our Spot value.
-        index = conductor.barNumber*Conductor.BEATS_PER_BAR*Conductor.SPOTS_PER_BEAT
-              + conductor.beatNumber*Conductor.SPOTS_PER_BEAT
+       
+    }
+
+    public void changePressable()
+    {
+        index = conductor.barNumber * Conductor.BEATS_PER_BAR * Conductor.SPOTS_PER_BEAT
+              + conductor.beatNumber * Conductor.SPOTS_PER_BEAT
               + conductor.spotNumber;
-        uint curVal = track[index % track.Length];
+        uint curVal = track[index % track.Length + 1];
         Array.Clear(pressable, 0, pressable.Length);
-        if((curVal & 1) > 0)
+        if ((curVal & 1) > 0)
         {
             pressable[0] = true;
         }
-        if((curVal & 2) > 0)
+        if ((curVal & 2) > 0)
         {
             pressable[1] = true;
         }
-        if((curVal & 4) > 0)
+        if ((curVal & 4) > 0)
         {
             pressable[2] = true;
         }
-        if((curVal & 8) > 0)
+        if ((curVal & 8) > 0)
         {
             pressable[3] = true;
         }

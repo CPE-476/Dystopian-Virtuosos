@@ -23,6 +23,7 @@ public class Spawner : MonoBehaviour
         if (conductor.songPosition > lastBeat + conductor.crotchet && spawn)
         {
             NoteObject clone = (NoteObject)Instantiate(note, transform.position, Quaternion.identity);
+            clone.GetComponent<SpriteRenderer>().enabled = true;
             Destroy(clone.gameObject, 7f);
             lastBeat += conductor.spotLength;
             spawnNum++;

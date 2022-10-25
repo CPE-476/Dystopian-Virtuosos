@@ -14,7 +14,7 @@ public class NoteObject : MonoBehaviour
     {
         localSpot = notetrigger.currentSpot;
         //localSpot -= conductor.spotLength * 3;
-        GetComponent<SpriteRenderer>().enabled = true;
+        //GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame
