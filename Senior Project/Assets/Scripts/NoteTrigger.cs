@@ -66,8 +66,6 @@ Light myLight;
 			checkHit(KeyCode.Joystick1Button2, 1, high, KeyCode.J);
 			checkHit(KeyCode.Joystick1Button1, 2, low, KeyCode.K);
 			checkHit(KeyCode.Joystick1Button0, 3, bot, KeyCode.L);
-		//}
-		
 
 		// Set the current Hit Category
 		if (conductor.songPosition > lowerGoodBound &&
