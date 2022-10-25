@@ -62,10 +62,10 @@ Light myLight;
 		//for (int curTrack = 0; curTrack < TrackMaster.NUM_TRACKS; ++curTrack)
 		//{
 			
-			checkHit(KeyCode.H, 0, top);
-			checkHit(KeyCode.J, 1, high);
-			checkHit(KeyCode.K, 2, low);
-			checkHit(KeyCode.L, 3, bot);
+			checkHit(KeyCode.L, 0, top);
+			checkHit(KeyCode.K, 1, high);
+			checkHit(KeyCode.J, 2, low);
+			checkHit(KeyCode.H, 3, bot);
 		//}
 		
 

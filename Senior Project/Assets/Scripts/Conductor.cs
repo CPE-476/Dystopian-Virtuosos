@@ -8,18 +8,18 @@ using UnityEngine;
 public class Conductor : MonoBehaviour
 {
     // Constants
-    public const int SPOTS_PER_BEAT = 1; // Sixteenth Notes
+    public const int SPOTS_PER_BEAT = 4; // 
     public const int BEATS_PER_BAR = 4;  // 4/4 Time
 
     AudioSource audioSource;
 
-    public float bpm;
+    public float bpm = 121;
     public float crotchet;
     public float spotLength;
 
     public double songPosition;
     double nextSpotTime;
-    public float offset;
+    public float offset = 5.0f;
 
     public int spotNumber;
     public int beatNumber;
@@ -30,9 +30,7 @@ public class Conductor : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     { 
-        bpm = 100;
         nextSpotTime = 0.0;
-        offset = 0.07f;
         spotNumber = 0;
         beatNumber = 0;
         barNumber = 0;
