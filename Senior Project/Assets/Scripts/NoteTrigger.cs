@@ -62,12 +62,10 @@ Light myLight;
 		//for (int curTrack = 0; curTrack < TrackMaster.NUM_TRACKS; ++curTrack)
 		//{
 			
-			checkHit(KeyCode.L, 0, top);
-			checkHit(KeyCode.K, 1, high);
-			checkHit(KeyCode.J, 2, low);
-			checkHit(KeyCode.H, 3, bot);
-		//}
-		
+			checkHit(KeyCode.Joystick1Button3, 0, top, KeyCode.H);
+			checkHit(KeyCode.Joystick1Button2, 1, high, KeyCode.J);
+			checkHit(KeyCode.Joystick1Button1, 2, low, KeyCode.K);
+			checkHit(KeyCode.Joystick1Button0, 3, bot, KeyCode.L);
 
 		// Set the current Hit Category
 		if (conductor.songPosition > lowerGoodBound &&
@@ -104,9 +102,9 @@ Light myLight;
 
 	// Checks for a hit on a given keycode.
 	// Returns true if hit, false if not.
-	private void checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite) //ISSUE fixed by getting rid of above FOR loop! 
+	private void checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite, KeyCode kb) //ISSUE fixed by getting rid of above FOR loop! 
 	{
-		if (Input.GetKeyDown(kc))
+		if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
 		{
 			if(trackMaster.pressable[trackNumber])
 			{

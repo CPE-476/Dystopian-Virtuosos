@@ -20,7 +20,7 @@ public class NoteObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float interpRatio = ((float)conductor.songPosition-localSpot)/(conductor.spotLength*3);
+        float interpRatio = ((float)conductor.songPosition-localSpot)/(conductor.spotLength*4);
 
         Vector3 interpedPostion = Vector3.Lerp(spawner.transform.position, new Vector3(notetrigger.transform.position.x, spawner.transform.position.y, 0f), interpRatio);
         transform.position = interpedPostion;
