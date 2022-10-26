@@ -19,7 +19,7 @@ public class SpawnMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        uint curVal = trackmaster.track[(trackmaster.index+4) % trackmaster.track.Length];
+        uint curVal = trackmaster.track[(trackmaster.index+12) % trackmaster.track.Length];
         if ((curVal & 1) > 0)
         {
             if (spawner1.spawn == false)

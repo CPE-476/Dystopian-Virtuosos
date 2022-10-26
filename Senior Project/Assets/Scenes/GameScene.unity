@@ -250,11 +250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9444696875e8e4e9378f5e2167e95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 100
+  bpm: 121
   crotchet: 0.6
   spotLength: 0
   songPosition: 0
-  offset: 0
+  offset: 2
   spotNumber: 0
   beatNumber: 1
   barNumber: 1
@@ -288,7 +288,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2760d37a06aee6a4bbe924dbd12ddad1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d2295aed38de843d9bc8001f465dc8bb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -2494,7 +2494,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1448182216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ce0f8ccc47c8d14ca4f2963542954e3, type: 3}
+  m_Script: {fileID: 11500000, guid: d481852294c76124998bb57c17b20fdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawner1: {fileID: 1390432620}
@@ -2648,7 +2648,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1617083859}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5571b0926ce904788b1ab8db4804f904, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f81d903497cb05468f032a1138496da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   conductor: {fileID: 42173310}

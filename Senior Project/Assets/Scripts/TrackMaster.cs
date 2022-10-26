@@ -92,7 +92,7 @@ public class TrackMaster : MonoBehaviour
         index = conductor.barNumber * Conductor.BEATS_PER_BAR * Conductor.SPOTS_PER_BEAT
               + conductor.beatNumber * Conductor.SPOTS_PER_BEAT
               + conductor.spotNumber;
-        uint curVal = track[index % track.Length + 1];
+        uint curVal = track[index % track.Length];
         Array.Clear(pressable, 0, pressable.Length);
         if ((curVal & 1) > 0)
         {
