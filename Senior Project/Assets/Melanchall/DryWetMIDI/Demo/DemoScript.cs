@@ -15,6 +15,7 @@ public class DemoScript : MonoBehaviour
 
     private OutputDevice _outputDevice;
     private Playback _playback;
+    TimeSpanType ts;
 
     private void Start()
     {
@@ -60,18 +61,7 @@ public class DemoScript : MonoBehaviour
     private MidiFile CreateTestFile()
     {
         Debug.Log("Creating test MIDI file...");
-
-        var patternBuilder = new PatternBuilder()
-            .SetNoteLength(MusicalTimeSpan.Eighth)
-            .SetVelocity(SevenBitNumber.MaxValue)
-            .ProgramChange(GeneralMidiProgram.Harpsichord);
-
-        foreach (var noteNumber in SevenBitNumber.Values)
-        {
-            patternBuilder.Note(Melanchall.DryWetMidi.MusicTheory.Note.Get(noteNumber));
-        }
-
-        var midiFile = patternBuilder.Build().ToFile(TempoMap.Default);
+        var midiFile = MidiFile.Read("Assets/Music/sample_beatmap.mid");
         Debug.Log("Test MIDI file created.");
 
         return midiFile;
@@ -82,10 +72,10 @@ public class DemoScript : MonoBehaviour
         Debug.Log("Initializing playback...");
 
         _playback = midiFile.GetPlayback(_outputDevice);
-        _playback.Loop = true;
+        _playback.Loop = false;
         _playback.NotesPlaybackStarted += OnNotesPlaybackStarted;
         _playback.NotesPlaybackFinished += OnNotesPlaybackFinished;
-       
+
         Debug.Log("Playback initialized.");
     }
 
