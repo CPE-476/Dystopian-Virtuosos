@@ -47,8 +47,8 @@ Light myLight;
     // Start is called before the first frame update
     void Start()
     {
-		innerThreshold = 0.07f;
-		outerThreshold = 0.2f;
+		innerThreshold = 0.05f;
+		outerThreshold = 0.25f;
         currentSpot = conductor.spotLength;
 		noteEnd = conductor.spotLength + conductor.spotLength * 0.5f;
 		myLight = GetComponent<Light>();
@@ -92,9 +92,9 @@ Light myLight;
 			currentSpot += conductor.spotLength;
 			noteEnd += conductor.spotLength;
 			lowerGoodBound = currentSpot - innerThreshold;
-			lowerWeakBound = currentSpot - innerThreshold - outerThreshold;
+			lowerWeakBound = currentSpot - outerThreshold;
 			upperGoodBound = currentSpot + innerThreshold;
-			upperWeakBound = currentSpot + innerThreshold + outerThreshold;
+			upperWeakBound = currentSpot + outerThreshold;
 			trackMaster.changePressable();
 
 		}
