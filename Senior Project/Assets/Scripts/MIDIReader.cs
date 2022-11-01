@@ -25,22 +25,42 @@ public class MIDIReader : MonoBehaviour
     TempoMap tempoMap;
     int BEATS_PER_BAR;
     int SPOTS_PER_BEAT = 4;
+    int SixteenthLength = 119;
 
     MidiFile midiFile = MidiFile.Read("Assets/Music/test_beatmap.mid");
 
     List<NoteElement> trackInfo = new List<NoteElement>();
+
     uint[] BinaryTrack;
+
+    /*
+        xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx 
+        < number >  <velocity>  <       length       >
+    */
 
     struct NoteElement
     {
-        public byte number;
         /* 
          DRUM: 56 (G), 57 (A)
          GUITAR: 58 (A#), 59 (B), 60 (C)
          PIANO: 61 (C#), 62(D), 63 (D#), 64 (E)
-         */
+        */
+        public byte number;
+        
         public ushort[] pos;
-        public long Length;
+
+        // in units of 16th note length of 119, for a quarter note, length = 4
+        public ushort Length;
+
+        /*
+            64: Hit note
+            72: Hold note
+            80: obstacles
+            88: bonus
+            96: health
+            104: ...
+
+        */
         public byte Velocity;
     }
 
@@ -76,7 +96,8 @@ public class MIDIReader : MonoBehaviour
             Debug.Log("Beat: " + newNote.pos[1]);
             Debug.Log("Ticks: " + newNote.pos[2]);
             // note length for press & hold
-            newNote.Length = note.Length;
+            newNote.Length = ((ushort)(note.Length / SixteenthLength));
+            Debug.Log("Length: " + newNote.Length);
             // note types
             newNote.Velocity = note.Velocity;
             trackInfo.Append(newNote);
@@ -93,9 +114,9 @@ public class MIDIReader : MonoBehaviour
 
         BEATS_PER_BAR = firstTimeSignatureEvent.Numerator;
 
-        var barBeatTimeOfLastEvent = midiFile.GetTimedEvents().Last().TimeAs<BarBeatFractionTimeSpan>(tempoMap);
+        var barBeatTimeOfLastEvent = midiFile.GetTimedEvents().Last().TimeAs<BarBeatTicksTimeSpan>(tempoMap);
         var totalBars = barBeatTimeOfLastEvent.Bars;
-        if (barBeatTimeOfLastEvent.Beats > 0)
+        if (barBeatTimeOfLastEvent.Beats > 0 || barBeatTimeOfLastEvent.Ticks > 0)
             totalBars = barBeatTimeOfLastEvent.Bars + 1;
 
         BinaryTrack = new uint[totalBars * BEATS_PER_BAR * SPOTS_PER_BEAT];
