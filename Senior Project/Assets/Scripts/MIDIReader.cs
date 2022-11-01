@@ -27,11 +27,17 @@ public class MIDIReader : MonoBehaviour
     int SPOTS_PER_BEAT = 4;
     int SixteenthLength = 119;
 
+    byte[] oneNotes = new byte[] { 56, 58, 61};
+    byte[] twoNotes = new byte[] { 57, 59, 62 };
+    byte[] threeNotes = new byte[] { 60, 63 };
+    byte[] fourNotes = new byte[] {64};
+
+
     MidiFile midiFile = MidiFile.Read("Assets/Music/test_beatmap.mid");
 
     List<NoteElement> trackInfo = new List<NoteElement>();
 
-    uint[] BinaryTrack;
+    SpotElement[] SpotTrack;
 
     /*
         xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx 
@@ -64,6 +70,14 @@ public class MIDIReader : MonoBehaviour
         public byte Velocity;
     }
 
+    struct SpotElement
+    {
+        public NoteElement four;
+        public NoteElement three;
+        public NoteElement two;
+        public NoteElement one;
+    }
+
     void Start()
     {
         InitNoteElement();
@@ -81,7 +95,6 @@ public class MIDIReader : MonoBehaviour
             NoteElement newNote = new NoteElement();
             // track number and instrument type
             newNote.number = note.NoteNumber;
-            Debug.Log(newNote.number);
             // note position
             var pos = note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
             var temp = pos.Split(".");
@@ -92,15 +105,14 @@ public class MIDIReader : MonoBehaviour
                 newNote.pos[i] = Convert.ToUInt16(num);
                 i++;
             }
-            Debug.Log("Bar: " + newNote.pos[0]);
-            Debug.Log("Beat: " + newNote.pos[1]);
-            Debug.Log("Ticks: " + newNote.pos[2]);
+
             // note length for press & hold
             newNote.Length = ((ushort)(note.Length / SixteenthLength));
-            Debug.Log("Length: " + newNote.Length);
+
             // note types
             newNote.Velocity = note.Velocity;
-            trackInfo.Append(newNote);
+
+            trackInfo.Add(newNote);
         }
     }
 
@@ -119,6 +131,35 @@ public class MIDIReader : MonoBehaviour
         if (barBeatTimeOfLastEvent.Beats > 0 || barBeatTimeOfLastEvent.Ticks > 0)
             totalBars = barBeatTimeOfLastEvent.Bars + 1;
 
-        BinaryTrack = new uint[totalBars * BEATS_PER_BAR * SPOTS_PER_BEAT];
+        SpotTrack = new SpotElement[totalBars * BEATS_PER_BAR * SPOTS_PER_BEAT];
+
+        foreach (NoteElement note in trackInfo)
+        {
+            // ticks: 0 -> 1 120->2, 240->3, 360->4
+            int index = (note.pos[0] - 1) * BEATS_PER_BAR * SPOTS_PER_BEAT 
+                + (note.pos[1] - 1) * SPOTS_PER_BEAT 
+                + (note.pos[2] / SixteenthLength) + 1;
+
+            if (oneNotes.Contains(note.number))
+            {
+                SpotTrack[index].one = note;
+                Debug.Log("one: index" + index);
+            }
+            else if (twoNotes.Contains(note.number))
+            {
+                SpotTrack[index].two = note;
+                Debug.Log("two: index" + index);
+            }
+            else if (threeNotes.Contains(note.number))
+            {
+                SpotTrack[index].three = note;
+                Debug.Log("three: index" + index);
+            }
+            else if (fourNotes.Contains(note.number))
+            {
+                SpotTrack[index].four = note;
+                Debug.Log("four: index" + index);
+            }
+        }
     }
 }
