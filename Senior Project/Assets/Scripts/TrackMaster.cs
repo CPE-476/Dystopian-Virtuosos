@@ -16,6 +16,7 @@ public class TrackMaster : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         track = new uint[] {
             0, 0, 0, 0,
             0, 0, 0, 0,

@@ -22,6 +22,10 @@ public class MIDIReader : MonoBehaviour
 
     */
 
+    public Conductor conductor;
+    public bool[] pressable;
+    public int index;
+
     TempoMap tempoMap;
     int BEATS_PER_BAR;
     int SPOTS_PER_BEAT = 4;
@@ -37,14 +41,14 @@ public class MIDIReader : MonoBehaviour
 
     List<NoteElement> trackInfo = new List<NoteElement>();
 
-    SpotElement[] SpotTrack;
+    public SpotElement[] SpotTrack;
 
     /*
         xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx 
         < number >  <velocity>  <       length       >
     */
 
-    struct NoteElement
+    public struct NoteElement
     {
         /* 
          DRUM: 56 (G), 57 (A)
@@ -70,18 +74,20 @@ public class MIDIReader : MonoBehaviour
         public byte Velocity;
     }
 
-    struct SpotElement
+    public struct SpotElement
     {
-        public NoteElement four;
-        public NoteElement three;
-        public NoteElement two;
-        public NoteElement one;
+        public NoteElement? four;
+        public NoteElement? three;
+        public NoteElement? two;
+        public NoteElement? one;
     }
 
     void Start()
     {
         InitNoteElement();
-        InitBinaryTrack();
+        InitSpotTrack();
+
+        pressable = new bool[] { false, false, false, false };
     }
 
     void InitNoteElement()
@@ -116,7 +122,7 @@ public class MIDIReader : MonoBehaviour
         }
     }
 
-    void InitBinaryTrack() {
+    void InitSpotTrack() {
 
         var firstTrackChunk = midiFile.GetTrackChunks().First();
         var firstTimeSignatureEvent = firstTrackChunk
@@ -160,6 +166,32 @@ public class MIDIReader : MonoBehaviour
                 SpotTrack[index].four = note;
                 Debug.Log("four: index" + index);
             }
+        }
+    }
+
+
+    public void changePressable()
+    {
+        index = conductor.barNumber * Conductor.BEATS_PER_BAR * Conductor.SPOTS_PER_BEAT
+              + conductor.beatNumber * Conductor.SPOTS_PER_BEAT
+              + conductor.spotNumber;
+        SpotElement curVal = SpotTrack[index];
+        Array.Clear(pressable, 0, pressable.Length);
+        if (curVal.one != null)
+        {
+            pressable[0] = true;
+        }
+        if (curVal.two != null)
+        {
+            pressable[1] = true;
+        }
+        if (curVal.three != null)
+        {
+            pressable[2] = true;
+        }
+        if (curVal.four != null)
+        {
+            pressable[3] = true;
         }
     }
 }

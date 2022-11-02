@@ -8,7 +8,7 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner2;
     public Spawner spawner3;
     public Spawner spawner4;
-    public TrackMaster trackmaster;
+    public MIDIReader MIDIReader;
     public Conductor conductor;
     // Start is called before the first frame update
     void Start()
@@ -19,29 +19,29 @@ public class SpawnMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        uint curVal = trackmaster.track[(trackmaster.index+12) % trackmaster.track.Length];
-        if ((curVal & 1) > 0)
+        var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
+        if (curVal.one != null)
         {
             if (spawner1.spawn == false)
                 spawner1.spawn = true;
         }
         else
             spawner1.spawn = false;
-        if ((curVal & 2) > 0)
+        if (curVal.two != null)
         {
             if (spawner2.spawn == false)
                 spawner2.spawn = true;
         }
         else
             spawner2.spawn = false;
-        if ((curVal & 4) > 0)
+        if (curVal.three != null)
         {
             if (spawner3.spawn == false)
                 spawner3.spawn = true;
         }
         else
             spawner3.spawn = false;
-        if ((curVal & 8) > 0)
+        if (curVal.four != null)
         {
             if (spawner4.spawn == false)
                 spawner4.spawn = true;

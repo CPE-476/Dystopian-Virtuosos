@@ -14,7 +14,7 @@ public enum HitCategory
 public class NoteTrigger : MonoBehaviour
 {
 	public Conductor conductor;
-	public TrackMaster trackMaster;
+	public MIDIReader trackMaster;
 	public ParticleSystem particles;
 	public ParticleSystem hittext;
 	public TMPro.TextMeshProUGUI text;
