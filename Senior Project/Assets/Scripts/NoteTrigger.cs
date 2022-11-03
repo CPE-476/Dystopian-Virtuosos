@@ -22,7 +22,6 @@ public class NoteTrigger : MonoBehaviour
 	public SpriteRenderer top;
 	public SpriteRenderer high;
 	public SpriteRenderer low;
-	public SpriteRenderer bot;
 
 	public SFX sfx;
 
@@ -34,8 +33,8 @@ public class NoteTrigger : MonoBehaviour
 	public float lowerWeakBound;
 	public float upperGoodBound;
 	public float upperWeakBound;
-	public float innerThreshold;
-	public float outerThreshold;
+	public float innerThreshold = 0.05f;
+	public float outerThreshold = 0.10f;
 
 	[SerializeReference]
 	private HitCategory hc;
@@ -47,8 +46,6 @@ Light myLight;
     // Start is called before the first frame update
     void Start()
     {
-		innerThreshold = 0.05f;
-		outerThreshold = 0.25f;
         currentSpot = conductor.spotLength;
 		noteEnd = conductor.spotLength + conductor.spotLength * 0.5f;
 		myLight = GetComponent<Light>();
@@ -57,15 +54,10 @@ Light myLight;
 
     // Update is called once per frame
     void Update()
-    {
-		
-		//for (int curTrack = 0; curTrack < TrackMaster.NUM_TRACKS; ++curTrack)
-		//{
-			
-			checkHit(KeyCode.Joystick1Button3, 0, top, KeyCode.H);
-			checkHit(KeyCode.Joystick1Button2, 1, high, KeyCode.J);
-			checkHit(KeyCode.Joystick1Button1, 2, low, KeyCode.K);
-			checkHit(KeyCode.Joystick1Button0, 3, bot, KeyCode.L);
+    {	
+		checkHit(KeyCode.Joystick1Button3, 0, top, KeyCode.H);
+		checkHit(KeyCode.Joystick1Button2, 1, high, KeyCode.J);
+		checkHit(KeyCode.Joystick1Button1, 2, low, KeyCode.K);
 
 		// Set the current Hit Category
 		if (conductor.songPosition > lowerGoodBound &&
@@ -102,13 +94,13 @@ Light myLight;
 
 	// Checks for a hit on a given keycode.
 	// Returns true if hit, false if not.
-	private void checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite, KeyCode kb) //ISSUE fixed by getting rid of above FOR loop! 
+	private void checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite, KeyCode kb)
 	{
 		if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
 		{
 			if(trackMaster.pressable[trackNumber])
 			{
-				if (hc == HitCategory.WEAK) // (*ISSUE fixed) All of these if statements run multiples times when they should only run once
+				if (hc == HitCategory.WEAK)
 				{
 					sfx.sounds[2].Play();
 					particles.startColor = Color.blue;

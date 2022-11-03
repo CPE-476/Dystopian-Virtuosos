@@ -7,7 +7,6 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner1;
     public Spawner spawner2;
     public Spawner spawner3;
-    public Spawner spawner4;
     public MIDIReader MIDIReader;
     public Conductor conductor;
     // Start is called before the first frame update
@@ -41,12 +40,5 @@ public class SpawnMaster : MonoBehaviour
         }
         else
             spawner3.spawn = false;
-        if (curVal.four != null)
-        {
-            if (spawner4.spawn == false)
-                spawner4.spawn = true;
-        }
-        else
-            spawner4.spawn = false;
     }
 }

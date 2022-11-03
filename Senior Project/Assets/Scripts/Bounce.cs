@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Bounce : MonoBehaviour
 {
-
     public Conductor conductor;
     Vector3 oldScale;
     Vector3 newScale;
