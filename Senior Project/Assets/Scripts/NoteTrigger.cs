@@ -14,7 +14,7 @@ public enum HitCategory
 public class NoteTrigger : MonoBehaviour
 {
 	public Conductor conductor;
-	public MIDIReader trackMaster;
+	public MIDIReader midiReader;
 	public ParticleSystem particles;
 	public ParticleSystem hittext;
 	public SimplePlayerController character;
@@ -88,7 +88,7 @@ Light myLight;
 			lowerWeakBound = currentSpot - outerThreshold;
 			upperGoodBound = currentSpot + innerThreshold;
 			upperWeakBound = currentSpot + outerThreshold;
-			trackMaster.changePressable();
+			midiReader.changePressable();
 		}
 	}
 
@@ -98,7 +98,7 @@ Light myLight;
 	{
 		if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
 		{
-			if (trackMaster.pressable[trackNumber])
+			if (midiReader.pressable[trackNumber])
 			{
 				if (hc == HitCategory.WEAK)
 				{
