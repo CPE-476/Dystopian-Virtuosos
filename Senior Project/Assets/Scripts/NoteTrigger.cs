@@ -17,6 +17,7 @@ public class NoteTrigger : MonoBehaviour
 	public MIDIReader trackMaster;
 	public ParticleSystem particles;
 	public ParticleSystem hittext;
+	public SimplePlayerController character;
 	public TMPro.TextMeshProUGUI text;
 
 	public SpriteRenderer top;
@@ -57,7 +58,7 @@ Light myLight;
     {	
 		checkHit(KeyCode.Joystick1Button3, 0, top, KeyCode.H);
 		checkHit(KeyCode.Joystick1Button2, 1, high, KeyCode.J);
-		checkHit(KeyCode.Joystick1Button1, 2, low, KeyCode.K);
+		checkHit(KeyCode.Joystick1Button0, 2, low, KeyCode.K);
 
 		// Set the current Hit Category
 		if (conductor.songPosition > lowerGoodBound &&
@@ -88,7 +89,6 @@ Light myLight;
 			upperGoodBound = currentSpot + innerThreshold;
 			upperWeakBound = currentSpot + outerThreshold;
 			trackMaster.changePressable();
-
 		}
 	}
 
@@ -98,7 +98,7 @@ Light myLight;
 	{
 		if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
 		{
-			if(trackMaster.pressable[trackNumber])
+			if (trackMaster.pressable[trackNumber])
 			{
 				if (hc == HitCategory.WEAK)
 				{

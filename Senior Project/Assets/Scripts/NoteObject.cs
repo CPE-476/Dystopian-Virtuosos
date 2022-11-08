@@ -28,6 +28,6 @@ public class NoteObject : MonoBehaviour
         if (interpRatio > 1.0f)
             GetComponent<SpriteRenderer>().enabled = false;
 
-        transform.localScale = new Vector3(0.5f, 0.5f, 0.0f);
+        transform.localScale = new Vector3(0.2f, 0.2f, 0.0f);
     }
 }

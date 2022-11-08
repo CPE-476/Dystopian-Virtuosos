@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Bounce : MonoBehaviour
 {
-    public Conductor conductor;
+    private Conductor conductor;
     Vector3 oldScale;
     Vector3 newScale;
     public float amount = 0.2f;
     int num;
-    bool big, doLerp;
+    bool doLerp;
     float time, duration;
     // Start is called before the first frame update
     void Start()
     {
+        conductor = (Conductor)GameObject.Find("/Conductor").GetComponent("Conductor");
         num = 0;
         oldScale = transform.localScale;
         newScale = oldScale + new Vector3(amount, amount, amount);
-        big = true;
         time = 0.1f;
         duration = 0.1f;
     }

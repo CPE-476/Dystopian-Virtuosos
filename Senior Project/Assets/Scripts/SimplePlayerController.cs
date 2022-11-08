@@ -6,7 +6,7 @@
         public float jumpPower = 5f; //Set Gravity Scale in Rigidbody2D Component to 5
 
         private Rigidbody2D rb;
-        private Animator anim;
+        public Animator anim;
         private int direction = 1;
         bool isJumping = false;
         private bool alive = true;
@@ -76,15 +76,26 @@
 
             rb.velocity = Vector2.zero;
 
-            Vector2 jumpVelocity = new Vector2(0, jumpPower);
-            rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
+            //Vector2 jumpVelocity = new Vector2(0, jumpPower);
+            //rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
 
             isJumping = false;
         }
         void Attack()
         {
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button3))
             {
+                transform.position = new Vector3(0, 1, 0);
+                anim.SetTrigger("attack");
+            }
+            if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+            {
+                transform.position = new Vector3(0, -0.2f, 0);
+                anim.SetTrigger("attack");
+            }
+            if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+            {
+                transform.position = new Vector3(0, -2, 0);
                 anim.SetTrigger("attack");
             }
         }
@@ -93,10 +104,10 @@
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 anim.SetTrigger("hurt");
-                if (direction == 1)
-                    rb.AddForce(new Vector2(-5f, 1f), ForceMode2D.Impulse);
-                else
-                    rb.AddForce(new Vector2(5f, 1f), ForceMode2D.Impulse);
+                //if (direction == 1)
+                    //rb.AddForce(new Vector2(-5f, 1f), ForceMode2D.Impulse);
+                //else
+                    //rb.AddForce(new Vector2(5f, 1f), ForceMode2D.Impulse);
             }
         }
         void Die()

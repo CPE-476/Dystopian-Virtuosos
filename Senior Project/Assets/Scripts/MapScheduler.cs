@@ -25,9 +25,9 @@ public class MapScheduler : MonoBehaviour
     void Start()
     {
         map_end = plane.transform.position.x;
-        clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
+        clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 20f), Quaternion.identity);
         map_end += dx;
-        clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
+        clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 20f), Quaternion.identity);
         map_end += dx;
     }
 
