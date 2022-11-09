@@ -788,6 +788,7 @@ MonoBehaviour:
   isMoving: 0
   staticBackground: {fileID: 1882313183}
   cameraX: 0
+  farBackgroundSpeed: 0
 --- !u!114 &563592168 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3152407877717724056, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
@@ -4328,9 +4329,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3814168214943437936, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814168214943437936, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814168214943437936, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0085
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814168214943437936, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814168214943437936, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3814168214943437936, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4316902345297397171, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7092021965448446235, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6adfb58919bd14452ba112dc618d41ce, type: 3}
+    - target: {fileID: 7092021965448446235, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_SortingOrder
+      value: -80
       objectReference: {fileID: 0}
     - target: {fileID: 9166817883937856706, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
       propertyPath: m_Name
@@ -4371,7 +4404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4105362945620786471, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 4105362945620786471, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
       propertyPath: m_LocalPosition.z
