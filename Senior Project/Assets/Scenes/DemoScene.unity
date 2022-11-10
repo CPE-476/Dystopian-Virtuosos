@@ -1833,7 +1833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c6e0cde32178e94abad347bdf030b85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 8710704520973269429, guid: 41057665445a97e4d8bad51f5d16d1ef, type: 3}
+  map: {fileID: 2362029708538612108, guid: d78920ce948774fa0b2c65a9d4e3e5f6, type: 3}
   cam: {fileID: 510236666}
   plane: {fileID: 2115960594531632023, guid: 5a321b81ddf4cae45b72bcd0a3c89cda, type: 3}
   CharacterSpeed: 3
@@ -4350,7 +4350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4105362945620786471, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4105362945620786471, guid: ebea5f8b8163f9a4ab9d9a1b45444e28, type: 3}
       propertyPath: m_LocalPosition.z

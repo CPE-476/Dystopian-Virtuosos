@@ -18,7 +18,7 @@ public class MapScheduler : MonoBehaviour
 
     public float CharacterSpeed;
 
-    float dx = 42f;
+    float dx = 40f;
 
     private float map_end;
 
