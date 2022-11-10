@@ -19,6 +19,7 @@ public class NoteTrigger : MonoBehaviour
 	public ParticleSystem hittext;
 	public PlayerController character;
 	public TMPro.TextMeshProUGUI text;
+	public Animator anim;
 
 	public SpriteRenderer top;
 	public SpriteRenderer high;
@@ -42,6 +43,9 @@ public class NoteTrigger : MonoBehaviour
 	private float lowerWeakBound;
 	private float upperGoodBound;
 	private float upperWeakBound;
+
+	int transpose = 0;
+	int[] notes = new int[] { 7, 3, 0 };
 
 	[SerializeReference]
 	private HitCategory hc;
@@ -108,6 +112,7 @@ public class NoteTrigger : MonoBehaviour
 			{
 				if (hc == HitCategory.WEAK)
 				{
+					sfx.sounds[2].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 					sfx.sounds[2].Play();
 					particles.startColor = weak;
 					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
@@ -120,6 +125,7 @@ public class NoteTrigger : MonoBehaviour
 				}
 				else if (hc == HitCategory.GOOD)
 				{
+					sfx.sounds[1].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 					sfx.sounds[1].Play();
 					perfect.a = 1f;
 					particles.startColor = perfect;
@@ -137,6 +143,8 @@ public class NoteTrigger : MonoBehaviour
 			}
 			else
 			{
+				anim.SetTrigger("hurt");
+				sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 				sfx.sounds[3].Play();
 				particles.startColor = fail;
 				ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
