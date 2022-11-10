@@ -24,6 +24,11 @@ public class NoteTrigger : MonoBehaviour
 	public SpriteRenderer high;
 	public SpriteRenderer low;
 
+	public Color perfect;
+	public Color weak;
+	public Color fail;
+
+
 	public SFX sfx;
 
 	public ScoreManager scoreManager;
@@ -42,14 +47,14 @@ public class NoteTrigger : MonoBehaviour
 
 	bool[] hasBeenPressed;
 
-Light myLight;
+//Light myLight;
 
     // Start is called before the first frame update
     void Start()
     {
         currentSpot = conductor.spotLength;
 		noteEnd = conductor.spotLength + conductor.spotLength * 0.5f;
-		myLight = GetComponent<Light>();
+		//myLight = GetComponent<Light>();
 		hasBeenPressed = new bool[] { false, false, false, false};
 	}
 
@@ -64,18 +69,18 @@ Light myLight;
 		if (conductor.songPosition > lowerGoodBound &&
 			conductor.songPosition < upperGoodBound)
 		{
-			myLight.color = Color.green;
+			//myLight.color = perfect;
 			hc = HitCategory.GOOD;
 		}
 		else if (conductor.songPosition > lowerWeakBound &&
 			conductor.songPosition < upperWeakBound)
 		{
-			myLight.color = Color.blue;
+			//myLight.color = weak;
 			hc = HitCategory.WEAK;
 		}
 		else
 		{
-			myLight.color = Color.red;
+			//myLight.color = fail; ;
 			hc = HitCategory.NONE;
 		}
 
@@ -103,38 +108,43 @@ Light myLight;
 				if (hc == HitCategory.WEAK)
 				{
 					sfx.sounds[2].Play();
-					particles.startColor = Color.blue;
+					particles.startColor = weak;
 					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 					text.text = "Weak";
 					ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext, new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6), Quaternion.identity);
-					sprite.color = Color.blue;
+					sprite.color = weak;
 					Destroy(clone.gameObject, 0.5f);
 					Destroy(clone2.gameObject, 1.0f);
-					scoreManager.score += 1;
+					scoreManager.score += 50;
 				}
 				else if (hc == HitCategory.GOOD)
 				{
 					sfx.sounds[1].Play();
-					particles.startColor = Color.green;
+					perfect.a = 1f;
+					particles.startColor = perfect;
 					ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
 					text.text = "Perfect";
 					ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext, new Vector3(sprite.transform.position.x, sprite.transform.position.y ,-6), Quaternion.identity);
-					sprite.color = Color.green;
+					perfect.a = 0.75f;
+					sprite.color = perfect;
 					Destroy(clone.gameObject, 0.5f);
 					Destroy(clone2.gameObject, 1.0f);
 					Debug.Log(scoreManager.score);
-					scoreManager.score += 2;
+					scoreManager.score += 100;
 					Debug.Log(scoreManager.score);
 				}
 			}
 			else
 			{
 				sfx.sounds[3].Play();
-				particles.startColor = Color.red;
+				particles.startColor = fail;
 				ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
-				sprite.color = Color.red;
+				text.text = "Miss";
+				ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext, new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6), Quaternion.identity);
+				sprite.color = fail;
 				Destroy(clone.gameObject, 0.5f);
-				scoreManager.score += -1;
+				Destroy(clone2.gameObject, 1.0f);
+				scoreManager.score += -50;
 			}
 			
 			

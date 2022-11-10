@@ -14,7 +14,7 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // string scoreText = "Score: " + score;
-        // GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
+        string scoreText = "Score: " + score;
+        GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
     } 
 }
