@@ -83,17 +83,17 @@
         }
         void Attack()
         {
-            if (Input.GetKeyDown(KeyCode.Joystick1Button3))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetKeyDown(KeyCode.H))
             {
                 transform.position = new Vector3(0, 1, 0);
                 anim.SetTrigger("attack");
             }
-            if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))
             {
                 transform.position = new Vector3(0, -0.2f, 0);
                 anim.SetTrigger("attack");
             }
-            if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+            if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K))
             {
                 transform.position = new Vector3(0, -2, 0);
                 anim.SetTrigger("attack");
