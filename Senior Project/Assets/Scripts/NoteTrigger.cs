@@ -35,12 +35,13 @@ public class NoteTrigger : MonoBehaviour
 
     public float currentSpot;
 	public float noteEnd;
-	public float lowerGoodBound;
-	public float lowerWeakBound;
-	public float upperGoodBound;
-	public float upperWeakBound;
 	public float innerThreshold = 0.05f;
 	public float outerThreshold = 0.10f;
+
+	private float lowerGoodBound;
+	private float lowerWeakBound;
+	private float upperGoodBound;
+	private float upperWeakBound;
 
 	[SerializeReference]
 	private HitCategory hc;
