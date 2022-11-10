@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-    public class SimplePlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         public float movePower = 2f;
         public float jumpPower = 5f; //Set Gravity Scale in Rigidbody2D Component to 5

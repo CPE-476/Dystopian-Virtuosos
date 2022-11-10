@@ -17,7 +17,7 @@ public class NoteTrigger : MonoBehaviour
 	public MIDIReader midiReader;
 	public ParticleSystem particles;
 	public ParticleSystem hittext;
-	public SimplePlayerController character;
+	public PlayerController character;
 	public TMPro.TextMeshProUGUI text;
 
 	public SpriteRenderer top;
