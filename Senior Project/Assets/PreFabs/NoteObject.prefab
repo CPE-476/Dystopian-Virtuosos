@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3152407877717724057}
   - component: {fileID: 3152407877717724056}
   - component: {fileID: 280773335}
+  - component: {fileID: 4304506644278005566}
   m_Layer: 0
   m_Name: NoteObject
   m_TagString: Note
@@ -101,6 +102,12 @@ MonoBehaviour:
   spawner: {fileID: 0}
   conductor: {fileID: 0}
   notetrigger: {fileID: 0}
+  hitSpot: 0
+  endSpot: 0
+  dead: 0
+  Xforce: -10
+  Yforce: 40
+  Pressed: 0
 --- !u!58 &280773335
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -117,3 +124,24 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.2
+--- !u!50 &4304506644278005566
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3152407877717724063}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 2
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

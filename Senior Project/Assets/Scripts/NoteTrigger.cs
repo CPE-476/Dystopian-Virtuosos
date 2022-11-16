@@ -136,9 +136,7 @@ public class NoteTrigger : MonoBehaviour
 					sprite.color = perfect;
 					Destroy(clone.gameObject, 0.5f);
 					Destroy(clone2.gameObject, 1.0f);
-					Debug.Log(scoreManager.score);
 					scoreManager.score += 100;
-					Debug.Log(scoreManager.score);
 				}
 			}
 			else
