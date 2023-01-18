@@ -65,7 +65,7 @@ public class MIDIReader : MonoBehaviour
         public ushort[] pos;
 
         // in units of 16th note length of 119, for a quarter note, length = 4
-        public ushort Length;
+        public ushort length;
 
         /*
             64: Hit note
@@ -76,18 +76,18 @@ public class MIDIReader : MonoBehaviour
             104: ...
 
         */
-        public byte Velocity;
+        public byte velocity;
     }
 
     public struct SpotElement
     {
-        public NoteElement? four;
+        public NoteElement four;
 
-        public NoteElement? three;
+        public NoteElement three;
 
-        public NoteElement? two;
+        public NoteElement two;
 
-        public NoteElement? one;
+        public NoteElement one;
     }
 
     void Start()
@@ -123,10 +123,10 @@ public class MIDIReader : MonoBehaviour
             }
 
             // note length for press & hold
-            newNote.Length = ((ushort)(note.Length / SixteenthLength));
+            newNote.length = ((ushort)(note.Length / SixteenthLength));
 
             // note types
-            newNote.Velocity = note.Velocity;
+            newNote.velocity = note.Velocity;
 
             trackInfo.Add (newNote);
         }
@@ -192,20 +192,24 @@ public class MIDIReader : MonoBehaviour
             conductor.spotNumber;
         SpotElement curVal = SpotTrack[index];
         Array.Clear(pressable, 0, pressable.Length);
-        if (curVal.one != null)
+        if (curVal.one.velocity != 0)
         {
+            Debug.Log("pressable4");
             pressable[0] = true;
         }
-        if (curVal.two != null)
+        if (curVal.two.velocity != 0)
         {
+            Debug.Log("pressable3");
             pressable[1] = true;
         }
-        if (curVal.three != null)
+        if (curVal.three.velocity != 0)
         {
+            Debug.Log("pressable2");
             pressable[2] = true;
         }
-        if (curVal.four != null)
+        if (curVal.four.velocity != 0)
         {
+            Debug.Log("pressable1");
             pressable[3] = true;
         }
     }
