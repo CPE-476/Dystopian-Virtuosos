@@ -9,13 +9,7 @@ public class Spawner : MonoBehaviour
     public NoteObject note;
     public int spawnNum = 0;
     float lastBeat;
-
-    /*
-    Hit -> 1
-    Hold -> 2
-    Obstacle -> 3
-    */
-    public uint spawn = 0;
+    public bool spawn = false;
 
     // Start is called before the first frame update
     void Start()
@@ -26,15 +20,14 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if hit note
-        if (conductor.songPosition > lastBeat + conductor.crotchet && spawn == 1)
+        if (conductor.songPosition > lastBeat + conductor.crotchet && spawn)
         {
             NoteObject clone = (NoteObject)Instantiate(note, transform.position, Quaternion.identity);
             clone.GetComponent<SpriteRenderer>().enabled = true;
             Destroy(clone.gameObject, 7f);
             lastBeat += conductor.spotLength;
             spawnNum++;
-            spawn = 0;
+            spawn = false;
         }
         else if(conductor.songPosition > lastBeat + conductor.crotchet)
         {
