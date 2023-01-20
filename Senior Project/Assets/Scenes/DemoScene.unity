@@ -4313,6 +4313,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -80
       objectReference: {fileID: 0}
+    - target: {fileID: 7930435804868251719, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9166817883937856706, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
       propertyPath: m_Name
       value: Static Background
