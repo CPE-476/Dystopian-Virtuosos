@@ -857,7 +857,8 @@ MonoBehaviour:
   currentSpot: 0
   noteEnd: 0
   innerThreshold: 0.04
-  outerThreshold: 0.3
+  outerThreshold: 0.2
+  missThreshold: 0.4
   hc: 0
 --- !u!4 &577649643
 Transform:

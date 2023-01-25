@@ -19,26 +19,27 @@ public class SpawnMaster : MonoBehaviour
     void Update()
     {
         var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
-        if (curVal.one != null)
+        Debug.Log("VALUE" + curVal.two.velocity);
+        if (curVal.one.velocity == 64)
         {
-            if (spawner1.spawn == false)
-                spawner1.spawn = true;
+            if (spawner1.spawn == 0)
+                spawner1.spawn = 1;
         }
         else
-            spawner1.spawn = false;
-        if (curVal.two != null)
+            spawner1.spawn = 0;
+        if (curVal.two.velocity == 64)
         {
-            if (spawner2.spawn == false)
-                spawner2.spawn = true;
+            if (spawner2.spawn == 0)
+                spawner2.spawn = 1;
         }
         else
-            spawner2.spawn = false;
-        if (curVal.three != null)
+            spawner2.spawn = 0;
+        if (curVal.three.velocity == 64)
         {
-            if (spawner3.spawn == false)
-                spawner3.spawn = true;
+            if (spawner3.spawn == 0)
+                spawner3.spawn = 1;
         }
         else
-            spawner3.spawn = false;
+            spawner3.spawn = 0;
     }
 }
