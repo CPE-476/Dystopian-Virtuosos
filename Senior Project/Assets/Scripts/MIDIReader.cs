@@ -23,7 +23,7 @@ public class MIDIReader : MonoBehaviour
     */
     public Conductor conductor;
 
-    public bool[] pressable;
+    public bool[] pressable; // TODO: Turn this into a NoteType[]
 
     public int index;
 
@@ -194,22 +194,18 @@ public class MIDIReader : MonoBehaviour
         Array.Clear(pressable, 0, pressable.Length);
         if (curVal.one.velocity != 0)
         {
-            Debug.Log("pressable4");
             pressable[0] = true;
         }
         if (curVal.two.velocity != 0)
         {
-            Debug.Log("pressable3");
             pressable[1] = true;
         }
         if (curVal.three.velocity != 0)
         {
-            Debug.Log("pressable2");
             pressable[2] = true;
         }
         if (curVal.four.velocity != 0)
         {
-            Debug.Log("pressable1");
             pressable[3] = true;
         }
     }

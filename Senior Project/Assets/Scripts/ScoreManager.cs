@@ -14,6 +14,10 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (score < 0)
+        {
+            score = 0;
+        }
         string scoreText = "Score: " + score;
         GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
     } 

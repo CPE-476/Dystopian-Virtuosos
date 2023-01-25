@@ -19,6 +19,7 @@ public class SpawnMaster : MonoBehaviour
     void Update()
     {
         var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
+        Debug.Log("VALUE" + curVal.two.velocity);
         if (curVal.one.velocity == 64)
         {
             if (spawner1.spawn == 0)

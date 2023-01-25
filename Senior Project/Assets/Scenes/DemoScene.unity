@@ -857,7 +857,8 @@ MonoBehaviour:
   currentSpot: 0
   noteEnd: 0
   innerThreshold: 0.04
-  outerThreshold: 0.3
+  outerThreshold: 0.2
+  missThreshold: 0.4
   hc: 0
 --- !u!4 &577649643
 Transform:
@@ -4312,10 +4313,6 @@ PrefabInstance:
     - target: {fileID: 7092021965448446235, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
       propertyPath: m_SortingOrder
       value: -80
-      objectReference: {fileID: 0}
-    - target: {fileID: 7930435804868251719, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9166817883937856706, guid: 9c0ebf3cd43af4e27a79d06af7ac97b7, type: 3}
       propertyPath: m_Name
