@@ -10,6 +10,14 @@ using Melanchall.DryWetMidi.Multimedia;
 using Melanchall.DryWetMidi.Standards;
 using UnityEngine;
 
+public enum NoteType
+{
+    EMPTY,
+    NOTE,
+    OBSTACLE,
+    COLLECTIBLE
+};
+
 public class MIDIReader : MonoBehaviour
 {
     /*
@@ -23,7 +31,7 @@ public class MIDIReader : MonoBehaviour
     */
     public Conductor conductor;
 
-    public bool[] pressable; // TODO: Turn this into a NoteType[]
+    public NoteType[] pressable; // TODO: Turn this into a NoteType[]
 
     public int index;
 
@@ -95,7 +103,10 @@ public class MIDIReader : MonoBehaviour
         InitNoteElement();
         InitSpotTrack();
 
-        pressable = new bool[] { false, false, false, false };
+        pressable = new NoteType[] { NoteType.EMPTY, 
+                                     NoteType.EMPTY,
+                                     NoteType.EMPTY,
+                                     NoteType.EMPTY };
     }
 
     void InitNoteElement()
@@ -192,21 +203,37 @@ public class MIDIReader : MonoBehaviour
             conductor.spotNumber;
         SpotElement curVal = SpotTrack[index];
         Array.Clear(pressable, 0, pressable.Length);
-        if (curVal.one.velocity != 0)
+        if (curVal.one.velocity == 64)
         {
-            pressable[0] = true;
+            pressable[0] = NoteType.NOTE;
         }
-        if (curVal.two.velocity != 0)
+        else if (curVal.one.velocity == 80)
         {
-            pressable[1] = true;
+            pressable[0] = NoteType.OBSTACLE;
         }
-        if (curVal.three.velocity != 0)
+        if (curVal.two.velocity == 64)
         {
-            pressable[2] = true;
+            pressable[1] = NoteType.NOTE;
         }
-        if (curVal.four.velocity != 0)
+        else if (curVal.two.velocity == 80)
         {
-            pressable[3] = true;
+            pressable[1] = NoteType.OBSTACLE;
+        }
+        if (curVal.three.velocity == 64)
+        {
+            pressable[2] = NoteType.NOTE;
+        }
+        else if (curVal.three.velocity == 80)
+        {
+            pressable[2] = NoteType.OBSTACLE;
+        }
+        if (curVal.four.velocity == 64)
+        {
+            pressable[3] = NoteType.NOTE;
+        }
+        else if (curVal.four.velocity == 80)
+        {
+            pressable[3] = NoteType.OBSTACLE;
         }
     }
 }

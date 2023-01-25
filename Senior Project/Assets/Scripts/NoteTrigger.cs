@@ -29,7 +29,6 @@ public class NoteTrigger : MonoBehaviour
 	public Color weak;
 	public Color fail;
 
-
 	public SFX sfx;
 
 	public ScoreManager scoreManager;
@@ -38,14 +37,11 @@ public class NoteTrigger : MonoBehaviour
 	public float noteEnd;
 	public float innerThreshold = 0.05f;
 	public float outerThreshold = 0.10f;
-	public float missThreshold = 0.15f;
 
 	private float lowerGoodBound;
 	private float lowerWeakBound;
-		private float lowerMissBound;
 	private float upperGoodBound;
 	private float upperWeakBound;
-	private float upperMissBound;
 
 	int transpose = 0;
 	int[] notes = new int[] { 7, 3, 0 };
@@ -107,18 +103,60 @@ public class NoteTrigger : MonoBehaviour
 			lowerWeakBound = currentSpot - outerThreshold;
 			upperGoodBound = currentSpot + innerThreshold;
 			upperWeakBound = currentSpot + outerThreshold;
-			if (!hasBeenPressed[0] && midiReader.pressable[0])
+			// BELOW: Consequences for missing things
+			switch(midiReader.pressable[0])
 			{
-				ResolveMiss(top, 0);
+				case NoteType.NOTE:
+				{
+					if (!hasBeenPressed[0])
+					{
+						ResolveMiss(top, 0);
+					}
+				} break;
+				case NoteType.OBSTACLE:
+				{
+					Debug.Log("HERE");
+					if (hasBeenPressed[0])
+					{
+						ResolveHitObstacle(top, 0);
+					}
+				} break;
 			}
-			if (!hasBeenPressed[1] && midiReader.pressable[1])
+			switch(midiReader.pressable[1])
 			{
-				ResolveMiss(high, 1);
+				case NoteType.NOTE:
+				{
+					if (!hasBeenPressed[1])
+					{
+						ResolveMiss(high, 1);
+					}
+				} break;
+				case NoteType.OBSTACLE:
+				{
+					if (hasBeenPressed[1])
+					{
+						ResolveHitObstacle(high, 1);
+					}
+				} break;
 			}
-			if (!hasBeenPressed[2] && midiReader.pressable[2])
+			switch(midiReader.pressable[2])
 			{
-				ResolveMiss(low, 2);
+				case NoteType.NOTE:
+				{
+					if (!hasBeenPressed[2])
+					{
+						ResolveMiss(low, 2);
+					}
+				} break;
+				case NoteType.OBSTACLE:
+				{
+					if (hasBeenPressed[2])
+					{
+						ResolveHitObstacle(low, 2);
+					}
+				} break;
 			}
+
 			hasBeenPressed[0] = false;
 			hasBeenPressed[1] = false;
 			hasBeenPressed[2] = false;
@@ -162,6 +200,22 @@ public class NoteTrigger : MonoBehaviour
 	private void ResolveMiss(SpriteRenderer sprite, int trackNumber)
 	{
 		anim.SetTrigger("hurt");
+		// TODO (Alex): Should a miss incur a sound effect?
+		//sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+		//sfx.sounds[3].Play();
+		particles.startColor = fail;
+		ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
+		text.text = "Miss";
+		ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext, new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6), Quaternion.identity);
+		sprite.color = fail;
+		Destroy(clone.gameObject, 0.5f);
+		Destroy(clone2.gameObject, 1.0f);
+		scoreManager.score -= 2;
+	}
+	
+	private void ResolveHitObstacle(SpriteRenderer sprite, int trackNumber)
+	{
+		anim.SetTrigger("hurt");
 		sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 		sfx.sounds[3].Play();
 		particles.startColor = fail;
@@ -180,13 +234,24 @@ public class NoteTrigger : MonoBehaviour
 	{
 		if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
 		{
-			if (midiReader.pressable[trackNumber])
+			if (midiReader.pressable[trackNumber] == NoteType.NOTE)
 			{
 				ResolveHit(hc, sprite, trackNumber);
 				return true;
 			}
+			else if (midiReader.pressable[trackNumber] == NoteType.OBSTACLE)
+			{
+				/* TODO */
+				return true;
+			}
+			else if (midiReader.pressable[trackNumber] == NoteType.COLLECTIBLE)
+			{
+				/* TODO */
+				return true;
+			}
 			else
 			{
+				Debug.Log("Unimplemented NoteType in NoteTrigger.CheckHit()");
 				//ResolveMiss(sprite, trackNumber);
 			}
 		}
