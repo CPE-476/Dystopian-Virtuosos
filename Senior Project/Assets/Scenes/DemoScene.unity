@@ -578,6 +578,30 @@ PrefabInstance:
       propertyPath: notetrigger
       value: 
       objectReference: {fileID: 577649642}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b076e584b7408dd4a99c36b99e4cdfe8, type: 3}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_SortingOrder
+      value: 41
+      objectReference: {fileID: 0}
     - target: {fileID: 3152407877717724058, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1068,7 +1092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conductor: {fileID: 42173310}
   note: {fileID: 563592168}
-  obstacle: {fileID: 0}
+  obstacle: {fileID: 1226478831}
   spawnNum: 0
   spawn: 0
 --- !u!212 &777785689
@@ -1606,6 +1630,30 @@ PrefabInstance:
       propertyPath: notetrigger
       value: 
       objectReference: {fileID: 577649642}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b076e584b7408dd4a99c36b99e4cdfe8, type: 3}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_SortingOrder
+      value: 41
+      objectReference: {fileID: 0}
     - target: {fileID: 3152407877717724058, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1661,6 +1709,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3152407877717724058, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
   m_PrefabInstance: {fileID: 1041444711}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1041444715 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+  m_PrefabInstance: {fileID: 1041444711}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb22cae51bf5c0e46869115c1e98d740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1043289399
 GameObject:
   m_ObjectHideFlags: 0
@@ -2296,6 +2355,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1226478831 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+  m_PrefabInstance: {fileID: 292359665}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb22cae51bf5c0e46869115c1e98d740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1229566511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2596,7 +2666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conductor: {fileID: 42173310}
   note: {fileID: 449114174}
-  obstacle: {fileID: 0}
+  obstacle: {fileID: 1041444715}
   spawnNum: 0
   spawn: 0
 --- !u!212 &1390432621
@@ -2700,6 +2770,34 @@ PrefabInstance:
       propertyPath: notetrigger
       value: 
       objectReference: {fileID: 577649642}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b076e584b7408dd4a99c36b99e4cdfe8, type: 3}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724057, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+      propertyPath: m_SortingOrder
+      value: 41
+      objectReference: {fileID: 0}
     - target: {fileID: 3152407877717724058, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2891,6 +2989,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3152407877717724058, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
   m_PrefabInstance: {fileID: 1755114256}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1730250782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
+  m_PrefabInstance: {fileID: 1444753400}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb22cae51bf5c0e46869115c1e98d740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747563759
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,7 +3176,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conductor: {fileID: 42173310}
   note: {fileID: 1714050528}
-  obstacle: {fileID: 0}
+  obstacle: {fileID: 1730250782}
   spawnNum: 0
   spawn: 0
 --- !u!212 &1787184463
