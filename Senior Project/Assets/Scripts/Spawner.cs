@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
 
     public Conductor conductor;
     public NoteObject note;
+/*    public NoteObject hold;*/
     public NoteObject obstacle;
     public int spawnNum = 0;
     float lastBeat;
@@ -31,7 +32,7 @@ public class Spawner : MonoBehaviour
                 lastBeat += conductor.spotLength;
                 spawnNum++;
             }
-            if(spawn == 2)
+            if(spawn == 3)
             {
                 NoteObject clone = (NoteObject)Instantiate(obstacle, transform.position, Quaternion.identity);
                 clone.GetComponent<SpriteRenderer>().enabled = true;

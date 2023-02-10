@@ -14,6 +14,7 @@ public enum NoteType
 {
     EMPTY,
     NOTE,
+    HOLD,
     OBSTACLE,
     COLLECTIBLE
 };
@@ -207,6 +208,10 @@ public class MIDIReader : MonoBehaviour
         {
             pressable[0] = NoteType.NOTE;
         }
+        else if (curVal.one.velocity == 72)
+        {
+            pressable[0] = NoteType.HOLD;
+        }
         else if (curVal.one.velocity == 80)
         {
             pressable[0] = NoteType.OBSTACLE;
@@ -214,6 +219,10 @@ public class MIDIReader : MonoBehaviour
         if (curVal.two.velocity == 64)
         {
             pressable[1] = NoteType.NOTE;
+        }
+        else if (curVal.two.velocity == 72)
+        {
+            pressable[1] = NoteType.HOLD;
         }
         else if (curVal.two.velocity == 80)
         {
@@ -223,6 +232,10 @@ public class MIDIReader : MonoBehaviour
         {
             pressable[2] = NoteType.NOTE;
         }
+        else if (curVal.three.velocity == 72)
+        {
+            pressable[2] = NoteType.HOLD;
+        }
         else if (curVal.three.velocity == 80)
         {
             pressable[2] = NoteType.OBSTACLE;
@@ -230,6 +243,10 @@ public class MIDIReader : MonoBehaviour
         if (curVal.four.velocity == 64)
         {
             pressable[3] = NoteType.NOTE;
+        }
+        else if (curVal.four.velocity == 72)
+        {
+            pressable[3] = NoteType.HOLD;
         }
         else if (curVal.four.velocity == 80)
         {

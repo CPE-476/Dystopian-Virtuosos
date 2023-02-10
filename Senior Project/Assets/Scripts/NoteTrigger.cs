@@ -115,9 +115,9 @@ public class NoteTrigger : MonoBehaviour
 				} break;
 				case NoteType.OBSTACLE:
 				{
-					Debug.Log("HERE");
-					if (hasBeenPressed[0])
+					if (character.playerState == 2)
 					{
+							Debug.Log("Here1");
 						ResolveHitObstacle(top, 0);
 					}
 				} break;
@@ -133,9 +133,10 @@ public class NoteTrigger : MonoBehaviour
 				} break;
 				case NoteType.OBSTACLE:
 				{
-					if (hasBeenPressed[1])
+					if (character.playerState == 1)
 					{
-						ResolveHitObstacle(high, 1);
+							Debug.Log("Here2");
+							ResolveHitObstacle(high, 1);
 					}
 				} break;
 			}
@@ -150,9 +151,10 @@ public class NoteTrigger : MonoBehaviour
 				} break;
 				case NoteType.OBSTACLE:
 				{
-					if (hasBeenPressed[2])
+					if (character.playerState == 0)
 					{
-						ResolveHitObstacle(low, 2);
+							Debug.Log("Here3");
+							ResolveHitObstacle(low, 2);
 					}
 				} break;
 			}
@@ -257,4 +259,14 @@ public class NoteTrigger : MonoBehaviour
 		}
 		return false;
 	}
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Obstacle")
+        {
+			Debug.Log("enter collision");
+			ResolveHitObstacle(low, 2);
+
+		}
+    }
 }

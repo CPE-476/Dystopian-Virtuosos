@@ -380,7 +380,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoteObject
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 280773335, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
 --- !u!1 &250860988
 GameObject:
@@ -475,7 +476,7 @@ Rigidbody2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318317442}
   m_BodyType: 0
-  m_Simulated: 1
+  m_Simulated: 0
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
@@ -532,6 +533,8 @@ MonoBehaviour:
   anim: {fileID: 0}
   startX: 0
   reset: 0
+  playerState: 0
+  conductor: {fileID: 42173310}
   cam: {fileID: 510236666}
 --- !u!61 &266359511
 BoxCollider2D:
@@ -941,7 +944,7 @@ MonoBehaviour:
   midiReader: {fileID: 1263251599}
   particles: {fileID: 5667863053512256358, guid: 761bad68aa6355c46af9aa5e6ae1202d, type: 3}
   hittext: {fileID: 50980574913718436, guid: a366393305929f64999735c165cc4a05, type: 3}
-  character: {fileID: 0}
+  character: {fileID: 266359509}
   text: {fileID: 1263531863}
   anim: {fileID: 318317443}
   top: {fileID: 1018172145}
@@ -2269,7 +2272,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoteObject
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 280773335, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
 --- !u!1 &1144810608
 GameObject:
@@ -3141,7 +3145,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoteObject
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 280773335, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
 --- !u!1 &1787184461
 GameObject:

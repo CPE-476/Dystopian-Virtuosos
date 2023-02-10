@@ -12,8 +12,13 @@
         private bool alive = true;
         public float startX;
         public bool reset = false;
+        public uint playerState;
+        public Conductor conductor;
 
-        public CamerController cam;
+        private double curSongPosition;
+
+
+    public CamerController cam;
 
 
         // Start is called before the first frame update
@@ -23,6 +28,7 @@
             anim = GetComponent<Animator>();
             startX = rb.transform.position.x;
             reset = true;
+            curSongPosition = conductor.songPosition;
         }
 
         private void Update()
@@ -86,17 +92,30 @@
             if (Input.GetKeyDown(KeyCode.Joystick1Button3) || Input.GetKeyDown(KeyCode.H))
             {
                 transform.position = new Vector3(0, 1, 0);
+                playerState = 2;
+
+                curSongPosition = conductor.songPosition;
                 anim.SetTrigger("attack");
             }
             if (Input.GetKeyDown(KeyCode.Joystick1Button2) || Input.GetKeyDown(KeyCode.J))
             {
                 transform.position = new Vector3(0, -0.2f, 0);
+                playerState = 1;
+                curSongPosition = conductor.songPosition;
                 anim.SetTrigger("attack");
             }
             if (Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.K))
             {
                 transform.position = new Vector3(0, -2, 0);
+                playerState = 0;
+                curSongPosition = conductor.songPosition;
                 anim.SetTrigger("attack");
+            }
+
+            if(curSongPosition+(conductor.spotLength*8) <= conductor.songPosition && !Input.GetKey(KeyCode.Joystick1Button2) && !Input.GetKey(KeyCode.Joystick1Button3) && !Input.GetKey(KeyCode.Joystick1Button0))
+            {
+                transform.position = new Vector3(0, -2, 0);
+                playerState = 0;
             }
         }
         void Hurt()
@@ -126,4 +145,5 @@
                 alive = true;
             }
         }
+        
     }

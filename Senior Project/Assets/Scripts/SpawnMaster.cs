@@ -24,10 +24,15 @@ public class SpawnMaster : MonoBehaviour
             if (spawner1.spawn == 0)
                 spawner1.spawn = 1;
         }
-        else if (curVal.one.velocity == 80)
+        else if (curVal.one.velocity == 72)
         {
             if (spawner1.spawn == 0)
                 spawner1.spawn = 2;
+        }
+        else if (curVal.one.velocity == 80)
+        {
+            if (spawner1.spawn == 0)
+                spawner1.spawn = 3;
         }
         else
             spawner1.spawn = 0;
@@ -37,10 +42,15 @@ public class SpawnMaster : MonoBehaviour
             if (spawner2.spawn == 0)
                 spawner2.spawn = 1;
         }
-        else if (curVal.two.velocity == 80)
+        else if (curVal.two.velocity == 72)
         {
             if (spawner2.spawn == 0)
                 spawner2.spawn = 2;
+        }
+        else if (curVal.two.velocity == 80)
+        {
+            if (spawner2.spawn == 0)
+                spawner2.spawn = 3;
         }
         else
             spawner2.spawn = 0;
@@ -50,10 +60,15 @@ public class SpawnMaster : MonoBehaviour
             if (spawner3.spawn == 0)
                 spawner3.spawn = 1;
         }
-        else if (curVal.three.velocity == 80)
+        else if (curVal.three.velocity == 72)
         {
             if (spawner3.spawn == 0)
                 spawner3.spawn = 2;
+        }
+        else if (curVal.three.velocity == 80)
+        {
+            if (spawner3.spawn == 0)
+                spawner3.spawn = 3;
         }
         else        
             spawner3.spawn = 0;
