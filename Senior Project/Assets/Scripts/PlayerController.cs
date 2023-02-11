@@ -112,7 +112,10 @@
                 anim.SetTrigger("attack");
             }
 
-            if(curSongPosition+(conductor.spotLength*8) <= conductor.songPosition && !Input.GetKey(KeyCode.Joystick1Button2) && !Input.GetKey(KeyCode.Joystick1Button3) && !Input.GetKey(KeyCode.Joystick1Button0))
+            if(curSongPosition+(conductor.spotLength*8) <= conductor.songPosition &&
+                !Input.GetKey(KeyCode.Joystick1Button2) && 
+                !Input.GetKey(KeyCode.Joystick1Button3) && 
+                !Input.GetKey(KeyCode.Joystick1Button0))
             {
                 transform.position = new Vector3(0, -2, 0);
                 playerState = 0;
