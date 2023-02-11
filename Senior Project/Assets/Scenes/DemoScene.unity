@@ -153,11 +153,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9444696875e8e4e9378f5e2167e95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 100
+  bpm: 121
   crotchet: 0.6
   spotLength: 0
   songPosition: 0
-  offset: 0.22
+  offset: 0.3
   spotNumber: 0
   beatNumber: 1
   barNumber: 1
@@ -191,7 +191,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7093ce112487e47798aef4ed3b209871, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d2295aed38de843d9bc8001f465dc8bb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -957,8 +957,8 @@ MonoBehaviour:
   scoreManager: {fileID: 1043289400}
   currentSpot: 0
   noteEnd: 0
-  innerThreshold: 0.06
-  outerThreshold: 0.1
+  innerThreshold: 0.04
+  outerThreshold: 0.2
   hc: 0
 --- !u!4 &577649643
 Transform:

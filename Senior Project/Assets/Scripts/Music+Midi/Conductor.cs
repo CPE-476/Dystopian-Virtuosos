@@ -13,22 +13,19 @@ public class Conductor : MonoBehaviour
 
     AudioSource audioSource;
 
-    public float bpm;
+    public float bpm = 121;
     public float crotchet;
     public float spotLength;
 
     public double songPosition;
     double nextSpotTime;
-    public float offset;
+    public float offset = 5.0f;
 
     public int spotNumber;
     public int beatNumber;
     public int barNumber;
 
     private double tempSongPosition;
-
-    // SONG SETTINGS
-    // sample_track: 121 bpm, 0.35 offset.
 
     // Start is called before the first frame update
     void Start()
@@ -41,7 +38,6 @@ public class Conductor : MonoBehaviour
         audioSource.Play();
         tempSongPosition = (double)AudioSettings.dspTime * audioSource.pitch;
         crotchet = 60 / bpm;
-        Debug.Log(crotchet);
         spotLength = crotchet / SPOTS_PER_BEAT;
         songPosition = 0.0f;
     }
