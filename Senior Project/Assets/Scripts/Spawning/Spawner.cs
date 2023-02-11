@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-
     public Conductor conductor;
+
     public NoteObject note;
 
-/*    public NoteObject hold;*/
+    /*    public NoteObject hold;*/
     public NoteObject obstacle;
+
     public int spawnNum = 0;
+
     float lastBeat;
+
     public byte spawn = 0;
 
     // Start is called before the first frame update
@@ -25,17 +28,23 @@ public class Spawner : MonoBehaviour
     {
         if (conductor.songPosition > lastBeat + conductor.crotchet)
         {
-            if(spawn == 1)
+            if (spawn == 1)
             {
-                NoteObject clone = (NoteObject)Instantiate(note, transform.position, Quaternion.identity);
+                NoteObject clone =
+                    (NoteObject)
+                    Instantiate(note, transform.position, Quaternion.identity);
                 clone.GetComponent<SpriteRenderer>().enabled = true;
                 Destroy(clone.gameObject, 7f);
                 lastBeat += conductor.spotLength;
                 spawnNum++;
             }
-            if(spawn == 3)
+            if (spawn == 3)
             {
-                NoteObject clone = (NoteObject)Instantiate(obstacle, transform.position, Quaternion.identity);
+                NoteObject clone =
+                    (NoteObject)
+                    Instantiate(obstacle,
+                    transform.position,
+                    Quaternion.identity);
                 clone.GetComponent<SpriteRenderer>().enabled = true;
                 Destroy(clone.gameObject, 7f);
                 lastBeat += conductor.spotLength;
@@ -43,7 +52,7 @@ public class Spawner : MonoBehaviour
             }
             spawn = 0;
         }
-        else if(conductor.songPosition > lastBeat + conductor.crotchet)
+        else if (conductor.songPosition > lastBeat + conductor.crotchet)
         {
             lastBeat += conductor.spotLength;
         }
