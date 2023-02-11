@@ -10,6 +10,7 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner4;
     public MIDIReader MIDIReader;
     public Conductor conductor;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,65 +24,62 @@ public class SpawnMaster : MonoBehaviour
         {
             MIDIReader.changed = false;
             var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
+
+            // Note 1
             if (curVal.one.velocity == 64)
             {
-                spawner1.spawn = 1;
+                spawner1.spawn(1);
             }
             else if (curVal.one.velocity == 72)
             {
-                spawner1.spawn = 2;
+                spawner1.spawn(2);
             }
             else if (curVal.one.velocity == 80)
             {
-                spawner1.spawn = 3;
+                spawner1.spawn(3);
             }
-            else
-                spawner1.spawn = 0;
 
+            // Note 2
             if (curVal.two.velocity == 64)
             {
-                spawner2.spawn = 1;
+                spawner2.spawn(1);
             }
             else if (curVal.two.velocity == 72)
             {
-                spawner2.spawn = 2;
+                spawner2.spawn(2);
             }
             else if (curVal.two.velocity == 80)
             {
-                spawner2.spawn = 3;
+                spawner2.spawn(3);
             }
-            else
-                spawner2.spawn = 0;
 
+            // Note 3
             if (curVal.three.velocity == 64)
             {
-                spawner3.spawn = 1;
+                spawner3.spawn(1);
             }
             else if (curVal.three.velocity == 72)
             {
-                spawner3.spawn = 2;
+                spawner3.spawn(2);
             }
             else if (curVal.three.velocity == 80)
             {
-                spawner3.spawn = 3;
+                spawner3.spawn(3);
             }
-            else        
-                spawner3.spawn = 0;
 
+            // Note 4
             if (curVal.four.velocity == 64)
             {
-                spawner4.spawn = 1;
+                spawner4.spawn(1);
             }
             else if (curVal.four.velocity == 72)
             {
-                spawner4.spawn = 2;
+                spawner4.spawn(2);
             }
             else if (curVal.four.velocity == 80)
             {
-                spawner4.spawn = 3;
+                spawner4.spawn(3);
             }
-            else        
-                spawner4.spawn = 0;
         }
     }
 }

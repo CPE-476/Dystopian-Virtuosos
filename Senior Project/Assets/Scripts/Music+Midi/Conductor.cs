@@ -41,7 +41,6 @@ public class Conductor : MonoBehaviour
         audioSource.Play();
         tempSongPosition = (double)AudioSettings.dspTime * audioSource.pitch;
         crotchet = 60 / bpm;
-        Debug.Log(crotchet);
         spotLength = crotchet / SPOTS_PER_BEAT;
         songPosition = 0.0f;
     }

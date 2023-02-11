@@ -13,48 +13,31 @@ public class Spawner : MonoBehaviour
 
     public int spawnNum = 0;
 
-    float lastBeat;
-
-    public byte spawn = 0;
-
     // Start is called before the first frame update
     void Start()
     {
-        lastBeat = 0.0f;
+    }
+
+    public void spawn(int spawn_type)
+    {
+        if(spawn_type == 1)
+        {
+            NoteObject clone = (NoteObject)Instantiate(note, transform.position, Quaternion.identity);
+            clone.GetComponent<SpriteRenderer>().enabled = true;
+            Destroy(clone.gameObject, 7f);
+            spawnNum++;
+        }
+        else if(spawn_type == 3)
+        {
+            NoteObject clone = (NoteObject)Instantiate(obstacle, transform.position, Quaternion.identity);
+            clone.GetComponent<SpriteRenderer>().enabled = true;
+            Destroy(clone.gameObject, 7f);
+            spawnNum++;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (conductor.songPosition > lastBeat + conductor.crotchet)
-        {
-            if (spawn == 1)
-            {
-                NoteObject clone =
-                    (NoteObject)
-                    Instantiate(note, transform.position, Quaternion.identity);
-                clone.GetComponent<SpriteRenderer>().enabled = true;
-                Destroy(clone.gameObject, 7f);
-                lastBeat += conductor.spotLength;
-                spawnNum++;
-            }
-            if (spawn == 3)
-            {
-                NoteObject clone =
-                    (NoteObject)
-                    Instantiate(obstacle,
-                    transform.position,
-                    Quaternion.identity);
-                clone.GetComponent<SpriteRenderer>().enabled = true;
-                Destroy(clone.gameObject, 7f);
-                lastBeat += conductor.spotLength;
-                spawnNum++;
-            }
-            spawn = 0;
-        }
-        else if (conductor.songPosition > lastBeat + conductor.crotchet)
-        {
-            lastBeat += conductor.spotLength;
-        }
     }
 }
