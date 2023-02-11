@@ -9,6 +9,7 @@ public class Spawner : MonoBehaviour
     public NoteObject note;
 /*    public NoteObject hold;*/
     public NoteObject obstacle;
+    public NoteObject hold;
     public int spawnNum = 0;
     float lastBeat;
     public byte spawn = 0;
@@ -32,7 +33,16 @@ public class Spawner : MonoBehaviour
                 lastBeat += conductor.spotLength;
                 spawnNum++;
             }
-            if(spawn == 3)
+            if (spawn == 2)
+            {
+                NoteObject clone = (NoteObject)Instantiate(hold, transform.position, Quaternion.identity);
+                clone.GetComponent<SpriteRenderer>().enabled = true;
+                clone.GetComponent<TrailRenderer>().enabled = true;
+                Destroy(clone.gameObject, 7f);
+                lastBeat += conductor.spotLength;
+                spawnNum++;
+            }
+            if (spawn == 3)
             {
                 NoteObject clone = (NoteObject)Instantiate(obstacle, transform.position, Quaternion.identity);
                 clone.GetComponent<SpriteRenderer>().enabled = true;

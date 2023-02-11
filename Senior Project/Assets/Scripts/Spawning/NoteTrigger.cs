@@ -223,7 +223,7 @@ public class NoteTrigger : MonoBehaviour
 		sfx.sounds[3].Play();
 		particles.startColor = fail;
 		ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
-		text.text = "Miss";
+		text.text = "Ouch";
 		ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext, new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6), Quaternion.identity);
 		sprite.color = fail;
 		Destroy(clone.gameObject, 0.5f);
@@ -244,7 +244,6 @@ public class NoteTrigger : MonoBehaviour
 			}
 			else if (midiReader.pressable[trackNumber] == NoteType.OBSTACLE)
 			{
-				/* TODO */
 				return true;
 			}
 			else if (midiReader.pressable[trackNumber] == NoteType.COLLECTIBLE)
