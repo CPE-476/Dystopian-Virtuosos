@@ -57,6 +57,7 @@ public class MIDIReader : MonoBehaviour
     List<NoteElement> trackInfo = new List<NoteElement>();
 
     public SpotElement[] SpotTrack;
+    public bool changed = false;
 
     /*
         xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx 
@@ -196,6 +197,7 @@ public class MIDIReader : MonoBehaviour
 
     public void changePressable()
     {
+        changed = true;
         index =
             conductor.barNumber *
             Conductor.BEATS_PER_BAR *
