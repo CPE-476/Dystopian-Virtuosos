@@ -10,6 +10,7 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner4;
     public MIDIReader MIDIReader;
     public Conductor conductor;
+
     // Start is called before the first frame update
     void Start()
     {
