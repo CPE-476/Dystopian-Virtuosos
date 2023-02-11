@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class SpawnMaster : MonoBehaviour
+{
+    public Spawner spawner1;
+    public Spawner spawner2;
+    public Spawner spawner3;
+    public MIDIReader MIDIReader;
+    public Conductor conductor;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(MIDIReader.changed)
+        {
+            MIDIReader.changed = false;
+            var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
+            if (curVal.one.velocity == 64)
+            {
+                spawner1.spawn = 1;
+            }
+            else if (curVal.one.velocity == 72)
+            {
+                spawner1.spawn = 2;
+            }
+            else if (curVal.one.velocity == 80)
+            {
+                spawner1.spawn = 3;
+            }
+            else
+                spawner1.spawn = 0;
+
+            if (curVal.two.velocity == 64)
+            {
+                spawner2.spawn = 1;
+            }
+            else if (curVal.two.velocity == 72)
+            {
+                spawner2.spawn = 2;
+            }
+            else if (curVal.two.velocity == 80)
+            {
+                spawner2.spawn = 3;
+            }
+            else
+                spawner2.spawn = 0;
+
+            if (curVal.three.velocity == 64)
+            {
+                spawner3.spawn = 1;
+            }
+            else if (curVal.three.velocity == 72)
+            {
+                spawner3.spawn = 2;
+            }
+            else if (curVal.three.velocity == 80)
+            {
+                spawner3.spawn = 3;
+            }
+            else        
+                spawner3.spawn = 0;
+        }
+    }
+}
