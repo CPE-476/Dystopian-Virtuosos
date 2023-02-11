@@ -52,11 +52,12 @@ public class MIDIReader : MonoBehaviour
 
     byte[] fourNotes = new byte[] { 64 };
 
-    MidiFile midiFile = MidiFile.Read("Assets/Music/hold_test.mid");
+    MidiFile midiFile = MidiFile.Read("Assets/Music/sample_beatmap.mid");
 
     List<NoteElement> trackInfo = new List<NoteElement>();
 
     public SpotElement[] SpotTrack;
+    public bool changed = false;
 
     /*
         xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx 
@@ -196,6 +197,7 @@ public class MIDIReader : MonoBehaviour
 
     public void changePressable()
     {
+        changed = true;
         index =
             conductor.barNumber *
             Conductor.BEATS_PER_BAR *

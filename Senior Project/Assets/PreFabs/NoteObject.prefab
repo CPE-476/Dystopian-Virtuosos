@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3152407877717724063}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.5}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,6 +102,12 @@ MonoBehaviour:
   spawner: {fileID: 0}
   conductor: {fileID: 0}
   notetrigger: {fileID: 0}
+  hitSpot: 0
+  endSpot: 0
+  dead: 0
+  Xforce: -10
+  Yforce: 40
+  Pressed: 0
 --- !u!58 &280773335
 CircleCollider2D:
   m_ObjectHideFlags: 0
