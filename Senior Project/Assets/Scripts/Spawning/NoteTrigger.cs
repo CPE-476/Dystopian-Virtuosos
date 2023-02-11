@@ -38,6 +38,8 @@ public class NoteTrigger : MonoBehaviour
 	public float innerThreshold = 0.05f;
 	public float outerThreshold = 0.10f;
 
+	private float isHolding = 0;
+
 	private float lowerGoodBound;
 	private float lowerWeakBound;
 	private float upperGoodBound;
@@ -117,7 +119,7 @@ public class NoteTrigger : MonoBehaviour
 				{
 					if (character.playerState == 2)
 					{
-							Debug.Log("Here1");
+						Debug.Log("Here1");
 						ResolveHitObstacle(top, 0);
 					}
 				} break;
@@ -135,8 +137,8 @@ public class NoteTrigger : MonoBehaviour
 				{
 					if (character.playerState == 1)
 					{
-							Debug.Log("Here2");
-							ResolveHitObstacle(high, 1);
+						Debug.Log("Here2");
+						ResolveHitObstacle(high, 1);
 					}
 				} break;
 			}
@@ -153,8 +155,8 @@ public class NoteTrigger : MonoBehaviour
 				{
 					if (character.playerState == 0)
 					{
-							Debug.Log("Here3");
-							ResolveHitObstacle(low, 2);
+						Debug.Log("Here3");
+						ResolveHitObstacle(low, 2);
 					}
 				} break;
 
@@ -170,7 +172,12 @@ public class NoteTrigger : MonoBehaviour
 
 	private void ResolveHit(HitCategory hc, SpriteRenderer sprite, int trackNumber)
 	{
-		if (hc == HitCategory.WEAK)
+
+        if (midiReader.pressable[trackNumber] == NoteType.HOLD)
+		{
+			isHolding = 1;
+		}
+            if (hc == HitCategory.WEAK)
 		{
 			sfx.sounds[2].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 			sfx.sounds[2].Play();
@@ -242,14 +249,15 @@ public class NoteTrigger : MonoBehaviour
 				ResolveHit(hc, sprite, trackNumber);
 				return true;
 			}
-			else if (midiReader.pressable[trackNumber] == NoteType.OBSTACLE)
+			else if (midiReader.pressable[trackNumber] == NoteType.HOLD)
 			{
+				ResolveHit(hc, sprite, trackNumber);
 				return true;
 			}
-			else if (midiReader.pressable[trackNumber] == NoteType.COLLECTIBLE)
+			else if (midiReader.pressable[trackNumber] == NoteType.OBSTACLE)
 			{
-				/* TODO */
-				return true;
+				ResolveHitObstacle(sprite, trackNumber);
+                return true;
 			}
 			else
 			{

@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
 
     public Conductor conductor;
     public NoteObject note;
+
 /*    public NoteObject hold;*/
     public NoteObject obstacle;
     public NoteObject hold;
