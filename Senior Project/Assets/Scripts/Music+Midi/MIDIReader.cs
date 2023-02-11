@@ -16,7 +16,7 @@ public enum NoteType
     NOTE,
     HOLD,
     OBSTACLE,
-    COLLECTIBLE
+    COLLECTIBLE,
 };
 
 public class MIDIReader : MonoBehaviour
@@ -32,7 +32,7 @@ public class MIDIReader : MonoBehaviour
     */
     public Conductor conductor;
 
-    public NoteType[] pressable; // TODO: Turn this into a NoteType[]
+    public NoteType[] pressable;
 
     public int index;
 
@@ -81,7 +81,7 @@ public class MIDIReader : MonoBehaviour
             64: Hit note
             72: Hold note
             80: obstacles
-            88: bonus
+            88: collectible
             96: health
             104: ...
 
@@ -167,7 +167,7 @@ public class MIDIReader : MonoBehaviour
 
         SpotTrack = new SpotElement[totalBars * BEATS_PER_BAR * SPOTS_PER_BEAT];
 
-        foreach (NoteElement note in trackInfo)
+        foreach(NoteElement note in trackInfo)
         {
             // ticks: 0 -> 1 120->2, 240->3, 360->4
             int index =
@@ -206,6 +206,8 @@ public class MIDIReader : MonoBehaviour
             conductor.spotNumber;
         SpotElement curVal = SpotTrack[index];
         Array.Clear(pressable, 0, pressable.Length);
+
+        // track 1
         if (curVal.one.velocity == 64)
         {
             pressable[0] = NoteType.NOTE;
@@ -218,6 +220,12 @@ public class MIDIReader : MonoBehaviour
         {
             pressable[0] = NoteType.OBSTACLE;
         }
+        else if (curVal.one.velocity == 88)
+        {
+            pressable[0] = NoteType.COLLECTIBLE;
+        }
+
+        // track 2
         if (curVal.two.velocity == 64)
         {
             pressable[1] = NoteType.NOTE;
@@ -230,6 +238,12 @@ public class MIDIReader : MonoBehaviour
         {
             pressable[1] = NoteType.OBSTACLE;
         }
+        else if (curVal.two.velocity == 88)
+        {
+            pressable[1] = NoteType.COLLECTIBLE;
+        }
+
+        // track 3
         if (curVal.three.velocity == 64)
         {
             pressable[2] = NoteType.NOTE;
@@ -242,6 +256,12 @@ public class MIDIReader : MonoBehaviour
         {
             pressable[2] = NoteType.OBSTACLE;
         }
+        else if (curVal.three.velocity == 88)
+        {
+            pressable[2] = NoteType.COLLECTIBLE;
+        }
+
+        // track 4
         if (curVal.four.velocity == 64)
         {
             pressable[3] = NoteType.NOTE;
@@ -253,6 +273,10 @@ public class MIDIReader : MonoBehaviour
         else if (curVal.four.velocity == 80)
         {
             pressable[3] = NoteType.OBSTACLE;
+        }
+        else if (curVal.four.velocity == 88)
+        {
+            pressable[3] = NoteType.COLLECTIBLE;
         }
     }
 }
