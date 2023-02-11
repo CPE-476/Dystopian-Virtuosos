@@ -4208,7 +4208,7 @@ MonoBehaviour:
   Track3: {fileID: 254445305}
   Track4: {fileID: 1273228632}
   DrumPositions:
-  - 1.5
+  - 1
   - -1
   GuitarPositions:
   - 2
