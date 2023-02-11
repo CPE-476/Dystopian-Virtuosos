@@ -157,6 +157,7 @@ public class NoteTrigger : MonoBehaviour
 							ResolveHitObstacle(low, 2);
 					}
 				} break;
+
 			}
 
 			hasBeenPressed[0] = false;
