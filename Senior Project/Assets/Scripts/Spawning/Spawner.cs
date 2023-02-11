@@ -7,36 +7,29 @@ public class Spawner : MonoBehaviour
     public Conductor conductor;
 
     public NoteObject note;
-
-    /*    public NoteObject hold;*/
     public NoteObject obstacle;
-
+    public NoteObject collectible;
     public NoteObject hold;
 
     public int spawnNum = 0;
 
-    public void spawn(int spawn_type)
+    private void SetupNoteObject(NoteObject obj)
+    {
+        NoteObject clone = (NoteObject)Instantiate(obj, transform.position, Quaternion.identity);
+        clone.GetComponent<SpriteRenderer>().enabled = true;
+        Destroy(clone.gameObject, 7f);
+        spawnNum++;
+    }
+
+    public void Spawn(int spawn_type)
     {
         if(spawn_type == 1)
-        {
-            NoteObject clone = (NoteObject)Instantiate(note, transform.position, Quaternion.identity);
-            clone.GetComponent<SpriteRenderer>().enabled = true;
-            Destroy(clone.gameObject, 7f);
-            spawnNum++;
-        }
+            SetupNoteObject(note);
         if (spawn_type == 2)
-        {
-            NoteObject clone = (NoteObject)Instantiate(hold, transform.position, Quaternion.identity);
-            clone.GetComponent<SpriteRenderer>().enabled = true;
-            Destroy(clone.gameObject, 7f);
-            spawnNum++;
-        }
+            SetupNoteObject(hold);
         else if(spawn_type == 3)
-        {
-            NoteObject clone = (NoteObject)Instantiate(obstacle, transform.position, Quaternion.identity);
-            clone.GetComponent<SpriteRenderer>().enabled = true;
-            Destroy(clone.gameObject, 7f);
-            spawnNum++;
-        }
+            SetupNoteObject(obstacle);
+        else if(spawn_type == 4)
+            SetupNoteObject(collectible);
     }
 }

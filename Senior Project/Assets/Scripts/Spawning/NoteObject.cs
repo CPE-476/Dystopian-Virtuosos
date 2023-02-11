@@ -13,8 +13,6 @@ public class NoteObject : MonoBehaviour
     void Start()
     {
         localSpot = notetrigger.currentSpot;
-        //localSpot -= conductor.spotLength * 3;
-        //GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame
@@ -25,7 +23,7 @@ public class NoteObject : MonoBehaviour
         Vector3 interpedPostion = Vector3.Lerp(spawner.transform.position, new Vector3(notetrigger.transform.position.x, spawner.transform.position.y, 0f), interpRatio);
         transform.position = interpedPostion;
 
-        if (interpRatio > 1.0f)
+        if(interpRatio > 1.0f)
             GetComponent<SpriteRenderer>().enabled = false;
 
         transform.localScale = new Vector3(0.5f, 0.5f, 0.0f);

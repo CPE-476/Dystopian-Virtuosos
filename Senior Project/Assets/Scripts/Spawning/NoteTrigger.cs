@@ -14,11 +14,9 @@ public enum HitCategory
 public class NoteTrigger : MonoBehaviour
 {
     public Conductor conductor;
-
     public MIDIReader midiReader;
 
     public ParticleSystem particles;
-
     ParticleSystem.MainModule psmain;
 
     public ParticleSystem hittext;
@@ -30,17 +28,12 @@ public class NoteTrigger : MonoBehaviour
     public Animator anim;
 
     public SpriteRenderer top;
-
     public SpriteRenderer high;
-
     public SpriteRenderer low;
-
     public SpriteRenderer bot;
 
     public Color perfect;
-
     public Color weak;
-
     public Color fail;
 
     public SFX sfx;
@@ -410,10 +403,14 @@ public class NoteTrigger : MonoBehaviour
                 /* TODO */
                 return true;
             }
+            else if (midiReader.pressable[trackNumber] == NoteType.EMPTY)
+            {
+                /* TODO */
+                return true;
+            }
             else
             {
-                Debug.Log("Unimplemented NoteType in NoteTrigger.CheckHit()");
-                //ResolveMiss(sprite, trackNumber);
+                Debug.Log("Unimplemented NoteType in NoteTrigger.CheckHit() " + (midiReader.pressable[trackNumber]).ToString());
             }
         }
         return false;
