@@ -93,11 +93,79 @@ public class NoteTrigger : MonoBehaviour
             hc = HitCategory.NONE;
         }
 
+<<<<<<< HEAD:Senior Project/Assets/Scripts/NoteTrigger.cs
         // Set the next beat when current beat is over.
         if (conductor.songPosition > noteEnd)
         {
             currentSpot += conductor.spotLength;
             noteEnd += conductor.spotLength;
+=======
+		// Set the next beat when current beat is over.
+		if (conductor.songPosition > noteEnd)
+		{
+			currentSpot += conductor.spotLength;
+			noteEnd += conductor.spotLength;
+			lowerGoodBound = currentSpot - innerThreshold;
+			lowerWeakBound = currentSpot - outerThreshold;
+			upperGoodBound = currentSpot + innerThreshold;
+			upperWeakBound = currentSpot + outerThreshold;
+			// BELOW: Consequences for missing things
+			switch(midiReader.pressable[0])
+			{
+				case NoteType.NOTE:
+				{
+					if (!hasBeenPressed[0])
+					{
+						ResolveMiss(top, 0);
+					}
+				} break;
+				case NoteType.OBSTACLE:
+				{
+					if (character.playerState == 2)
+					{
+							Debug.Log("Here1");
+						ResolveHitObstacle(top, 0);
+					}
+				} break;
+			}
+			switch(midiReader.pressable[1])
+			{
+				case NoteType.NOTE:
+				{
+					if (!hasBeenPressed[1])
+					{
+						ResolveMiss(high, 1);
+					}
+				} break;
+				case NoteType.OBSTACLE:
+				{
+					if (character.playerState == 1)
+					{
+							Debug.Log("Here2");
+							ResolveHitObstacle(high, 1);
+					}
+				} break;
+			}
+			switch(midiReader.pressable[2])
+			{
+				case NoteType.NOTE:
+				{
+					if (!hasBeenPressed[2])
+					{
+						ResolveMiss(low, 2);
+					}
+				} break;
+				case NoteType.OBSTACLE:
+				{
+					if (character.playerState == 0)
+					{
+							Debug.Log("Here3");
+							ResolveHitObstacle(low, 2);
+					}
+				} break;
+
+			}
+>>>>>>> 0303ab39c6a513f44d0812cafe316b964872a0f8:Senior Project/Assets/Scripts/Spawning/NoteTrigger.cs
 
             lowerGoodBound = currentSpot - innerThreshold;
             upperGoodBound = currentSpot + innerThreshold;
@@ -278,15 +346,5 @@ public class NoteTrigger : MonoBehaviour
             }
         }
         return false;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.name == "Obstacle")
-        {
-            Debug.Log("enter collision");
-            ResolveHitObstacle(low, 2);
-
-        }
     }
 }
