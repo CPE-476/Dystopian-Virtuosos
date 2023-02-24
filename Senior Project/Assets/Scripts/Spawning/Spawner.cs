@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public Conductor conductor;
+    private Conductor conductor;
+    private Transform parentTransform;
 
     public NoteObject note;
     public NoteObject obstacle;
@@ -13,9 +14,17 @@ public class Spawner : MonoBehaviour
 
     public int spawnNum = 0;
 
+    private void Start()
+    {
+        parentTransform = GetComponent<Transform>();
+        conductor = (Conductor)GameObject.Find("/Conductor").GetComponent("Conductor");
+    }
+
     private void SetupNoteObject(NoteObject obj)
     {
-        NoteObject clone = (NoteObject)Instantiate(obj, transform.position, Quaternion.identity);
+        NoteObject clone = (NoteObject)Instantiate(obj, transform);
+        clone.transform.position = transform.position;
+        clone.transform.rotation = Quaternion.identity;
         clone.GetComponent<SpriteRenderer>().enabled = true;
         Destroy(clone.gameObject, 7f);
         spawnNum++;
