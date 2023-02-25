@@ -633,7 +633,12 @@ MonoBehaviour:
   obstacle: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
   collectible: {fileID: 3152407877717724056, guid: 83bdaa8d7f1374d0aaafb320e58fb6ec, type: 3}
   hold: {fileID: 2905612906640139054, guid: d3711590220266843bf0b86504a0553c, type: 3}
+  holdsquare: {fileID: 4554385768705652490, guid: 3a65b23593a06af4fbf3ee4d37bbb020, type: 3}
   spawnNum: 0
+  holdNum: 0
+  incremeted: 0
+  index: 0
+  newIndex: 0
 --- !u!114 &325377989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,7 +1299,12 @@ MonoBehaviour:
   obstacle: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
   collectible: {fileID: 3152407877717724056, guid: 83bdaa8d7f1374d0aaafb320e58fb6ec, type: 3}
   hold: {fileID: 2905612906640139054, guid: d3711590220266843bf0b86504a0553c, type: 3}
+  holdsquare: {fileID: 4554385768705652490, guid: 3a65b23593a06af4fbf3ee4d37bbb020, type: 3}
   spawnNum: 0
+  holdNum: 0
+  incremeted: 0
+  index: 0
+  newIndex: 0
 --- !u!212 &777785689
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2489,6 +2499,7 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   pressable: 
   index: 0
+  midiFilePath: Assets/Music/hold_test.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
@@ -2708,7 +2719,12 @@ MonoBehaviour:
   obstacle: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
   collectible: {fileID: 3152407877717724056, guid: 83bdaa8d7f1374d0aaafb320e58fb6ec, type: 3}
   hold: {fileID: 2905612906640139054, guid: d3711590220266843bf0b86504a0553c, type: 3}
+  holdsquare: {fileID: 4554385768705652490, guid: 3a65b23593a06af4fbf3ee4d37bbb020, type: 3}
   spawnNum: 0
+  holdNum: 0
+  incremeted: 0
+  index: 0
+  newIndex: 0
 --- !u!212 &1390432621
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3054,7 +3070,12 @@ MonoBehaviour:
   obstacle: {fileID: 3152407877717724056, guid: e4b6b2ff06fe140279899274054cb574, type: 3}
   collectible: {fileID: 3152407877717724056, guid: 83bdaa8d7f1374d0aaafb320e58fb6ec, type: 3}
   hold: {fileID: 2905612906640139054, guid: d3711590220266843bf0b86504a0553c, type: 3}
+  holdsquare: {fileID: 4554385768705652490, guid: 3a65b23593a06af4fbf3ee4d37bbb020, type: 3}
   spawnNum: 0
+  holdNum: 0
+  incremeted: 0
+  index: 0
+  newIndex: 0
 --- !u!212 &1787184463
 SpriteRenderer:
   m_ObjectHideFlags: 0
