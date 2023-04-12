@@ -10,11 +10,13 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner4;
     public MIDIReader MIDIReader;
     public Conductor conductor;
+    private MIDIReader.SpotElement curVal;
+    public ushort[] lengths;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        lengths = new ushort[4];
     }
 
     // Update is called once per frame
@@ -29,8 +31,18 @@ public class SpawnMaster : MonoBehaviour
 
     public void SpawnNotes()
     {
-        var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
+        curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
        
+        Debug.Log("Cur: " + curVal.one.length);
+        //Setting all the hold note lengths so note trigger can use them to calculate score
+        if (curVal.two.velocity == 72) 
+        {
+            lengths[0] = curVal.one.length;
+            lengths[1] = curVal.two.length;
+            lengths[2] = curVal.three.length;
+            lengths[3] = curVal.four.length;
+        }
+
         // Note 1
         if (curVal.one.velocity == 64)
             spawner1.Spawn(1, 0);

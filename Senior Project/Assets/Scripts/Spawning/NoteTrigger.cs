@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using System.Linq;
+
 
 public enum HitCategory
 {
@@ -25,6 +27,8 @@ public class NoteTrigger : MonoBehaviour
 
     public TMPro.TextMeshProUGUI text;
 
+    public SpawnMaster spawnMaster;
+
     public Animator anim;
 
     public SpriteRenderer top;
@@ -37,6 +41,11 @@ public class NoteTrigger : MonoBehaviour
     public Color fail;
 
     public SFX sfx;
+
+    private bool[] updateHold = { false, false, false, false };
+    private bool[] goodHold = { false, false, false, false };
+    private ushort[] holdLengths;
+    private int holdScore = 1;
 
     public ScoreManager scoreManager;
 
@@ -65,18 +74,25 @@ public class NoteTrigger : MonoBehaviour
 
     bool[] hasBeenPressed = { false, false, false, false };
 
+    public int index;
+    public int newIndex;
+
     // Start is called before the first frame update
     void Start()
     {
+        holdLengths = new ushort[4];
         currentSpot = conductor.spotLength;
         noteEnd = conductor.spotLength + conductor.spotLength * 0.5f;
         hasBeenPressed = new bool[] { false, false, false, false };
         psmain = particles.main;
+        index = midiReader.index;
+        newIndex = index;
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (checkHit(KeyCode.Joystick1Button3, 0, top, KeyCode.H))
             hasBeenPressed[0] = true;
 
@@ -88,6 +104,78 @@ public class NoteTrigger : MonoBehaviour
 
         if (checkHit(KeyCode.Joystick1Button1, 3, bot, KeyCode.L))
             hasBeenPressed[3] = true;
+
+
+        //Update Hold Note Score 
+        if (updateHold[0] && holdLengths[0] >= 1 && ((Input.GetKey(KeyCode.H) || Input.GetKey(KeyCode.Joystick1Button3))))
+        {
+            if(goodHold[0] == false)
+                holdScore += 1;
+            goodHold[0] = true;
+            
+        }
+        else
+        {
+            if (goodHold[0] == true)
+                holdScore -= 1;
+            goodHold[0] = false;
+            updateHold[0] = false;
+        }
+        if (updateHold[1] && holdLengths[1] >= 1 && ((Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Joystick1Button2))))
+        {
+            if (goodHold[1] == false)
+                holdScore += 1;
+            goodHold[1] = true;
+        }
+        else
+        {
+            if (goodHold[1] == true)
+                holdScore -= 1;
+            goodHold[1] = false;
+            updateHold[1] = false;
+        }
+        if (updateHold[2] && holdLengths[2] >= 1 && ((Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button0))))
+        {
+            if (goodHold[2] == false)
+                holdScore += 1;
+            goodHold[2] = true;
+        }
+        else
+        {
+            if (goodHold[2] == true)
+                holdScore -= 1;
+            goodHold[2] = false;
+            updateHold[2] = false;
+        }
+        if (updateHold[3] && holdLengths[3] >= 1 && ((Input.GetKey(KeyCode.L))))
+        {
+            if (goodHold[3] == false)
+                holdScore += 1;
+            goodHold[3] = true;
+        }
+        else
+        {
+            if (goodHold[3] == true)
+                holdScore -= 1;
+            goodHold[3] = false;
+            updateHold[3] = false;
+        }
+
+
+        if (goodHold.Any(b => b))
+        {
+            newIndex = midiReader.index;
+
+            if (newIndex > index)
+            {
+                holdLengths[0]--;
+                holdLengths[1]--;
+                holdLengths[2]--;
+                holdLengths[3]--;
+                scoreManager.score += holdScore;
+                index = newIndex;
+            }
+        }
 
         // Set the current Hit Category
         if (
@@ -114,12 +202,15 @@ public class NoteTrigger : MonoBehaviour
         {
             currentSpot += conductor.spotLength;
             noteEnd += conductor.spotLength;
+
             lowerGoodBound = currentSpot - innerThreshold;
-            lowerWeakBound = currentSpot - outerThreshold;
             upperGoodBound = currentSpot + innerThreshold;
+
+            lowerWeakBound = currentSpot - outerThreshold;
             upperWeakBound = currentSpot + outerThreshold;
 
             // BELOW: Consequences for missing things
+            // Pressable 0
             switch (midiReader.pressable[0])
             {
                 case NoteType.NOTE:
@@ -132,9 +223,17 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 2)
+                        if (character.playerState == 3)
                         {
                             ResolveHitObstacle(top, 0);
+                        }
+                    }
+                    break;
+                case NoteType.HOLD:
+                    {
+                        if (!hasBeenPressed[0])
+                        {
+                            ResolveMiss(top, 0);
                         }
                     }
                     break;
@@ -151,7 +250,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 1)
+                        if (character.playerState == 2)
                         {
                             ResolveHitObstacle(high, 1);
                         }
@@ -170,72 +269,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 0)
-                        {
-                            ResolveHitObstacle(low, 2);
-                        }
-                    }
-                    break;
-            }
-
-            lowerGoodBound = currentSpot - innerThreshold;
-            upperGoodBound = currentSpot + innerThreshold;
-
-            lowerWeakBound = currentSpot - outerThreshold;
-            upperWeakBound = currentSpot + outerThreshold;
-
-            // BELOW: Consequences for missing things
-            switch (midiReader.pressable[0])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[0])
-                        {
-                            ResolveMiss(top, 0);
-                        }
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
-                        if (character.playerState == 2)
-                        {
-                            ResolveHitObstacle(top, 0);
-                        }
-                    }
-                    break;
-            }
-            switch (midiReader.pressable[1])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[1])
-                        {
-                            ResolveMiss(high, 1);
-                        }
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
                         if (character.playerState == 1)
-                        {
-                            ResolveHitObstacle(high, 1);
-                        }
-                    }
-                    break;
-            }
-            switch (midiReader.pressable[2])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[2])
-                        {
-                            ResolveMiss(low, 2);
-                        }
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
-                        if (character.playerState == 0)
                         {
                             ResolveHitObstacle(low, 2);
                         }
@@ -273,9 +307,24 @@ public class NoteTrigger : MonoBehaviour
     private void ResolveHit(
         HitCategory hc,
         SpriteRenderer sprite,
-        int trackNumber
+        int trackNumber,
+        bool isHold
     )
     {
+        if (hc == HitCategory.WEAK  && isHold)
+        {
+            updateHold[trackNumber] = true;
+            holdScore = 1;
+            holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
+        }
+        else if (hc == HitCategory.GOOD && isHold)
+        {
+            updateHold[trackNumber] = true;
+            holdScore = 2;
+            holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
+        }
+
+
         if (hc == HitCategory.WEAK)
         {
             sfx.sounds[2].pitch =
@@ -390,7 +439,12 @@ public class NoteTrigger : MonoBehaviour
         {
             if (midiReader.pressable[trackNumber] == NoteType.NOTE)
             {
-                ResolveHit (hc, sprite, trackNumber);
+                ResolveHit (hc, sprite, trackNumber, false);
+                return true;
+            }
+            else if (midiReader.pressable[trackNumber] == NoteType.HOLD)
+            {
+                ResolveHit(hc, sprite, trackNumber, true);
                 return true;
             }
             else if (midiReader.pressable[trackNumber] == NoteType.OBSTACLE)

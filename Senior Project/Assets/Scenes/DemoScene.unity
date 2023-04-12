@@ -463,6 +463,7 @@ MonoBehaviour:
   playerState: 0
   conductor: {fileID: 42173310}
   cam: {fileID: 510236666}
+  tracksController: {fileID: 1488642359}
 --- !u!61 &266359511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1033,11 +1034,12 @@ MonoBehaviour:
   hittext: {fileID: 50980574913718436, guid: a366393305929f64999735c165cc4a05, type: 3}
   character: {fileID: 266359509}
   text: {fileID: 1263531863}
+  spawnMaster: {fileID: 1448182217}
   anim: {fileID: 318317443}
   top: {fileID: 1018172145}
   high: {fileID: 1229566512}
   low: {fileID: 1794664647}
-  bot: {fileID: 0}
+  bot: {fileID: 525978116}
   perfect: {r: 0.41998926, g: 0.85574895, b: 0.9339623, a: 0.5882353}
   weak: {r: 1, g: 0.76012856, b: 0.38364774, a: 0.5882353}
   fail: {r: 1, g: 0, b: 0, a: 0.5882353}
@@ -1048,6 +1050,8 @@ MonoBehaviour:
   innerThreshold: 0.06
   outerThreshold: 0.1
   hc: 0
+  index: 0
+  newIndex: 0
 --- !u!4 &577649643
 Transform:
   m_ObjectHideFlags: 0
@@ -2840,6 +2844,7 @@ MonoBehaviour:
   spawner4: {fileID: 325377988}
   MIDIReader: {fileID: 1263251599}
   conductor: {fileID: 42173310}
+  lengths: 
 --- !u!4 &1448182218
 Transform:
   m_ObjectHideFlags: 0
