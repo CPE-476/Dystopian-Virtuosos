@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CamerController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public float speed;
 
@@ -34,10 +34,6 @@ public class CamerController : MonoBehaviour
             isMoving = true;
         }
 
-        /*        if (transform.position.x >= 6.0f)
-        {
-            transform.Translate(new Vector3(-28f, 0, 0));
-        }*/
         if (isMoving)
         {
             staticBackground
@@ -48,10 +44,5 @@ public class CamerController : MonoBehaviour
                     0,
                     0));
         }
-        // if (Input.GetKey(KeyCode.Space))
-        // {
-        //     Debug.Log(cameraX);
-        // }
-        // cameraX = transform.position.x;
     }
 }

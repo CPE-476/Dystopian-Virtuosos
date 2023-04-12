@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private double curSongPosition;
 
-    public CamerController cam;
+    public CameraController cam;
 
     // Start is called before the first frame update
     void Start()
@@ -39,11 +39,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Restart();
         if (alive)
         {
-            Hurt();
-            Die();
             Attack();
             Jump();
             Run();
@@ -139,34 +136,5 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, -2, 0);
             playerState = 0;
         }
-    }
-    void Hurt()
-    {
-        // if (Input.GetKeyDown(KeyCode.Alpha2))
-        // {
-        //     anim.SetTrigger("hurt");
-        //     //if (direction == 1)
-        //         //rb.AddForce(new Vector2(-5f, 1f), ForceMode2D.Impulse);
-        //     //else
-        //         //rb.AddForce(new Vector2(5f, 1f), ForceMode2D.Impulse);
-        // }
-    }
-
-    void Die()
-    {
-        // if (Input.GetKeyDown(KeyCode.Alpha4))
-        // {
-        //     anim.SetTrigger("die");
-        //     alive = false;
-        // }
-    }
-
-    void Restart()
-    {
-        // if (Input.GetKeyDown(KeyCode.Alpha0))
-        // {
-        //     anim.SetTrigger("idle");
-        //     alive = true;
-        // }
     }
 }

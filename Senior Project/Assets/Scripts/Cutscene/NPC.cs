@@ -9,7 +9,7 @@ public class NPC : MonoBehaviour
     [SerializeField]
     private Image entity;
 
-    public CamerController cam;
+    public CameraController cam;
 
     public string npcName;
 

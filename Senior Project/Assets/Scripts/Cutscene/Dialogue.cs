@@ -20,7 +20,7 @@ public class Dialogue : MonoBehaviour
 
     private bool isStart = false;
 
-    public CamerController cam;
+    public CameraController cam;
 
     AudioSource audioSource; 
 

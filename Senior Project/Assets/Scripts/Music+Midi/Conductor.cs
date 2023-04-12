@@ -18,8 +18,8 @@ public class Conductor : MonoBehaviour
     public float spotLength;
 
     public double songPosition;
-    double nextSpotTime;
-    public float offset;
+    public double nextSpotTime;
+    public double offset;
 
     public int spotNumber;
     public int beatNumber;
@@ -29,6 +29,7 @@ public class Conductor : MonoBehaviour
 
     // SONG SETTINGS
     // sample_track: 121 bpm, 0.35 offset.
+    // 60 bpm: 60 bpm, 0.25 offset.
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +46,7 @@ public class Conductor : MonoBehaviour
         songPosition = 0.0f;
     }
 
-    public void Update()
+    public void UpdateSongPosition()
     {
         double newSongPosition = AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition;
                                                     // NOTE(alex): - dsptimesong) might be needed
@@ -70,5 +71,10 @@ public class Conductor : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void Update()
+    {
+        UpdateSongPosition();
     }
 }
