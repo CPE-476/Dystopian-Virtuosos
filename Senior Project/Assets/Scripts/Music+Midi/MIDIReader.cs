@@ -52,7 +52,9 @@ public class MIDIReader : MonoBehaviour
 
     byte[] fourNotes = new byte[] { 64 };
 
-    MidiFile midiFile = MidiFile.Read("Assets/Music/sample_beatmap.mid");
+    public string midiFilePath;
+
+    private MidiFile midiFile;// = MidiFile.Read("Assets/Music/sample_beatmap.mid");
 
     List<NoteElement> trackInfo = new List<NoteElement>();
 
@@ -102,6 +104,7 @@ public class MIDIReader : MonoBehaviour
 
     void Start()
     {
+        midiFile = MidiFile.Read(midiFilePath);
         InitNoteElement();
         InitSpotTrack();
 

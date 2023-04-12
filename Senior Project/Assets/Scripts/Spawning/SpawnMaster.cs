@@ -27,40 +27,40 @@ public class SpawnMaster : MonoBehaviour
         }
     }
 
-    void SpawnNotes()
+    public void SpawnNotes()
     {
         var curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
-
+       
         // Note 1
         if (curVal.one.velocity == 64)
-            spawner1.Spawn(1);
+            spawner1.Spawn(1, 0);
         else if (curVal.one.velocity == 72)
-            spawner1.Spawn(2);
+            spawner1.Spawn(2, curVal.one.length);
         else if (curVal.one.velocity == 80)
-            spawner1.Spawn(3);
+            spawner1.Spawn(3, 0);
 
         // Note 2
         if (curVal.two.velocity == 64)
-            spawner2.Spawn(1);
+            spawner2.Spawn(1, 0);
         else if (curVal.two.velocity == 72)
-            spawner2.Spawn(2);
+            spawner2.Spawn(2, curVal.two.length);
         else if (curVal.two.velocity == 80)
-            spawner2.Spawn(3);
+            spawner2.Spawn(3, 0);
 
         // Note 3
         if (curVal.three.velocity == 64)
-            spawner3.Spawn(1);
+            spawner3.Spawn(1, 0);
         else if (curVal.three.velocity == 72)
-            spawner3.Spawn(2);
+            spawner3.Spawn(2, curVal.three.length);
         else if (curVal.three.velocity == 80)
-            spawner3.Spawn(3);
+            spawner3.Spawn(3, 0);
 
         // Note 4
         if (curVal.four.velocity == 64)
-            spawner4.Spawn(1);
+            spawner4.Spawn(1, 0);
         else if (curVal.four.velocity == 72)
-            spawner4.Spawn(2);
+            spawner4.Spawn(2, curVal.four.length);
         else if (curVal.four.velocity == 80)
-            spawner4.Spawn(3);
+            spawner4.Spawn(3, 0);
     }
 }
