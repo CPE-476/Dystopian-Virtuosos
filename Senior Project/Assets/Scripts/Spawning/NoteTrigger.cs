@@ -109,13 +109,17 @@ public class NoteTrigger : MonoBehaviour
         //Update Hold Note Score 
         if (updateHold[0] && holdLengths[0] >= 1 && ((Input.GetKey(KeyCode.H) || Input.GetKey(KeyCode.Joystick1Button3))))
         {
-            if(goodHold[0] == false)
+            var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = true;
+            if (goodHold[0] == false)
                 holdScore += 1;
             goodHold[0] = true;
             
         }
         else
         {
+            var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = false;
             if (goodHold[0] == true)
                 holdScore -= 1;
             goodHold[0] = false;
@@ -123,12 +127,16 @@ public class NoteTrigger : MonoBehaviour
         }
         if (updateHold[1] && holdLengths[1] >= 1 && ((Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Joystick1Button2))))
         {
+            var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = true;
             if (goodHold[1] == false)
                 holdScore += 1;
             goodHold[1] = true;
         }
         else
         {
+            var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = false;
             if (goodHold[1] == true)
                 holdScore -= 1;
             goodHold[1] = false;
@@ -136,12 +144,16 @@ public class NoteTrigger : MonoBehaviour
         }
         if (updateHold[2] && holdLengths[2] >= 1 && ((Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button0))))
         {
+            var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = true;
             if (goodHold[2] == false)
                 holdScore += 1;
             goodHold[2] = true;
         }
         else
         {
+            var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = false;
             if (goodHold[2] == true)
                 holdScore -= 1;
             goodHold[2] = false;
@@ -149,12 +161,16 @@ public class NoteTrigger : MonoBehaviour
         }
         if (updateHold[3] && holdLengths[3] >= 1 && ((Input.GetKey(KeyCode.L))))
         {
+            var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = true;
             if (goodHold[3] == false)
                 holdScore += 1;
             goodHold[3] = true;
         }
         else
         {
+            var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            em.enabled = false;
             if (goodHold[3] == true)
                 holdScore -= 1;
             goodHold[3] = false;
