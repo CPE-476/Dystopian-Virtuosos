@@ -92,7 +92,7 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
-  - name: Layer 27
+  - name: Hue/Saturation 1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -103,7 +103,7 @@ ScriptedImporter:
       y: 4
       width: 469
       height: 2031
-    spriteID: 36dc1e538186c47a2bdf4c43f59114b1
+    spriteID: a91cb187306a94c5687042f1c0fee9b7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -143,12 +143,12 @@ ScriptedImporter:
   resliceFromLayer: 0
   mosaicPSDLayers: []
   rigPSDLayers:
-  - name: Layer 27
-    spriteName: Layer 27
+  - name: Hue/Saturation 1
+    spriteName: Hue/Saturation 1
     isGroup: 0
     parentIndex: -1
-    spriteID: 36dc1e538186c47a2bdf4c43f59114b1
-    layerID: 632
+    spriteID: a91cb187306a94c5687042f1c0fee9b7
+    layerID: 637
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
     isImported: 1

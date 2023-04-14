@@ -13,10 +13,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Foreground
+  - midground1
+  - midground2
+  - MegaForeground
   - 
   - 
   - 
@@ -54,4 +54,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 3493479499
+    locked: 0
+  - name: MegaForeground
+    uniqueID: 525929075
     locked: 0

@@ -203,6 +203,14 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3358647411236217044, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 3358647411236217044, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.71
+      objectReference: {fileID: 0}
     - target: {fileID: 3710487177342080571, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
       propertyPath: m_Name
       value: Static_Background
@@ -211,9 +219,17 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5127936381830233111, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.22
+      objectReference: {fileID: 0}
     - target: {fileID: 5419863237048368753, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6766555627683776717, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8874245b94e764d41b3edbe5ba052fb3, type: 3}
