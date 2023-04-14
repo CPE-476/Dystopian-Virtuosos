@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private double curSongPosition;
 
-    public CamerController cam;
+    public CameraController cam;
 
     public TracksController tracksController;
 

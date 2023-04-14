@@ -7,7 +7,7 @@ public class MapScheduler : MonoBehaviour
 
     [SerializeField] private GameObject map;
 
-    public CamerController cam;
+    public CameraController cam;
 
     //public SimplePlayerController player;
 
