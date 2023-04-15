@@ -32,7 +32,7 @@ public class MIDIReader : MonoBehaviour
     */
     public Conductor conductor;
 
-    public NoteType[] pressable;
+    public NoteType[] track_state;
 
     public int index;
 
@@ -53,6 +53,13 @@ public class MIDIReader : MonoBehaviour
 
     List<NoteElement> trackInfo = new List<NoteElement>();
 
+    public struct SpotElement
+    {
+        public NoteElement four;
+        public NoteElement three;
+        public NoteElement two;
+        public NoteElement one;
+    }
     public SpotElement[] SpotTrack;
     public bool changed = false;
 
@@ -86,24 +93,13 @@ public class MIDIReader : MonoBehaviour
         public byte velocity;
     }
 
-    public struct SpotElement
-    {
-        public NoteElement four;
-
-        public NoteElement three;
-
-        public NoteElement two;
-
-        public NoteElement one;
-    }
-
     void Start()
     {
         midiFile = MidiFile.Read(midiFilePath);
         InitNoteElement();
         InitSpotTrack();
 
-        pressable = new NoteType[] { NoteType.EMPTY, 
+        track_state = new NoteType[] { NoteType.EMPTY, 
                                      NoteType.EMPTY,
                                      NoteType.EMPTY,
                                      NoteType.EMPTY };
@@ -122,12 +118,10 @@ public class MIDIReader : MonoBehaviour
             newNote.number = note.NoteNumber;
 
             // note position
-            var pos =
-                note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
+            var pos = note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
             var temp = pos.Split(".");
             newNote.pos = new ushort[3];
-            for(int i = 0; i < temp.Length; ++i)
-            {
+            for(int i = 0; i < temp.Length; ++i) {
                 newNote.pos[i] = Convert.ToUInt16(temp[i]);
             }
 
@@ -191,7 +185,7 @@ public class MIDIReader : MonoBehaviour
         }
     }
 
-    public void changePressable()
+    public void updateTrackState()
     {
         changed = true;
         index =
@@ -201,78 +195,46 @@ public class MIDIReader : MonoBehaviour
             conductor.beatNumber * Conductor.SPOTS_PER_BEAT +
             conductor.spotNumber;
         SpotElement curVal = SpotTrack[index];
-        Array.Clear(pressable, 0, pressable.Length);
+        Array.Clear(track_state, 0, 4);
 
         // track 1
         if (curVal.one.velocity == 64)
-        {
-            pressable[0] = NoteType.NOTE;
-        }
+            track_state[0] = NoteType.NOTE;
         else if (curVal.one.velocity == 72)
-        {
-            pressable[0] = NoteType.HOLD;
-        }
+            track_state[0] = NoteType.HOLD;
         else if (curVal.one.velocity == 80)
-        {
-            pressable[0] = NoteType.OBSTACLE;
-        }
+            track_state[0] = NoteType.OBSTACLE;
         else if (curVal.one.velocity == 88)
-        {
-            pressable[0] = NoteType.COLLECTIBLE;
-        }
+            track_state[0] = NoteType.COLLECTIBLE;
 
         // track 2
         if (curVal.two.velocity == 64)
-        {
-            pressable[1] = NoteType.NOTE;
-        }
+            track_state[1] = NoteType.NOTE;
         else if (curVal.two.velocity == 72)
-        {
-            pressable[1] = NoteType.HOLD;
-        }
+            track_state[1] = NoteType.HOLD;
         else if (curVal.two.velocity == 80)
-        {
-            pressable[1] = NoteType.OBSTACLE;
-        }
+            track_state[1] = NoteType.OBSTACLE;
         else if (curVal.two.velocity == 88)
-        {
-            pressable[1] = NoteType.COLLECTIBLE;
-        }
+            track_state[1] = NoteType.COLLECTIBLE;
 
         // track 3
         if (curVal.three.velocity == 64)
-        {
-            pressable[2] = NoteType.NOTE;
-        }
+            track_state[2] = NoteType.NOTE;
         else if (curVal.three.velocity == 72)
-        {
-            pressable[2] = NoteType.HOLD;
-        }
+            track_state[2] = NoteType.HOLD;
         else if (curVal.three.velocity == 80)
-        {
-            pressable[2] = NoteType.OBSTACLE;
-        }
+            track_state[2] = NoteType.OBSTACLE;
         else if (curVal.three.velocity == 88)
-        {
-            pressable[2] = NoteType.COLLECTIBLE;
-        }
+            track_state[2] = NoteType.COLLECTIBLE;
 
         // track 4
         if (curVal.four.velocity == 64)
-        {
-            pressable[3] = NoteType.NOTE;
-        }
+            track_state[3] = NoteType.NOTE;
         else if (curVal.four.velocity == 72)
-        {
-            pressable[3] = NoteType.HOLD;
-        }
+            track_state[3] = NoteType.HOLD;
         else if (curVal.four.velocity == 80)
-        {
-            pressable[3] = NoteType.OBSTACLE;
-        }
+            track_state[3] = NoteType.OBSTACLE;
         else if (curVal.four.velocity == 88)
-        {
-            pressable[3] = NoteType.COLLECTIBLE;
-        }
+            track_state[3] = NoteType.COLLECTIBLE;
     }
 }

@@ -54,15 +54,10 @@ public class NoteTrigger : MonoBehaviour
     public float noteEnd;
 
     public float innerThreshold;
-
     public float outerThreshold;
-
     private float lowerGoodBound;
-
     private float lowerWeakBound;
-
     private float upperGoodBound;
-
     private float upperWeakBound;
 
     int transpose = 0;
@@ -70,7 +65,7 @@ public class NoteTrigger : MonoBehaviour
     int[] notes = new int[] { 7, 4, 0, -12 };
 
     [SerializeReference]
-    private HitCategory hc;
+    private HitCategory current_hit_category;
 
     bool[] hasBeenPressed = { false, false, false, false };
 
@@ -92,17 +87,16 @@ public class NoteTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (checkHit(KeyCode.Joystick1Button3, 0, top, KeyCode.H))
+        if (checkHit(KeyCode.Joystick1Button3, KeyCode.H, 0, top))
             hasBeenPressed[0] = true;
 
-        if (checkHit(KeyCode.Joystick1Button2, 1, high, KeyCode.J))
+        if (checkHit(KeyCode.Joystick1Button2, KeyCode.J, 1, high))
             hasBeenPressed[1] = true;
 
-        if (checkHit(KeyCode.Joystick1Button0, 2, low, KeyCode.K))
+        if (checkHit(KeyCode.Joystick1Button0, KeyCode.K, 2, low))
             hasBeenPressed[2] = true;
 
-        if (checkHit(KeyCode.Joystick1Button1, 3, bot, KeyCode.L))
+        if (checkHit(KeyCode.Joystick1Button1, KeyCode.L, 3, bot))
             hasBeenPressed[3] = true;
 
 
@@ -199,18 +193,18 @@ public class NoteTrigger : MonoBehaviour
             conductor.songPosition <= upperGoodBound
         )
         {
-            hc = HitCategory.GOOD;
+            current_hit_category = HitCategory.GOOD;
         }
         else if (
             conductor.songPosition >= lowerWeakBound &&
             conductor.songPosition <= upperWeakBound
         )
         {
-            hc = HitCategory.WEAK;
+            current_hit_category = HitCategory.WEAK;
         }
         else
         {
-            hc = HitCategory.NONE;
+            current_hit_category = HitCategory.NONE;
         }
 
         // Set the next beat when current beat is over.
@@ -226,122 +220,88 @@ public class NoteTrigger : MonoBehaviour
             upperWeakBound = currentSpot + outerThreshold;
 
             // BELOW: Consequences for missing things
-            // Pressable 0
-            switch (midiReader.pressable[0])
+            switch (midiReader.track_state[0])
             {
                 case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[0])
-                        {
-                            ResolveMiss(top, 0);
-                        }
-                    }
-                    break;
+                {
+                    if (!hasBeenPressed[0])
+                        ResolveMiss(top, 0);
+                } break;
                 case NoteType.OBSTACLE:
-                    {
-                        if (character.playerState == 3)
-                        {
-                            ResolveHitObstacle(top, 0);
-                        }
-                    }
-                    break;
+                {
+                    if (character.playerState == 3)
+                        ResolveHitObstacle(top, 0);
+                } break;
                 case NoteType.HOLD:
-                    {
-                        if (!hasBeenPressed[0])
-                        {
-                            ResolveMiss(top, 0);
-                        }
-                    }
-                    break;
+                {
+                    if (!hasBeenPressed[0])
+                        ResolveMiss(top, 0);
+                } break;
             }
-            switch (midiReader.pressable[1])
+            switch (midiReader.track_state[1])
             {
                 case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[1])
-                        {
-                            ResolveMiss(high, 1);
-                        }
-                    }
-                    break;
+                {
+                    if (!hasBeenPressed[1])
+                        ResolveMiss(high, 1);
+                } break;
                 case NoteType.OBSTACLE:
-                    {
-                        if (character.playerState == 2)
-                        {
-                            ResolveHitObstacle(high, 1);
-                        }
-                    }
-                    break;
+                {
+                    if (character.playerState == 2)
+                        ResolveHitObstacle(high, 1);
+                } break;
             }
-            switch (midiReader.pressable[2])
+            switch (midiReader.track_state[2])
             {
                 case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[2])
-                        {
-                            ResolveMiss(low, 2);
-                        }
-                    }
-                    break;
+                {
+                    if (!hasBeenPressed[2])
+                        ResolveMiss(low, 2);
+                } break;
                 case NoteType.OBSTACLE:
-                    {
-                        if (character.playerState == 1)
-                        {
-                            ResolveHitObstacle(low, 2);
-                        }
-                    }
-                    break;
+                {
+                    if (character.playerState == 1)
+                        ResolveHitObstacle(low, 2);
+                } break;
             }
-            switch (midiReader.pressable[3])
+            switch (midiReader.track_state[3])
             {
                 case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[3])
-                        {
-                            ResolveMiss(bot, 3);
-                        }
-                    }
-                    break;
+                {
+                    if (!hasBeenPressed[3])
+                        ResolveMiss(bot, 3);
+                } break;
                 case NoteType.OBSTACLE:
-                    {
-                        if (character.playerState == 0)
-                        {
-                            ResolveHitObstacle(bot, 3);
-                        }
-                    }
-                    break;
+                {
+                    if (character.playerState == 0)
+                        ResolveHitObstacle(bot, 3);
+                } break;
             }
 
             hasBeenPressed[0] = false;
             hasBeenPressed[1] = false;
             hasBeenPressed[2] = false;
             hasBeenPressed[3] = false;
-            midiReader.changePressable();
+            midiReader.updateTrackState();
         }
     }
 
-    private void ResolveHit(
-        HitCategory hc,
-        SpriteRenderer sprite,
-        int trackNumber,
-        bool isHold
-    )
+    private void ResolveHit(SpriteRenderer sprite, int trackNumber, bool isHold)
     {
-        if (hc == HitCategory.WEAK  && isHold)
+        if (current_hit_category == HitCategory.WEAK  && isHold)
         {
             updateHold[trackNumber] = true;
             holdScore = 1;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
         }
-        else if (hc == HitCategory.GOOD && isHold)
+        else if (current_hit_category == HitCategory.GOOD && isHold)
         {
             updateHold[trackNumber] = true;
             holdScore = 2;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
         }
 
-
-        if (hc == HitCategory.WEAK)
+        if (current_hit_category == HitCategory.WEAK)
         {
             //sfx.sounds[2].pitch =
             //    Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
@@ -365,7 +325,7 @@ public class NoteTrigger : MonoBehaviour
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 1;
         }
-        else if (hc == HitCategory.GOOD)
+        else if (current_hit_category == HitCategory.GOOD)
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
@@ -449,38 +409,34 @@ public class NoteTrigger : MonoBehaviour
     // Checks for a hit on a given keycode.
     // Returns true if hit, false if not.
     private bool
-    checkHit(KeyCode kc, int trackNumber, SpriteRenderer sprite, KeyCode kb)
+    checkHit(KeyCode kc, KeyCode kb, int trackNumber, SpriteRenderer sprite)
     {
         if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
         {
-            if (midiReader.pressable[trackNumber] == NoteType.NOTE)
+            switch(midiReader.track_state[trackNumber])
             {
-                ResolveHit (hc, sprite, trackNumber, false);
-                return true;
-            }
-            else if (midiReader.pressable[trackNumber] == NoteType.HOLD)
-            {
-                ResolveHit(hc, sprite, trackNumber, true);
-                return true;
-            }
-            else if (midiReader.pressable[trackNumber] == NoteType.OBSTACLE)
-            {
-                /* TODO */
-                return true;
-            }
-            else if (midiReader.pressable[trackNumber] == NoteType.COLLECTIBLE)
-            {
-                /* TODO */
-                return true;
-            }
-            else if (midiReader.pressable[trackNumber] == NoteType.EMPTY)
-            {
-                /* TODO */
-                return true;
-            }
-            else
-            {
-                Debug.Log("Unimplemented NoteType in NoteTrigger.CheckHit() " + (midiReader.pressable[trackNumber]).ToString());
+                case NoteType.NOTE:
+                {
+                    ResolveHit (sprite, trackNumber, false);
+                    return true;
+                }
+                case NoteType.HOLD:
+                {
+                    ResolveHit(sprite, trackNumber, true);
+                    return true;
+                }
+                case NoteType.OBSTACLE:
+                {
+                    return true;
+                }
+                case NoteType.COLLECTIBLE:
+                {
+                    return true;
+                }
+                case NoteType.EMPTY:
+                {
+                    return true;
+                }
             }
         }
         return false;
