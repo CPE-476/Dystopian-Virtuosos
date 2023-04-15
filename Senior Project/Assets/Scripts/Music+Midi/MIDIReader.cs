@@ -39,22 +39,17 @@ public class MIDIReader : MonoBehaviour
     TempoMap tempoMap;
 
     int BEATS_PER_BAR;
-
     int SPOTS_PER_BEAT = 4;
-
     int SixteenthLength = 119;
 
-    byte[] oneNotes = new byte[] { 56, 58, 61 };
-
-    byte[] twoNotes = new byte[] { 57, 59, 62 };
-
+    byte[] oneNotes = new byte[]   { 56, 58, 61 };
+    byte[] twoNotes = new byte[]   { 57, 59, 62 };
     byte[] threeNotes = new byte[] { 60, 63 };
-
-    byte[] fourNotes = new byte[] { 64 };
+    byte[] fourNotes = new byte[]  { 64 };
 
     public string midiFilePath;
 
-    private MidiFile midiFile;// = MidiFile.Read("Assets/Music/sample_beatmap.mid");
+    private MidiFile midiFile;
 
     List<NoteElement> trackInfo = new List<NoteElement>();
 
@@ -62,6 +57,7 @@ public class MIDIReader : MonoBehaviour
     public bool changed = false;
 
     /*
+        A Midi file has 32 bits per note. Here is how it's laid out.
         xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx  xxxx 
         < number >  <velocity>  <       length       >
     */
@@ -86,7 +82,6 @@ public class MIDIReader : MonoBehaviour
             88: collectible
             96: health
             104: ...
-
         */
         public byte velocity;
     }
@@ -131,11 +126,9 @@ public class MIDIReader : MonoBehaviour
                 note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
             var temp = pos.Split(".");
             newNote.pos = new ushort[3];
-            int i = 0;
-            foreach (var num in temp)
+            for(int i = 0; i < temp.Length; ++i)
             {
-                newNote.pos[i] = Convert.ToUInt16(num);
-                i++;
+                newNote.pos[i] = Convert.ToUInt16(temp[i]);
             }
 
             // note length for press & hold

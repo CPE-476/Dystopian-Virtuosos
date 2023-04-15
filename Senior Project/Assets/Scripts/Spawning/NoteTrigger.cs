@@ -278,9 +278,9 @@ public class NoteTrigger : MonoBehaviour
     {
         if (hc == HitCategory.WEAK)
         {
-            sfx.sounds[2].pitch =
-                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-            sfx.sounds[2].Play();
+            //sfx.sounds[2].pitch =
+            //    Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+            //sfx.sounds[2].Play();
             psmain.startColor = weak;
             ParticleSystem clone =
                 (ParticleSystem)
@@ -333,8 +333,8 @@ public class NoteTrigger : MonoBehaviour
         anim.SetTrigger("hurt");
 
         // TODO (Alex): Should a miss incur a sound effect?
-        //sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-        //sfx.sounds[3].Play();
+        sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+        sfx.sounds[3].Play();
         psmain.startColor = fail;
         ParticleSystem clone =
             (ParticleSystem)
