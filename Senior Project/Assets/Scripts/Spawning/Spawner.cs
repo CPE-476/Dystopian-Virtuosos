@@ -15,7 +15,6 @@ public class Spawner : MonoBehaviour
     public NoteObject holdsquare;
 
     public int spawnNum = 0;
-    private bool holding;
     public int holdNum;
     public bool incremeted;
 
@@ -24,7 +23,6 @@ public class Spawner : MonoBehaviour
 
     private void Start()
     {
-        holding = false;
         incremeted = false;
         parentTransform = GetComponent<Transform>();
         conductor = (Conductor)GameObject.Find("/Conductor").GetComponent("Conductor");

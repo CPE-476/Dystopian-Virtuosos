@@ -27,6 +27,10 @@ public class PlayerController : MonoBehaviour
 
     public CameraController cam;
 
+    public TracksController tracksController;
+
+    private float playerHeightOffset = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -98,8 +102,8 @@ public class PlayerController : MonoBehaviour
             Input.GetKeyDown(KeyCode.H)
         )
         {
-            transform.position = new Vector3(0, 1, 0);
-            playerState = 2;
+            transform.position = new Vector3(0, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
+            playerState = 3;
 
             curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
@@ -109,8 +113,8 @@ public class PlayerController : MonoBehaviour
             Input.GetKeyDown(KeyCode.J)
         )
         {
-            transform.position = new Vector3(0, -0.2f, 0);
-            playerState = 1;
+            transform.position = new Vector3(0, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
+            playerState = 2;
             curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
         }
@@ -119,7 +123,16 @@ public class PlayerController : MonoBehaviour
             Input.GetKeyDown(KeyCode.K)
         )
         {
-            transform.position = new Vector3(0, -2, 0);
+            transform.position = new Vector3(0, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
+            playerState = 1;
+            curSongPosition = conductor.songPosition;
+            anim.SetTrigger("attack");
+        }
+        if (
+           Input.GetKeyDown(KeyCode.L)
+        )
+        {
+            transform.position = new Vector3(0, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
             playerState = 0;
             curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
@@ -133,7 +146,7 @@ public class PlayerController : MonoBehaviour
             !Input.GetKey(KeyCode.Joystick1Button0)
         )
         {
-            transform.position = new Vector3(0, -2, 0);
+            transform.position = new Vector3(0, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
             playerState = 0;
         }
     }
