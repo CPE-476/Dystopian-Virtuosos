@@ -7,7 +7,7 @@ public class MapScheduler : MonoBehaviour
 
     [SerializeField] private GameObject map;
 
-    public CameraController cam;
+    public CamerController cam;
 
     //public SimplePlayerController player;
 
@@ -18,7 +18,7 @@ public class MapScheduler : MonoBehaviour
 
     public float CharacterSpeed;
 
-    const float dx = 40f;
+    float dx = 60f;
 
     private float map_end;
 
@@ -45,12 +45,12 @@ public class MapScheduler : MonoBehaviour
 
             if (clone2 == null){
                 clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
-                //clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+/*                clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));*/
             map_end += dx;
         }
             if (clone == null){
                 clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
-                //clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+ /*                clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));*/
             map_end += dx;
         }
         if (clone != null){

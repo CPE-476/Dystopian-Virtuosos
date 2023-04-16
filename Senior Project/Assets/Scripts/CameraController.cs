@@ -20,6 +20,7 @@ public class CameraController : MonoBehaviour
         cameraX = transform.position.x;
         isMoving = true;
         farBackgroundSpeed = 0.03f;
+        staticBackground.SetActive(true);
     }
 
     // Update is called once per frame
