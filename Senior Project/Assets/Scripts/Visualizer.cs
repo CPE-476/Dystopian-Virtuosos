@@ -32,6 +32,11 @@ public class Visualizer : MonoBehaviour
         m_audioSource.clip = audioCilp;
         m_audioSource.Play();
 
+        foreach (var visualizerObject in visualizerObjects)
+        {
+            var rb2d = visualizerObject.GetComponent<Rigidbody2D>();
+            rb2d.gravityScale = 1;
+        }
     }
 
     // Update is called once per frame
@@ -41,10 +46,10 @@ public class Visualizer : MonoBehaviour
         float[] spectrumData = m_audioSource.GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
         for (int i = 0; i < visualizerObjects.Length; i++)
         {
-            Vector2 newSize = visualizerObjects[i].GetComponent<RectTransform>().rect.size;
+            Vector2 newPosition = visualizerObjects[i].transform.position;
 
-            newSize.y = Mathf.Clamp(Mathf.Lerp(newSize.y, minHeight + (spectrumData[i] * (maxHeight - minHeight) * 5.0f), updateSenstivity),minHeight, maxHeight);
-            visualizerObjects[i].GetComponent<RectTransform>().sizeDelta = newSize;
+            newPosition.y = Mathf.Clamp(Mathf.Lerp(newPosition.y, minHeight + (spectrumData[i] * (maxHeight - minHeight) * 5.0f), updateSenstivity),minHeight, maxHeight);
+            visualizerObjects[i].transform.position = newPosition;
 
             visualizerObjects[i].GetComponent<Image>().color = visualizerColor;
         }
