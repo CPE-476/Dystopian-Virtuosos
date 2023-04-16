@@ -4,69 +4,235 @@ using UnityEngine;
 
 public class MapScheduler : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject Map;
 
-    [SerializeField] private GameObject map;
+    [SerializeField]
+    private GameObject Background;
 
-    public CamerController cam;
+    [SerializeField]
+    private GameObject FarBackground;
 
-    //public SimplePlayerController player;
+    public CameraController cam;
 
     private GameObject clone;
+
     private GameObject clone2;
+
+    private GameObject Background_clone;
+
+    private GameObject Background_clone2;
+
+    private GameObject Far_Background_clone;
+
+    private GameObject Far_Background_clone2;
 
     public GameObject plane;
 
-    public float CharacterSpeed;
+    public float MapSpeed;
 
-    float dx = 60f;
+    public float BackgroundSpeed;
+
+    public float FarBackgroundSpeed;
+
+    float map_dx = 60f;
+
+    float back_dx = 60f;
+
+    float far_back_dx = 90f;
+
+    float background_offset_x = 10.0f;
 
     private float map_end;
+
+    private float b_end;
+
+    private float fb_end;
 
     void Start()
     {
         map_end = plane.transform.position.x;
-        clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 20f), Quaternion.identity);
-        map_end += dx;
-        clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 20f), Quaternion.identity);
-        map_end += dx;
+        clone =
+            Instantiate(Map,
+            new Vector3(map_end, Map.transform.position.y, Map.transform.position.z),
+            Quaternion.identity);
+        map_end += map_dx;
+        clone2 =
+            Instantiate(Map,
+            new Vector3(map_end, Map.transform.position.y, Map.transform.position.z),
+            Quaternion.identity);
+        map_end += map_dx;
+
+        b_end = plane.transform.position.x;
+        Background_clone =
+            Instantiate(Background,
+            new Vector3(b_end + background_offset_x,
+                Background.transform.position.y,
+                Background.transform.position.z),
+            Quaternion.identity);
+        b_end += back_dx;
+        Background_clone2 =
+            Instantiate(Background,
+            new Vector3(b_end + background_offset_x,
+                Background.transform.position.y,
+                Background.transform.position.z),
+            Quaternion.identity);
+        b_end += back_dx;
+
+        fb_end = plane.transform.position.x;
+        Far_Background_clone =
+            Instantiate(FarBackground,
+            new Vector3(fb_end +
+                background_offset_x,
+                FarBackground.transform.position.y,
+                FarBackground.transform.position.z),
+            Quaternion.identity);
+        fb_end += far_back_dx;
+        Far_Background_clone2 =
+            Instantiate(FarBackground,
+            new Vector3(fb_end +
+                background_offset_x,
+                FarBackground.transform.position.y,
+                FarBackground.transform.position.z),
+            Quaternion.identity);
+        fb_end += far_back_dx;
     }
 
     void Update()
     {
-        if (cam.isMoving){
-            if (clone != null){
-                clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+        if (cam.isMoving)
+        {
+            float map_speed = MapSpeed * Time.deltaTime;
+            float back_speed = BackgroundSpeed * Time.deltaTime;
+            float far_back_speed = FarBackgroundSpeed * Time.deltaTime;
+            if (clone != null)
+            {
+                clone.transform.Translate(new Vector3(-map_speed, 0, 0));
             }
-            if (clone2 != null){
-                clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));
+            if (clone2 != null)
+            {
+                clone2.transform.Translate(new Vector3(-map_speed, 0, 0));
             }
-            map_end -= CharacterSpeed * Time.deltaTime;
+            if (Background_clone != null)
+            {
+                Background_clone
+                    .transform
+                    .Translate(new Vector3(-back_speed, 0, 0));
+            }
+            if (Background_clone2 != null)
+            {
+                Background_clone2
+                    .transform
+                    .Translate(new Vector3(-back_speed, 0, 0));
+            }
+            if (Far_Background_clone != null)
+            {
+                Far_Background_clone
+                    .transform
+                    .Translate(new Vector3(-far_back_speed, 0, 0));
+            }
+            if (Far_Background_clone2 != null)
+            {
+                Far_Background_clone2
+                    .transform
+                    .Translate(new Vector3(-far_back_speed, 0, 0));
+            }
+            map_end -= map_speed;
+            b_end -= back_speed;
+            fb_end -= far_back_speed;
         }
 
-            if (clone2 == null){
-                clone2 = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
-/*                clone2.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));*/
-            map_end += dx;
+        if (clone2 == null)
+        {
+            clone2 =
+                Instantiate(Map,
+                new Vector3(map_end, Map.transform.position.y, 0f),
+                Quaternion.identity);
+            map_end += map_dx;
         }
-            if (clone == null){
-                clone = Instantiate(map, new Vector3(map_end, map.transform.position.y, 0f), Quaternion.identity);
- /*                clone.transform.Translate(new Vector3(-CharacterSpeed * Time.deltaTime, 0, 0));*/
-            map_end += dx;
+        if (clone == null)
+        {
+            clone =
+                Instantiate(Map,
+                new Vector3(map_end, Map.transform.position.y, 0f),
+                Quaternion.identity);
+            map_end += map_dx;
         }
-        if (clone != null){
-            if (clone.transform.position.x + dx < 0)
+        if (clone != null)
+        {
+            if (clone.transform.position.x + map_dx < 0)
             {
                 Destroy(clone.gameObject, 0f);
             }
         }
-
-        if(clone2 != null)
+        if (clone2 != null)
         {
-            if (clone2.transform.position.x + dx < 0)
+            if (clone2.transform.position.x + map_dx < 0)
             {
                 Destroy(clone2.gameObject, 0f);
             }
         }
-    }
 
+        if (Background_clone2 == null)
+        {
+            Background_clone2 =
+                Instantiate(Background,
+                new Vector3(b_end, Background.transform.position.y, 0f),
+                Quaternion.identity);
+            b_end += back_dx;
+        }
+        if (Background_clone == null)
+        {
+            Background_clone =
+                Instantiate(Background,
+                new Vector3(b_end, Background.transform.position.y, 0f),
+                Quaternion.identity);
+            b_end += back_dx;
+        }
+        if (Background_clone != null)
+        {
+            if (Background_clone.transform.position.x + back_dx < 0)
+            {
+                Destroy(Background_clone.gameObject, 0f);
+            }
+        }
+        if (Background_clone2 != null)
+        {
+            if (Background_clone2.transform.position.x + back_dx < 0)
+            {
+                Destroy(Background_clone2.gameObject, 0f);
+            }
+        }
+
+        if (Far_Background_clone2 == null)
+        {
+            Far_Background_clone2 =
+                Instantiate(FarBackground,
+                new Vector3(fb_end, FarBackground.transform.position.y, 0f),
+                Quaternion.identity);
+            fb_end += far_back_dx;
+        }
+        if (Far_Background_clone == null)
+        {
+            Far_Background_clone =
+                Instantiate(FarBackground,
+                new Vector3(fb_end, FarBackground.transform.position.y, 0f),
+                Quaternion.identity);
+            fb_end += far_back_dx;
+        }
+        if (Far_Background_clone != null)
+        {
+            if (Far_Background_clone.transform.position.x + far_back_dx < 0)
+            {
+                Destroy(Far_Background_clone.gameObject, 0f);
+            }
+        }
+        if (Far_Background_clone2 != null)
+        {
+            if (Far_Background_clone2.transform.position.x + far_back_dx < 0)
+            {
+                Destroy(Far_Background_clone2.gameObject, 0f);
+            }
+        }
+    }
 }

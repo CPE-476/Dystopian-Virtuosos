@@ -24,6 +24,15 @@ public class TracksController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        DrumerTracks();
+        Track3.transform.position =
+            new Vector3(Track3.transform.position.x,
+                DrumPositions[0],
+                Track3.transform.position.z);
+        Track4.transform.position =
+            new Vector3(Track4.transform.position.x,
+                DrumPositions[1],
+                Track4.transform.position.z);
     }
 
     // Update is called once per frame

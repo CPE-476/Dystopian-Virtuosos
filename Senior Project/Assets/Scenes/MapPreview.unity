@@ -380,11 +380,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1801209072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3a677228f5ddd43a73958c316fe157, type: 3}
+  m_Script: {fileID: 11500000, guid: ba3f9be4041a143bfbdaade20984ccf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  isMoving: 1
+  speed: 0
+  isMoving: 0
   staticBackground: {fileID: 383297680}
   cameraX: 0
   farBackgroundSpeed: 0
