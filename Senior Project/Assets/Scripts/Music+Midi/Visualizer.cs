@@ -30,7 +30,7 @@ public class Visualizer : MonoBehaviour
         m_audioSource = new GameObject("AudioSource").AddComponent<AudioSource>();
         m_audioSource.loop = loop;
         m_audioSource.clip = audioCilp;
-        //m_audioSource.Play();
+        m_audioSource.Play();
 
     }
 
@@ -44,9 +44,8 @@ public class Visualizer : MonoBehaviour
             Vector2 newSize = visualizerObjects[i].GetComponent<RectTransform>().rect.size;
 
             newSize.y = Mathf.Clamp(Mathf.Lerp(newSize.y, minHeight + (spectrumData[i] * (maxHeight - minHeight) * 5.0f), updateSenstivity), minHeight, maxHeight);
-            visualizerObjects[i].GetComponent<RectTransform>().sizeDelta = newSize;
-
-            visualizerObjects[i].GetComponent<Image>().color = visualizerColor;
+            visualizerObjects[i].transform.localScale = new Vector3(newSize.x, newSize.y, 1f);
+            visualizerObjects[i].GetComponent<SpriteRenderer>().color = visualizerColor;
         }
     }
 }
