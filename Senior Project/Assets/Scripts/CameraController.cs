@@ -8,7 +8,6 @@ public class CameraController : MonoBehaviour
     public bool isMoving;
     public float cameraX;
 
-    public GameObject staticBackground;
     public float farBackgroundSpeed;
 
     void Start()
@@ -16,7 +15,6 @@ public class CameraController : MonoBehaviour
         cameraX = transform.position.x;
         isMoving = true;
         farBackgroundSpeed = 0.03f;
-        staticBackground.SetActive(true);
     }
 
     void Update()
@@ -28,13 +26,6 @@ public class CameraController : MonoBehaviour
 
         if (isMoving)
         {
-            staticBackground
-                .transform
-                .Translate(new Vector3(-speed *
-                    Time.deltaTime *
-                    farBackgroundSpeed,
-                    0,
-                    0));
         }
     }
 }
