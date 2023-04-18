@@ -194,7 +194,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d2295aed38de843d9bc8001f465dc8bb, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0
+  m_Volume: 0.66
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1049,8 +1049,8 @@ MonoBehaviour:
   scoreManager: {fileID: 1043289400}
   currentSpot: 0
   noteEnd: 0
-  innerThreshold: 0.05
-  outerThreshold: 0.12
+  innerThreshold: 0.02
+  outerThreshold: 0.31
   hc: 0
   index: 0
   newIndex: 0
