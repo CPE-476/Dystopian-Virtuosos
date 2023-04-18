@@ -5,6 +5,12 @@ public class PlayerController : MonoBehaviour
     public float movePower = 2f;
     public float jumpPower = 5f; //Set Gravity Scale in Rigidbody2D Component to 5
 
+    public int maxHealth;
+
+    public int curHealth;
+
+    public HealthBar hb;
+
     private Rigidbody2D rb;
 
     public Animator anim;
@@ -14,6 +20,8 @@ public class PlayerController : MonoBehaviour
     bool isJumping = false;
 
     private bool alive = true;
+
+    private float hurtCooldown = 0f;
 
     public float startX;
 
@@ -29,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
     public TracksController tracksController;
 
-    private float playerHeightOffset = 1.5f;
+    private float playerHeightOffset = 1.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +46,8 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         startX = rb.transform.position.x;
         reset = true;
+        curHealth = maxHealth;
+        hb.setMaxHealth(maxHealth);
         curSongPosition = conductor.songPosition;
     }
 

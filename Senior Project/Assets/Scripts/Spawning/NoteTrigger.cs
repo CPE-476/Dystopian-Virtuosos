@@ -213,8 +213,8 @@ public class NoteTrigger : MonoBehaviour
             currentSpot += conductor.spotLength;
             noteEnd += conductor.spotLength;
 
-            lowerGoodBound = currentSpot - innerThreshold;
-            upperGoodBound = currentSpot + innerThreshold;
+            lowerGoodBound = currentSpot - innerThreshold * conductor.spotLength;
+            upperGoodBound = currentSpot + innerThreshold * conductor.spotLength;
 
             lowerWeakBound = currentSpot - outerThreshold;
             upperWeakBound = currentSpot + outerThreshold;
@@ -357,6 +357,9 @@ public class NoteTrigger : MonoBehaviour
     {
         anim.SetTrigger("hurt");
 
+        character.curHealth -= 10;
+        character.hb.setHealth(character.curHealth);
+
         // TODO (Alex): Should a miss incur a sound effect?
         sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
         sfx.sounds[3].Play();
@@ -383,6 +386,10 @@ public class NoteTrigger : MonoBehaviour
     private void ResolveHitObstacle(SpriteRenderer sprite, int trackNumber)
     {
         anim.SetTrigger("hurt");
+
+        character.curHealth -= 10;
+        character.hb.setHealth(character.curHealth);
+
         sfx.sounds[3].pitch =
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
         sfx.sounds[3].Play();

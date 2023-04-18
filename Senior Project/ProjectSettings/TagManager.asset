@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Note
   - ParticleSys
+  - health
   layers:
   - Default
   - TransparentFX
