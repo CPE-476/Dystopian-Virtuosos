@@ -72,6 +72,8 @@ public class NoteTrigger : MonoBehaviour
     public int index;
     public int newIndex;
 
+    public bool flickUp = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -418,6 +420,8 @@ public class NoteTrigger : MonoBehaviour
     private bool
     checkHit(KeyCode kc, KeyCode kb, int trackNumber, SpriteRenderer sprite)
     {
+        if (Input.GetAxis("Vertical") == 1 && flickUp != true)
+            flickUp = true;
         if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
         {
             switch(midiReader.track_state[trackNumber])
