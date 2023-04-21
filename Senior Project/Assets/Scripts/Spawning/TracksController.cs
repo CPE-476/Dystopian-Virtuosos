@@ -12,6 +12,9 @@ public class TracksController : MonoBehaviour
 
     public GameObject Track4;
 
+    public GameObject Joystick1;
+    public GameObject Joystick2;
+
     [SerializeField]
     public float[] DrumPositions;
 
@@ -94,6 +97,9 @@ public class TracksController : MonoBehaviour
         Track2.SetActive(false);
         Track3.SetActive(true);
         Track4.SetActive(true);
+
+        Joystick1.SetActive(false);
+        Joystick2.SetActive(false);
     }
 
     private void GuitaristTracks()
@@ -102,6 +108,9 @@ public class TracksController : MonoBehaviour
         Track2.SetActive(true);
         Track3.SetActive(true);
         Track4.SetActive(true);
+
+        Joystick1.SetActive(false);
+        Joystick2.SetActive(false);
     }
 
     private void PianistTracks()
@@ -110,5 +119,8 @@ public class TracksController : MonoBehaviour
         Track2.SetActive(true);
         Track3.SetActive(true);
         Track4.SetActive(true);
+
+        Joystick1.SetActive(true);
+        Joystick2.SetActive(true);
     }
 }

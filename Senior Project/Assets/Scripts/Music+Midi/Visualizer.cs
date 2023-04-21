@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class Visualizer : MonoBehaviour
 {
-    public float minHeight = 15f;
-    public float maxHeight = 425f;
-    public float updateSenstivity = 0.2f;
-    public Color visualizerColor = Color.white;
+    public float minHeight;
+    public float maxHeight;
+    public float updateSenstivity;
+    public Color visualizerColor;
 
     [Space(12)]
-    public AudioClip audioCilp;
     public bool loop = true;
     [Space(12), Range(64, 8192)]
     public int visualizerSamples = 64;
@@ -24,19 +23,14 @@ public class Visualizer : MonoBehaviour
     {
         visualizerObjects = GetComponentsInChildren<VisualizerObject>();
 
-        if (!audioCilp)
-            return;
+        //if (!audioCilp)
+        //return;
 
-        m_audioSource = new GameObject("AudioSource").AddComponent<AudioSource>();
-        m_audioSource.loop = loop;
-        m_audioSource.clip = audioCilp;
-        m_audioSource.Play();
+        m_audioSource = GameObject.Find("Conductor").GetComponent<AudioSource>();
+        // m_audioSource.loop = loop;
+        // m_audioSource.clip = audioCilp;
+        //m_audioSource.Play();
 
-        foreach (var visualizerObject in visualizerObjects)
-        {
-            var rb2d = visualizerObject.GetComponent<Rigidbody2D>();
-            rb2d.gravityScale = 1;
-        }
     }
 
     // Update is called once per frame
@@ -44,14 +38,25 @@ public class Visualizer : MonoBehaviour
     void Update()
     {
         float[] spectrumData = m_audioSource.GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
+        float averageVolume = 0f;
+        for (int i = 0; i < spectrumData.Length; i++)
+        {
+            averageVolume += spectrumData[i];
+        }
+        averageVolume /= spectrumData.Length;
+
         for (int i = 0; i < visualizerObjects.Length; i++)
         {
-            Vector2 newPosition = visualizerObjects[i].transform.position;
+            Vector3 newSize = visualizerObjects[i].transform.localScale;
 
-            newPosition.y = Mathf.Clamp(Mathf.Lerp(newPosition.y, minHeight + (spectrumData[i] * (maxHeight - minHeight) * 5.0f), updateSenstivity),minHeight, maxHeight);
-            visualizerObjects[i].transform.position = newPosition;
+            newSize.y = Mathf.Clamp(Mathf.Lerp(newSize.y, minHeight + (averageVolume * (maxHeight - minHeight) * 25.0f), updateSenstivity), minHeight, maxHeight);
+            visualizerObjects[i].transform.localScale = new Vector3(visualizerObjects[i].transform.localScale.x, newSize.y, visualizerObjects[i].transform.localScale.z);
+            visualizerObjects[i].GetComponent<SpriteRenderer>().color = visualizerColor;
 
-            visualizerObjects[i].GetComponent<Image>().color = visualizerColor;
+            // Apply noise to the sprite height
+            float noise = Mathf.PerlinNoise(Time.time, i * 0.1f) * 0.5f - 0.1f;
+            newSize.y += noise;
+            visualizerObjects[i].transform.localScale = new Vector3(visualizerObjects[i].transform.localScale.x, newSize.y, visualizerObjects[i].transform.localScale.z);
         }
     }
 }
