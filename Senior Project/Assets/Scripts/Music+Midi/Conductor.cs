@@ -20,6 +20,7 @@ public class Conductor : MonoBehaviour
     public double songPosition;
     public double nextSpotTime;
     public double offset;
+    public double latency_offset;
 
     public int spotNumber;
     public int beatNumber;
@@ -48,7 +49,7 @@ public class Conductor : MonoBehaviour
 
     public void UpdateSongPosition()
     {
-        double newSongPosition = AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition;
+        double newSongPosition = AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition - latency_offset;
                                                     // NOTE(alex): - dsptimesong) might be needed
                                                     // "Every frame that I play the song, I record the dspTime at that moment."
 
