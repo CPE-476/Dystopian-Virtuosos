@@ -158,10 +158,11 @@ MonoBehaviour:
   spotLength: 0
   songPosition: 0
   nextSpotTime: 0
-  offset: 0.36
+  offset: 0.24
   spotNumber: 0
   beatNumber: 1
   barNumber: 1
+  latency_offset: 0
 --- !u!224 &42173314
 RectTransform:
   m_ObjectHideFlags: 0

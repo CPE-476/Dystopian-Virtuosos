@@ -4,6 +4,8 @@ using System.Net.Http.Headers;
 using TMPro;
 using UnityEngine;
 
+// TODO: Fallbacks
+
 [RequireComponent(typeof(AudioSource))]
 public class Conductor : MonoBehaviour
 {
@@ -20,13 +22,15 @@ public class Conductor : MonoBehaviour
     public double songPosition;
     public double nextSpotTime;
     public double offset;
-    public double latency_offset;
 
     public int spotNumber;
     public int beatNumber;
     public int barNumber;
 
-    private double tempSongPosition;
+    public double latency_offset;
+
+    private double bufferSchedulingOffset = 3.0;
+    private double startTime;
 
     // SONG SETTINGS
     // sample_track: 121 bpm, 0.35 offset.
@@ -39,19 +43,24 @@ public class Conductor : MonoBehaviour
         spotNumber = 0;
         beatNumber = 0;
         barNumber = 0;
-        audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
-        tempSongPosition = (double)AudioSettings.dspTime * audioSource.pitch;
         beatLength = 60 / bpm;
         spotLength = beatLength / SPOTS_PER_BEAT;
         songPosition = 0.0f;
+
+        audioSource = GetComponent<AudioSource>();
+
+        startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
+        audioSource.PlayScheduled(startTime);
+    }
+
+    public double GetSongPosition()
+    {
+        return AudioSettings.dspTime - startTime - offset - latency_offset;
     }
 
     public void UpdateSongPosition()
     {
-        double newSongPosition = AudioSettings.dspTime * audioSource.pitch - offset - tempSongPosition - latency_offset;
-                                                    // NOTE(alex): - dsptimesong) might be needed
-                                                    // "Every frame that I play the song, I record the dspTime at that moment."
+        double newSongPosition = AudioSettings.dspTime - startTime - offset - latency_offset;
 
         nextSpotTime += newSongPosition - songPosition;
         songPosition = newSongPosition;

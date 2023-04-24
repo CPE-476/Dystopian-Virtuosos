@@ -185,6 +185,28 @@ public class MIDIReader : MonoBehaviour
         }
     }
 
+    public bool hasNoteInFuture(int spots) {
+        int future_index =
+            conductor.barNumber *
+            Conductor.BEATS_PER_BAR *
+            Conductor.SPOTS_PER_BEAT +
+            conductor.beatNumber * Conductor.SPOTS_PER_BEAT +
+            conductor.spotNumber +
+            spots;
+        //Debug.Log(future_index);
+        //Debug.Log(index);
+        SpotElement curVal = SpotTrack[future_index];
+
+        if (curVal.one.velocity == 64 ||
+            curVal.two.velocity == 64 ||
+            curVal.three.velocity == 64 ||
+            curVal.four.velocity == 64)
+        {
+            return true;
+        }
+        return false;
+    }
+
     public void updateTrackState()
     {
         changed = true;
