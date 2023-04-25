@@ -15,25 +15,26 @@ public class HealthBar : MonoBehaviour
 
     private GameObject[] healthSprite;
 
-    public void Start(){
+    public void Start()
+    {
         healthSprite = GameObject.FindGameObjectsWithTag("health");
     }
 
     public void Update()
     {
-        if (cam.isMoving)
-        {
-            foreach (GameObject item in healthSprite)
-            {
-                item.GetComponent<Image>().enabled = true;
-            }
-        }
-        else {
-            foreach (GameObject item in healthSprite)
-            {
-                item.GetComponent<Image>().enabled = false;
-            }
-        }
+        // if (cam.isMoving)
+        // {
+        //     foreach (GameObject item in healthSprite)
+        //     {
+        //         item.GetComponent<Image>().enabled = true;
+        //     }
+        // }
+        // else {
+        //     foreach (GameObject item in healthSprite)
+        //     {
+        //         item.GetComponent<Image>().enabled = false;
+        //     }
+        // }
     }
 
     public void setMaxHealth(int maxhealth)

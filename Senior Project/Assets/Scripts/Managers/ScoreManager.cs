@@ -18,7 +18,7 @@ public class ScoreManager : MonoBehaviour
         {
             score = 0;
         }
-        string scoreText = "Score: " + score;
+        string scoreText = "SCORE: " + score;
         GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
-    } 
+    }
 }
