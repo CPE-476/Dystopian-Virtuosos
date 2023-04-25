@@ -103,7 +103,7 @@ ScriptedImporter:
       y: 4
       width: 1571
       height: 566
-    spriteID: ebe01aa3cd2374ba09bef42debab98fd
+    spriteID: 2549c80331bd849bb88e00e13cbd7091
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,7 +147,7 @@ ScriptedImporter:
     spriteName: midrock 2
     isGroup: 0
     parentIndex: -1
-    spriteID: ebe01aa3cd2374ba09bef42debab98fd
+    spriteID: 2549c80331bd849bb88e00e13cbd7091
     layerID: 388
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
