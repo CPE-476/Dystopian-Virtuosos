@@ -27,6 +27,7 @@ public class Visualizer : MonoBehaviour
         //return;
 
         m_audioSource = GameObject.Find("Conductor").GetComponent<AudioSource>();
+        Debug.Log(m_audioSource);
         // m_audioSource.loop = loop;
         // m_audioSource.clip = audioCilp;
         //m_audioSource.Play();
@@ -49,12 +50,12 @@ public class Visualizer : MonoBehaviour
         {
             Vector3 newSize = visualizerObjects[i].transform.localScale;
 
-            newSize.y = Mathf.Clamp(Mathf.Lerp(newSize.y, minHeight + (averageVolume * (maxHeight - minHeight) * 25.0f), updateSenstivity), minHeight, maxHeight);
+            newSize.y = Mathf.Clamp(Mathf.Lerp(newSize.y, minHeight + (averageVolume * (maxHeight - minHeight) * 50), updateSenstivity), minHeight, maxHeight);
             visualizerObjects[i].transform.localScale = new Vector3(visualizerObjects[i].transform.localScale.x, newSize.y, visualizerObjects[i].transform.localScale.z);
             visualizerObjects[i].GetComponent<SpriteRenderer>().color = visualizerColor;
 
             // Apply noise to the sprite height
-            float noise = Mathf.PerlinNoise(Time.time, i * 0.1f) * 0.5f - 0.1f;
+            float noise = Mathf.PerlinNoise(Time.time, i * 0.1f) * 0.2f - 0.1f;
             newSize.y += noise;
             visualizerObjects[i].transform.localScale = new Vector3(visualizerObjects[i].transform.localScale.x, newSize.y, visualizerObjects[i].transform.localScale.z);
         }
