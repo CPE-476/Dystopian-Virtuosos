@@ -10,6 +10,12 @@ public class Pause : MonoBehaviour
     GameObject pauseMenu;
 
     [SerializeField]
+    GameObject System;
+
+    [SerializeField]
+    GameObject Base;
+
+    [SerializeField]
     GameObject countIn;
 
     Coroutine resumeCountdownCoroutine;
@@ -30,6 +36,7 @@ public class Pause : MonoBehaviour
     public void toPause()
     {
         pauseMenu.SetActive(true);
+        System.SetActive(false);
         AudioListener.pause = true;
         Time.timeScale = 0f;
         StopResumeCountdownCoroutine(); // Stop the coroutine if it's already running
@@ -41,6 +48,18 @@ public class Pause : MonoBehaviour
         countIn.SetActive(true);
         countInText = countIn.GetComponent<TMP_Text>();
         resumeCountdownCoroutine = StartCoroutine(ResumeCountdownCoroutine()); // Start the coroutine
+    }
+
+    public void toSystem()
+    {
+        Base.SetActive(false);
+        System.SetActive(true);
+    }
+
+    public void toBase()
+    {
+        System.SetActive(false);
+        Base.SetActive(true);
     }
 
     IEnumerator ResumeCountdownCoroutine()

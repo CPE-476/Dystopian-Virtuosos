@@ -5,6 +5,7 @@ using UnityEngine;
 public class ComboManager : MonoBehaviour
 {
     public int combo = 0;
+
     string scoreText;
 
     // Start is called before the first frame update
@@ -17,12 +18,12 @@ public class ComboManager : MonoBehaviour
     {
         if (combo != 0)
         {
-            scoreText = "Combo: " + combo;
+            scoreText = combo.ToString();
         }
         else
         {
             scoreText = "";
         }
         GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
-    } 
+    }
 }
