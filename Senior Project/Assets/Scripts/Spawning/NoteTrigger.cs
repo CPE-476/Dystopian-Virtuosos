@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using System.Linq;
 
@@ -48,6 +47,7 @@ public class NoteTrigger : MonoBehaviour
     private int holdScore = 1;
 
     public ScoreManager scoreManager;
+    public ComboManager comboManager;
 
     public float currentSpot;
 
@@ -55,6 +55,7 @@ public class NoteTrigger : MonoBehaviour
 
     public float innerThreshold;
     public float outerThreshold;
+
     private float lowerGoodBound;
     private float lowerWeakBound;
     private float upperGoodBound;
@@ -316,7 +317,7 @@ public class NoteTrigger : MonoBehaviour
                 Instantiate(particles,
                 sprite.transform.position,
                 Quaternion.identity);
-            text.text = "Weak";
+            text.text = "GOOD";
             ParticleSystem clone2 =
                 (ParticleSystem)
                 Instantiate(hittext,
@@ -338,7 +339,7 @@ public class NoteTrigger : MonoBehaviour
                 Instantiate(particles,
                 sprite.transform.position,
                 Quaternion.identity);
-            text.text = "Perfect";
+            text.text = "PERFECT";
             ParticleSystem clone2 =
                 (ParticleSystem)
                 Instantiate(hittext,
@@ -352,12 +353,13 @@ public class NoteTrigger : MonoBehaviour
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 2;
         }
+        comboManager.combo++;
     }
 
     private void ResolveMiss(SpriteRenderer sprite, int trackNumber)
     {
         anim.SetTrigger("hurt");
-
+        comboManager.combo = 0;
         character.curHealth -= 10;
         character.hb.setHealth(character.curHealth);
 
@@ -370,7 +372,7 @@ public class NoteTrigger : MonoBehaviour
             Instantiate(particles,
             sprite.transform.position,
             Quaternion.identity);
-        text.text = "Miss";
+        text.text = "MISS";
         ParticleSystem clone2 =
             (ParticleSystem)
             Instantiate(hittext,
@@ -400,7 +402,7 @@ public class NoteTrigger : MonoBehaviour
             Instantiate(particles,
             sprite.transform.position,
             Quaternion.identity);
-        text.text = "Miss";
+        text.text = "MISS";
         ParticleSystem clone2 =
             (ParticleSystem)
             Instantiate(hittext,
