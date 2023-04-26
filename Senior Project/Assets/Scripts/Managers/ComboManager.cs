@@ -4,46 +4,60 @@ using UnityEngine;
 
 public class ComboManager : MonoBehaviour
 {
-    public int combo = 0;
+    public int comboNumber = 0;
+
+    public GameObject combo;
 
     public GameObject comment;
 
-    string scoreText;
+    public GameObject comboHub;
+
+    public float moveSpeed = 1.0f;
+
+    private Vector3 originalPosition;
+
+    string comboText;
 
     string commentText;
 
     // Start is called before the first frame update
     void Start()
     {
+        originalPosition = comboHub.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (combo != 0)
+        if (comboNumber != 0)
         {
-            scoreText = combo.ToString();
-            if (combo >= 200)
+            comboHub.transform.position =
+                Vector3
+                    .Lerp(comboHub.transform.position,
+                    originalPosition,
+                    Time.deltaTime * moveSpeed);
+            comboText = comboNumber.ToString();
+            if (comboNumber >= 200)
             {
                 commentText = "VIRTUOSO!";
             }
-            else if (combo >= 150)
+            else if (comboNumber >= 150)
             {
                 commentText = "MAESTRO!";
             }
-            else if (combo >= 100)
+            else if (comboNumber >= 100)
             {
                 commentText = "GROOVE!";
             }
-            else if (combo >= 75)
+            else if (comboNumber >= 75)
             {
                 commentText = "ELITE!";
             }
-            else if (combo >= 50)
+            else if (comboNumber >= 50)
             {
                 commentText = "RHYTHM!";
             }
-            else if (combo >= 30)
+            else if (comboNumber >= 30)
             {
                 commentText = "FINESSE!";
             }
@@ -54,10 +68,17 @@ public class ComboManager : MonoBehaviour
         }
         else
         {
-            scoreText = "";
+            Vector3 targetPosition = originalPosition;
+            targetPosition.x -= 700.0f;
+            comboHub.transform.position =
+                Vector3
+                    .Lerp(comboHub.transform.position,
+                    targetPosition,
+                    Time.deltaTime * moveSpeed);
+            comboText = "";
             commentText = "";
         }
-        GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
+        combo.GetComponent<TMPro.TextMeshProUGUI>().text = comboText;
         comment.GetComponent<TMPro.TextMeshProUGUI>().text = commentText;
     }
 }

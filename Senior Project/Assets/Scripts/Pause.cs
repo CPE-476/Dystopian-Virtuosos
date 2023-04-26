@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Pause : MonoBehaviour
 {
@@ -18,9 +19,25 @@ public class Pause : MonoBehaviour
     [SerializeField]
     GameObject countIn;
 
+    [SerializeField]
+    GameObject comboHub;
+
+    [SerializeField]
+    float moveSpeed;
+
     Coroutine resumeCountdownCoroutine;
 
     private TMP_Text countInText;
+
+    private Vector3 originalPosition;
+
+    private Image hub;
+
+    public void Start()
+    {
+        originalPosition = comboHub.transform.position;
+        hub = comboHub.GetComponent<Image>();
+    }
 
     void Update()
     {
@@ -38,16 +55,36 @@ public class Pause : MonoBehaviour
         pauseMenu.SetActive(true);
         System.SetActive(false);
         AudioListener.pause = true;
+        hub.enabled = false;
         Time.timeScale = 0f;
         StopResumeCountdownCoroutine(); // Stop the coroutine if it's already running
+
+        // Add the following code to move the comboHub down
+        if (comboHub.activeSelf)
+        {
+            StartCoroutine(MoveComboHubCoroutine(originalPosition,
+            new Vector3(originalPosition.x,
+                originalPosition.y - 860.0f,
+                originalPosition.z)));
+        }
     }
 
     public void toResume()
     {
         pauseMenu.SetActive(false);
         countIn.SetActive(true);
+        hub.enabled = true;
         countInText = countIn.GetComponent<TMP_Text>();
         resumeCountdownCoroutine = StartCoroutine(ResumeCountdownCoroutine()); // Start the coroutine
+
+        // Add the following code to move the comboHub up
+        if (comboHub.activeSelf)
+        {
+            StartCoroutine(MoveComboHubCoroutine(new Vector3(originalPosition.x,
+                originalPosition.y - 100f,
+                originalPosition.z),
+            originalPosition));
+        }
     }
 
     public void toSystem()
@@ -76,6 +113,20 @@ public class Pause : MonoBehaviour
         countIn.SetActive(false);
         AudioListener.pause = false;
         Time.timeScale = 1f;
+    }
+
+    IEnumerator
+    MoveComboHubCoroutine(Vector3 startPosition, Vector3 endPosition)
+    {
+        float t = 0f;
+        while (t < 1f)
+        {
+            comboHub.transform.position =
+                Vector3.Lerp(startPosition, endPosition, t);
+            t += Time.unscaledDeltaTime * moveSpeed;
+            yield return null;
+        }
+        comboHub.transform.position = endPosition;
     }
 
     void StopResumeCountdownCoroutine()

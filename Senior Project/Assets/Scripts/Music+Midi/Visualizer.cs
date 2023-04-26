@@ -22,16 +22,7 @@ public class Visualizer : MonoBehaviour
     void Start()
     {
         visualizerObjects = GetComponentsInChildren<VisualizerObject>();
-
-        //if (!audioCilp)
-        //return;
-
         m_audioSource = GameObject.Find("Conductor").GetComponent<AudioSource>();
-        Debug.Log(m_audioSource);
-        // m_audioSource.loop = loop;
-        // m_audioSource.clip = audioCilp;
-        //m_audioSource.Play();
-
     }
 
     // Update is called once per frame

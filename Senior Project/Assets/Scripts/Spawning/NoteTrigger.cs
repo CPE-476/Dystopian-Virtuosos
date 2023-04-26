@@ -353,13 +353,13 @@ public class NoteTrigger : MonoBehaviour
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 2;
         }
-        comboManager.combo++;
+        comboManager.comboNumber++;
     }
 
     private void ResolveMiss(SpriteRenderer sprite, int trackNumber)
     {
         anim.SetTrigger("hurt");
-        comboManager.combo = 0;
+        comboManager.comboNumber = 0;
         character.curHealth -= 10;
         character.hb.setHealth(character.curHealth);
 

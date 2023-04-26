@@ -4224,7 +4224,7 @@ RectTransform:
   - {fileID: 496788066}
   - {fileID: 1935890953}
   m_Father: {fileID: 1136673162}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4772,7 +4772,7 @@ MonoBehaviour:
   fail: {r: 1, g: 0, b: 0, a: 0.5882353}
   sfx: {fileID: 1920913753}
   scoreManager: {fileID: 1043289400}
-  comboManager: {fileID: 966716780}
+  comboManager: {fileID: 1584385511}
   currentSpot: 0
   noteEnd: 0
   innerThreshold: 0.3
@@ -9210,7 +9210,6 @@ GameObject:
   - component: {fileID: 966716776}
   - component: {fileID: 966716779}
   - component: {fileID: 966716778}
-  - component: {fileID: 966716780}
   m_Layer: 5
   m_Name: Combo
   m_TagString: Untagged
@@ -9335,20 +9334,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966716775}
   m_CullTransparentMesh: 1
---- !u!114 &966716780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 966716775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e3096fccce74c148974dd62406d3314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combo: 0
-  comment: {fileID: 711847189}
 --- !u!1 &978015398
 GameObject:
   m_ObjectHideFlags: 0
@@ -11073,8 +11058,8 @@ RectTransform:
   - {fileID: 1366402387}
   - {fileID: 997234488}
   - {fileID: 1821401237}
-  - {fileID: 513285116}
   - {fileID: 1576646997}
+  - {fileID: 513285116}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14292,12 +14277,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1136673162}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -59.5}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1576646998
 MonoBehaviour:
@@ -14328,7 +14313,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4286085305
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -14346,15 +14331,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 100
-  m_fontSizeBase: 100
+  m_fontSize: 120
+  m_fontSizeBase: 120
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -14408,6 +14393,7 @@ GameObject:
   - component: {fileID: 1584385507}
   - component: {fileID: 1584385509}
   - component: {fileID: 1584385510}
+  - component: {fileID: 1584385511}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -14491,6 +14477,25 @@ MonoBehaviour:
   System: {fileID: 1935890952}
   Base: {fileID: 496788065}
   countIn: {fileID: 1576646996}
+  comboHub: {fileID: 1418723475}
+  moveSpeed: 8
+--- !u!114 &1584385511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584385505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e3096fccce74c148974dd62406d3314, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  comboNumber: 0
+  combo: {fileID: 966716775}
+  comment: {fileID: 711847189}
+  comboHub: {fileID: 1418723475}
+  moveSpeed: 8
 --- !u!1 &1595157114
 GameObject:
   m_ObjectHideFlags: 0
