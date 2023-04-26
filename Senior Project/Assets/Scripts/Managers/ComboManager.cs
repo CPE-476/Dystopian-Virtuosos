@@ -39,11 +39,11 @@ public class ComboManager : MonoBehaviour
             comboText = comboNumber.ToString();
             if (comboNumber >= 200)
             {
-                commentText = "VIRTUOSO!";
+                commentText = "MAESTRO!";
             }
             else if (comboNumber >= 150)
             {
-                commentText = "MAESTRO!";
+                commentText = "VIRTUOSO!";
             }
             else if (comboNumber >= 100)
             {
