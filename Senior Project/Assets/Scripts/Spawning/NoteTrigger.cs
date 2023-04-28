@@ -73,7 +73,10 @@ public class NoteTrigger : MonoBehaviour
     public int index;
     public int newIndex;
 
-    public bool flickUp = false;
+    public bool flickUpLeft = false;
+    public bool flickDownLeft = false;
+    public bool flickUpRight = false;
+    public bool flickDownRight = false;
 
     // Start is called before the first frame update
     void Start()
@@ -90,21 +93,21 @@ public class NoteTrigger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (checkHit(KeyCode.Joystick1Button3, KeyCode.H, 0, top))
+        if (checkHit(KeyCode.Joystick1Button3, KeyCode.H, 0, top, 0.7f))
             hasBeenPressed[0] = true;
 
-        if (checkHit(KeyCode.Joystick1Button2, KeyCode.J, 1, high))
+        if (checkHit(KeyCode.Joystick1Button2, KeyCode.J, 1, high, 0.7f))
             hasBeenPressed[1] = true;
 
-        if (checkHit(KeyCode.Joystick1Button0, KeyCode.K, 2, low))
+        if (checkHit(KeyCode.Joystick1Button0, KeyCode.K, 2, low, 0.7f))
             hasBeenPressed[2] = true;
 
-        if (checkHit(KeyCode.Joystick1Button1, KeyCode.L, 3, bot))
+        if (checkHit(KeyCode.Joystick1Button1, KeyCode.L, 3, bot, 0.7f))
             hasBeenPressed[3] = true;
 
 
         //Update Hold Note Score 
-        if (updateHold[0] && holdLengths[0] >= 1 && ((Input.GetKey(KeyCode.H) || Input.GetKey(KeyCode.Joystick1Button3))))
+        if (updateHold[0] && holdLengths[0] >= 1 && ((Input.GetKey(KeyCode.H) || Input.GetKey(KeyCode.Joystick1Button3) || Input.GetAxis("Vertical") >= 0.7f)))
         {
             var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -122,7 +125,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[0] = false;
             updateHold[0] = false;
         }
-        if (updateHold[1] && holdLengths[1] >= 1 && ((Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Joystick1Button2))))
+        if (updateHold[1] && holdLengths[1] >= 1 && ((Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Joystick1Button2) || -Input.GetAxis("Vertical") >= 0.7f)))
         {
             var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -139,7 +142,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[1] = false;
             updateHold[1] = false;
         }
-        if (updateHold[2] && holdLengths[2] >= 1 && ((Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button0))))
+        if (updateHold[2] && holdLengths[2] >= 1 && ((Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button0) || Input.GetAxis("VerticalRight") >= 0.7f)))
         {
             var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -156,7 +159,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[2] = false;
             updateHold[2] = false;
         }
-        if (updateHold[3] && holdLengths[3] >= 1 && ((Input.GetKey(KeyCode.L))))
+        if (updateHold[3] && holdLengths[3] >= 1 && ((Input.GetKey(KeyCode.L) || -Input.GetAxis("VerticalRight") >= 0.7f)))
         {
             var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -296,6 +299,8 @@ public class NoteTrigger : MonoBehaviour
 
     private void ResolveHit(SpriteRenderer sprite, int trackNumber, bool isHold)
     {
+
+        Debug.Log("Resolve Hit");
         if (current_hit_category == HitCategory.WEAK  && isHold)
         {
             updateHold[trackNumber] = true;
@@ -419,22 +424,68 @@ public class NoteTrigger : MonoBehaviour
     // Checks for a hit on a given keycode.
     // Returns true if hit, false if not.
     private bool
-    checkHit(KeyCode kc, KeyCode kb, int trackNumber, SpriteRenderer sprite)
+    checkHit(KeyCode kc, KeyCode kb, int trackNumber, SpriteRenderer sprite, float pianoThreshold)
     {
-        if (Input.GetAxis("Vertical") == 1 && flickUp != true)
-            flickUp = true;
-        if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb))
+        float joystickAxis = 0.0f;
+
+        bool pianoBool = true;
+        if (trackNumber == 0)
         {
-            switch(midiReader.track_state[trackNumber])
+            pianoBool = flickUpLeft;
+            joystickAxis = Input.GetAxis("Vertical");
+        }
+        else if (trackNumber == 1)
+        {
+            pianoBool = flickDownLeft;
+            joystickAxis = -Input.GetAxis("Vertical");
+        }
+        else if (trackNumber == 2)
+        {
+            pianoBool = flickUpRight;
+            joystickAxis = Input.GetAxis("VerticalRight");
+        }
+        else if (trackNumber == 3)
+        {
+            pianoBool = flickDownRight;
+            joystickAxis = -Input.GetAxis("VerticalRight");
+        }
+
+        if (joystickAxis <= pianoThreshold)
+        {
+            pianoBool = false;
+            if (trackNumber == 0)
+                 flickUpLeft = false;
+            else if (trackNumber == 1)
+                flickDownLeft = false;
+            else if (trackNumber == 2)
+                flickUpRight = false;
+            else if (trackNumber == 3)
+                flickDownRight = false;
+        }
+        if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb) || (joystickAxis >= pianoThreshold && !pianoBool))
+        {
+            pianoBool = true;
+            if (trackNumber == 0)
+                flickUpLeft = true;
+            else if (trackNumber == 1)
+                flickDownLeft = true;
+            else if (trackNumber == 2)
+                flickUpRight = true;
+            else if (trackNumber == 3)
+                flickDownRight = true;
+            //Debug.Log("Track States: " + midiReader.track_state[trackNumber]);
+            switch (midiReader.track_state[trackNumber])
             {
                 case NoteType.NOTE:
                 {
-                    ResolveHit (sprite, trackNumber, false);
+                        Debug.Log("Note");
+                        ResolveHit (sprite, trackNumber, false);
                     return true;
                 }
                 case NoteType.HOLD:
                 {
-                    ResolveHit(sprite, trackNumber, true);
+                        Debug.Log("Hold");
+                        ResolveHit(sprite, trackNumber, true);
                     return true;
                 }
                 case NoteType.OBSTACLE:
@@ -447,7 +498,7 @@ public class NoteTrigger : MonoBehaviour
                 }
                 case NoteType.EMPTY:
                 {
-                    return true;
+                    return false;
                 }
             }
         }
