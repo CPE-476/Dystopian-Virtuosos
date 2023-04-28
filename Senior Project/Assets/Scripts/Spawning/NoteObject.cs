@@ -26,8 +26,8 @@ public class NoteObject : MonoBehaviour
         Vector3 interpedPostion = Vector3.Lerp(parentTransform.position, new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), interpRatio);
         transform.position = interpedPostion;
 
-        if(interpRatio > 1.0f)
-            GetComponent<SpriteRenderer>().enabled = false;
+        if (interpRatio > 1.0f)
+            Destroy(gameObject);
 
         //transform.localScale = new Vector3(1f, 1f, 0.0f);
     }
