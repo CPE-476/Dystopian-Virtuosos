@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -34,13 +35,33 @@ public class StartManager : MonoBehaviour
 
     private float startTime;
 
+    public GameObject optionsBackButton, firstButton, extraBackButton;
+
+    public GameObject cursorImage;
+
     void Start()
     {
         init();
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     void Update()
     {
+
+        GameObject currentButton = EventSystem.current.currentSelectedGameObject;
+
+        Debug.Log(currentButton != null);
+
+        if (currentButton != null)
+        {
+            RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
+            RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+
+            cursorRectTransform.position = new Vector3(currentButtonRectTransform.position.x - 40,
+                                                       currentButtonRectTransform.position.y,
+                                                       currentButtonRectTransform.position.z);
+        }
         if (isLaunching)
         {
             float bg_y = Background.transform.position.y;
@@ -104,6 +125,8 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(false);
         System.SetActive(true);
         About.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsBackButton);
     }
 
     public void toAbout()
@@ -113,6 +136,8 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(false);
         System.SetActive(false);
         About.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(extraBackButton);
     }
 
     public void toDefault()
@@ -122,6 +147,9 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(false);
         System.SetActive(false);
         About.SetActive(false);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     public void Quit()
