@@ -4,7 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class Pause : MonoBehaviour
 {
@@ -34,8 +33,6 @@ public class Pause : MonoBehaviour
 
     private Image hub;
 
-    public GameObject pauseFirstButton, optionsFirstButton, backButton;
-
     public void Start()
     {
         originalPosition = comboHub.transform.position;
@@ -62,9 +59,6 @@ public class Pause : MonoBehaviour
         Time.timeScale = 0f;
         StopResumeCountdownCoroutine(); // Stop the coroutine if it's already running
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(pauseFirstButton);
-
         // Add the following code to move the comboHub down
         if (comboHub.activeSelf)
         {
@@ -82,7 +76,6 @@ public class Pause : MonoBehaviour
         hub.enabled = true;
         countInText = countIn.GetComponent<TMP_Text>();
         resumeCountdownCoroutine = StartCoroutine(ResumeCountdownCoroutine()); // Start the coroutine
-        EventSystem.current.SetSelectedGameObject(null);
 
         // Add the following code to move the comboHub up
         if (comboHub.activeSelf)
@@ -98,17 +91,12 @@ public class Pause : MonoBehaviour
     {
         Base.SetActive(false);
         System.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(backButton);
     }
 
     public void toBase()
     {
         System.SetActive(false);
         Base.SetActive(true);
-
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(pauseFirstButton);
     }
 
     IEnumerator ResumeCountdownCoroutine()
