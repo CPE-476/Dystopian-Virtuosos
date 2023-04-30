@@ -16,8 +16,8 @@ public enum NoteType
     NOTE,
     HOLD,
     OBSTACLE,
-    COLLECTIBLE,
-};
+    COLLECTIBLE
+}
 
 public class MIDIReader : MonoBehaviour
 {
@@ -39,13 +39,22 @@ public class MIDIReader : MonoBehaviour
     TempoMap tempoMap;
 
     int BEATS_PER_BAR;
+
     int SPOTS_PER_BEAT = 4;
+
     int SixteenthLength = 119;
 
-    byte[] oneNotes = new byte[]   { 56, 58, 61 };
-    byte[] twoNotes = new byte[]   { 57, 59, 62 };
-    byte[] threeNotes = new byte[] { 60, 63 };
-    byte[] fourNotes = new byte[]  { 64 };
+    // byte[] oneNotes = new byte[] { 56, 58, 61 };
+    // byte[] twoNotes = new byte[] { 57, 59, 62 };
+    // byte[] threeNotes = new byte[] { 60, 63 };
+    // byte[] fourNotes = new byte[] { 64 };
+    byte[] oneNotes = new byte[] { 64 };
+
+    byte[] twoNotes = new byte[] { 60, 63 };
+
+    byte[] threeNotes = new byte[] { 57, 59, 62 };
+
+    byte[] fourNotes = new byte[] { 56, 58, 61 };
 
     public string midiFilePath;
 
@@ -56,11 +65,16 @@ public class MIDIReader : MonoBehaviour
     public struct SpotElement
     {
         public NoteElement four;
+
         public NoteElement three;
+
         public NoteElement two;
+
         public NoteElement one;
     }
+
     public SpotElement[] SpotTrack;
+
     public bool changed = false;
 
     /*
@@ -99,10 +113,13 @@ public class MIDIReader : MonoBehaviour
         InitNoteElement();
         InitSpotTrack();
 
-        track_state = new NoteType[] { NoteType.EMPTY, 
-                                     NoteType.EMPTY,
-                                     NoteType.EMPTY,
-                                     NoteType.EMPTY };
+        track_state =
+            new NoteType[] {
+                NoteType.EMPTY,
+                NoteType.EMPTY,
+                NoteType.EMPTY,
+                NoteType.EMPTY
+            };
     }
 
     void InitNoteElement()
@@ -117,11 +134,15 @@ public class MIDIReader : MonoBehaviour
             // track number and instrument type
             newNote.number = note.NoteNumber;
 
+            Debug.Log(newNote.number);
+
             // note position
-            var pos = note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
+            var pos =
+                note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
             var temp = pos.Split(".");
             newNote.pos = new ushort[3];
-            for(int i = 0; i < temp.Length; ++i) {
+            for (int i = 0; i < temp.Length; ++i)
+            {
                 newNote.pos[i] = Convert.ToUInt16(temp[i]);
             }
 
@@ -157,7 +178,7 @@ public class MIDIReader : MonoBehaviour
 
         SpotTrack = new SpotElement[totalBars * BEATS_PER_BAR * SPOTS_PER_BEAT];
 
-        foreach(NoteElement note in trackInfo)
+        foreach (NoteElement note in trackInfo)
         {
             // ticks: 0 -> 1 120->2, 240->3, 360->4
             int index =
@@ -185,7 +206,8 @@ public class MIDIReader : MonoBehaviour
         }
     }
 
-    public bool hasNoteInFuture(int spots) {
+    public bool hasNoteInFuture(int spots)
+    {
         int future_index =
             conductor.barNumber *
             Conductor.BEATS_PER_BAR *
@@ -193,14 +215,17 @@ public class MIDIReader : MonoBehaviour
             conductor.beatNumber * Conductor.SPOTS_PER_BEAT +
             conductor.spotNumber +
             spots;
+
         //Debug.Log(future_index);
         //Debug.Log(index);
         SpotElement curVal = SpotTrack[future_index];
 
-        if (curVal.one.velocity == 64 ||
+        if (
+            curVal.one.velocity == 64 ||
             curVal.two.velocity == 64 ||
             curVal.three.velocity == 64 ||
-            curVal.four.velocity == 64)
+            curVal.four.velocity == 64
+        )
         {
             return true;
         }

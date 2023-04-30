@@ -401,12 +401,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d9444696875e8e4e9378f5e2167e95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 121
+  bpm: 110
   beatLength: 0
   spotLength: 0
   songPosition: 0
   nextSpotTime: 0
-  offset: 0.24
+  offset: -6.5
   spotNumber: 0
   beatNumber: 1
   barNumber: 1
@@ -441,7 +441,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d2295aed38de843d9bc8001f465dc8bb, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 34f15d5d0266a44d199ea48b3d19161c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.66
   m_Pitch: 1
@@ -12092,7 +12092,7 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/hold_test.mid
+  midiFilePath: Assets/Music/DV_L1_drumtest.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
