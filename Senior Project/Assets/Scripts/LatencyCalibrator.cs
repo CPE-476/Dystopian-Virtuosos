@@ -10,7 +10,7 @@ public class LatencyCalibrator : MonoBehaviour
     public double startTime;
     public double bufferSchedulingOffset = 1.0;
 
-    double tempo = 100.0;
+    public double tempo = 110.0;
     double beatLength;
 
     double[] latencies = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};

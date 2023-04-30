@@ -8,15 +8,19 @@ public class StartManager : MonoBehaviour
     public GameObject
 
             launchButton,
-            systemButton,
             aboutButton,
-            quitButton;
+            quitButton,
+            systemTitle,
+            systemLC,
+            systemBack;
 
     GameObject Default;
 
     GameObject Launch;
 
-    GameObject System;
+    GameObject stitle;
+    GameObject sLC;
+    GameObject sBack;
 
     GameObject About;
 
@@ -34,7 +38,7 @@ public class StartManager : MonoBehaviour
 
     private float startTime;
 
-    void Start()
+    void Awake()
     {
         init();
     }
@@ -43,11 +47,13 @@ public class StartManager : MonoBehaviour
     {
         if (isLaunching)
         {
+            Debug.Log(Background);
             float bg_y = Background.transform.position.y;
 
-            float max_zoom_y = 600f;
+            float max_zoom_y = 250f;
             float max_zoom_scale = 4.0f;
             float time = 2.5f;
+            Debug.Log(Background.transform.localScale.x);
             if (Background.transform.localScale.x > 3.9f)
             {
                 SceneManager.LoadScene("Game");
@@ -56,8 +62,10 @@ public class StartManager : MonoBehaviour
             {
                 FadeOut();
             }
+            Debug.Log(bg_y);
             if (bg_y > max_zoom_y)
             {
+                Debug.Log(bg_y);
                 float t = (Time.time - startTime) / time;
                 float curveValue = zoomCurve.Evaluate(t);
 
@@ -88,7 +96,7 @@ public class StartManager : MonoBehaviour
     {
         Default.SetActive(false);
         Launch.SetActive(true);
-        System.SetActive(false);
+        SetSystem(false);
         About.SetActive(false);
 
         // Load the next scene
@@ -102,7 +110,7 @@ public class StartManager : MonoBehaviour
         // Show the system settings UI
         Default.SetActive(false);
         Launch.SetActive(false);
-        System.SetActive(true);
+        SetSystem(true);
         About.SetActive(false);
     }
 
@@ -111,7 +119,7 @@ public class StartManager : MonoBehaviour
         // Show the about UI
         Default.SetActive(false);
         Launch.SetActive(false);
-        System.SetActive(false);
+        SetSystem(false);
         About.SetActive(true);
     }
 
@@ -120,7 +128,7 @@ public class StartManager : MonoBehaviour
         // Show the default UI
         Default.SetActive(true);
         Launch.SetActive(false);
-        System.SetActive(false);
+        SetSystem(false);
         About.SetActive(false);
     }
 
@@ -134,13 +142,38 @@ public class StartManager : MonoBehaviour
     {
         Default = GameObject.Find("Default");
         Launch = GameObject.Find("Launch");
-        System = GameObject.Find("System");
+        stitle = GameObject.Find("SystemTitle");
+        sLC = GameObject.Find("LatencyCalibrator");
+        sBack = GameObject.Find("BackButton");
         About = GameObject.Find("About");
         Color c = fadeImage.color;
         c.a = 0f;
         fadeImage.color = c;
         toDefault();
     }
+
+    void SetSystem(bool b)
+    {
+        if (b)
+        {
+            stitle.SetActive(true);
+            sBack.SetActive(true);
+            foreach (Transform child in sLC.transform)
+            {
+                child.gameObject.SetActive(true);
+            }
+        }
+        else
+        {
+            stitle.SetActive(false);
+            sBack.SetActive(false);
+            foreach (Transform child in sLC.transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+    }
+
 
     void FadeOut()
     {
