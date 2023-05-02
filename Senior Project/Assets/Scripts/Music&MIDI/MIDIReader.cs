@@ -134,8 +134,6 @@ public class MIDIReader : MonoBehaviour
             // track number and instrument type
             newNote.number = note.NoteNumber;
 
-            Debug.Log(newNote.number);
-
             // note position
             var pos =
                 note.TimeAs(TimeSpanType.BarBeatTicks, tempoMap).ToString();
@@ -152,6 +150,7 @@ public class MIDIReader : MonoBehaviour
             // note types
             newNote.velocity = note.Velocity;
 
+            Debug.Log(newNote.velocity);
             trackInfo.Add (newNote);
         }
     }

@@ -56,7 +56,7 @@ public class Conductor : MonoBehaviour
 
     public double GetSongPosition()
     {
-        return AudioSettings.dspTime - startTime - (beats_till_first_note * spotLength) - offset - latency_offset;
+        return AudioSettings.dspTime - startTime - (beats_till_first_note * beatLength) - offset - latency_offset;
     }
 
     public void UpdateSongPosition()
