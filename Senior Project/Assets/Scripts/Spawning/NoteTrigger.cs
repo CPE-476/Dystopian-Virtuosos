@@ -225,11 +225,6 @@ public class NoteTrigger : MonoBehaviour
             lowerWeakBound = currentSpot - outerThreshold;
             upperWeakBound = currentSpot + outerThreshold;
 
-            // Here we will schedule the sound effects for a bar ahead of this one.
-            if(midiReader.hasNoteInFuture(16)) {
-                sfx.sounds[5].PlayScheduled(AudioSettings.dspTime);
-            }
-
             // BELOW: Consequences for missing things
             switch (midiReader.track_state[0])
             {
@@ -316,6 +311,9 @@ public class NoteTrigger : MonoBehaviour
 
         if (current_hit_category == HitCategory.WEAK)
         {
+            sfx.sounds[1].pitch =
+                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+            sfx.sounds[1].Play();
             psmain.startColor = weak;
             ParticleSystem clone =
                 (ParticleSystem)
@@ -337,6 +335,9 @@ public class NoteTrigger : MonoBehaviour
         }
         else if (current_hit_category == HitCategory.GOOD)
         {
+            sfx.sounds[1].pitch =
+                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+            sfx.sounds[1].Play();
             perfect.a = 1f;
             psmain.startColor = perfect;
             ParticleSystem clone =

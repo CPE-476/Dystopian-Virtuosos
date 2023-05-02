@@ -406,7 +406,8 @@ MonoBehaviour:
   spotLength: 0
   songPosition: 0
   nextSpotTime: 0
-  offset: -6.4
+  offset: 0
+  beats_till_first_note: 16
   spotNumber: 0
   beatNumber: 1
   barNumber: 1

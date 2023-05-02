@@ -22,6 +22,7 @@ public class Conductor : MonoBehaviour
     public double songPosition;
     public double nextSpotTime;
     public double offset;
+    public int beats_till_first_note;
 
     public int spotNumber;
     public int beatNumber;
@@ -55,12 +56,12 @@ public class Conductor : MonoBehaviour
 
     public double GetSongPosition()
     {
-        return AudioSettings.dspTime - startTime - offset - latency_offset;
+        return AudioSettings.dspTime - startTime - (beats_till_first_note * spotLength) - offset - latency_offset;
     }
 
     public void UpdateSongPosition()
     {
-        double newSongPosition = AudioSettings.dspTime - startTime - offset - latency_offset;
+        double newSongPosition = GetSongPosition();
 
         nextSpotTime += newSongPosition - songPosition;
         songPosition = newSongPosition;
