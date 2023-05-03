@@ -104,12 +104,36 @@ public class Pause : MonoBehaviour
         const float countdownTime = 3.0f; // Countdown time in seconds
         float remainingTime = countdownTime;
 
+        // Set the initial scale of the text to 0
+        Vector3 initialScale = countInText.transform.localScale;
+        countInText.transform.localScale = Vector3.zero;
+
         while (remainingTime > 0.5f)
         {
+            // Calculate the scale of the text based on the remaining time
+            float scale =
+                1f + (0.8f * (countdownTime - remainingTime)) / countdownTime;
+            countInText.transform.localScale = new Vector3(scale, scale, scale);
+
+            // Check if the remaining time has changed since the last frame
+            if (
+                Mathf.FloorToInt(remainingTime + 0.48f) !=
+                Mathf
+                    .FloorToInt(remainingTime +
+                    0.48f -
+                    Time.unscaledDeltaTime) &&
+                remainingTime > 1.0f
+            )
+            {
+                // If the remaining time has changed, reset the scale of the text
+                countInText.transform.localScale = initialScale;
+            }
+
             countInText.text = remainingTime.ToString("F0");
             yield return new WaitForSecondsRealtime(0.1f); // Update the remaining time every 0.1 seconds
             remainingTime -= 0.1f;
         }
+
         countIn.SetActive(false);
         AudioListener.pause = false;
         Time.timeScale = 1f;

@@ -1,9 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
-
+using UnityEngine;
 
 public enum HitCategory
 {
@@ -15,9 +14,11 @@ public enum HitCategory
 public class NoteTrigger : MonoBehaviour
 {
     public Conductor conductor;
+
     public MIDIReader midiReader;
 
     public ParticleSystem particles;
+
     ParticleSystem.MainModule psmain;
 
     public ParticleSystem hittext;
@@ -31,22 +32,31 @@ public class NoteTrigger : MonoBehaviour
     public Animator anim;
 
     public SpriteRenderer top;
+
     public SpriteRenderer high;
+
     public SpriteRenderer low;
+
     public SpriteRenderer bot;
 
     public Color perfect;
+
     public Color weak;
+
     public Color fail;
 
     public SFX sfx;
 
     private bool[] updateHold = { false, false, false, false };
+
     private bool[] goodHold = { false, false, false, false };
+
     private ushort[] holdLengths;
+
     private int holdScore = 1;
 
     public ScoreManager scoreManager;
+
     public ComboManager comboManager;
 
     public float currentSpot;
@@ -54,11 +64,15 @@ public class NoteTrigger : MonoBehaviour
     public float noteEnd;
 
     public float innerThreshold;
+
     public float outerThreshold;
 
     private float lowerGoodBound;
+
     private float lowerWeakBound;
+
     private float upperGoodBound;
+
     private float upperWeakBound;
 
     int transpose = 0;
@@ -71,11 +85,15 @@ public class NoteTrigger : MonoBehaviour
     bool[] hasBeenPressed = { false, false, false, false };
 
     public int index;
+
     public int newIndex;
 
     public bool flickUpLeft = false;
+
     public bool flickDownLeft = false;
+
     public bool flickUpRight = false;
+
     public bool flickDownRight = false;
 
     // Start is called before the first frame update
@@ -105,78 +123,152 @@ public class NoteTrigger : MonoBehaviour
         if (checkHit(KeyCode.Joystick1Button1, KeyCode.L, 3, bot, 0.7f))
             hasBeenPressed[3] = true;
 
+        //Update Hold Note Score
 
-        //Update Hold Note Score 
-        if (updateHold[0] && holdLengths[0] >= 1 && ((Input.GetKey(KeyCode.H) || Input.GetKey(KeyCode.Joystick1Button3) || Input.GetAxis("Vertical") >= 0.7f)))
+        if (
+            updateHold[0] &&
+            holdLengths[0] >= 1 &&
+            (
+            (
+            Input.GetKey(KeyCode.H) ||
+            Input.GetKey(KeyCode.Joystick1Button3) ||
+            Input.GetAxis("Vertical") >= 0.7f
+            )
+            )
+        )
         {
-            var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                top
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = true;
-            if (goodHold[0] == false)
-                holdScore += 1;
+            if (goodHold[0] == false) holdScore += 1;
             goodHold[0] = true;
-            
         }
         else
         {
-            var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                top
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = false;
-            if (goodHold[0] == true)
-                holdScore -= 1;
+            if (goodHold[0] == true) holdScore -= 1;
             goodHold[0] = false;
             updateHold[0] = false;
         }
-        if (updateHold[1] && holdLengths[1] >= 1 && ((Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.Joystick1Button2) || -Input.GetAxis("Vertical") >= 0.7f)))
+        if (
+            updateHold[1] &&
+            holdLengths[1] >= 1 &&
+            (
+            (
+            Input.GetKey(KeyCode.J) ||
+            Input.GetKey(KeyCode.Joystick1Button2) ||
+            -Input.GetAxis("Vertical") >= 0.7f
+            )
+            )
+        )
         {
-            var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                high
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = true;
-            if (goodHold[1] == false)
-                holdScore += 1;
+            if (goodHold[1] == false) holdScore += 1;
             goodHold[1] = true;
         }
         else
         {
-            var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                high
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = false;
-            if (goodHold[1] == true)
-                holdScore -= 1;
+            if (goodHold[1] == true) holdScore -= 1;
             goodHold[1] = false;
             updateHold[1] = false;
         }
-        if (updateHold[2] && holdLengths[2] >= 1 && ((Input.GetKey(KeyCode.K) || Input.GetKey(KeyCode.Joystick1Button0) || Input.GetAxis("VerticalRight") >= 0.7f)))
+        if (
+            updateHold[2] &&
+            holdLengths[2] >= 1 &&
+            (
+            (
+            Input.GetKey(KeyCode.K) ||
+            Input.GetKey(KeyCode.Joystick1Button0) ||
+            Input.GetAxis("VerticalRight") >= 0.7f
+            )
+            )
+        )
         {
-            var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                low
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = true;
-            if (goodHold[2] == false)
-                holdScore += 1;
+            if (goodHold[2] == false) holdScore += 1;
             goodHold[2] = true;
         }
         else
         {
-            var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                low
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = false;
-            if (goodHold[2] == true)
-                holdScore -= 1;
+            if (goodHold[2] == true) holdScore -= 1;
             goodHold[2] = false;
             updateHold[2] = false;
         }
-        if (updateHold[3] && holdLengths[3] >= 1 && ((Input.GetKey(KeyCode.L) || -Input.GetAxis("VerticalRight") >= 0.7f)))
+        if (
+            updateHold[3] &&
+            holdLengths[3] >= 1 &&
+            (
+            (Input.GetKey(KeyCode.L) || -Input.GetAxis("VerticalRight") >= 0.7f)
+            )
+        )
         {
-            var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                bot
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = true;
-            if (goodHold[3] == false)
-                holdScore += 1;
+            if (goodHold[3] == false) holdScore += 1;
             goodHold[3] = true;
         }
         else
         {
-            var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
+            var em =
+                bot
+                    .gameObject
+                    .transform
+                    .Find("HitSpot/HoldParticle")
+                    .GetComponent<ParticleSystem>()
+                    .emission;
             em.enabled = false;
-            if (goodHold[3] == true)
-                holdScore -= 1;
+            if (goodHold[3] == true) holdScore -= 1;
             goodHold[3] = false;
             updateHold[3] = false;
         }
-
 
         if (goodHold.Any(b => b))
         {
@@ -219,8 +311,10 @@ public class NoteTrigger : MonoBehaviour
             currentSpot += conductor.spotLength;
             noteEnd += conductor.spotLength;
 
-            lowerGoodBound = currentSpot - innerThreshold * conductor.spotLength;
-            upperGoodBound = currentSpot + innerThreshold * conductor.spotLength;
+            lowerGoodBound =
+                currentSpot - innerThreshold * conductor.spotLength;
+            upperGoodBound =
+                currentSpot + innerThreshold * conductor.spotLength;
 
             lowerWeakBound = currentSpot - outerThreshold;
             upperWeakBound = currentSpot + outerThreshold;
@@ -229,59 +323,63 @@ public class NoteTrigger : MonoBehaviour
             switch (midiReader.track_state[0])
             {
                 case NoteType.NOTE:
-                {
-                    if (!hasBeenPressed[0])
-                        ResolveMiss(top, 0);
-                } break;
+                    {
+                        if (!hasBeenPressed[0]) ResolveMiss(top, 0);
+                    }
+                    break;
                 case NoteType.OBSTACLE:
-                {
-                    if (character.playerState == 3)
-                        ResolveHitObstacle(top, 0);
-                } break;
+                    {
+                        if (character.playerState == 3)
+                            ResolveHitObstacle(top, 0);
+                    }
+                    break;
                 case NoteType.HOLD:
-                {
-                    if (!hasBeenPressed[0])
-                        ResolveMiss(top, 0);
-                } break;
+                    {
+                        if (!hasBeenPressed[0]) ResolveMiss(top, 0);
+                    }
+                    break;
             }
             switch (midiReader.track_state[1])
             {
                 case NoteType.NOTE:
-                {
-                    if (!hasBeenPressed[1])
-                        ResolveMiss(high, 1);
-                } break;
+                    {
+                        if (!hasBeenPressed[1]) ResolveMiss(high, 1);
+                    }
+                    break;
                 case NoteType.OBSTACLE:
-                {
-                    if (character.playerState == 2)
-                        ResolveHitObstacle(high, 1);
-                } break;
+                    {
+                        if (character.playerState == 2)
+                            ResolveHitObstacle(high, 1);
+                    }
+                    break;
             }
             switch (midiReader.track_state[2])
             {
                 case NoteType.NOTE:
-                {
-                    if (!hasBeenPressed[2])
-                        ResolveMiss(low, 2);
-                } break;
+                    {
+                        if (!hasBeenPressed[2]) ResolveMiss(low, 2);
+                    }
+                    break;
                 case NoteType.OBSTACLE:
-                {
-                    if (character.playerState == 1)
-                        ResolveHitObstacle(low, 2);
-                } break;
+                    {
+                        if (character.playerState == 1)
+                            ResolveHitObstacle(low, 2);
+                    }
+                    break;
             }
             switch (midiReader.track_state[3])
             {
                 case NoteType.NOTE:
-                {
-                    if (!hasBeenPressed[3])
-                        ResolveMiss(bot, 3);
-                } break;
+                    {
+                        if (!hasBeenPressed[3]) ResolveMiss(bot, 3);
+                    }
+                    break;
                 case NoteType.OBSTACLE:
-                {
-                    if (character.playerState == 0)
-                        ResolveHitObstacle(bot, 3);
-                } break;
+                    {
+                        if (character.playerState == 0)
+                            ResolveHitObstacle(bot, 3);
+                    }
+                    break;
             }
 
             hasBeenPressed[0] = false;
@@ -294,9 +392,8 @@ public class NoteTrigger : MonoBehaviour
 
     private void ResolveHit(SpriteRenderer sprite, int trackNumber, bool isHold)
     {
-
         Debug.Log("Resolve Hit");
-        if (current_hit_category == HitCategory.WEAK  && isHold)
+        if (current_hit_category == HitCategory.WEAK && isHold)
         {
             updateHold[trackNumber] = true;
             holdScore = 1;
@@ -313,7 +410,7 @@ public class NoteTrigger : MonoBehaviour
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-            sfx.sounds[1].Play();
+            //sfx.sounds[1].Play();
             psmain.startColor = weak;
             ParticleSystem clone =
                 (ParticleSystem)
@@ -337,7 +434,7 @@ public class NoteTrigger : MonoBehaviour
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-            sfx.sounds[1].Play();
+            //sfx.sounds[1].Play();
             perfect.a = 1f;
             psmain.startColor = perfect;
             ParticleSystem clone =
@@ -366,12 +463,13 @@ public class NoteTrigger : MonoBehaviour
     {
         anim.SetTrigger("hurt");
         comboManager.comboNumber = 0;
-        character.curHealth -= 10;
+        character.curHealth -= 2;
         character.hb.setHealth(character.curHealth);
 
         // TODO (Alex): Should a miss incur a sound effect?
-        sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-        sfx.sounds[3].Play();
+        sfx.sounds[3].pitch =
+            Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+        //sfx.sounds[3].Play();
         psmain.startColor = fail;
         ParticleSystem clone =
             (ParticleSystem)
@@ -396,12 +494,12 @@ public class NoteTrigger : MonoBehaviour
     {
         anim.SetTrigger("hurt");
 
-        character.curHealth -= 10;
+        character.curHealth -= 5;
         character.hb.setHealth(character.curHealth);
 
         sfx.sounds[3].pitch =
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-        sfx.sounds[3].Play();
+        //sfx.sounds[3].Play();
         psmain.startColor = fail;
         ParticleSystem clone =
             (ParticleSystem)
@@ -425,7 +523,13 @@ public class NoteTrigger : MonoBehaviour
     // Checks for a hit on a given keycode.
     // Returns true if hit, false if not.
     private bool
-    checkHit(KeyCode kc, KeyCode kb, int trackNumber, SpriteRenderer sprite, float pianoThreshold)
+    checkHit(
+        KeyCode kc,
+        KeyCode kb,
+        int trackNumber,
+        SpriteRenderer sprite,
+        float pianoThreshold
+    )
     {
         float joystickAxis = 0.0f;
 
@@ -455,15 +559,18 @@ public class NoteTrigger : MonoBehaviour
         {
             pianoBool = false;
             if (trackNumber == 0)
-                 flickUpLeft = false;
+                flickUpLeft = false;
             else if (trackNumber == 1)
                 flickDownLeft = false;
             else if (trackNumber == 2)
                 flickUpRight = false;
-            else if (trackNumber == 3)
-                flickDownRight = false;
+            else if (trackNumber == 3) flickDownRight = false;
         }
-        if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb) || (joystickAxis >= pianoThreshold && !pianoBool))
+        if (
+            Input.GetKeyDown(kc) ||
+            Input.GetKeyDown(kb) ||
+            (joystickAxis >= pianoThreshold && !pianoBool)
+        )
         {
             pianoBool = true;
             if (trackNumber == 0)
@@ -472,35 +579,35 @@ public class NoteTrigger : MonoBehaviour
                 flickDownLeft = true;
             else if (trackNumber == 2)
                 flickUpRight = true;
-            else if (trackNumber == 3)
-                flickDownRight = true;
+            else if (trackNumber == 3) flickDownRight = true;
+
             //Debug.Log("Track States: " + midiReader.track_state[trackNumber]);
             switch (midiReader.track_state[trackNumber])
             {
                 case NoteType.NOTE:
-                {
-                        Debug.Log("Note");
-                        ResolveHit (sprite, trackNumber, false);
-                    return true;
-                }
+                    {
+                        // Debug.Log("Note");
+                        ResolveHit(sprite, trackNumber, false);
+                        return true;
+                    }
                 case NoteType.HOLD:
-                {
-                        Debug.Log("Hold");
+                    {
+                        // Debug.Log("Hold");
                         ResolveHit(sprite, trackNumber, true);
-                    return true;
-                }
+                        return true;
+                    }
                 case NoteType.OBSTACLE:
-                {
-                    return true;
-                }
+                    {
+                        return true;
+                    }
                 case NoteType.COLLECTIBLE:
-                {
-                    return true;
-                }
+                    {
+                        return true;
+                    }
                 case NoteType.EMPTY:
-                {
-                    return false;
-                }
+                    {
+                        return false;
+                    }
             }
         }
         return false;

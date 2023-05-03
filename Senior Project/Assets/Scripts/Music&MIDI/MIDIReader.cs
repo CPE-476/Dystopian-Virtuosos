@@ -149,8 +149,6 @@ public class MIDIReader : MonoBehaviour
 
             // note types
             newNote.velocity = note.Velocity;
-
-            Debug.Log(newNote.velocity);
             trackInfo.Add (newNote);
         }
     }
