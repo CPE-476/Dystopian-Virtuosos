@@ -6,30 +6,49 @@ using UnityEngine.UI;
 public class Visualizer : MonoBehaviour
 {
     public float minHeight;
+
     public float maxHeight;
+
     public float updateSenstivity;
+
     public Color visualizerColor;
+
+    public Color hurtColor;
 
     [Space(12)]
     public bool loop = true;
+
     [Space(12), Range(64, 8192)]
     public int visualizerSamples = 64;
 
     public VisualizerObject[] visualizerObjects;
+
     AudioSource m_audioSource;
+
+    private NoteTrigger notetrigger;
+
+    private AnimatorStateInfo stateInfo;
 
     // Start is called before the first frame update
     void Start()
     {
         visualizerObjects = GetComponentsInChildren<VisualizerObject>();
-        m_audioSource = GameObject.Find("Conductor").GetComponent<AudioSource>();
+        m_audioSource =
+            GameObject.Find("Conductor").GetComponent<AudioSource>();
+        notetrigger =
+            (NoteTrigger)
+            GameObject.Find("/Tracks/NoteTrigger").GetComponent("NoteTrigger");
     }
 
     // Update is called once per frame
     [System.Obsolete]
     void Update()
     {
-        float[] spectrumData = m_audioSource.GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
+        stateInfo = notetrigger.anim.GetCurrentAnimatorStateInfo(0);
+
+        float[] spectrumData =
+            m_audioSource
+                .GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
         float averageVolume = 0f;
         for (int i = 0; i < spectrumData.Length; i++)
         {
@@ -41,14 +60,34 @@ public class Visualizer : MonoBehaviour
         {
             Vector3 newSize = visualizerObjects[i].transform.localScale;
 
-            newSize.y = Mathf.Clamp(Mathf.Lerp(newSize.y, minHeight + (averageVolume * (maxHeight - minHeight) * 50), updateSenstivity), minHeight, maxHeight);
-            visualizerObjects[i].transform.localScale = new Vector3(visualizerObjects[i].transform.localScale.x, newSize.y, visualizerObjects[i].transform.localScale.z);
-            visualizerObjects[i].GetComponent<SpriteRenderer>().color = visualizerColor;
+            newSize.y =
+                Mathf
+                    .Clamp(Mathf
+                        .Lerp(newSize.y,
+                        minHeight +
+                        (averageVolume * (maxHeight - minHeight) * 50),
+                        updateSenstivity),
+                    minHeight,
+                    maxHeight);
+            visualizerObjects[i].transform.localScale =
+                new Vector3(visualizerObjects[i].transform.localScale.x,
+                    newSize.y,
+                    visualizerObjects[i].transform.localScale.z);
+            visualizerObjects[i].GetComponent<SpriteRenderer>().color =
+                visualizerColor;
 
             // Apply noise to the sprite height
             float noise = Mathf.PerlinNoise(Time.time, i * 0.1f) * 0.2f - 0.1f;
             newSize.y += noise;
-            visualizerObjects[i].transform.localScale = new Vector3(visualizerObjects[i].transform.localScale.x, newSize.y, visualizerObjects[i].transform.localScale.z);
+            visualizerObjects[i].transform.localScale =
+                new Vector3(visualizerObjects[i].transform.localScale.x,
+                    newSize.y,
+                    visualizerObjects[i].transform.localScale.z);
+            if (stateInfo.IsName("Hurt"))
+            {
+                visualizerObjects[i].GetComponent<SpriteRenderer>().color =
+                    hurtColor;
+            }
         }
     }
 }

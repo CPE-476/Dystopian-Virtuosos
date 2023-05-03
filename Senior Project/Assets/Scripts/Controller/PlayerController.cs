@@ -21,8 +21,6 @@ public class PlayerController : MonoBehaviour
 
     private bool alive = true;
 
-    private float hurtCooldown = 0f;
-
     public float startX;
 
     public bool reset = false;

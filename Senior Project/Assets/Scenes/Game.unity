@@ -406,7 +406,8 @@ MonoBehaviour:
   spotLength: 0
   songPosition: 0
   nextSpotTime: 0
-  offset: -6.5
+  offset: 3
+  beats_till_first_note: -17
   spotNumber: 0
   beatNumber: 1
   barNumber: 1
@@ -1245,7 +1246,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fdfc986dbd8ed48b6a970bb0cafb6eed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47a9bf3d5213741179d75cda9c89ad1f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6894,6 +6895,7 @@ MonoBehaviour:
   maxHeight: 0.5
   updateSenstivity: 0.2
   visualizerColor: {r: 1, g: 1, b: 1, a: 0.12156863}
+  hurtColor: {r: 0.9528302, g: 0.4988875, b: 0.4988875, a: 0.30588236}
   loop: 1
   visualizerSamples: 64
   visualizerObjects: []
@@ -12092,7 +12094,7 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/DV_L1_drumtest.mid
+  midiFilePath: Assets/Music/DV_L1_drum_test.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
