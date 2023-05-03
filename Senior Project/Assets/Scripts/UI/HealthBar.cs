@@ -13,28 +13,27 @@ public class HealthBar : MonoBehaviour
 
     public CameraController cam;
 
-    private GameObject[] healthSprite;
+    public float moveSpeed;
+
+    public float targetY;
 
     public void Start()
     {
-        healthSprite = GameObject.FindGameObjectsWithTag("health");
+        //targetX = 2000;
     }
 
     public void Update()
     {
-        // if (cam.isMoving)
-        // {
-        //     foreach (GameObject item in healthSprite)
-        //     {
-        //         item.GetComponent<Image>().enabled = true;
-        //     }
-        // }
-        // else {
-        //     foreach (GameObject item in healthSprite)
-        //     {
-        //         item.GetComponent<Image>().enabled = false;
-        //     }
-        // }
+        if (transform.position.y < targetY)
+        {
+            transform.position =
+                Vector3
+                    .Lerp(transform.position,
+                    new Vector3(transform.position.x,
+                        targetY,
+                        transform.position.z),
+                    Time.deltaTime * moveSpeed);
+        }
     }
 
     public void setMaxHealth(int maxhealth)
