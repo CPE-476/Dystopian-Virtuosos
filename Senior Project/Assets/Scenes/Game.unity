@@ -407,10 +407,10 @@ MonoBehaviour:
   songPosition: 0
   nextSpotTime: 0
   offset: 3
-  beats_till_first_note: -17
+  beats_till_first_note: -9
   spotNumber: 0
-  beatNumber: 1
-  barNumber: 1
+  beatNumber: 0
+  barNumber: 0
   latency_offset: 0
 --- !u!224 &42173314
 RectTransform:
@@ -442,7 +442,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 34f15d5d0266a44d199ea48b3d19161c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 36507311ad6fb47008c6408eb64463ec, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.66
   m_Pitch: 1
@@ -12173,7 +12173,7 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/DV_L1_drum_test.mid
+  midiFilePath: Assets/Music/DV_L1_piano_test.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:

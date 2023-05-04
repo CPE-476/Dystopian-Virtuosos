@@ -184,6 +184,8 @@ public class MIDIReader : MonoBehaviour
                 (note.pos[2] / SixteenthLength) +
                 1;
 
+            Debug.Log (index);
+
             if (oneNotes.Contains(note.number))
             {
                 SpotTrack[index].one = note;
