@@ -442,7 +442,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 36507311ad6fb47008c6408eb64463ec, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 34f15d5d0266a44d199ea48b3d19161c, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.66
   m_Pitch: 1
@@ -2794,7 +2794,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325377986}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0971947, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4031,6 +4031,7 @@ GameObject:
   - component: {fileID: 484988429}
   - component: {fileID: 484988431}
   - component: {fileID: 484988430}
+  - component: {fileID: 484988432}
   m_Layer: 5
   m_Name: heart
   m_TagString: health
@@ -4096,6 +4097,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 484988428}
   m_CullTransparentMesh: 1
+--- !u!114 &484988432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 484988428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 652c66c298c4dbe4a9c91ff8968ddaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amount: 0.2
 --- !u!1 &496788065
 GameObject:
   m_ObjectHideFlags: 0
@@ -7518,7 +7532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 777785687}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0971947, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12173,7 +12187,7 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/DV_L1_piano_test.mid
+  midiFilePath: Assets/Music/DV_L1_drum.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
@@ -13205,7 +13219,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390432619}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0971947, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14045,6 +14059,7 @@ MonoBehaviour:
   spawner4: {fileID: 325377988}
   MIDIReader: {fileID: 1263251599}
   conductor: {fileID: 42173310}
+  noteSpeed: 20
   lengths: 
 --- !u!4 &1448182218
 Transform:
@@ -16108,7 +16123,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1787184461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0971947, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []

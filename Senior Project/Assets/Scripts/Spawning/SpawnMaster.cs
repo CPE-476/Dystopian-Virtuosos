@@ -10,6 +10,7 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner4;
     public MIDIReader MIDIReader;
     public Conductor conductor;
+    public int noteSpeed = 20;
     private MIDIReader.SpotElement curVal;
     public ushort[] lengths;
 
@@ -31,7 +32,7 @@ public class SpawnMaster : MonoBehaviour
 
     public void SpawnNotes()
     {
-        curVal = MIDIReader.SpotTrack[(MIDIReader.index+12) % MIDIReader.SpotTrack.Length];
+        curVal = MIDIReader.SpotTrack[(MIDIReader.index+noteSpeed) % MIDIReader.SpotTrack.Length];
        
         //Setting all the hold note lengths so note trigger can use them to calculate score
         if (curVal.two.velocity == 72) 
