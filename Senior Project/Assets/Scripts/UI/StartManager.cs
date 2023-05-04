@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class StartManager : MonoBehaviour
@@ -38,13 +39,31 @@ public class StartManager : MonoBehaviour
 
     private float startTime;
 
+    public GameObject optionsBackButton, firstButton, extraBackButton;
+
+    public GameObject cursorImage;
+
     void Awake()
     {
         init();
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     void Update()
     {
+        GameObject currentButton = EventSystem.current.currentSelectedGameObject;
+
+        Debug.Log(currentButton != null);
+
+        if (currentButton != null)
+        {
+            RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
+            RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+            cursorRectTransform.position = new Vector3(currentButtonRectTransform.position.x - (currentButtonRectTransform.rect.width/2)*0.1f -20,
+                                                       currentButtonRectTransform.position.y,
+                                                       currentButtonRectTransform.position.z);
+        }
         if (isLaunching)
         {
             Debug.Log(Background);
@@ -112,6 +131,8 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(false);
         SetSystem(true);
         About.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsBackButton);
     }
 
     public void toAbout()
@@ -121,6 +142,8 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(false);
         SetSystem(false);
         About.SetActive(true);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(extraBackButton);
     }
 
     public void toDefault()
@@ -130,6 +153,8 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(false);
         SetSystem(false);
         About.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstButton);
     }
 
     public void Quit()

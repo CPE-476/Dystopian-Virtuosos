@@ -407,7 +407,7 @@ MonoBehaviour:
   songPosition: 0
   nextSpotTime: 0
   offset: 3
-  beats_till_first_note: -9
+  beats_till_first_note: -1
   spotNumber: 0
   beatNumber: 0
   barNumber: 0
@@ -12187,7 +12187,7 @@ MonoBehaviour:
   conductor: {fileID: 42173310}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/DV_L1_drum.mid
+  midiFilePath: Assets/Music/DV_L1_drum_easy.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
