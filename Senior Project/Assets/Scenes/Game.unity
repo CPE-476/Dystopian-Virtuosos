@@ -8089,7 +8089,7 @@ MonoBehaviour:
   fill: {fileID: 928362638}
   cam: {fileID: 510236666}
   moveSpeed: 2
-  targetY: 110
+  targetY: 145
 --- !u!114 &816987386
 MonoBehaviour:
   m_ObjectHideFlags: 0

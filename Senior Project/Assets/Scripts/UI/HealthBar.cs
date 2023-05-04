@@ -17,20 +17,22 @@ public class HealthBar : MonoBehaviour
 
     public float targetY;
 
+    private float originalY;
+
     public void Start()
     {
-        //targetX = 2000;
+        originalY = transform.position.y;
     }
 
     public void Update()
     {
-        if (transform.position.y < targetY)
+        if (transform.position.y < originalY + targetY)
         {
             transform.position =
                 Vector3
                     .Lerp(transform.position,
                     new Vector3(transform.position.x,
-                        targetY,
+                        originalY + targetY,
                         transform.position.z),
                     Time.deltaTime * moveSpeed);
         }
