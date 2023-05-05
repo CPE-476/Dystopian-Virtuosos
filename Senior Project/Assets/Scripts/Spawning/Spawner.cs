@@ -50,7 +50,7 @@ public class Spawner : MonoBehaviour
         clone.transform.position = transform.position;
         clone.transform.rotation = Quaternion.identity;
         clone.GetComponent<SpriteRenderer>().enabled = true;
-        Destroy(clone.gameObject, 7f);
+        //Destroy(clone.gameObject, 7f);
         spawnNum++;
     }
 
