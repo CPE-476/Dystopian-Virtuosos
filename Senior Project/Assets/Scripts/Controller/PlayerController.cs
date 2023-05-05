@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
 
     private float playerHeightOffset = 1.2f;
 
+    private double lastNoteHitTime;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -143,6 +145,7 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track1.transform.position.y, collector.transform.position.z);
             current_track_position = 3;
+            lastNoteHitTime = conductor.GetSongPosition();
 
             anim.SetTrigger("attack");
         }
@@ -154,6 +157,8 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track2.transform.position.y, collector.transform.position.z);
             current_track_position = 2;
+            lastNoteHitTime = conductor.GetSongPosition();
+
             anim.SetTrigger("attack");
         }
         if (
@@ -164,6 +169,8 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track3.transform.position.y, collector.transform.position.z);
             current_track_position = 1;
+            lastNoteHitTime = conductor.GetSongPosition();
+
             anim.SetTrigger("attack");
         }
         if (
@@ -173,11 +180,13 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector3(0, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track4.transform.position.y, collector.transform.position.z);
             current_track_position = 0;
+            lastNoteHitTime = conductor.GetSongPosition();
+
             anim.SetTrigger("attack");
         }
 
         if (
-            conductor.GetSongPosition() + (conductor.spotLength * 8) <= conductor.GetSongPosition() &&
+            conductor.GetSongPosition() + (conductor.spotLength * 8) <= lastNoteHitTime &&
             !Input.GetKey(KeyCode.Joystick1Button2) &&
             !Input.GetKey(KeyCode.Joystick1Button3) &&
             !Input.GetKey(KeyCode.Joystick1Button0)

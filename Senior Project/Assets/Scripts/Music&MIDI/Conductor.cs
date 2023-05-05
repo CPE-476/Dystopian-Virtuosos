@@ -4,8 +4,6 @@ using System.Net.Http.Headers;
 using TMPro;
 using UnityEngine;
 
-// TODO: Fallbacks
-
 [RequireComponent(typeof(AudioSource))]
 public class Conductor : MonoBehaviour
 {
@@ -14,7 +12,9 @@ public class Conductor : MonoBehaviour
     public const int BEATS_PER_BAR = 4;  // 4/4 Time
 
     AudioSource background;
-    AudioSource drummer;
+    AudioSource background2;
+    int current_background = 1;
+    AudioSource drums;
 
     public float bpm;
     public float beatLength;
@@ -34,6 +34,10 @@ public class Conductor : MonoBehaviour
     private double bufferSchedulingOffset = 3.0;
     private double startTime;
 
+    double backgroundDuration;
+    double nextStartTime;
+    double nextBackgroundOffset = 0.1;
+
     void Start()
     { 
         nextSpotTime = 0.0;
@@ -45,10 +49,18 @@ public class Conductor : MonoBehaviour
         songPosition = 0.0f;
 
         AudioSource[] audioSources = GetComponents<AudioSource>();
+        background = audioSources[0];
+        background2 = audioSources[1];
+        drums = audioSources[2];
 
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
-        audioSources[0].PlayScheduled(startTime);
-        audioSources[1].PlayScheduled(startTime);
+        background.PlayScheduled(startTime);
+        //drums.PlayScheduled(startTime);
+
+        // Looping fix
+        backgroundDuration = (double)background.clip.samples / background.clip.frequency;
+        nextStartTime = startTime + backgroundDuration - nextBackgroundOffset;
+        background2.PlayScheduled(nextStartTime);
     }
 
     // Returns the unequivocal position in the current song.
@@ -85,5 +97,17 @@ public class Conductor : MonoBehaviour
     public void Update()
     {
         UpdateFields();
+
+        if(AudioSettings.dspTime > nextStartTime - 5.0) {
+            if(current_background == 1) {
+                background2.PlayScheduled(nextStartTime);
+                current_background = 2;
+            }
+            else {
+                background.PlayScheduled(nextStartTime);
+                current_background = 1;
+            }
+            nextStartTime = nextStartTime + backgroundDuration - nextBackgroundOffset;
+        }
     }
 }
