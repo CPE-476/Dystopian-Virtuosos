@@ -40,8 +40,8 @@ public class LatencyCalibrator : MonoBehaviour
 
     void Update()
     {
-        double beat_with_fraction = GetCalibrationTime() / beatLength;
-        int beat = (int)beat_with_fraction % 4;
+        double beat_with_fraction = GetCalibrationTime() / beatLength / 2;
+        int beat = (int)beat_with_fraction % 2;
         double fractional_part = beat_with_fraction - (int)beat_with_fraction;
 
         if(Input.GetKeyDown(KeyCode.Space))
@@ -52,13 +52,13 @@ public class LatencyCalibrator : MonoBehaviour
             else off = fractional_part;
             latencies[cur_index] = off;
             ++cur_index;
-            if(cur_index == 4) cur_index = 0;
+            if(cur_index == 2) cur_index = 0;
 
             latency_offset = GetDesiredLatencyOffset();
             Debug.Log(latency_offset);
         }
 
-        double beat_with_fraction_latency = GetCalibrationTime() / beatLength + latency_offset;
+        double beat_with_fraction_latency = GetCalibrationTime() / beatLength / 2 + latency_offset;
         int beat_latency = (int)beat_with_fraction_latency % 4;
         double fractional_part_latency = beat_with_fraction_latency - (int)beat_with_fraction_latency;
 
