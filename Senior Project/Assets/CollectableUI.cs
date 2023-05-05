@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class CollectableUI : MonoBehaviour
 {
 
-    public int collectableNum = 3;
+    public int collectableNum = 0;
     private void Start()
     {
         updateCollectables();
     }
 
-    void updateCollectables()
+    public void updateCollectables()
     {
         int counter = collectableNum;
         foreach (Transform child in transform)

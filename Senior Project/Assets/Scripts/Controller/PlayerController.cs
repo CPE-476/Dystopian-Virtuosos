@@ -35,6 +35,8 @@ public class PlayerController : MonoBehaviour
 
     public TracksController tracksController;
 
+    public GameObject collector;
+
     private float playerHeightOffset = 1.2f;
 
     // Start is called before the first frame update
@@ -111,6 +113,7 @@ public class PlayerController : MonoBehaviour
         )
         {
             transform.position = new Vector3(0, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
+            collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track1.transform.position.y, collector.transform.position.z);
             playerState = 3;
 
             curSongPosition = conductor.songPosition;
@@ -122,6 +125,7 @@ public class PlayerController : MonoBehaviour
         )
         {
             transform.position = new Vector3(0, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
+            collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track2.transform.position.y, collector.transform.position.z);
             playerState = 2;
             curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
@@ -132,6 +136,7 @@ public class PlayerController : MonoBehaviour
         )
         {
             transform.position = new Vector3(0, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
+            collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track3.transform.position.y, collector.transform.position.z);
             playerState = 1;
             curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
@@ -141,6 +146,7 @@ public class PlayerController : MonoBehaviour
         )
         {
             transform.position = new Vector3(0, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
+            collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track4.transform.position.y, collector.transform.position.z);
             playerState = 0;
             curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
