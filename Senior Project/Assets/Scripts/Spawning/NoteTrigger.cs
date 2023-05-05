@@ -8,8 +8,9 @@ enum InterfaceState
 {
     GAMEPLAY,
     DIALOGUE,
-    GAME_OVER,
-};
+    GAME_OVER
+}
+
 public enum HitCategory
 {
     NONE,
@@ -130,7 +131,6 @@ public class NoteTrigger : MonoBehaviour
             hasBeenPressed[3] = true;
 
         //Update Hold Note Score
-
         if (
             updateHold[0] &&
             holdLengths[0] >= 1 &&
@@ -392,7 +392,13 @@ public class NoteTrigger : MonoBehaviour
             hasBeenPressed[1] = false;
             hasBeenPressed[2] = false;
             hasBeenPressed[3] = false;
-            midiReader.updateTrackState();
+            if (midiReader.index < midiReader.SpotTrack.Length - 1)
+            {
+                midiReader.updateTrackState();
+            }
+            else{
+                midiReader.ended = true;
+            }
         }
     }
 
@@ -416,6 +422,7 @@ public class NoteTrigger : MonoBehaviour
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+
             //sfx.sounds[1].Play();
             psmain.startColor = weak;
             ParticleSystem clone =
@@ -440,6 +447,7 @@ public class NoteTrigger : MonoBehaviour
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+
             //sfx.sounds[1].Play();
             perfect.a = 1f;
             psmain.startColor = perfect;
@@ -475,6 +483,7 @@ public class NoteTrigger : MonoBehaviour
         // TODO (Alex): Should a miss incur a sound effect?
         sfx.sounds[3].pitch =
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+
         //sfx.sounds[3].Play();
         psmain.startColor = fail;
         ParticleSystem clone =
@@ -505,6 +514,7 @@ public class NoteTrigger : MonoBehaviour
 
         sfx.sounds[3].pitch =
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+
         //sfx.sounds[3].Play();
         psmain.startColor = fail;
         ParticleSystem clone =
