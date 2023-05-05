@@ -37,6 +37,57 @@ public class TracksController : MonoBehaviour
                 DrumPositions[1],
                 Track4.transform.position.z);
     }
+    
+    public void drumSwitch()
+    {
+        DrumerTracks();
+        Track3.transform.position =
+            new Vector3(Track3.transform.position.x,
+                DrumPositions[0],
+                Track3.transform.position.z);
+        Track4.transform.position =
+            new Vector3(Track4.transform.position.x,
+                DrumPositions[1],
+                Track4.transform.position.z);
+    }
+
+    public void guitarSwitch()
+    {
+        GuitaristTracks();
+        Track2.transform.position =
+            new Vector3(Track2.transform.position.x,
+                GuitarPositions[0],
+                Track2.transform.position.z);
+        Track3.transform.position =
+            new Vector3(Track3.transform.position.x,
+                GuitarPositions[1],
+                Track3.transform.position.z);
+        Track4.transform.position =
+            new Vector3(Track4.transform.position.x,
+                GuitarPositions[2],
+                Track4.transform.position.z);
+    }
+
+    public void pianoSwitch()
+    {
+        PianistTracks();
+        Track1.transform.position =
+            new Vector3(Track1.transform.position.x,
+                PianoPositions[0],
+                Track1.transform.position.z);
+        Track2.transform.position =
+            new Vector3(Track2.transform.position.x,
+                PianoPositions[1],
+                Track2.transform.position.z);
+        Track3.transform.position =
+            new Vector3(Track3.transform.position.x,
+                PianoPositions[2],
+                Track3.transform.position.z);
+        Track4.transform.position =
+            new Vector3(Track4.transform.position.x,
+                PianoPositions[3],
+                Track4.transform.position.z);
+    }
 
     // Update is called once per frame
     void Update()

@@ -670,7 +670,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 34f15d5d0266a44d199ea48b3d19161c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 36507311ad6fb47008c6408eb64463ec, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.66
   m_Pitch: 1
@@ -13098,9 +13098,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conductor: {fileID: 42173310}
+  tracksController: {fileID: 1488642359}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/DV_L1_drum.mid
+  midiFilePath: Assets/Music/DV_L1_switch.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
@@ -13175,10 +13176,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Perfect
+  m_text: PERFECT
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fa6d4caf5e2ab7e42bf7827584b24014, type: 2}
-  m_sharedMaterial: {fileID: -1652540051907153588, guid: fa6d4caf5e2ab7e42bf7827584b24014, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7048d1d5ab2e04cfd9beb7e4eb4916b7, type: 2}
+  m_sharedMaterial: {fileID: -9214085525346479867, guid: 7048d1d5ab2e04cfd9beb7e4eb4916b7, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -13202,8 +13203,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40.65
-  m_fontSizeBase: 40.65
+  m_fontSize: 35
+  m_fontSizeBase: 35
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
