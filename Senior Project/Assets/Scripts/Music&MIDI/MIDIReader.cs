@@ -202,8 +202,6 @@ public class MIDIReader : MonoBehaviour
             {
                 SpotTrack[index].four = note;
             }
-
-
         }
     }
 
@@ -284,13 +282,17 @@ public class MIDIReader : MonoBehaviour
             track_state[3] = NoteType.OBSTACLE;
         else if (curVal.four.velocity == 88)
             track_state[3] = NoteType.COLLECTIBLE;
-
         else if (curVal.four.velocity == 1)
-            tracksController.drumSwitch();
+        {
+            StartCoroutine(tracksController.switchTrack(0.4f, 1));
+        }
         else if (curVal.four.velocity == 2)
-            tracksController.guitarSwitch();
+        {
+            StartCoroutine(tracksController.switchTrack(0.4f, 2));
+        }
         else if (curVal.four.velocity == 3)
-            tracksController.pianoSwitch();
-
+        {
+            StartCoroutine(tracksController.switchTrack(0.4f, 3));
+        }
     }
 }
