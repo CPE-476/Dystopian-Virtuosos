@@ -9,10 +9,6 @@ public class CollectableUI : MonoBehaviour
     public int collectableNum = 3;
     private void Start()
     {
-        foreach (Transform child in transform)
-        {
-            Debug.Log("Foreach loop: " + child);
-        }
         updateCollectables();
     }
 

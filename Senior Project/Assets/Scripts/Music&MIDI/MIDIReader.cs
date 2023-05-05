@@ -32,6 +32,8 @@ public class MIDIReader : MonoBehaviour
     */
     public Conductor conductor;
 
+    public TracksController tracksController;
+
     public NoteType[] track_state;
 
     public int index;
@@ -184,8 +186,6 @@ public class MIDIReader : MonoBehaviour
                 (note.pos[2] / SixteenthLength) +
                 1;
 
-            Debug.Log (index);
-
             if (oneNotes.Contains(note.number))
             {
                 SpotTrack[index].one = note;
@@ -202,6 +202,8 @@ public class MIDIReader : MonoBehaviour
             {
                 SpotTrack[index].four = note;
             }
+
+
         }
     }
 
@@ -282,5 +284,13 @@ public class MIDIReader : MonoBehaviour
             track_state[3] = NoteType.OBSTACLE;
         else if (curVal.four.velocity == 88)
             track_state[3] = NoteType.COLLECTIBLE;
+
+        else if (curVal.four.velocity == 1)
+            tracksController.drumSwitch();
+        else if (curVal.four.velocity == 2)
+            tracksController.guitarSwitch();
+        else if (curVal.four.velocity == 3)
+            tracksController.pianoSwitch();
+
     }
 }
