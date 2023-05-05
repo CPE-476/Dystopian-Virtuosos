@@ -117,7 +117,7 @@ public class StartManager : MonoBehaviour
         Launch.SetActive(true);
         SetSystem(false);
         About.SetActive(false);
-
+        cursorImage.SetActive(false);
         // Load the next scene
         // Zoom the camera in
         isLaunching = true;
