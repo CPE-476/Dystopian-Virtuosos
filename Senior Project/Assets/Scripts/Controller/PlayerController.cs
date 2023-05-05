@@ -53,40 +53,40 @@ public class PlayerController : MonoBehaviour
         switch (state)
         {
             case InterfaceState.GAMEPLAY:
-                {
-                    Attack();
-                    Jump();
-                    Run();
+            {
+                Attack();
+                Jump();
+                Run();
 
-                    // Switch State (DEBUG... FOR NOW)
-                    if (Input.GetKeyDown(KeyCode.S))
-                    {
-                        state = InterfaceState.DIALOGUE;
-                        cam.isMoving = false;
-                        dialogue.Enable();
-                    }
+                // Switch State (DEBUG)
+                if (Input.GetKeyDown(KeyCode.S))
+                {
+                    state = InterfaceState.DIALOGUE;
+                    cam.isMoving = false;
+                    dialogue.Enable();
                 }
-                break;
+            }
+            break;
             case InterfaceState.DIALOGUE:
+            {
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    if (Input.GetKeyDown(KeyCode.Space))
+                    bool result = dialogue.NextLine();
+                    if (!result)
                     {
-                        bool result = dialogue.NextLine();
-                        if (!result)
-                        {
-                            // Dialogue over.
-                            state = InterfaceState.GAMEPLAY;
-                            cam.isMoving = true;
-                            dialogue.Disable();
-                        }
+                        // Dialogue over.
+                        state = InterfaceState.GAMEPLAY;
+                        cam.isMoving = true;
+                        dialogue.Disable();
                     }
                 }
-                break;
+            }
+            break;
             case InterfaceState.GAME_OVER:
-                {
+            {
 
-                }
-                break;
+            }
+            break;
         }
     }
 
