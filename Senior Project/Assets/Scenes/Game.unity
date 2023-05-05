@@ -13438,7 +13438,11 @@ MonoBehaviour:
   tracksController: {fileID: 1488642359}
   track_state: 
   index: 0
-  midiFilePath: Assets/Music/DV_L1_switch.mid
+  currentMIDIIndex: 0
+  ended: 0
+  midiFilePaths:
+  - Assets/Music/DV_L1_switch.mid
+  - Assets/Music/DV_L1_drum.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
@@ -15399,6 +15403,7 @@ MonoBehaviour:
   - 1
   - -0.2
   - -1.4
+  currentInstrument: 0
 --- !u!1 &1529821845
 GameObject:
   m_ObjectHideFlags: 0
