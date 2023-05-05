@@ -38,6 +38,10 @@ public class Conductor : MonoBehaviour
     double nextStartTime;
     double nextBackgroundOffset = 0.1;
 
+    public bool playDrumsNextBar = false;
+    public bool playGuitarNextBar = false;
+    public bool playPianoNextBar = false;
+
     void Start()
     { 
         nextSpotTime = 0.0;
@@ -98,7 +102,7 @@ public class Conductor : MonoBehaviour
     {
         UpdateFields();
 
-        if(AudioSettings.dspTime > nextStartTime - 5.0) {
+        if(AudioSettings.dspTime > nextStartTime - 3.0) {
             if(current_background == 1) {
                 background2.PlayScheduled(nextStartTime);
                 current_background = 2;
