@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+enum InterfaceState
+{
+    GAMEPLAY,
+    DIALOGUE,
+    GAME_OVER,
+};
 public enum HitCategory
 {
     NONE,
@@ -329,7 +335,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 3)
+                        if (character.current_track_position == 3)
                             ResolveHitObstacle(top, 0);
                     }
                     break;
@@ -348,7 +354,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 2)
+                        if (character.current_track_position == 2)
                             ResolveHitObstacle(high, 1);
                     }
                     break;
@@ -362,7 +368,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 1)
+                        if (character.current_track_position == 1)
                             ResolveHitObstacle(low, 2);
                     }
                     break;
@@ -376,7 +382,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.OBSTACLE:
                     {
-                        if (character.playerState == 0)
+                        if (character.current_track_position == 0)
                             ResolveHitObstacle(bot, 3);
                     }
                     break;
