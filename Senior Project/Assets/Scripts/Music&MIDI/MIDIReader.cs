@@ -38,6 +38,10 @@ public class MIDIReader : MonoBehaviour
 
     public int index;
 
+    public int currentMIDIIndex = 0;
+
+    public bool ended = false;
+
     TempoMap tempoMap;
 
     int BEATS_PER_BAR;
@@ -58,7 +62,7 @@ public class MIDIReader : MonoBehaviour
 
     byte[] fourNotes = new byte[] { 56, 58, 61 };
 
-    public string midiFilePath;
+    public string[] midiFilePaths;
 
     private MidiFile midiFile;
 
@@ -111,7 +115,7 @@ public class MIDIReader : MonoBehaviour
 
     void Start()
     {
-        midiFile = MidiFile.Read(midiFilePath);
+        midiFile = MidiFile.Read(midiFilePaths[currentMIDIIndex]);
         InitNoteElement();
         InitSpotTrack();
 
@@ -122,6 +126,25 @@ public class MIDIReader : MonoBehaviour
                 NoteType.EMPTY,
                 NoteType.EMPTY
             };
+    }
+
+    void Update()
+    {
+        if (ended)
+        {
+            midiFile = MidiFile.Read(midiFilePaths[++currentMIDIIndex]);
+            InitNoteElement();
+            InitSpotTrack();
+
+            track_state =
+                new NoteType[] {
+                    NoteType.EMPTY,
+                    NoteType.EMPTY,
+                    NoteType.EMPTY,
+                    NoteType.EMPTY
+                };
+            ended = false;
+        }
     }
 
     void InitNoteElement()
@@ -203,32 +226,6 @@ public class MIDIReader : MonoBehaviour
                 SpotTrack[index].four = note;
             }
         }
-    }
-
-    public bool hasNoteInFuture(int spots)
-    {
-        int future_index =
-            conductor.barNumber *
-            Conductor.BEATS_PER_BAR *
-            Conductor.SPOTS_PER_BEAT +
-            conductor.beatNumber * Conductor.SPOTS_PER_BEAT +
-            conductor.spotNumber +
-            spots;
-
-        //Debug.Log(future_index);
-        //Debug.Log(index);
-        SpotElement curVal = SpotTrack[future_index];
-
-        if (
-            curVal.one.velocity == 64 ||
-            curVal.two.velocity == 64 ||
-            curVal.three.velocity == 64 ||
-            curVal.four.velocity == 64
-        )
-        {
-            return true;
-        }
-        return false;
     }
 
     public void updateTrackState()
