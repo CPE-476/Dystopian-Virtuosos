@@ -13,7 +13,8 @@ public class Conductor : MonoBehaviour
     public const int SPOTS_PER_BEAT = 4; // Sixteenth Notes
     public const int BEATS_PER_BAR = 4;  // 4/4 Time
 
-    AudioSource audioSource;
+    AudioSource background;
+    AudioSource drummer;
 
     public float bpm;
     public float beatLength;
@@ -43,18 +44,20 @@ public class Conductor : MonoBehaviour
         spotLength = beatLength / SPOTS_PER_BEAT;
         songPosition = 0.0f;
 
-        audioSource = GetComponent<AudioSource>();
+        AudioSource[] audioSources = GetComponents<AudioSource>();
 
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
-        audioSource.PlayScheduled(startTime);
+        audioSources[0].PlayScheduled(startTime);
+        audioSources[1].PlayScheduled(startTime);
     }
 
+    // Returns the unequivocal position in the current song.
     public double GetSongPosition()
     {
         return AudioSettings.dspTime - startTime - (beats_till_first_note * beatLength) - offset - latency_offset;
     }
 
-    public void UpdateSongPosition()
+    public void UpdateFields()
     {
         double newSongPosition = GetSongPosition();
 
@@ -81,6 +84,6 @@ public class Conductor : MonoBehaviour
 
     public void Update()
     {
-        UpdateSongPosition();
+        UpdateFields();
     }
 }
