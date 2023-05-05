@@ -4,82 +4,108 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum Character {
+    RIKA,
+    BRONTE,
+    THREE,
+    SHOPKEEPER,
+};
+
+public class DialogueLine {
+    public Character character;
+    public string line;
+
+    public DialogueLine(Character char_in, string line_in) {
+        character = char_in;
+        line = line_in;
+    }
+};
+
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI textComponment;
+    public TextMeshProUGUI name_field;
 
-    public NPC npc;
+    public Image rika_image;
+    public Image bronte_image;
+    public Image three_image;
+    public Image shopkeeper_image;
 
     public Image textbox;
 
-    public string[] lines;
+    public DialogueLine[] lines = 
+    {
+        new DialogueLine(Character.RIKA, "Hi, I'm Rika!"),
+        new DialogueLine(Character.RIKA, "I love you, Lucas!"),
+        new DialogueLine(Character.BRONTE, "I'm here too!"),
+        new DialogueLine(Character.RIKA, "Go Virtuosos!"),
+    };
 
     public float textSpeed;
 
-    private int index;
-
-    private bool isStart = false;
-
-    public CameraController cam;
-
     AudioSource audioSource; 
 
+    // Implementation Variables
+    private int index;
 
-    // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+
         textComponment.text = string.Empty;
-        // StartDialogue();
+        textComponment.enabled = false;
+        audioSource.enabled = false;
+        textbox.enabled = false;
+
+        rika_image.enabled = false;
+        bronte_image.enabled = false;
+        three_image.enabled = false;
+        shopkeeper_image.enabled = false;
+    }
+
+    public void Enable()
+    {
+        textComponment.enabled = true;
+        audioSource.enabled = true;
+        textbox.enabled = true;
+
+        index = -1;
+        NextLine();
+    }
+
+    public void Disable()
+    {
+        audioSource.enabled = false;
         textComponment.enabled = false;
         textbox.enabled = false;
-        audioSource = GetComponent<AudioSource>();
+        StopAllCoroutines();
+        textComponment.text = string.Empty;
     }
 
-    // Update is called once per frame
-    void Update()
+    // Returns false if no lines left.
+    public bool NextLine()
     {
-        if (!cam.isMoving)
-        {
-            if (!isStart){
-                StartDialogue();
-                /*audioSource.Play();*/
-                isStart = true;
-            }
-            textComponment.enabled = true;
-            textbox.enabled = true;
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (textComponment.text == lines[index])
-                {
-                    NextLine();
-                }
-                else
-                {
-                    audioSource.enabled = false;
-                    textbox.enabled = false;
-                    StopAllCoroutines();
-                    textComponment.text = string.Empty;
-                }
-            }
+        if (index < lines.Length - 1) {
+            if(index >= 0) GetImage(lines[index].character).enabled = false;
+            index++;
+            GetImage(lines[index].character).enabled = true;
+
+            name_field.text = GetName(lines[index].character);
+            textComponment.text = string.Empty;
+            StartCoroutine(EmitLine());
+            return true;
         }
-        else
-        {
-            index = 0;
-            textComponment.enabled = false;
-            textbox.enabled = false;
-        }
+
+        GetImage(lines[index].character).enabled = false;
+        name_field.enabled = false;
+        return false;
     }
 
-    void StartDialogue()
-    {
-        index = 0;
-        StartCoroutine(TypeLine());
-    }
-
-    IEnumerator TypeLine()
+    IEnumerator EmitLine()
     {
         audioSource.Play();
-        foreach (char c in lines[index].ToCharArray())
+        Debug.Log(index);
+        foreach (char c in lines[index].line.ToCharArray())
         {
             textComponment.text += c;
             yield return new WaitForSeconds(textSpeed);
@@ -87,17 +113,35 @@ public class Dialogue : MonoBehaviour
         audioSource.Pause();
     }
 
-    void NextLine()
-    {
-        if (index < lines.Length - 1)
+    public string GetName(Character character) {
+        switch(character)
         {
-            index++;
-            textComponment.text = string.Empty;
-            StartCoroutine(TypeLine());
+            case Character.RIKA:
+                return "Rika";
+            case Character.BRONTE:
+                return "Bronte";
+            case Character.THREE:
+                return "Three";
+            case Character.SHOPKEEPER:
+                return "Shopkeeper";
+            default:
+                return "ERROR";
         }
-        // else
-        // {
-        //     gameObject.SetActive(false);
-        // }
+    }
+
+    public Image GetImage(Character character) {
+        switch(character)
+        {
+            case Character.RIKA:
+                return rika_image;
+            case Character.BRONTE:
+                return bronte_image;
+            case Character.THREE:
+                return three_image;
+            case Character.SHOPKEEPER:
+                return shopkeeper_image;
+            default:
+                return rika_image;
+        }
     }
 }

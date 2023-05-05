@@ -33,11 +33,6 @@ public class Conductor : MonoBehaviour
     private double bufferSchedulingOffset = 3.0;
     private double startTime;
 
-    // SONG SETTINGS
-    // sample_track: 121 bpm, 0.35 offset.
-    // 60 bpm: 60 bpm, 0.25 offset.
-
-    // Start is called before the first frame update
     void Start()
     { 
         nextSpotTime = 0.0;

@@ -19,13 +19,5 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.S))
-            isMoving = false;
-        if (Input.GetKey(KeyCode.D))
-            isMoving = true;
-
-        if (isMoving)
-        {
-        }
     }
 }
