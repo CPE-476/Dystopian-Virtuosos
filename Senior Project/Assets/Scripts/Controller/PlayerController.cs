@@ -15,25 +15,23 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim;
 
-    private int direction = 1;
-
     bool isJumping = false;
 
-    private bool alive = true;
+    private InterfaceState state = InterfaceState.GAMEPLAY;
 
     public float startX;
 
     public bool reset = false;
 
-    public uint playerState;
+    public uint current_track_position;
 
     public Conductor conductor;
-
-    private double curSongPosition;
 
     public CameraController cam;
 
     public TracksController tracksController;
+
+    public Dialogue dialogue;
 
     public GameObject collector;
 
@@ -48,16 +46,47 @@ public class PlayerController : MonoBehaviour
         reset = true;
         curHealth = maxHealth;
         hb.setMaxHealth(maxHealth);
-        curSongPosition = conductor.songPosition;
     }
 
     private void Update()
     {
-        if (alive)
+        switch (state)
         {
-            Attack();
-            Jump();
-            Run();
+            case InterfaceState.GAMEPLAY:
+                {
+                    Attack();
+                    Jump();
+                    Run();
+
+                    // Switch State (DEBUG... FOR NOW)
+                    if (Input.GetKeyDown(KeyCode.S))
+                    {
+                        state = InterfaceState.DIALOGUE;
+                        cam.isMoving = false;
+                        dialogue.Enable();
+                    }
+                }
+                break;
+            case InterfaceState.DIALOGUE:
+                {
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        bool result = dialogue.NextLine();
+                        if (!result)
+                        {
+                            // Dialogue over.
+                            state = InterfaceState.GAMEPLAY;
+                            cam.isMoving = true;
+                            dialogue.Disable();
+                        }
+                    }
+                }
+                break;
+            case InterfaceState.GAME_OVER:
+                {
+
+                }
+                break;
         }
     }
 
@@ -70,9 +99,8 @@ public class PlayerController : MonoBehaviour
         Vector3 moveVelocity;
         if (cam.isMoving)
         {
-            direction = 1;
             moveVelocity = Vector3.right;
-            transform.localScale = new Vector3(direction, 1, 1) * 0.5f;
+            transform.localScale = new Vector3(1, 1, 1) * 0.5f;
             if (!anim.GetBool("isJump")) anim.SetBool("isRun", true);
         }
         else
@@ -114,9 +142,8 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(0, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track1.transform.position.y, collector.transform.position.z);
-            playerState = 3;
+            current_track_position = 3;
 
-            curSongPosition = conductor.songPosition;
             anim.SetTrigger("attack");
         }
         if (
@@ -126,8 +153,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(0, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track2.transform.position.y, collector.transform.position.z);
-            playerState = 2;
-            curSongPosition = conductor.songPosition;
+            current_track_position = 2;
             anim.SetTrigger("attack");
         }
         if (
@@ -137,8 +163,7 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(0, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track3.transform.position.y, collector.transform.position.z);
-            playerState = 1;
-            curSongPosition = conductor.songPosition;
+            current_track_position = 1;
             anim.SetTrigger("attack");
         }
         if (
@@ -147,21 +172,19 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(0, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
             collector.transform.position = new Vector3(collector.transform.position.x, tracksController.Track4.transform.position.y, collector.transform.position.z);
-            playerState = 0;
-            curSongPosition = conductor.songPosition;
+            current_track_position = 0;
             anim.SetTrigger("attack");
         }
 
         if (
-            curSongPosition + (conductor.spotLength * 8) <=
-            conductor.songPosition &&
+            conductor.GetSongPosition() + (conductor.spotLength * 8) <= conductor.GetSongPosition() &&
             !Input.GetKey(KeyCode.Joystick1Button2) &&
             !Input.GetKey(KeyCode.Joystick1Button3) &&
             !Input.GetKey(KeyCode.Joystick1Button0)
         )
         {
             transform.position = new Vector3(0, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
-            playerState = 0;
+            current_track_position = 0;
         }
     }
 }

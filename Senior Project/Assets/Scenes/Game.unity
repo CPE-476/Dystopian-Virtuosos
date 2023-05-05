@@ -2651,10 +2651,11 @@ MonoBehaviour:
   anim: {fileID: 0}
   startX: 0
   reset: 0
-  playerState: 0
+  current_track_position: 0
   conductor: {fileID: 42173310}
   cam: {fileID: 510236666}
   tracksController: {fileID: 1488642359}
+  dialogue: {fileID: 0}
   collector: {fileID: 1693202457}
 --- !u!61 &266359511
 BoxCollider2D:
@@ -8425,13 +8426,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponment: {fileID: 802824394}
-  npc: {fileID: 1821401242}
+  name_field: {fileID: 0}
+  rika_image: {fileID: 484988430}
+  bronte_image: {fileID: 484988430}
+  three_image: {fileID: 484988430}
+  shopkeeper_image: {fileID: 484988430}
   textbox: {fileID: 997234489}
-  lines:
-  - Hi I'm Rika
-  - Who are you
   textSpeed: 0.1
-  cam: {fileID: 510236666}
 --- !u!114 &802824394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10685,11 +10686,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textComponment: {fileID: 0}
-  npc: {fileID: 0}
+  name_field: {fileID: 0}
+  rika_image: {fileID: 0}
+  bronte_image: {fileID: 0}
+  three_image: {fileID: 0}
+  shopkeeper_image: {fileID: 0}
   textbox: {fileID: 997234487}
-  lines: []
   textSpeed: 0
-  cam: {fileID: 510236666}
 --- !u!1 &1006810165
 GameObject:
   m_ObjectHideFlags: 0
@@ -17615,9 +17618,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34df8cdf42997464db16674f7f474f09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entity: {fileID: 1821401239}
-  cam: {fileID: 510236666}
-  npcName: 
 --- !u!1 &1821410715
 GameObject:
   m_ObjectHideFlags: 0
