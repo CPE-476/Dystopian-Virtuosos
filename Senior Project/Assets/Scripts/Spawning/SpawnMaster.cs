@@ -50,6 +50,8 @@ public class SpawnMaster : MonoBehaviour
             spawner1.Spawn(2, curVal.one.length);
         else if (curVal.one.velocity == 80)
             spawner1.Spawn(3, 0);
+        else if (curVal.one.velocity == 88)
+            spawner1.Spawn(4, 0);
 
         // Note 2
         if (curVal.two.velocity == 64)
@@ -58,6 +60,8 @@ public class SpawnMaster : MonoBehaviour
             spawner2.Spawn(2, curVal.two.length);
         else if (curVal.two.velocity == 80)
             spawner2.Spawn(3, 0);
+        else if (curVal.two.velocity == 88)
+            spawner2.Spawn(4, 0);
 
         // Note 3
         if (curVal.three.velocity == 64)
@@ -66,6 +70,8 @@ public class SpawnMaster : MonoBehaviour
             spawner3.Spawn(2, curVal.three.length);
         else if (curVal.three.velocity == 80)
             spawner3.Spawn(3, 0);
+        else if (curVal.three.velocity == 88)
+            spawner3.Spawn(4, 0);
 
         // Note 4
         if (curVal.four.velocity == 64)
@@ -74,5 +80,7 @@ public class SpawnMaster : MonoBehaviour
             spawner4.Spawn(2, curVal.four.length);
         else if (curVal.four.velocity == 80)
             spawner4.Spawn(3, 0);
+        else if (curVal.four.velocity == 88)
+            spawner4.Spawn(4, 0);
     }
 }
