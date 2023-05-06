@@ -15,6 +15,8 @@ public class Conductor : MonoBehaviour
     AudioSource background2;
     int current_background = 1;
     AudioSource drums;
+    AudioSource piano;
+    AudioSource guitar;
 
     public float bpm;
     public float beatLength;
@@ -56,6 +58,8 @@ public class Conductor : MonoBehaviour
         background = audioSources[0];
         background2 = audioSources[1];
         drums = audioSources[2];
+        piano = audioSources[3];
+        guitar = audioSources[4];
 
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
         background.PlayScheduled(startTime);
