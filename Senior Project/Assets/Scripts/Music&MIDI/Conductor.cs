@@ -13,8 +13,10 @@ public class Conductor : MonoBehaviour
 
     AudioSource background;
     AudioSource background2;
-    int current_background = 1;
+    public int current_background = 1;
     AudioSource drums;
+    AudioSource guitar;
+    AudioSource piano;
 
     public float bpm;
     public float beatLength;
@@ -36,7 +38,7 @@ public class Conductor : MonoBehaviour
 
     double backgroundDuration;
     double nextStartTime;
-    double nextBackgroundOffset = 0.1;
+    double nextBackgroundOffset = 0.0;
 
     public bool playDrumsNextBar = false;
     public bool playGuitarNextBar = false;
@@ -56,13 +58,14 @@ public class Conductor : MonoBehaviour
         background = audioSources[0];
         background2 = audioSources[1];
         drums = audioSources[2];
+        guitar = audioSources[3];
+        piano = audioSources[4];
 
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
         background.PlayScheduled(startTime);
-        //drums.PlayScheduled(startTime);
 
         // Looping fix
-        backgroundDuration = (double)background.clip.samples / background.clip.frequency;
+        backgroundDuration = beatLength * 16;
         nextStartTime = startTime + backgroundDuration - nextBackgroundOffset;
         background2.PlayScheduled(nextStartTime);
     }
@@ -111,6 +114,20 @@ public class Conductor : MonoBehaviour
                 background.PlayScheduled(nextStartTime);
                 current_background = 1;
             }
+
+            if(playDrumsNextBar) {
+                playDrumsNextBar = false;
+                drums.PlayScheduled(nextStartTime);
+            }
+            if(playGuitarNextBar) {
+                playGuitarNextBar = false;
+                guitar.PlayScheduled(nextStartTime);
+            }
+            if(playPianoNextBar) {
+                playPianoNextBar = false;
+                piano.PlayScheduled(nextStartTime);
+            }
+
             nextStartTime = nextStartTime + backgroundDuration - nextBackgroundOffset;
         }
     }

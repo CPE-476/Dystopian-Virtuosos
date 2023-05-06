@@ -80,6 +80,11 @@ public class Dialogue : MonoBehaviour
         textbox.enabled = false;
         StopAllCoroutines();
         textComponment.text = string.Empty;
+
+        rika_image.enabled = false;
+        bronte_image.enabled = false;
+        three_image.enabled = false;
+        shopkeeper_image.enabled = false;
     }
 
     // Returns false if no lines left.
