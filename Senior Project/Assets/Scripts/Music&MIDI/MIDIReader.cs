@@ -40,7 +40,7 @@ public class MIDIReader : MonoBehaviour
 
     public int currentMIDIIndex = 0;
 
-    public bool ended = false;
+    public bool ended = true;
 
     TempoMap tempoMap;
 
@@ -50,10 +50,6 @@ public class MIDIReader : MonoBehaviour
 
     int SixteenthLength = 119;
 
-    // byte[] oneNotes = new byte[] { 56, 58, 61 };
-    // byte[] twoNotes = new byte[] { 57, 59, 62 };
-    // byte[] threeNotes = new byte[] { 60, 63 };
-    // byte[] fourNotes = new byte[] { 64 };
     byte[] oneNotes = new byte[] { 64 };
 
     byte[] twoNotes = new byte[] { 60, 63 };
@@ -151,6 +147,7 @@ public class MIDIReader : MonoBehaviour
     {
         var notes = midiFile.GetNotes();
         tempoMap = midiFile.GetTempoMap();
+        trackInfo.Clear();
 
         foreach (var note in notes)
         {

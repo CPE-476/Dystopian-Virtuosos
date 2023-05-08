@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
 
     public Conductor conductor;
 
+    public MIDIReader midiReader;
+
     public CameraController cam;
 
     public TracksController tracksController;
@@ -38,6 +40,8 @@ public class PlayerController : MonoBehaviour
     private float playerHeightOffset = 1.2f;
 
     private double lastNoteHitTime;
+
+    private string[] MIDIOrder = {"drum", "piano", "guitar"};
 
     // Start is called before the first frame update
     void Start()
@@ -61,10 +65,11 @@ public class PlayerController : MonoBehaviour
                 Run();
 
                 // Switch State (DEBUG)
-                if (Input.GetKeyDown(KeyCode.S))
+                if (midiReader.ended || reset)
                 {
                     state = InterfaceState.DIALOGUE;
                     cam.isMoving = false;
+                    reset = false;
                     dialogue.Enable();
                 }
             }
@@ -73,14 +78,29 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    bool result = dialogue.NextLine();
-                    if (!result)
+                    int result = dialogue.NextLine();
+                    if (result == -1 || result == dialogue.sectionBreak[dialogue.currentSection])
                     {
                         // Dialogue over.
                         state = InterfaceState.GAMEPLAY;
                         cam.isMoving = true;
+                        if (MIDIOrder[dialogue.currentSection] == "drum"){
+                            conductor.playDrumsNextBar = true;
+                            midiReader.ended = true;
+                            dialogue.currentSection++;
+                        }
+                        else if (MIDIOrder[dialogue.currentSection] == "piano"){
+                            conductor.playPianoNextBar = true;
+                            midiReader.ended = true;
+                            dialogue.currentSection++;
+                        }
+                        else if (MIDIOrder[dialogue.currentSection] == "guitar"){
+                            conductor.playGuitarNextBar = true;
+                        }
+                        
                         dialogue.Disable();
                     }
+                    
                 }
             }
             break;

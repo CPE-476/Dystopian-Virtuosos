@@ -396,9 +396,9 @@ public class NoteTrigger : MonoBehaviour
             {
                 midiReader.updateTrackState();
             }
-            else{
-                midiReader.ended = true;
-            }
+            // else{
+            //     midiReader.ended = true;
+            // }
         }
     }
 

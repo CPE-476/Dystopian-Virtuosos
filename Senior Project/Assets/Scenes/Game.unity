@@ -815,7 +815,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5167570ba0b1b4c5d822d27719e899e4, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.66
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1007,7 +1007,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 34f15d5d0266a44d199ea48b3d19161c, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.66
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1103,7 +1103,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 36507311ad6fb47008c6408eb64463ec, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.66
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1199,7 +1199,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 51673495be5694e97b3df65a1e811784, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.66
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -3180,6 +3180,7 @@ MonoBehaviour:
   reset: 0
   current_track_position: 0
   conductor: {fileID: 42173310}
+  midiReader: {fileID: 1263251599}
   cam: {fileID: 510236666}
   tracksController: {fileID: 1488642359}
   dialogue: {fileID: 802824393}
@@ -9083,7 +9084,10 @@ MonoBehaviour:
   three_image: {fileID: 268847209}
   shopkeeper_image: {fileID: 1821401239}
   textbox: {fileID: 997234489}
-  textSpeed: 0.1
+  sectionBreak: 030000000600000009000000
+  currentSection: 0
+  textSpeed: 0.03
+  index: 0
 --- !u!114 &802824394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13736,8 +13740,9 @@ MonoBehaviour:
   currentMIDIIndex: 0
   ended: 0
   midiFilePaths:
-  - Assets/Music/DV_L1_switch.mid
   - Assets/Music/DV_L1_drum.mid
+  - Assets/Music/DV_L1_piano.mid
+  - Assets/Music/DV_L1_guitar.mid
   changed: 0
 --- !u!4 &1263251600
 Transform:
