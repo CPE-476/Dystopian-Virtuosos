@@ -158,9 +158,9 @@ public class Dialogue : MonoBehaviour
         switch (character)
         {
             case Character.RIKA:
-                return "Rika";
+                return "RIKA";
             case Character.BRONTE:
-                return "Bronte";
+                return "BRONTE";
             case Character.THREE:
                 return "Three";
             case Character.SHOPKEEPER:

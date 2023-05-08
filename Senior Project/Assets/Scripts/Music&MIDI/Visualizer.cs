@@ -23,7 +23,9 @@ public class Visualizer : MonoBehaviour
 
     public VisualizerObject[] visualizerObjects;
 
-    AudioSource m_audioSource;
+    AudioSource BGM_1;
+
+    AudioSource BGM_2;
 
     private NoteTrigger notetrigger;
 
@@ -33,8 +35,8 @@ public class Visualizer : MonoBehaviour
     void Start()
     {
         visualizerObjects = GetComponentsInChildren<VisualizerObject>();
-        m_audioSource =
-            GameObject.Find("Conductor").GetComponent<AudioSource>();
+        BGM_1 = GameObject.Find("Conductor").GetComponents<AudioSource>()[0];
+        BGM_2 = GameObject.Find("Conductor").GetComponents<AudioSource>()[1];
         notetrigger =
             (NoteTrigger)
             GameObject.Find("/Tracks/NoteTrigger").GetComponent("NoteTrigger");
@@ -46,9 +48,17 @@ public class Visualizer : MonoBehaviour
     {
         stateInfo = notetrigger.anim.GetCurrentAnimatorStateInfo(0);
 
-        float[] spectrumData =
-            m_audioSource
-                .GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
+        float[] spectrumData_1 =
+            BGM_1.GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
+        float[] spectrumData_2 =
+            BGM_2.GetSpectrumData(visualizerSamples, 0, FFTWindow.Rectangular);
+
+        float[] spectrumData = new float[spectrumData_1.Length];
+        for (int i = 0; i < spectrumData_1.Length; i++)
+        {
+            spectrumData[i] = spectrumData_1[i] + spectrumData_2[i];
+        }
+
         float averageVolume = 0f;
         for (int i = 0; i < spectrumData.Length; i++)
         {

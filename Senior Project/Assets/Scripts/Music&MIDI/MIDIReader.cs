@@ -40,7 +40,7 @@ public class MIDIReader : MonoBehaviour
 
     public int currentMIDIIndex = 0;
 
-    public bool ended = true;
+    public bool ended = false;
 
     TempoMap tempoMap;
 
@@ -111,24 +111,24 @@ public class MIDIReader : MonoBehaviour
 
     void Start()
     {
-        midiFile = MidiFile.Read(midiFilePaths[currentMIDIIndex]);
-        InitNoteElement();
-        InitSpotTrack();
+        // midiFile = MidiFile.Read(midiFilePaths[currentMIDIIndex]);
+        // InitNoteElement();
+        // InitSpotTrack();
 
-        track_state =
-            new NoteType[] {
-                NoteType.EMPTY,
-                NoteType.EMPTY,
-                NoteType.EMPTY,
-                NoteType.EMPTY
-            };
+        // track_state =
+        //     new NoteType[] {
+        //         NoteType.EMPTY,
+        //         NoteType.EMPTY,
+        //         NoteType.EMPTY,
+        //         NoteType.EMPTY
+        //     };
     }
 
     void Update()
     {
-        if (ended)
+        if ((conductor.playDrumsNextBar || conductor.playPianoNextBar || conductor.playGuitarNextBar) && ended)
         {
-            midiFile = MidiFile.Read(midiFilePaths[++currentMIDIIndex]);
+            midiFile = MidiFile.Read(midiFilePaths[currentMIDIIndex]);
             InitNoteElement();
             InitSpotTrack();
 
@@ -140,6 +140,8 @@ public class MIDIReader : MonoBehaviour
                     NoteType.EMPTY
                 };
             ended = false;
+            index = 0;
+            currentMIDIIndex++;
         }
     }
 

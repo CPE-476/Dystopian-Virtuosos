@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-enum InterfaceState
+public enum InterfaceState
 {
     GAMEPLAY,
     DIALOGUE,
@@ -74,6 +74,8 @@ public class NoteTrigger : MonoBehaviour
 
     public float outerThreshold;
 
+    public bool finished = false;
+
     private float lowerGoodBound;
 
     private float lowerWeakBound;
@@ -103,6 +105,8 @@ public class NoteTrigger : MonoBehaviour
 
     public bool flickDownRight = false;
 
+    private int curMIDIIndex;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -113,294 +117,298 @@ public class NoteTrigger : MonoBehaviour
         psmain = particles.main;
         index = midiReader.index;
         newIndex = index;
+        curMIDIIndex = midiReader.currentMIDIIndex;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (checkHit(KeyCode.Joystick1Button3, KeyCode.H, 0, top, 0.7f))
-            hasBeenPressed[0] = true;
+        if (character.state == InterfaceState.GAMEPLAY && !midiReader.ended){
+        
+                if (checkHit(KeyCode.Joystick1Button3, KeyCode.H, 0, top, 0.7f))
+                    hasBeenPressed[0] = true;
 
-        if (checkHit(KeyCode.Joystick1Button2, KeyCode.J, 1, high, 0.7f))
-            hasBeenPressed[1] = true;
+                if (checkHit(KeyCode.Joystick1Button2, KeyCode.J, 1, high, 0.7f))
+                    hasBeenPressed[1] = true;
 
-        if (checkHit(KeyCode.Joystick1Button0, KeyCode.K, 2, low, 0.7f))
-            hasBeenPressed[2] = true;
+                if (checkHit(KeyCode.Joystick1Button0, KeyCode.K, 2, low, 0.7f))
+                    hasBeenPressed[2] = true;
 
-        if (checkHit(KeyCode.Joystick1Button1, KeyCode.L, 3, bot, 0.7f))
-            hasBeenPressed[3] = true;
+                if (checkHit(KeyCode.Joystick1Button1, KeyCode.L, 3, bot, 0.7f))
+                    hasBeenPressed[3] = true;
 
-        //Update Hold Note Score
-        if (
-            updateHold[0] &&
-            holdLengths[0] >= 1 &&
-            (
-            (
-            Input.GetKey(KeyCode.H) ||
-            Input.GetKey(KeyCode.Joystick1Button3) ||
-            Input.GetAxis("Vertical") >= 0.7f
-            )
-            )
-        )
-        {
-            var em =
-                top
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = true;
-            if (goodHold[0] == false) holdScore += 1;
-            goodHold[0] = true;
-        }
-        else
-        {
-            var em =
-                top
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = false;
-            if (goodHold[0] == true) holdScore -= 1;
-            goodHold[0] = false;
-            updateHold[0] = false;
-        }
-        if (
-            updateHold[1] &&
-            holdLengths[1] >= 1 &&
-            (
-            (
-            Input.GetKey(KeyCode.J) ||
-            Input.GetKey(KeyCode.Joystick1Button2) ||
-            -Input.GetAxis("Vertical") >= 0.7f
-            )
-            )
-        )
-        {
-            var em =
-                high
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = true;
-            if (goodHold[1] == false) holdScore += 1;
-            goodHold[1] = true;
-        }
-        else
-        {
-            var em =
-                high
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = false;
-            if (goodHold[1] == true) holdScore -= 1;
-            goodHold[1] = false;
-            updateHold[1] = false;
-        }
-        if (
-            updateHold[2] &&
-            holdLengths[2] >= 1 &&
-            (
-            (
-            Input.GetKey(KeyCode.K) ||
-            Input.GetKey(KeyCode.Joystick1Button0) ||
-            Input.GetAxis("VerticalRight") >= 0.7f
-            )
-            )
-        )
-        {
-            var em =
-                low
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = true;
-            if (goodHold[2] == false) holdScore += 1;
-            goodHold[2] = true;
-        }
-        else
-        {
-            var em =
-                low
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = false;
-            if (goodHold[2] == true) holdScore -= 1;
-            goodHold[2] = false;
-            updateHold[2] = false;
-        }
-        if (
-            updateHold[3] &&
-            holdLengths[3] >= 1 &&
-            (
-            (Input.GetKey(KeyCode.L) || -Input.GetAxis("VerticalRight") >= 0.7f)
-            )
-        )
-        {
-            var em =
-                bot
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = true;
-            if (goodHold[3] == false) holdScore += 1;
-            goodHold[3] = true;
-        }
-        else
-        {
-            var em =
-                bot
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
-            em.enabled = false;
-            if (goodHold[3] == true) holdScore -= 1;
-            goodHold[3] = false;
-            updateHold[3] = false;
-        }
+                //Update Hold Note Score
+                if (
+                    updateHold[0] &&
+                    holdLengths[0] >= 1 &&
+                    (
+                    (
+                    Input.GetKey(KeyCode.H) ||
+                    Input.GetKey(KeyCode.Joystick1Button3) ||
+                    Input.GetAxis("Vertical") >= 0.7f
+                    )
+                    )
+                )
+                {
+                    var em =
+                        top
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = true;
+                    if (goodHold[0] == false) holdScore += 1;
+                    goodHold[0] = true;
+                }
+                else
+                {
+                    var em =
+                        top
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = false;
+                    if (goodHold[0] == true) holdScore -= 1;
+                    goodHold[0] = false;
+                    updateHold[0] = false;
+                }
+                if (
+                    updateHold[1] &&
+                    holdLengths[1] >= 1 &&
+                    (
+                    (
+                    Input.GetKey(KeyCode.J) ||
+                    Input.GetKey(KeyCode.Joystick1Button2) ||
+                    -Input.GetAxis("Vertical") >= 0.7f
+                    )
+                    )
+                )
+                {
+                    var em =
+                        high
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = true;
+                    if (goodHold[1] == false) holdScore += 1;
+                    goodHold[1] = true;
+                }
+                else
+                {
+                    var em =
+                        high
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = false;
+                    if (goodHold[1] == true) holdScore -= 1;
+                    goodHold[1] = false;
+                    updateHold[1] = false;
+                }
+                if (
+                    updateHold[2] &&
+                    holdLengths[2] >= 1 &&
+                    (
+                    (
+                    Input.GetKey(KeyCode.K) ||
+                    Input.GetKey(KeyCode.Joystick1Button0) ||
+                    Input.GetAxis("VerticalRight") >= 0.7f
+                    )
+                    )
+                )
+                {
+                    var em =
+                        low
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = true;
+                    if (goodHold[2] == false) holdScore += 1;
+                    goodHold[2] = true;
+                }
+                else
+                {
+                    var em =
+                        low
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = false;
+                    if (goodHold[2] == true) holdScore -= 1;
+                    goodHold[2] = false;
+                    updateHold[2] = false;
+                }
+                if (
+                    updateHold[3] &&
+                    holdLengths[3] >= 1 &&
+                    (
+                    (Input.GetKey(KeyCode.L) || -Input.GetAxis("VerticalRight") >= 0.7f)
+                    )
+                )
+                {
+                    var em =
+                        bot
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = true;
+                    if (goodHold[3] == false) holdScore += 1;
+                    goodHold[3] = true;
+                }
+                else
+                {
+                    var em =
+                        bot
+                            .gameObject
+                            .transform
+                            .Find("HitSpot/HoldParticle")
+                            .GetComponent<ParticleSystem>()
+                            .emission;
+                    em.enabled = false;
+                    if (goodHold[3] == true) holdScore -= 1;
+                    goodHold[3] = false;
+                    updateHold[3] = false;
+                }
 
-        if (goodHold.Any(b => b))
-        {
-            newIndex = midiReader.index;
+                if (goodHold.Any(b => b))
+                {
+                    newIndex = midiReader.index;
 
-            if (newIndex > index)
-            {
-                holdLengths[0]--;
-                holdLengths[1]--;
-                holdLengths[2]--;
-                holdLengths[3]--;
-                scoreManager.score += holdScore;
-                index = newIndex;
+                    if (newIndex > index)
+                    {
+                        holdLengths[0]--;
+                        holdLengths[1]--;
+                        holdLengths[2]--;
+                        holdLengths[3]--;
+                        scoreManager.score += holdScore;
+                        index = newIndex;
+                    }
+                }
+
+                // Set the current Hit Category
+                if (
+                    conductor.songPosition >= lowerGoodBound &&
+                    conductor.songPosition <= upperGoodBound
+                )
+                {
+                    current_hit_category = HitCategory.GOOD;
+                }
+                else if (
+                    conductor.songPosition >= lowerWeakBound &&
+                    conductor.songPosition <= upperWeakBound
+                )
+                {
+                    current_hit_category = HitCategory.WEAK;
+                }
+                else
+                {
+                    current_hit_category = HitCategory.NONE;
+                }
+
+                // Set the next beat when current beat is over.
+                if (conductor.songPosition > noteEnd)
+                {
+                    currentSpot += conductor.spotLength;
+                    noteEnd += conductor.spotLength;
+
+                    lowerGoodBound =
+                        currentSpot - innerThreshold * conductor.spotLength;
+                    upperGoodBound =
+                        currentSpot + innerThreshold * conductor.spotLength;
+
+                    lowerWeakBound = currentSpot - outerThreshold;
+                    upperWeakBound = currentSpot + outerThreshold;
+
+                    // BELOW: Consequences for missing things
+                    switch (midiReader.track_state[0])
+                    {
+                        case NoteType.NOTE:
+                            {
+                                if (!hasBeenPressed[0]) ResolveMiss(top, 0);
+                            }
+                            break;
+                        case NoteType.OBSTACLE:
+                            {
+                                if (character.current_track_position == 3)
+                                    ResolveHitObstacle(top, 0);
+                            }
+                            break;
+                        case NoteType.HOLD:
+                            {
+                                if (!hasBeenPressed[0]) ResolveMiss(top, 0);
+                            }
+                            break;
+                    }
+                    switch (midiReader.track_state[1])
+                    {
+                        case NoteType.NOTE:
+                            {
+                                if (!hasBeenPressed[1]) ResolveMiss(high, 1);
+                            }
+                            break;
+                        case NoteType.OBSTACLE:
+                            {
+                                if (character.current_track_position == 2)
+                                    ResolveHitObstacle(high, 1);
+                            }
+                            break;
+                    }
+                    switch (midiReader.track_state[2])
+                    {
+                        case NoteType.NOTE:
+                            {
+                                if (!hasBeenPressed[2]) ResolveMiss(low, 2);
+                            }
+                            break;
+                        case NoteType.OBSTACLE:
+                            {
+                                if (character.current_track_position == 1)
+                                    ResolveHitObstacle(low, 2);
+                            }
+                            break;
+                    }
+                    switch (midiReader.track_state[3])
+                    {
+                        case NoteType.NOTE:
+                            {
+                                if (!hasBeenPressed[3]) ResolveMiss(bot, 3);
+                            }
+                            break;
+                        case NoteType.OBSTACLE:
+                            {
+                                if (character.current_track_position == 0)
+                                    ResolveHitObstacle(bot, 3);
+                            }
+                            break;
+                    }
+
+                    hasBeenPressed[0] = false;
+                    hasBeenPressed[1] = false;
+                    hasBeenPressed[2] = false;
+                    hasBeenPressed[3] = false;
+                    if (midiReader.index < midiReader.SpotTrack.Length - 1)
+                    {
+                        midiReader.updateTrackState();
+                    }
+                    else{
+                        finished = true;
+                    }
+                }
             }
         }
-
-        // Set the current Hit Category
-        if (
-            conductor.songPosition >= lowerGoodBound &&
-            conductor.songPosition <= upperGoodBound
-        )
-        {
-            current_hit_category = HitCategory.GOOD;
-        }
-        else if (
-            conductor.songPosition >= lowerWeakBound &&
-            conductor.songPosition <= upperWeakBound
-        )
-        {
-            current_hit_category = HitCategory.WEAK;
-        }
-        else
-        {
-            current_hit_category = HitCategory.NONE;
-        }
-
-        // Set the next beat when current beat is over.
-        if (conductor.songPosition > noteEnd)
-        {
-            currentSpot += conductor.spotLength;
-            noteEnd += conductor.spotLength;
-
-            lowerGoodBound =
-                currentSpot - innerThreshold * conductor.spotLength;
-            upperGoodBound =
-                currentSpot + innerThreshold * conductor.spotLength;
-
-            lowerWeakBound = currentSpot - outerThreshold;
-            upperWeakBound = currentSpot + outerThreshold;
-
-            // BELOW: Consequences for missing things
-            switch (midiReader.track_state[0])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[0]) ResolveMiss(top, 0);
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
-                        if (character.current_track_position == 3)
-                            ResolveHitObstacle(top, 0);
-                    }
-                    break;
-                case NoteType.HOLD:
-                    {
-                        if (!hasBeenPressed[0]) ResolveMiss(top, 0);
-                    }
-                    break;
-            }
-            switch (midiReader.track_state[1])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[1]) ResolveMiss(high, 1);
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
-                        if (character.current_track_position == 2)
-                            ResolveHitObstacle(high, 1);
-                    }
-                    break;
-            }
-            switch (midiReader.track_state[2])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[2]) ResolveMiss(low, 2);
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
-                        if (character.current_track_position == 1)
-                            ResolveHitObstacle(low, 2);
-                    }
-                    break;
-            }
-            switch (midiReader.track_state[3])
-            {
-                case NoteType.NOTE:
-                    {
-                        if (!hasBeenPressed[3]) ResolveMiss(bot, 3);
-                    }
-                    break;
-                case NoteType.OBSTACLE:
-                    {
-                        if (character.current_track_position == 0)
-                            ResolveHitObstacle(bot, 3);
-                    }
-                    break;
-            }
-
-            hasBeenPressed[0] = false;
-            hasBeenPressed[1] = false;
-            hasBeenPressed[2] = false;
-            hasBeenPressed[3] = false;
-            if (midiReader.index < midiReader.SpotTrack.Length - 1)
-            {
-                midiReader.updateTrackState();
-            }
-            // else{
-            //     midiReader.ended = true;
-            // }
-        }
-    }
 
     private void ResolveHit(SpriteRenderer sprite, int trackNumber, bool isHold)
     {

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     bool isJumping = false;
 
-    private InterfaceState state = InterfaceState.GAMEPLAY;
+    public InterfaceState state = InterfaceState.GAMEPLAY;
 
     public float startX;
 
@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     public Dialogue dialogue;
 
     public GameObject collector;
+
+    public NoteTrigger noteTrigger;
 
     private float playerHeightOffset = 1.2f;
 
@@ -65,11 +67,12 @@ public class PlayerController : MonoBehaviour
                 Run();
 
                 // Switch State (DEBUG)
-                if (midiReader.ended || reset)
+                if (noteTrigger.finished || reset)
                 {
                     state = InterfaceState.DIALOGUE;
                     cam.isMoving = false;
                     reset = false;
+                    noteTrigger.finished = false;
                     dialogue.Enable();
                 }
             }
@@ -79,6 +82,8 @@ public class PlayerController : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     int result = dialogue.NextLine();
+                    Debug.Log("result: " + result);
+                    Debug.Log("current break: " + dialogue.sectionBreak[dialogue.currentSection]);
                     if (result == -1 || result == dialogue.sectionBreak[dialogue.currentSection])
                     {
                         // Dialogue over.
