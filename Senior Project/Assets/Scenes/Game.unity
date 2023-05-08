@@ -3176,6 +3176,7 @@ MonoBehaviour:
   curHealth: 100
   hb: {fileID: 816987385}
   anim: {fileID: 0}
+  state: 0
   startX: 0
   reset: 0
   current_track_position: 0
@@ -3185,6 +3186,7 @@ MonoBehaviour:
   tracksController: {fileID: 1488642359}
   dialogue: {fileID: 802824393}
   collector: {fileID: 1693202457}
+  noteTrigger: {fileID: 577649642}
 --- !u!61 &266359511
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6201,6 +6203,7 @@ MonoBehaviour:
   noteEnd: 0
   innerThreshold: 0.3
   outerThreshold: 0.6
+  finished: 0
   current_hit_category: 0
   index: 0
   newIndex: 0
