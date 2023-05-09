@@ -129,7 +129,7 @@ public class PlayerController : MonoBehaviour
         if (cam.isMoving)
         {
             moveVelocity = Vector3.right;
-            transform.localScale = new Vector3(1, 1, 1) * 0.5f;
+            //transform.localScale = new Vector3(1, 1, 1) * 0.5f;
             if (!anim.GetBool("isJump")) anim.SetBool("isRun", true);
         }
         else
