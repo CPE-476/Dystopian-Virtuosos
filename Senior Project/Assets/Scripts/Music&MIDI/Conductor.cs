@@ -44,16 +44,11 @@ public class Conductor : MonoBehaviour
     public bool playGuitarNextBar = false;
     public bool playPianoNextBar = false;
 
-    void Start()
-    { 
-        nextSpotTime = 0.0;
-        spotNumber = 0;
-        beatNumber = 0;
-        barNumber = 0;
-        beatLength = 60 / bpm;
-        spotLength = beatLength / SPOTS_PER_BEAT;
-        songPosition = 0.0f;
+    public bool isReset = false;
 
+    void Start()
+    {
+        init();
         AudioSource[] audioSources = GetComponents<AudioSource>();
         background = audioSources[0];
         background2 = audioSources[1];
@@ -103,9 +98,39 @@ public class Conductor : MonoBehaviour
 
     public void Update()
     {
-        UpdateFields();
+        //UpdateFields();
+        if (drums.isPlaying)
+        {
+            if (!isReset)
+            {
+                init();
+                isReset = true;
+            }
+            beats_till_first_note = 15;
+            UpdateFields();
+        }
+        else if(piano.isPlaying)
+        {
+            if (!isReset)
+            {
+                init();
+                isReset = true;
+            }
+            beats_till_first_note = 15;
+            UpdateFields();
+        }
+        else if (guitar.isPlaying)
+        {
+            if (!isReset)
+            {
+                init();
+                isReset = true;
+            }
+            beats_till_first_note = 15;
+            UpdateFields();
+        }
 
-        if(AudioSettings.dspTime > nextStartTime - 3.0) {
+        if (AudioSettings.dspTime > nextStartTime - 3.0) {
             if(current_background == 1) {
                 background2.PlayScheduled(nextStartTime);
                 current_background = 2;
@@ -130,5 +155,16 @@ public class Conductor : MonoBehaviour
 
             nextStartTime = nextStartTime + backgroundDuration - nextBackgroundOffset;
         }
+    }
+
+    void init()
+    {
+        nextSpotTime = 0.0;
+        spotNumber = 0;
+        beatNumber = 0;
+        barNumber = 0;
+        beatLength = 60 / bpm;
+        spotLength = beatLength / SPOTS_PER_BEAT;
+        songPosition = 0.0f;
     }
 }

@@ -91,12 +91,14 @@ public class PlayerController : MonoBehaviour
                         cam.isMoving = true;
                         if (MIDIOrder[dialogue.currentSection] == "drum"){
                             conductor.playDrumsNextBar = true;
+                            conductor.isReset = false;
                             midiReader.ended = true;
                             dialogue.currentSection++;
                         }
                         else if (MIDIOrder[dialogue.currentSection] == "piano"){
                             conductor.playPianoNextBar = true;
-                            midiReader.ended = true;
+                                conductor.isReset = false;
+                                midiReader.ended = true;
                             dialogue.currentSection++;
                         }
                         else if (MIDIOrder[dialogue.currentSection] == "guitar"){
