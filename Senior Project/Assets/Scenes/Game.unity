@@ -6702,8 +6702,8 @@ MonoBehaviour:
   comboManager: {fileID: 1418723479}
   currentSpot: 0
   noteEnd: 0
-  innerThreshold: 0.3
-  outerThreshold: 0.6
+  innerThreshold: 0.5
+  outerThreshold: 1
   current_hit_category: 0
   hasBeenPressed: 00000000
   index: 0

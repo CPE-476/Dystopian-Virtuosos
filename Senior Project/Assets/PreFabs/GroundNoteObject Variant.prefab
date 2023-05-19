@@ -15,6 +15,10 @@ PrefabInstance:
       propertyPath: yOffset
       value: -0.95
       objectReference: {fileID: 0}
+    - target: {fileID: 3152407877717724056, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
+      propertyPath: Threshold
+      value: 
+      objectReference: {fileID: 5009247933770246070, guid: 24160f6560b53df469a493647e72b822, type: 3}
     - target: {fileID: 3152407877717724057, guid: eb29788ce10366c4fa8604580c21bf27, type: 3}
       propertyPath: m_Sprite
       value: 

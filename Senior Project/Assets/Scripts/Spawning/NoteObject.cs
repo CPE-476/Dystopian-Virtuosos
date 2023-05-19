@@ -17,9 +17,13 @@ public class NoteObject : MonoBehaviour
     public int which_track;
 
     public GameObject holdFollower;
+    public GameObject Threshold;
+    private GameObject spawner;
     public float spawnOffset = 0.1f;
     public float yOffset;
     private GameObject[] followers = new GameObject[4];
+    private GameObject[] thresholds = new GameObject[4];
+    public float[] threshOffset = new float[4];
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +32,7 @@ public class NoteObject : MonoBehaviour
         notetrigger = (NoteTrigger)GameObject.Find("/Tracks/NoteTrigger").GetComponent("NoteTrigger");
         spawnmaster = (SpawnMaster)GameObject.Find("/Tracks/SpawnMaster").GetComponent("SpawnMaster");
         collectables = (CollectableUI)GameObject.Find("/Canvas/Gameplay/HealthBar/Collectables").GetComponent("CollectableUI");
+        spawner = GameObject.Find("/Tracks/BottomTrack/Spawner4");
         parentTransform = transform.parent;
         parentTransform = transform.parent;
         localSpot = notetrigger.currentSpot;
@@ -39,6 +44,10 @@ public class NoteObject : MonoBehaviour
             SpawnObject(3, spawnOffset * 4);
         }
         beenHit = false;
+
+        StartCoroutine(spawnThresh(conductor.GetSongPosition()));
+        SpawnThresholds();
+
     }
 
     // Update is called once per frame
@@ -143,6 +152,35 @@ public class NoteObject : MonoBehaviour
             followers[2].transform.position = new Vector3(transform.position.x + spawnOffset * 3, followers[2].transform.position.y, followers[2].transform.position.z);
             followers[3].transform.position = new Vector3(transform.position.x + spawnOffset * 4, followers[3].transform.position.y, followers[3].transform.position.z);
         }
+
+        thresholds[0].transform.position = new Vector3(transform.position.x + threshOffset[0], thresholds[0].transform.position.y, thresholds[0].transform.position.z);
+        thresholds[1].transform.position = new Vector3(transform.position.x + threshOffset[1], thresholds[1].transform.position.y, thresholds[1].transform.position.z);
+        thresholds[2].transform.position = new Vector3(transform.position.x + threshOffset[2], thresholds[2].transform.position.y, thresholds[2].transform.position.z);
+        thresholds[3].transform.position = new Vector3(transform.position.x + threshOffset[3], thresholds[3].transform.position.y, thresholds[3].transform.position.z);
+
+    }
+
+    private IEnumerator spawnThresh(double curSongPos)
+    {
+        bool gotInner = false;
+        while (true)
+        {
+            if(conductor.GetSongPosition() >= curSongPos + (notetrigger.innerThreshold * conductor.spotLength) && !gotInner)
+            {
+                Debug.Log("INNER: " + gameObject.transform.position.x);
+                threshOffset[3] = spawner.transform.position.x - gameObject.transform.position.x;
+                threshOffset[1] = -threshOffset[3];
+                gotInner = true;
+            }
+            if (conductor.GetSongPosition() >= curSongPos + (notetrigger.outerThreshold * conductor.spotLength))
+            {
+                Debug.Log("Outer: " + gameObject.transform.position.x);
+                threshOffset[2] = spawner.transform.position.x - gameObject.transform.position.x;
+                threshOffset[0] = -threshOffset[2];
+                break;
+            }
+            yield return null; 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -159,6 +197,14 @@ public class NoteObject : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3(transform.position.x - offset, transform.position.y + Random.Range(-0.07f, 0.07f), transform.position.z);
         followers[index] = Instantiate(holdFollower, spawnPosition, Quaternion.identity);
+    }
+    void SpawnThresholds()
+    {
+        Vector3 spawnPosition = new Vector3(transform.position.x - notetrigger.outerThreshold, transform.position.y + Random.Range(-0.07f, 0.07f), transform.position.z);
+        thresholds[0] = Instantiate(Threshold, spawnPosition, Quaternion.identity);
+        thresholds[1] = Instantiate(Threshold, spawnPosition, Quaternion.identity);
+        thresholds[2] = Instantiate(Threshold, spawnPosition, Quaternion.identity);
+        thresholds[3] = Instantiate(Threshold, spawnPosition, Quaternion.identity);
     }
 
     float cos_interp(float a, float b, float t)
