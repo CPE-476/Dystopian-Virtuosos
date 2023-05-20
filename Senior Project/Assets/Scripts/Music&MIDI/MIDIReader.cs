@@ -35,44 +35,19 @@ public class MIDIReader : MonoBehaviour
 
     public TracksController tracksController;
 
-    public NoteType[] track_state;
-
-    public int index;
-
     TempoMap tempoMap;
 
     int BEATS_PER_BAR;
-
     int SPOTS_PER_BEAT = 4;
 
     int SixteenthLength = 119;
 
     byte[] oneNotes = new byte[] { 64 };
-
     byte[] twoNotes = new byte[] { 60, 63 };
-
     byte[] threeNotes = new byte[] { 57, 59, 62 };
-
     byte[] fourNotes = new byte[] { 56, 58, 61 };
 
     private MidiFile midiFile;
-
-    List<NoteElement> trackInfo = new List<NoteElement>();
-
-    public struct SpotElement
-    {
-        public NoteElement four;
-
-        public NoteElement three;
-
-        public NoteElement two;
-
-        public NoteElement one;
-    }
-
-    public SpotElement[] SpotTrack;
-
-    public bool changed = false;
 
     /*
         A Midi file has 32 bits per note. Here is how it's laid out.
@@ -103,25 +78,33 @@ public class MIDIReader : MonoBehaviour
         */
         public byte velocity;
     }
+    List<NoteElement> trackInfo = new List<NoteElement>();
+
+    public struct SpotElement
+    {
+        public NoteElement four;
+
+        public NoteElement three;
+
+        public NoteElement two;
+
+        public NoteElement one;
+    }
+    public SpotElement[] SpotTrack;
+
+    public List<NoteType[]> beatmap;
 
     public void Initialize(string path)
     {
         midiFile = MidiFile.Read(path);
-        InitNoteElement();
+        InitNoteElements();
         InitSpotTrack();
-
-        track_state =
-            new NoteType[] {
-                NoteType.EMPTY,
-                NoteType.EMPTY,
-                NoteType.EMPTY,
-                NoteType.EMPTY
-            };
+        InitBeatmap();
 
         index = 0;
     }
 
-    void InitNoteElement()
+    void InitNoteElements()
     {
         var notes = midiFile.GetNotes();
         tempoMap = midiFile.GetTempoMap();
@@ -203,9 +186,60 @@ public class MIDIReader : MonoBehaviour
         }
     }
 
+    public void InitBeatmap() {
+        beatmap = new List<NoteType[]>();
+
+        foreach(SpotElement element in SpotTrack) {
+            NoteType[] current_spot_notes = new NoteType[4];
+
+            // track 1
+            if (element.one.velocity == 64)
+                current_spot_notes[0] = NoteType.NOTE;
+            else if (element.one.velocity == 72)
+                current_spot_notes[0] = NoteType.HOLD;
+            else if (element.one.velocity == 80)
+                current_spot_notes[0] = NoteType.OBSTACLE;
+            else if (element.one.velocity == 88)
+                current_spot_notes[0] = NoteType.COLLECTIBLE;
+
+            // track 2
+            if (element.two.velocity == 64)
+                current_spot_notes[1] = NoteType.NOTE;
+            else if (element.two.velocity == 72)
+                current_spot_notes[1] = NoteType.HOLD;
+            else if (element.two.velocity == 80)
+                current_spot_notes[1] = NoteType.OBSTACLE;
+            else if (element.two.velocity == 88)
+                current_spot_notes[1] = NoteType.COLLECTIBLE;
+
+            // track 3
+            if (element.three.velocity == 64)
+                current_spot_notes[2] = NoteType.NOTE;
+            else if (element.three.velocity == 72)
+                current_spot_notes[2] = NoteType.HOLD;
+            else if (element.three.velocity == 80)
+                current_spot_notes[2] = NoteType.OBSTACLE;
+            else if (element.three.velocity == 88)
+                current_spot_notes[2] = NoteType.COLLECTIBLE;
+
+            // track 4
+            if (element.four.velocity == 64)
+                current_spot_notes[3] = NoteType.NOTE;
+            else if (element.four.velocity == 72)
+                current_spot_notes[3] = NoteType.HOLD;
+            else if (element.four.velocity == 80)
+                current_spot_notes[3] = NoteType.OBSTACLE;
+            else if (element.four.velocity == 88)
+                current_spot_notes[3] = NoteType.COLLECTIBLE;
+
+            beatmap.Add(current_spot_notes);
+        }
+    }
+
+    public int index; // TODO: BRICK THIS SHIT
+
     public void updateTrackState()
     {
-        changed = true;
         index =
             conductor.barNumber *
             Conductor.BEATS_PER_BAR *
@@ -219,49 +253,9 @@ public class MIDIReader : MonoBehaviour
             return;
         }
 
+        // TODO: Pull this out into the spine.
         SpotElement curVal = SpotTrack[index];
-        Array.Clear(track_state, 0, 4);
-
-        // track 1
-        if (curVal.one.velocity == 64)
-            track_state[0] = NoteType.NOTE;
-        else if (curVal.one.velocity == 72)
-            track_state[0] = NoteType.HOLD;
-        else if (curVal.one.velocity == 80)
-            track_state[0] = NoteType.OBSTACLE;
-        else if (curVal.one.velocity == 88)
-            track_state[0] = NoteType.COLLECTIBLE;
-
-        // track 2
-        if (curVal.two.velocity == 64)
-            track_state[1] = NoteType.NOTE;
-        else if (curVal.two.velocity == 72)
-            track_state[1] = NoteType.HOLD;
-        else if (curVal.two.velocity == 80)
-            track_state[1] = NoteType.OBSTACLE;
-        else if (curVal.two.velocity == 88)
-            track_state[1] = NoteType.COLLECTIBLE;
-
-        // track 3
-        if (curVal.three.velocity == 64)
-            track_state[2] = NoteType.NOTE;
-        else if (curVal.three.velocity == 72)
-            track_state[2] = NoteType.HOLD;
-        else if (curVal.three.velocity == 80)
-            track_state[2] = NoteType.OBSTACLE;
-        else if (curVal.three.velocity == 88)
-            track_state[2] = NoteType.COLLECTIBLE;
-
-        // track 4
-        if (curVal.four.velocity == 64)
-            track_state[3] = NoteType.NOTE;
-        else if (curVal.four.velocity == 72)
-            track_state[3] = NoteType.HOLD;
-        else if (curVal.four.velocity == 80)
-            track_state[3] = NoteType.OBSTACLE;
-        else if (curVal.four.velocity == 88)
-            track_state[3] = NoteType.COLLECTIBLE;
-        else if (curVal.four.velocity == 1)
+        if (curVal.four.velocity == 1)
         {
             StartCoroutine(tracksController.switchTrack(0.4f, 1));
         }

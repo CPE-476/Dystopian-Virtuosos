@@ -165,6 +165,11 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
+                new Section(third,
+                    "Assets/Music/DV_L1_guitar.mid",
+                    GameplayAudio.GUITAR,
+                    true,
+                    -17),
                 new Section(first,
                     "Assets/Music/DV_L1_drum.mid",
                     GameplayAudio.DRUMS,
@@ -175,11 +180,6 @@ public class Spine : MonoBehaviour
                     GameplayAudio.PIANO,
                     false,
                     -17),
-                new Section(third,
-                    "Assets/Music/DV_L1_guitar.mid",
-                    GameplayAudio.GUITAR,
-                    true,
-                    -17)
             };
 
         image = fade.GetComponent<Image>();

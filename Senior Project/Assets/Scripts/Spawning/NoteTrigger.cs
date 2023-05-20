@@ -6,7 +6,7 @@ using UnityEngine;
 
 public enum HitCategory
 {
-    NONE,
+    MISS,
     WEAK,
     GOOD
 }
@@ -35,9 +35,9 @@ public class NoteTrigger : MonoBehaviour
     public SpriteRenderer low;
     public SpriteRenderer bot;
 
-    public Color perfect;
-    public Color weak;
-    public Color fail;
+    public Color perfect_color;
+    public Color weak_color;
+    public Color fail_color;
     public SFX sfx;
 
     private bool[] updateHold = { false, false, false, false };
@@ -48,22 +48,14 @@ public class NoteTrigger : MonoBehaviour
     public ScoreManager scoreManager;
     public ComboManager comboManager;
 
-    public float currentSpot;
-    public float noteEnd;
-
-    public float innerThreshold;
-    public float outerThreshold;
-    private float lowerGoodBound;
-    private float lowerWeakBound;
-    private float upperGoodBound;
-    private float upperWeakBound;
+    public float last_spot;
+    public float next_spot;
+    public float perfect;
+    public float good;
 
     int transpose = 0;
 
     int[] notes = new int[] { 7, 4, 0, -12 };
-
-    [SerializeReference]
-    private HitCategory current_hit_category;
 
     public bool[] hasBeenPressed = { false, false, false, false };
 
@@ -89,8 +81,8 @@ public class NoteTrigger : MonoBehaviour
 
     public void Reset()
     {
-        currentSpot = conductor.spotLength;
-        noteEnd = conductor.spotLength + conductor.spotLength * 0.5f;
+        last_spot = conductor.spotLength;
+        next_spot = conductor.spotLength + conductor.spotLength;
     }
 
 
@@ -129,26 +121,14 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
-            var em =
-                top
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
             if (goodHold[0] == false) holdScore += 1;
             goodHold[0] = true;
         }
         else
         {
-            var em =
-                top
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = false;
             // if (goodHold[0] == true) holdScore -= 1;
             goodHold[0] = false;
@@ -166,26 +146,14 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
-            var em =
-                high
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
             if (goodHold[1] == false) holdScore += 1;
             goodHold[1] = true;
         }
         else
         {
-            var em =
-                high
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = false;
             // if (goodHold[1] == true) holdScore -= 1;
             goodHold[1] = false;
@@ -203,26 +171,14 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
-            var em =
-                low
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
             if (goodHold[2] == false) holdScore += 1;
             goodHold[2] = true;
         }
         else
         {
-            var em =
-                low
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = false;
             // if (goodHold[2] == true) holdScore -= 1;
             goodHold[2] = false;
@@ -238,26 +194,14 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
-            var em =
-                bot
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
             if (goodHold[3] == false) holdScore += 1;
             goodHold[3] = true;
         }
         else
         {
-            var em =
-                bot
-                    .gameObject
-                    .transform
-                    .Find("HitSpot/HoldParticle")
-                    .GetComponent<ParticleSystem>()
-                    .emission;
+            var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = false;
             // if (goodHold[3] == true) holdScore -= 1;
             goodHold[3] = false;
@@ -289,42 +233,15 @@ public class NoteTrigger : MonoBehaviour
             }
         }
 
-        // Set the current Hit Category
-        if (
-            conductor.GetSongPosition() >= lowerGoodBound &&
-            conductor.GetSongPosition() <= upperGoodBound
-        )
-        {
-            current_hit_category = HitCategory.GOOD;
-        }
-        else if (
-            conductor.GetSongPosition() >= lowerWeakBound &&
-            conductor.GetSongPosition() <= upperWeakBound
-        )
-        {
-            current_hit_category = HitCategory.WEAK;
-        }
-        else
-        {
-            current_hit_category = HitCategory.NONE;
-        }
-
         // Set the next beat when current beat is over.
-        if (conductor.GetSongPosition() > noteEnd)
+        if (conductor.GetSongPosition() > next_spot)
         {
-            currentSpot += conductor.spotLength;
-            noteEnd += conductor.spotLength;
+            last_spot += conductor.spotLength;
+            next_spot += conductor.spotLength;
 
-            lowerGoodBound =
-                currentSpot - innerThreshold * conductor.spotLength;
-            upperGoodBound =
-                currentSpot + innerThreshold * conductor.spotLength;
-
-            lowerWeakBound = currentSpot - outerThreshold;
-            upperWeakBound = currentSpot + outerThreshold;
-
+/*
             // BELOW: Consequences for missing things
-            switch (midiReader.track_state[0])
+            switch (midiReader.beatmap[midiReader.index][0])
             {
                 case NoteType.NOTE:
                     {
@@ -343,7 +260,7 @@ public class NoteTrigger : MonoBehaviour
                     }
                     break;
             }
-            switch (midiReader.track_state[1])
+            switch (midiReader.beatmap[midiReader.index][1])
             {
                 case NoteType.NOTE:
                     {
@@ -362,7 +279,7 @@ public class NoteTrigger : MonoBehaviour
                     }
                     break;
             }
-            switch (midiReader.track_state[2])
+            switch (midiReader.beatmap[midiReader.index][2])
             {
                 case NoteType.NOTE:
                     {
@@ -381,7 +298,7 @@ public class NoteTrigger : MonoBehaviour
                     }
                     break;
             }
-            switch (midiReader.track_state[3])
+            switch (midiReader.beatmap[midiReader.index][3])
             {
                 case NoteType.NOTE:
                     {
@@ -400,6 +317,7 @@ public class NoteTrigger : MonoBehaviour
                     }
                     break;
             }
+            */
 
             hasBeenPressed[0] = false;
             hasBeenPressed[1] = false;
@@ -407,31 +325,32 @@ public class NoteTrigger : MonoBehaviour
             hasBeenPressed[3] = false;
 
             midiReader.updateTrackState();
+            spawnMaster.SpawnNotes();
         }
     }
 
-    private void ResolveHit(SpriteRenderer sprite, int trackNumber, bool isHold)
+    private void ResolveHit(SpriteRenderer sprite, int trackNumber, HitCategory hitCategory, bool isHold)
     {
-        if (current_hit_category == HitCategory.WEAK && isHold)
+        if (hitCategory == HitCategory.WEAK && isHold)
         {       
             updateHold[trackNumber] = true;
             holdScore = 1;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
         }
-        else if (current_hit_category == HitCategory.GOOD && isHold)
+        else if (hitCategory == HitCategory.GOOD && isHold)
         {
             updateHold[trackNumber] = true;
             holdScore = 2;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
         }
 
-        if (current_hit_category == HitCategory.WEAK)
+        if (hitCategory == HitCategory.WEAK)
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
             //sfx.sounds[1].Play();
-            psmain.startColor = weak;
+            psmain.startColor = weak_color;
             ParticleSystem clone =
                 (ParticleSystem)
                 Instantiate(particles,
@@ -445,19 +364,19 @@ public class NoteTrigger : MonoBehaviour
                     sprite.transform.position.y,
                     -6),
                 Quaternion.identity);
-            sprite.color = weak;
+            sprite.color = weak_color;
             Destroy(clone.gameObject, 0.5f);
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 1;
         }
-        else if (current_hit_category == HitCategory.GOOD)
+        else if (hitCategory == HitCategory.GOOD)
         {
             sfx.sounds[1].pitch =
                 Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
             //sfx.sounds[1].Play();
-            perfect.a = 1f;
-            psmain.startColor = perfect;
+            perfect_color.a = 1f;
+            psmain.startColor = perfect_color;
             ParticleSystem clone =
                 (ParticleSystem)
                 Instantiate(particles,
@@ -471,12 +390,19 @@ public class NoteTrigger : MonoBehaviour
                     sprite.transform.position.y,
                     -6),
                 Quaternion.identity);
-            perfect.a = 0.75f;
-            sprite.color = perfect;
+            perfect_color.a = 0.75f;
+            sprite.color = perfect_color;
             Destroy(clone.gameObject, 0.5f);
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 2;
         }
+        else if (hitCategory == HitCategory.MISS)
+        {
+            ResolveMiss(sprite, trackNumber);
+            return;
+        }
+
+        // Note: this only applies if you don't miss. See return above.
         comboManager.comboNumber++;
     }
 
@@ -492,7 +418,7 @@ public class NoteTrigger : MonoBehaviour
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
         //sfx.sounds[3].Play();
-        psmain.startColor = fail;
+        psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)
             Instantiate(particles,
@@ -506,10 +432,9 @@ public class NoteTrigger : MonoBehaviour
                 sprite.transform.position.y,
                 -6),
             Quaternion.identity);
-        sprite.color = fail;
+        sprite.color = fail_color;
         Destroy(clone.gameObject, 0.5f);
         Destroy(clone2.gameObject, 1.0f);
-        // scoreManager.score -= 2;
     }
 
     private void ResolveHitObstacle(SpriteRenderer sprite, int trackNumber)
@@ -523,7 +448,7 @@ public class NoteTrigger : MonoBehaviour
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
         //sfx.sounds[3].Play();
-        psmain.startColor = fail;
+        psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)
             Instantiate(particles,
@@ -537,10 +462,9 @@ public class NoteTrigger : MonoBehaviour
                 sprite.transform.position.y,
                 -6),
             Quaternion.identity);
-        sprite.color = fail;
+        sprite.color = fail_color;
         Destroy(clone.gameObject, 0.5f);
         Destroy(clone2.gameObject, 1.0f);
-        // scoreManager.score -= 2;
     }
 
     // Checks for a hit on a given keycode.
@@ -606,30 +530,67 @@ public class NoteTrigger : MonoBehaviour
                 flickUpRight = true;
             else if (trackNumber == 3) flickDownRight = true;
 
-            switch (midiReader.track_state[trackNumber])
-            {
-                case NoteType.NOTE:
+            int [] to_check;
+            double song_position = conductor.GetSongPosition();
+            double since_last_spot = song_position - last_spot;
+            double till_next_spot = next_spot - song_position;
+            if(since_last_spot < till_next_spot) {
+                // -2 -1  1  2
+                //  3  1  2  4
+                to_check = new int [] {0, 1, -1, 2};
+            }
+            else {
+                // -2 -1  1  2
+                //  4  2  1  3
+                to_check = new int [] {1, 0, 2, -1};
+            }
+
+            // TODO: Guard against multiple presses
+            foreach(int i in to_check) {
+                int index = midiReader.index + i;
+                if(i < 0 || i > midiReader.beatmap.Count()) continue; // Array bounds-checking
+
+                float time_away_from_this_hit = 0.0f;
+                if(i == 0) time_away_from_this_hit = (float)since_last_spot;
+                else if(i == 1) time_away_from_this_hit = (float)till_next_spot;
+                else if(i == -1) time_away_from_this_hit = (float)since_last_spot + conductor.spotLength;
+                else if(i == 2) time_away_from_this_hit = (float)till_next_spot + conductor.spotLength;
+                else {
+                    Debug.Assert(false, "Should not get here!\n");
+                }
+
+                HitCategory hit_category;
+                if(time_away_from_this_hit < perfect * conductor.spotLength) {
+                    hit_category = HitCategory.GOOD;
+                }
+                else if(time_away_from_this_hit < good * conductor.spotLength) {
+                    hit_category = HitCategory.WEAK;
+                }
+                else {
+                    hit_category = HitCategory.MISS;
+                }
+
+                switch (midiReader.beatmap[index][trackNumber])
+                {
+                    case NoteType.NOTE:
                     {
-                        ResolveHit(sprite, trackNumber, false);
+                        ResolveHit(sprite, trackNumber, hit_category, false);
                         return true;
                     }
-                case NoteType.HOLD:
+                    case NoteType.HOLD:
                     {
-                        ResolveHit(sprite, trackNumber, true);
+                        ResolveHit(sprite, trackNumber, hit_category, true);
                         return true;
                     }
-                case NoteType.OBSTACLE:
-                    {
-                        return true;
-                    }
-                case NoteType.COLLECTIBLE:
+                    case NoteType.OBSTACLE:
                     {
                         return true;
                     }
-                case NoteType.EMPTY:
+                    case NoteType.COLLECTIBLE:
                     {
-                        return false;
+                        return true;
                     }
+                }
             }
         }
         return false;

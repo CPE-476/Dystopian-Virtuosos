@@ -14,24 +14,14 @@ public class SpawnMaster : MonoBehaviour
     private MIDIReader.SpotElement curVal;
     public ushort[] lengths;
 
-    // Start is called before the first frame update
     void Start()
     {
         lengths = new ushort[4];
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(MIDIReader.changed)
-        {
-            MIDIReader.changed = false;
-            SpawnNotes();
-        }
-    }
-
     public void SpawnNotes()
     {
+        // TODO: Alex --- This should just query the beatmap too...
         curVal = MIDIReader.SpotTrack[(MIDIReader.index+noteSpeed) % MIDIReader.SpotTrack.Length];
 
         //Setting all the hold note lengths so note trigger can use them to calculate score
@@ -51,7 +41,6 @@ public class SpawnMaster : MonoBehaviour
         {
             lengths[3] = curVal.four.length;
         }
-
 
         // Note 1
         if (curVal.one.velocity == 64)

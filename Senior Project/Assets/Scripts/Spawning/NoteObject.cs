@@ -30,7 +30,7 @@ public class NoteObject : MonoBehaviour
         collectables = (CollectableUI)GameObject.Find("/Canvas/Gameplay/HealthBar/Collectables").GetComponent("CollectableUI");
         parentTransform = transform.parent;
         parentTransform = transform.parent;
-        localSpot = notetrigger.currentSpot;
+        localSpot = notetrigger.last_spot;
         if (gameObject != null && gameObject.CompareTag("HoldSquare"))
         {
             SpawnObject(0, spawnOffset);
