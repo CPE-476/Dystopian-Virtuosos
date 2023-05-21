@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     public Dialogue dialogue;
 
+    public Tutorial tutorial;
+
     public GameObject collector;
 
     public JoystickControl controllerControl;
@@ -74,7 +76,16 @@ public class PlayerController : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(controllerControl.south))
                     {
                         int result = dialogue.NextLine();
-                        if (result == -1) spine.GameplayStart();
+                        if (result == -1) spine.TutorialStart();
+                    }
+                }
+                break;
+            case InterfaceState.TUTORIAL:
+                {
+                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        tutorial.NextVideo();
+                        //if (result == -1) spine.GameplayStart();
                     }
                 }
                 break;

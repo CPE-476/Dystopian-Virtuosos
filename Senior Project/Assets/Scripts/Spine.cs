@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 public enum InterfaceState
 {
     GAMEPLAY,
     DIALOGUE,
+    TUTORIAL,
     GAME_OVER
 }
 
@@ -38,9 +40,24 @@ public class DialogueLine
     }
 }
 
+public class TutorialClip
+{
+    public string name;
+
+    public string video_path;
+
+    public TutorialClip(string name_in, string video_in)
+    {
+        name = name_in;
+        video_path = video_in;
+    }
+}
+
 public struct Section
 {
     public DialogueLine[] conversation;
+
+    public TutorialClip[] tutorialVideos;
 
     public string midi_path;
 
@@ -52,6 +69,7 @@ public struct Section
 
     public Section(
         DialogueLine[] conv_in,
+        TutorialClip[] video_in,
         string midi_in,
         GameplayAudio audio_in,
         bool background_audio_in,
@@ -59,6 +77,7 @@ public struct Section
     )
     {
         conversation = conv_in;
+        tutorialVideos = video_in;
         midi_path = midi_in;
         audio_to_play = audio_in;
         background_audio = background_audio_in;
@@ -92,12 +111,14 @@ public class Spine : MonoBehaviour
 
     public GameObject fade;
 
+    public Tutorial tutorial;
+
     private Image image;
 
     private Color color;
 
     public DialogueLine[]
-        first =
+        first_dialogue =
         {
             new DialogueLine(Character.RIKA,
                 "Welcome to Virtuosos!"),
@@ -122,7 +143,7 @@ public class Spine : MonoBehaviour
         };
 
     public DialogueLine[]
-        second =
+        second_dialogue =
         {
             new DialogueLine(Character.RIKA,
                 "Well done! That was the drummer mode."),
@@ -141,7 +162,7 @@ public class Spine : MonoBehaviour
         };
 
     public DialogueLine[]
-        third =
+        third_dialogue =
         {
             new DialogueLine(Character.RIKA,
                 "Excellent!"),
@@ -158,27 +179,47 @@ public class Spine : MonoBehaviour
         };
 
     public DialogueLine[]
-        fourth = { new DialogueLine(Character.RIKA, "That's it.") };
+        fourth_dialogue = { new DialogueLine(Character.RIKA, "That's it.") };
+
+    public TutorialClip[]
+        first_tutorial = {
+            new TutorialClip("OBSTACLE",
+            "Assets/videos/test_1.mp4"),
+            new TutorialClip("NOTE",
+            "Assets/videos/test_2.mp4"),
+            new TutorialClip("CONTROL",
+            "Assets/videos/test_3.mp4"),
+        };
+
+    public TutorialClip[]
+        second_tutorial = {
+
+        };
+
+    public TutorialClip[]
+        third_tutorial = {
+
+        };
 
     void Start()
     {
         sections =
             new Section[3]
             {
-                new Section(third,
-                    "Assets/Music/DV_L1_guitar.mid",
-                    GameplayAudio.GUITAR,
-                    true,
-                    -17),
-                new Section(first,
+                new Section(first_dialogue, first_tutorial,
                     "Assets/Music/DV_L1_drum.mid",
                     GameplayAudio.DRUMS,
                     true,
                     -1),
-                new Section(second,
+                new Section(second_dialogue, second_tutorial,
                     "Assets/Music/DV_L1_piano.mid",
                     GameplayAudio.PIANO,
                     false,
+                    -17),
+                new Section(third_dialogue, third_tutorial,
+                    "Assets/Music/DV_L1_guitar.mid",
+                    GameplayAudio.GUITAR,
+                    true,
                     -17),
             };
 
@@ -211,6 +252,13 @@ public class Spine : MonoBehaviour
         midiReader.Initialize(sections[section_index].midi_path);
 
         cam.isMoving = false;
+    }
+
+    public void TutorialStart()
+    {   
+        state = InterfaceState.TUTORIAL;
+        tutorial.Enable();
+        dialogue.Disable();
     }
 
     public void GameplayStart()
@@ -248,9 +296,8 @@ public class Spine : MonoBehaviour
         else
             conductor.playBackground = false;
 
-        dialogue.Disable();
         noteTrigger.Reset();
-
+        tutorial.Disable();
         cam.isMoving = true;
 
         ++section_index;

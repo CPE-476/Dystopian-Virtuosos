@@ -111,15 +111,7 @@ public class NoteTrigger : MonoBehaviour
         }
 
         //Update Hold Note Score
-        if (
-            updateHold[0] &&
-            holdLengths[0] >= 1 &&
-            (
-            Input.GetKey(KeyCode.H) ||
-            Input.GetKey(controllerControl.west) ||
-            Input.GetAxis("Vertical") >= 0.7f
-            )
-        )
+        if (updateHold[0] && holdLengths[0] >= 1 && (Input.GetKey(KeyCode.H) || Input.GetKey(controllerControl.west) || Input.GetAxis("Vertical") >= 0.7f))
         {
             var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -134,17 +126,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[0] = false;
             updateHold[0] = false;
         }
-        if (
-            updateHold[1] &&
-            holdLengths[1] >= 1 &&
-            (
-            (
-            Input.GetKey(KeyCode.J) ||
-            Input.GetKey(controllerControl.north) ||
-            -Input.GetAxis("Vertical") >= 0.7f
-            )
-            )
-        )
+        if (updateHold[1] && holdLengths[1] >= 1 && (Input.GetKey(KeyCode.J) || Input.GetKey(controllerControl.north) || -Input.GetAxis("Vertical") >= 0.7f))
         {
             var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -159,17 +141,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[1] = false;
             updateHold[1] = false;
         }
-        if (
-            updateHold[2] &&
-            holdLengths[2] >= 1 &&
-            (
-            (
-            Input.GetKey(KeyCode.K) ||
-            Input.GetKey(controllerControl.east) ||
-            Input.GetAxis(controllerControl.joystickType) >= 0.7f
-            )
-            )
-        )
+        if (updateHold[2] && holdLengths[2] >= 1 && (Input.GetKey(KeyCode.K) || Input.GetKey(controllerControl.east) || Input.GetAxis(controllerControl.joystickType) >= 0.7f))
         {
             var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -184,15 +156,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[2] = false;
             updateHold[2] = false;
         }
-        if (
-            updateHold[3] &&
-            holdLengths[3] >= 1 &&
-            (
-            (Input.GetKey(KeyCode.L) || 
-             Input.GetKey(controllerControl.south) ||
-            -Input.GetAxis(controllerControl.joystickType) >= 0.7f)
-            )
-        )
+        if (updateHold[3] && holdLengths[3] >= 1 && (Input.GetKey(KeyCode.L) || Input.GetKey(controllerControl.south) || -Input.GetAxis(controllerControl.joystickType) >= 0.7f))
         {
             var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -351,18 +315,12 @@ public class NoteTrigger : MonoBehaviour
 
             //sfx.sounds[1].Play();
             psmain.startColor = weak_color;
-            ParticleSystem clone =
-                (ParticleSystem)
-                Instantiate(particles,
+            ParticleSystem clone = (ParticleSystem)Instantiate(particles,
                 new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6),
                 Quaternion.identity);
             text.text = "GOOD";
-            ParticleSystem clone2 =
-                (ParticleSystem)
-                Instantiate(hittext,
-                new Vector3(sprite.transform.position.x,
-                    sprite.transform.position.y,
-                    -6),
+            ParticleSystem clone2 =(ParticleSystem)Instantiate(hittext,
+                new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6),
                 Quaternion.identity);
             sprite.color = weak_color;
             Destroy(clone.gameObject, 0.5f);
@@ -371,24 +329,18 @@ public class NoteTrigger : MonoBehaviour
         }
         else if (hitCategory == HitCategory.GOOD)
         {
-            sfx.sounds[1].pitch =
-                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+            sfx.sounds[1].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
             //sfx.sounds[1].Play();
             perfect_color.a = 1f;
             psmain.startColor = perfect_color;
-            ParticleSystem clone =
-                (ParticleSystem)
-                Instantiate(particles,
+            ParticleSystem clone = (ParticleSystem)Instantiate(particles,
                 new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6),
                 Quaternion.identity);
             text.text = "PERFECT";
-            ParticleSystem clone2 =
-                (ParticleSystem)
-                Instantiate(hittext,
+            ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext,
                 new Vector3(sprite.transform.position.x,
-                    sprite.transform.position.y,
-                    -6),
+                sprite.transform.position.y, -6),
                 Quaternion.identity);
             perfect_color.a = 0.75f;
             sprite.color = perfect_color;
@@ -414,23 +366,14 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
 
         // TODO (Alex): Should a miss incur a sound effect?
-        sfx.sounds[3].pitch =
-            Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
+        sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
         //sfx.sounds[3].Play();
         psmain.startColor = fail_color;
-        ParticleSystem clone =
-            (ParticleSystem)
-            Instantiate(particles,
-            sprite.transform.position,
-            Quaternion.identity);
+        ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
         text.text = "MISS";
-        ParticleSystem clone2 =
-            (ParticleSystem)
-            Instantiate(hittext,
-            new Vector3(sprite.transform.position.x,
-                sprite.transform.position.y,
-                -6),
+        ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext,
+            new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6),
             Quaternion.identity);
         sprite.color = fail_color;
         Destroy(clone.gameObject, 0.5f);
@@ -449,18 +392,10 @@ public class NoteTrigger : MonoBehaviour
 
         //sfx.sounds[3].Play();
         psmain.startColor = fail_color;
-        ParticleSystem clone =
-            (ParticleSystem)
-            Instantiate(particles,
-            sprite.transform.position,
-            Quaternion.identity);
+        ParticleSystem clone = (ParticleSystem)Instantiate(particles, sprite.transform.position, Quaternion.identity);
         text.text = "OUCH";
-        ParticleSystem clone2 =
-            (ParticleSystem)
-            Instantiate(hittext,
-            new Vector3(sprite.transform.position.x,
-                sprite.transform.position.y,
-                -6),
+        ParticleSystem clone2 = (ParticleSystem)Instantiate(hittext,
+            new Vector3(sprite.transform.position.x, sprite.transform.position.y, -6),
             Quaternion.identity);
         sprite.color = fail_color;
         Destroy(clone.gameObject, 0.5f);
@@ -469,15 +404,7 @@ public class NoteTrigger : MonoBehaviour
 
     // Checks for a hit on a given keycode.
     // Returns true if hit, false if not.
-    private bool
-    checkHit(
-        KeyCode kc,
-        KeyCode kb,
-        KeyCode kt,
-        int trackNumber,
-        SpriteRenderer sprite,
-        float pianoThreshold
-    )
+    private bool checkHit(KeyCode kc, KeyCode kb, KeyCode kt, int trackNumber, SpriteRenderer sprite, float pianoThreshold)
     {
         float joystickAxis = 0.0f;
 
@@ -514,12 +441,7 @@ public class NoteTrigger : MonoBehaviour
                 flickUpRight = false;
             else if (trackNumber == 3) flickDownRight = false;
         }
-        if (
-            Input.GetKeyDown(kc) ||
-            Input.GetKeyDown(kb) ||
-            Input.GetKeyDown(kt) ||
-            (joystickAxis >= pianoThreshold && !pianoBool)
-        )
+        if (Input.GetKeyDown(kc) || Input.GetKeyDown(kb) || Input.GetKeyDown(kt) || (joystickAxis >= pianoThreshold && !pianoBool))
         {
             pianoBool = true;
             if (trackNumber == 0)
@@ -558,7 +480,7 @@ public class NoteTrigger : MonoBehaviour
                 else {
                     Debug.Assert(false, "Should not get here!\n");
                 }
-
+                // Debug.Log("Current Index: " + index + " time_away_from_this_hit: " + time_away_from_this_hit + "  |  Perfect: "  + (perfect * conductor.spotLength) + " Good: " + good * conductor.spotLength);
                 HitCategory hit_category;
                 if(time_away_from_this_hit < perfect * conductor.spotLength) {
                     hit_category = HitCategory.GOOD;
@@ -567,6 +489,8 @@ public class NoteTrigger : MonoBehaviour
                     hit_category = HitCategory.WEAK;
                 }
                 else {
+                    // never get here
+                    Debug.Log("here");
                     hit_category = HitCategory.MISS;
                 }
 
