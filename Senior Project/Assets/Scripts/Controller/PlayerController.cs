@@ -82,10 +82,16 @@ public class PlayerController : MonoBehaviour
                 break;
             case InterfaceState.TUTORIAL:
                 {
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
+                    if (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.Joystick1Button5))
                     {
                         tutorial.NextVideo();
-                        //if (result == -1) spine.GameplayStart();
+                    }
+                    else if (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.Joystick1Button4))
+                    {
+                        tutorial.PrevVideo();
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(controllerControl.south)){
+                        spine.GameplayStart();
                     }
                 }
                 break;
