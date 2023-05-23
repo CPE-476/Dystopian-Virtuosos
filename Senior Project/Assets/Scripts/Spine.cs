@@ -206,21 +206,21 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
-                new Section(first_dialogue, first_tutorial,
-                    "Assets/Music/DV_L1_drum.mid",
-                    GameplayAudio.DRUMS,
-                    true,
-                    -1),
-                new Section(second_dialogue, second_tutorial,
-                    "Assets/Music/DV_L1_piano.mid",
-                    GameplayAudio.PIANO,
-                    false,
-                    -17),
                 new Section(third_dialogue, third_tutorial,
                     "Assets/Music/DV_L1_guitar.mid",
                     GameplayAudio.GUITAR,
                     true,
                     -17),
+                new Section(second_dialogue, second_tutorial,
+                    "Assets/Music/DV_L1_piano.mid",
+                    GameplayAudio.PIANO,
+                    false,
+                    -17),
+                new Section(first_dialogue, first_tutorial,
+                    "Assets/Music/DV_L1_drum.mid",
+                    GameplayAudio.DRUMS,
+                    true,
+                    -1),
             };
 
         image = fade.GetComponent<Image>();

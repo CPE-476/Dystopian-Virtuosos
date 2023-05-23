@@ -57,7 +57,7 @@ public class NoteTrigger : MonoBehaviour
 
     int[] notes = new int[] { 7, 4, 0, -12 };
 
-    public bool[] hasBeenPressed = { false, false, false, false };
+    public List<bool[]> hit_notes;
 
     public int index;
 
@@ -72,9 +72,15 @@ public class NoteTrigger : MonoBehaviour
     void Start()
     {
         holdLengths = new ushort[4];
-        hasBeenPressed = new bool[] { false, false, false, false };
         psmain = particles.main;
         index = midiReader.index;
+
+        hit_notes = new List<bool[]>();
+        foreach(NoteType[] notes in midiReader.beatmap) {
+            bool[] current_spot_hit = new bool[4] {false, false, false, false};
+
+            hit_notes.Add(current_spot_hit);
+        }
 
         Reset();
     }
@@ -85,30 +91,14 @@ public class NoteTrigger : MonoBehaviour
         next_spot = conductor.spotLength + conductor.spotLength;
     }
 
-
     void Update()
     {
         if (spine.state != InterfaceState.GAMEPLAY) return;
 
-        if (checkHit(controllerControl.west, KeyCode.H, KeyCode.H, 0, top, 0.7f))
-        {
-            hasBeenPressed[0] = true;
-        }
-
-        if (checkHit(controllerControl.north, KeyCode.J, KeyCode.J, 1, high, 0.7f))
-        {
-            hasBeenPressed[1] = true;
-        }
-            
-        if (checkHit(controllerControl.east, KeyCode.K, KeyCode.Joystick1Button4, 2, low, 0.7f))
-        {
-            hasBeenPressed[2] = true;
-        }
-
-        if (checkHit(controllerControl.south, KeyCode.L, KeyCode.Joystick1Button5, 3, bot, 0.7f))
-        {
-            hasBeenPressed[3] = true;
-        }
+        checkHit(controllerControl.west, KeyCode.H, KeyCode.H, 0, top, 0.7f);
+        checkHit(controllerControl.north, KeyCode.J, KeyCode.J, 1, high, 0.7f);
+        checkHit(controllerControl.east, KeyCode.K, KeyCode.Joystick1Button4, 2, low, 0.7f);
+        checkHit(controllerControl.south, KeyCode.L, KeyCode.Joystick1Button5, 3, bot, 0.7f);
 
         //Update Hold Note Score
         if (updateHold[0] && holdLengths[0] >= 1 && (Input.GetKey(KeyCode.H) || Input.GetKey(controllerControl.west) || Input.GetAxis("Vertical") >= 0.7f))
@@ -203,13 +193,12 @@ public class NoteTrigger : MonoBehaviour
             last_spot += conductor.spotLength;
             next_spot += conductor.spotLength;
 
-/*
             // BELOW: Consequences for missing things
             switch (midiReader.beatmap[midiReader.index][0])
             {
                 case NoteType.NOTE:
                     {
-                        if (!hasBeenPressed[0]) ResolveMiss(top, 0);
+                        if (!hit_notes[midiReader.index][0]) ResolveMiss(top, 0);
                     }
                     break;
                 case NoteType.OBSTACLE:
@@ -220,7 +209,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.HOLD:
                     {
-                        if (!hasBeenPressed[0]) ResolveMiss(top, 0);
+                        if (!hit_notes[midiReader.index][0]) ResolveMiss(top, 0);
                     }
                     break;
             }
@@ -228,7 +217,7 @@ public class NoteTrigger : MonoBehaviour
             {
                 case NoteType.NOTE:
                     {
-                        if (!hasBeenPressed[1]) ResolveMiss(high, 1);
+                        if (!hit_notes[midiReader.index][1]) ResolveMiss(high, 1);
                     }
                     break;
                 case NoteType.OBSTACLE:
@@ -239,7 +228,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.HOLD:
                     {
-                        if (!hasBeenPressed[1]) ResolveMiss(high, 1);
+                        if (!hit_notes[midiReader.index][1]) ResolveMiss(high, 1);
                     }
                     break;
             }
@@ -247,7 +236,7 @@ public class NoteTrigger : MonoBehaviour
             {
                 case NoteType.NOTE:
                     {
-                        if (!hasBeenPressed[2]) ResolveMiss(low, 2);
+                        if (!hit_notes[midiReader.index][2]) ResolveMiss(low, 2);
                     }
                     break;
                 case NoteType.OBSTACLE:
@@ -258,7 +247,7 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.HOLD:
                     {
-                        if (!hasBeenPressed[2]) ResolveMiss(low, 2);
+                        if (!hit_notes[midiReader.index][2]) ResolveMiss(low, 2);
                     }
                     break;
             }
@@ -266,7 +255,7 @@ public class NoteTrigger : MonoBehaviour
             {
                 case NoteType.NOTE:
                     {
-                        if (!hasBeenPressed[3]) ResolveMiss(bot, 3);
+                        if (!hit_notes[midiReader.index][3]) ResolveMiss(bot, 3);
                     }
                     break;
                 case NoteType.OBSTACLE:
@@ -277,16 +266,10 @@ public class NoteTrigger : MonoBehaviour
                     break;
                 case NoteType.HOLD:
                     {
-                        if (!hasBeenPressed[3]) ResolveMiss(bot, 3);
+                        if (!hit_notes[midiReader.index][3]) ResolveMiss(bot, 3);
                     }
                     break;
             }
-            */
-
-            hasBeenPressed[0] = false;
-            hasBeenPressed[1] = false;
-            hasBeenPressed[2] = false;
-            hasBeenPressed[3] = false;
 
             midiReader.updateTrackState();
             spawnMaster.SpawnNotes();
@@ -480,7 +463,6 @@ public class NoteTrigger : MonoBehaviour
                 else {
                     Debug.Assert(false, "Should not get here!\n");
                 }
-                // Debug.Log("Current Index: " + index + " time_away_from_this_hit: " + time_away_from_this_hit + "  |  Perfect: "  + (perfect * conductor.spotLength) + " Good: " + good * conductor.spotLength);
                 HitCategory hit_category;
                 if(time_away_from_this_hit < perfect * conductor.spotLength) {
                     hit_category = HitCategory.GOOD;
@@ -490,7 +472,6 @@ public class NoteTrigger : MonoBehaviour
                 }
                 else {
                     // never get here
-                    Debug.Log("here");
                     hit_category = HitCategory.MISS;
                 }
 
@@ -498,12 +479,18 @@ public class NoteTrigger : MonoBehaviour
                 {
                     case NoteType.NOTE:
                     {
-                        ResolveHit(sprite, trackNumber, hit_category, false);
+                        if(hit_category != HitCategory.MISS) {
+                            ResolveHit(sprite, trackNumber, hit_category, false);
+                            hit_notes[index][trackNumber] = true;
+                        }
                         return true;
                     }
                     case NoteType.HOLD:
                     {
-                        ResolveHit(sprite, trackNumber, hit_category, true);
+                        if(hit_category != HitCategory.MISS) {
+                            ResolveHit(sprite, trackNumber, hit_category, true);
+                            hit_notes[index][trackNumber] = true;
+                        }
                         return true;
                     }
                     case NoteType.OBSTACLE:

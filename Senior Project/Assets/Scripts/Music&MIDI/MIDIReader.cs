@@ -257,15 +257,15 @@ public class MIDIReader : MonoBehaviour
         SpotElement curVal = SpotTrack[index];
         if (curVal.four.velocity == 1)
         {
-            StartCoroutine(tracksController.switchTrack(0.4f, 1));
+            StartCoroutine(tracksController.switchTrack(0.2f, 1));
         }
         else if (curVal.four.velocity == 2)
         {
-            StartCoroutine(tracksController.switchTrack(0.4f, 2));
+            StartCoroutine(tracksController.switchTrack(0.2f, 2));
         }
         else if (curVal.four.velocity == 3)
         {
-            StartCoroutine(tracksController.switchTrack(0.4f, 3));
+            StartCoroutine(tracksController.switchTrack(0.2f, 3));
         }
     }
 }

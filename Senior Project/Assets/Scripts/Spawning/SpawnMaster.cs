@@ -21,8 +21,9 @@ public class SpawnMaster : MonoBehaviour
 
     public void SpawnNotes()
     {
+        int index = MIDIReader.index;
         // TODO: Alex --- This should just query the beatmap too...
-        curVal = MIDIReader.SpotTrack[(MIDIReader.index+noteSpeed) % MIDIReader.SpotTrack.Length];
+        curVal = MIDIReader.SpotTrack[(index+noteSpeed) % MIDIReader.SpotTrack.Length];
 
         //Setting all the hold note lengths so note trigger can use them to calculate score
         if (curVal.one.velocity == 72)
@@ -44,42 +45,42 @@ public class SpawnMaster : MonoBehaviour
 
         // Note 1
         if (curVal.one.velocity == 64)
-            spawner1.Spawn(1, 0);
+            spawner1.Spawn(1, 0, index);
         else if (curVal.one.velocity == 72)
-            spawner1.Spawn(2, curVal.one.length);
+            spawner1.Spawn(2, curVal.one.length, index);
         else if (curVal.one.velocity == 80)
-            spawner1.Spawn(3, 0);
+            spawner1.Spawn(3, 0, index);
         else if (curVal.one.velocity == 88)
-            spawner1.Spawn(4, 0);
+            spawner1.Spawn(4, 0, index);
 
         // Note 2
         if (curVal.two.velocity == 64)
-            spawner2.Spawn(1, 0);
+            spawner2.Spawn(1, 0, index);
         else if (curVal.two.velocity == 72)
-            spawner2.Spawn(2, curVal.two.length);
+            spawner2.Spawn(2, curVal.two.length, index);
         else if (curVal.two.velocity == 80)
-            spawner2.Spawn(3, 0);
+            spawner2.Spawn(3, 0, index);
         else if (curVal.two.velocity == 88)
-            spawner2.Spawn(4, 0);
+            spawner2.Spawn(4, 0, index);
 
         // Note 3
         if (curVal.three.velocity == 64)
-            spawner3.Spawn(1, 0);
+            spawner3.Spawn(1, 0, index);
         else if (curVal.three.velocity == 72)
-            spawner3.Spawn(2, curVal.three.length);
+            spawner3.Spawn(2, curVal.three.length, index);
         else if (curVal.three.velocity == 80)
-            spawner3.Spawn(3, 0);
+            spawner3.Spawn(3, 0, index);
         else if (curVal.three.velocity == 88)
-            spawner3.Spawn(4, 0);
+            spawner3.Spawn(4, 0, index);
 
         // Note 4
         if (curVal.four.velocity == 64)
-            spawner4.Spawn(1, -1);
+            spawner4.Spawn(1, -1, index);
         else if (curVal.four.velocity == 72)
-            spawner4.Spawn(2, curVal.four.length);
+            spawner4.Spawn(2, curVal.four.length, index);
         else if (curVal.four.velocity == 80)
-            spawner4.Spawn(3, 0);
+            spawner4.Spawn(3, 0, index);
         else if (curVal.four.velocity == 88)
-            spawner4.Spawn(4, 0);
+            spawner4.Spawn(4, 0, index);
     }
 }

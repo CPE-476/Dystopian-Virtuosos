@@ -12,8 +12,7 @@ public class NoteObject : MonoBehaviour
     float localSpot;
     private float rotSpeed = 100f;
 
-
-    public bool beenHit = false;
+    public int index;
     public int which_track;
 
     public GameObject holdFollower;
@@ -40,12 +39,17 @@ public class NoteObject : MonoBehaviour
             SpawnObject(2, spawnOffset * 3);
             SpawnObject(3, spawnOffset * 4);
         }
-        beenHit = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(index);
+        if(notetrigger.hit_notes[index][which_track])
+        {
+            Debug.Log("HERE\n");
+        }
+
         float interpRatio = ((float)conductor.GetSongPosition() - localSpot) / (conductor.spotLength * spawnmaster.noteSpeed);
 
         Vector3 interpedPostion = Vector3.Lerp(parentTransform.position, new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), interpRatio);
@@ -98,8 +102,23 @@ public class NoteObject : MonoBehaviour
             }
 
             // note should go off
-/*            else if (gameObject.CompareTag("Note"))
+            else if (gameObject.CompareTag("Note"))
             {
+                GetComponent<SpriteRenderer>().enabled = true;
+                float interpRatio2 = interpRatio - 1;
+                Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
+                transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+            }
+
+            else if (gameObject.CompareTag("HoldNote"))
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+                float interpRatio2 = interpRatio - 1;
+                Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
+                transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+            }
+
+/*
                 if (notetrigger.hasBeenPressed[which_track] && !beenHit)
                 {
                     beenHit = true;
@@ -122,7 +141,7 @@ public class NoteObject : MonoBehaviour
                 {
                     GetComponent<SpriteRenderer>().enabled = false;
                 }
-            }*/
+            */
         }
 
         if(interpRatio > 1.1f)
