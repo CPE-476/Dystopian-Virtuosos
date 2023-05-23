@@ -15,7 +15,7 @@ public class HealthBar : MonoBehaviour
 
     public float moveSpeed;
 
-    public float targetY;
+    public float onChangeRatio;
 
     private float originalY;
 
@@ -28,13 +28,13 @@ public class HealthBar : MonoBehaviour
 
     public void Update()
     {
-        if (transform.position.y < originalY + targetY && showHealthBar)
+        if (transform.position.y < originalY + (Screen.height / onChangeRatio) && showHealthBar)
         {
             transform.position =
                 Vector3
                     .Lerp(transform.position,
                     new Vector3(transform.position.x,
-                        originalY + targetY,
+                        originalY + (Screen.height / onChangeRatio),
                         transform.position.z),
                     Time.deltaTime * moveSpeed);
         }

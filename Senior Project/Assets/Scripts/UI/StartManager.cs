@@ -59,7 +59,7 @@ public class StartManager : MonoBehaviour
         {
             RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
             RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
-            cursorRectTransform.position = new Vector3(currentButtonRectTransform.position.x - (currentButtonRectTransform.rect.width/2)*0.1f -20,
+            cursorRectTransform.position = new Vector3(currentButtonRectTransform.position.x - (currentButtonRectTransform.rect.width/2)*0.15f,
                                                        currentButtonRectTransform.position.y,
                                                        currentButtonRectTransform.position.z);
         }

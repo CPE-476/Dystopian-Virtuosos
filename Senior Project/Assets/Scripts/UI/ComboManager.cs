@@ -16,7 +16,7 @@ public class ComboManager : MonoBehaviour
 
     private float originalX;
 
-    public float targetX;
+    public float onChangeRatio;
 
     public bool showComboBar = false;
 
@@ -38,7 +38,7 @@ public class ComboManager : MonoBehaviour
             comboHub.transform.position =
                 Vector3
                     .Lerp(comboHub.transform.position,
-                    new Vector3(originalX + targetX,
+                    new Vector3(originalX + Screen.width / onChangeRatio,
                         comboHub.transform.position.y,
                         comboHub.transform.position.z),
                     Time.deltaTime * moveSpeed);

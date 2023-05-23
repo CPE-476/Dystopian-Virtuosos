@@ -24,7 +24,7 @@ public class LatencyCalibrator : MonoBehaviour
 
     float latency_offset = 0.0f;
 
-    public float amount = 0.2f;
+    public float amount = 0.08f;
 
     Vector3 oldScale;
 
@@ -58,8 +58,15 @@ public class LatencyCalibrator : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         audioSource.PlayScheduled (startTime);
 
-        oldScale = new Vector3(0.2f, 0.2f, 0.2f);
-        newScale = oldScale + new Vector3(amount, amount, amount);
+        oldScale =
+            new Vector3(transform.GetChild(0).gameObject.transform.localScale.x,
+                transform.GetChild(0).gameObject.transform.localScale.y,
+                transform.GetChild(0).gameObject.transform.localScale.z);
+        newScale =
+            oldScale +
+            new Vector3(oldScale.x * amount,
+                oldScale.y * amount,
+                oldScale.z * amount);
         time = 0.1f;
         duration = 0.1f;
 
@@ -96,7 +103,11 @@ public class LatencyCalibrator : MonoBehaviour
         float fractional_part =
             (float)(beat_with_fraction - (int) beat_with_fraction);
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button1) || Input.GetKeyDown(KeyCode.Joystick1Button1))
+        if (
+            Input.GetKeyDown(KeyCode.Space) ||
+            Input.GetKeyDown(KeyCode.Joystick1Button1) ||
+            Input.GetKeyDown(KeyCode.Joystick1Button1)
+        )
         {
             double current_beat = GetCalibrationTime() / beatLength;
             float off;

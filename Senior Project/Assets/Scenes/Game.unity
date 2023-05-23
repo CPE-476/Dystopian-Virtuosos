@@ -632,9 +632,9 @@ RectTransform:
   m_Father: {fileID: 802824392}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -255, y: 111}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 189, y: -126}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &37246555
@@ -4458,9 +4458,9 @@ RectTransform:
   m_Father: {fileID: 802824392}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 459, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &347966884
@@ -6118,6 +6118,7 @@ GameObject:
   - component: {fileID: 510236661}
   - component: {fileID: 510236665}
   - component: {fileID: 510236666}
+  - component: {fileID: 510236667}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6235,6 +6236,21 @@ MonoBehaviour:
   isMoving: 0
   cameraX: 0
   farBackgroundSpeed: 0
+--- !u!114 &510236667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 510236660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85fff2cd8cf7479ba48e3a9dc5437fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ReferenceResolution: {x: 2560, y: 1440}
+  ZoomFactor: {x: 1, y: 1, z: 1}
+  OriginPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &513285115
 GameObject:
   m_ObjectHideFlags: 0
@@ -6976,7 +6992,6 @@ MonoBehaviour:
   next_spot: 0
   perfect: 0.3
   good: 1
-  hasBeenPressed: 00000000
   index: 0
   flickUpLeft: 0
   flickDownLeft: 0
@@ -10112,10 +10127,10 @@ RectTransform:
   m_Father: {fileID: 1136673162}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -683, y: -400}
-  m_SizeDelta: {x: 700, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 240}
+  m_SizeDelta: {x: 2300, y: 480}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &802824393
 MonoBehaviour:
@@ -10407,7 +10422,7 @@ MonoBehaviour:
   fill: {fileID: 928362638}
   cam: {fileID: 510236666}
   moveSpeed: 2
-  targetY: 170
+  onChangeRatio: 8.5
   showHealthBar: 1
 --- !u!114 &816987386
 MonoBehaviour:
@@ -12421,7 +12436,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 683, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 2211.84, y: 324}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &997234489
@@ -12979,8 +12994,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80
-  m_fontSizeBase: 80
+  m_fontSize: 70
+  m_fontSizeBase: 70
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -17179,7 +17194,7 @@ MonoBehaviour:
   comment: {fileID: 711847189}
   comboHub: {fileID: 1418723475}
   moveSpeed: 8
-  targetX: 650
+  onChangeRatio: 3.9
   showComboBar: 0
 --- !u!1 &1442486798
 GameObject:
@@ -20134,7 +20149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1550, y: -310}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1024, y: 873}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1821401239
@@ -20962,7 +20977,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   scoreMesh: {fileID: 1043289401}
-  targetX: 780
+  onChangeRatio: 3.25
   showScoreBar: 0
   moveSpeed: 5
 --- !u!1 &1869878024
@@ -21178,7 +21193,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 1786.1, y: -310}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 1572.5867, y: 1340.6913}
   m_Pivot: {x: 1, y: 0}
 --- !u!23 &1874742947

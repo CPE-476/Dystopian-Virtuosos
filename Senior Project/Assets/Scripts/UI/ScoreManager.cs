@@ -11,7 +11,7 @@ public class ScoreManager : MonoBehaviour
 
     private float originalX;
 
-    public float targetX;
+    public float onChangeRatio;
 
     public bool showScoreBar = false;
 
@@ -29,12 +29,12 @@ public class ScoreManager : MonoBehaviour
         string scoreText = "SCORE: " + score;
         scoreMesh.GetComponent<TMPro.TextMeshProUGUI>().text = scoreText;
 
-        if (transform.position.x < originalX + targetX && showScoreBar)
+        if (transform.position.x < originalX + (Screen.width / onChangeRatio) && showScoreBar)
         {
             transform.position =
                 Vector3
                     .Lerp(transform.position,
-                    new Vector3(originalX + targetX,
+                    new Vector3(originalX + (Screen.width / onChangeRatio),
                         transform.position.y,
                         transform.position.z),
                     Time.deltaTime * moveSpeed);
