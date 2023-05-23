@@ -6982,9 +6982,9 @@ MonoBehaviour:
   high: {fileID: 1229566512}
   low: {fileID: 1794664647}
   bot: {fileID: 525978116}
-  perfect_color: {r: 0, g: 0, b: 0, a: 0}
-  weak_color: {r: 0, g: 0, b: 0, a: 0}
-  fail_color: {r: 0, g: 0, b: 0, a: 0}
+  perfect_color: {r: 0.8980393, g: 0.6392157, b: 0.7411765, a: 1}
+  weak_color: {r: 0.35686275, g: 0.19215688, b: 0.23529413, a: 1}
+  fail_color: {r: 1, g: 0, b: 0, a: 1}
   sfx: {fileID: 1920913753}
   scoreManager: {fileID: 1862443379}
   comboManager: {fileID: 1418723479}
