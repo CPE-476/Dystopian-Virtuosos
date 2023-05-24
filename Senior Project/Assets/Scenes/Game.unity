@@ -1444,11 +1444,6 @@ MonoBehaviour:
   joystickNum: 1
   trackAbove: {fileID: 1018172144}
   trackBelow: {fileID: 1229566511}
-  joystickType: 
-  north: 0
-  south: 0
-  east: 0
-  west: 0
   leftJoystick:
     m_Name: Left Joystick
     m_Type: 0
@@ -2620,39 +2615,11 @@ MonoBehaviour:
   reset: 0
   current_track_position: 0
   playerHeightOffset: 1.45
-  playerControls:
-    m_Name: Player Controls
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 4a473011-1c9e-4b42-b6e5-920678919098
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: One Modifier
-      m_Id: f65b2c9c-9b10-4dc5-b74b-31b4c22fbcb4
-      m_Path: OneModifier
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 4
-    - m_Name: modifier
-      m_Id: 229ab719-b143-4986-92e8-784da4995883
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: binding
-      m_Id: ff66001b-479e-4618-a080-1712bb2bb5ea
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    m_Flags: 0
+  bottom: {fileID: -2194267773787383163, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  low: {fileID: 2351661342634373940, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  top: {fileID: -7708982789535392345, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  high: {fileID: -2570779792449804658, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  interact: {fileID: 7635315315951650691, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
 --- !u!114 &188014764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2686,6 +2653,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &188014766
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188014756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerControls
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &197462868
 GameObject:
   m_ObjectHideFlags: 0
@@ -7096,55 +7093,10 @@ MonoBehaviour:
   flickDownLeft: 0
   flickUpRight: 0
   flickDownRight: 0
-  playerControls:
-    m_Name: Player Controls
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: c7ab941a-0901-49c4-b093-ca5d6cec6427
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: 2D Vector
-      m_Id: 207cf221-39f0-4904-95ad-3f40018b8895
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 4
-    - m_Name: up
-      m_Id: 0efe4986-607e-4f9a-80fc-f60cdf468c4f
-      m_Path: <Gamepad>/leftStick/up
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: down
-      m_Id: 863db01f-832e-4bb3-a746-9b81d673dc68
-      m_Path: <Gamepad>/leftStick/down
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: left
-      m_Id: f5193a42-fd3e-4aa0-b13c-6582b1d57da6
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    - m_Name: right
-      m_Id: fa9b1893-3a0d-4e91-b8fa-65c164ddea70
-      m_Path: 
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Controls
-      m_Flags: 8
-    m_Flags: 0
+  bottomControls: {fileID: -2194267773787383163, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  lowControls: {fileID: 2351661342634373940, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  topControls: {fileID: -7708982789535392345, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  highControls: {fileID: -2570779792449804658, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
 --- !u!4 &577649643
 Transform:
   m_ObjectHideFlags: 0
@@ -12109,11 +12061,6 @@ MonoBehaviour:
   joystickNum: 2
   trackAbove: {fileID: 1794664646}
   trackBelow: {fileID: 525978114}
-  joystickType: 
-  north: 0
-  south: 0
-  east: 0
-  west: 0
   leftJoystick:
     m_Name: Left Joystick
     m_Type: 0
