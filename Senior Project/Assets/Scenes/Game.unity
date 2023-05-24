@@ -1449,6 +1449,72 @@ MonoBehaviour:
   south: 0
   east: 0
   west: 0
+  leftJoystick:
+    m_Name: Left Joystick
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 09b2c461-914b-47ec-97c2-08d6cbd1b58e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: aa56deac-6dd7-4538-af6e-a09693e1bb52
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Joystick
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 946ce289-dd11-4337-b00c-45b5cb699fb6
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Joystick
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: a4611491-0552-43b8-bfd1-a8b15de5b563
+      m_Path: <Gamepad>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Joystick
+      m_Flags: 8
+    m_Flags: 0
+  rightJoystick:
+    m_Name: Right Joystick
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 22aeaac1-a6e0-4815-8860-2ff4f81484f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 907ee0c7-22c1-4c23-afbd-c7e9237b1091
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Joystick
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 72d1fdff-62b9-4d1d-b0f6-9e4abc3baf56
+      m_Path: <Gamepad>/rightStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Joystick
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 70275ff6-33ff-4fed-9212-3160ce599c68
+      m_Path: <Gamepad>/rightStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Joystick
+      m_Flags: 8
+    m_Flags: 0
 --- !u!96 &49855403
 TrailRenderer:
   serializedVersion: 2
@@ -2554,6 +2620,39 @@ MonoBehaviour:
   reset: 0
   current_track_position: 0
   playerHeightOffset: 1.45
+  playerControls:
+    m_Name: Player Controls
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4a473011-1c9e-4b42-b6e5-920678919098
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: One Modifier
+      m_Id: f65b2c9c-9b10-4dc5-b74b-31b4c22fbcb4
+      m_Path: OneModifier
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 4
+    - m_Name: modifier
+      m_Id: 229ab719-b143-4986-92e8-784da4995883
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: binding
+      m_Id: ff66001b-479e-4618-a080-1712bb2bb5ea
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    m_Flags: 0
 --- !u!114 &188014764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6997,6 +7096,55 @@ MonoBehaviour:
   flickDownLeft: 0
   flickUpRight: 0
   flickDownRight: 0
+  playerControls:
+    m_Name: Player Controls
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: c7ab941a-0901-49c4-b093-ca5d6cec6427
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 2D Vector
+      m_Id: 207cf221-39f0-4904-95ad-3f40018b8895
+      m_Path: 2DVector
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 4
+    - m_Name: up
+      m_Id: 0efe4986-607e-4f9a-80fc-f60cdf468c4f
+      m_Path: <Gamepad>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: down
+      m_Id: 863db01f-832e-4bb3-a746-9b81d673dc68
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: left
+      m_Id: f5193a42-fd3e-4aa0-b13c-6582b1d57da6
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    - m_Name: right
+      m_Id: fa9b1893-3a0d-4e91-b8fa-65c164ddea70
+      m_Path: 
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Player Controls
+      m_Flags: 8
+    m_Flags: 0
 --- !u!4 &577649643
 Transform:
   m_ObjectHideFlags: 0
@@ -11966,6 +12114,72 @@ MonoBehaviour:
   south: 0
   east: 0
   west: 0
+  leftJoystick:
+    m_Name: Left Joystick
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 09b2c461-914b-47ec-97c2-08d6cbd1b58e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: aa56deac-6dd7-4538-af6e-a09693e1bb52
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Joystick
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 946ce289-dd11-4337-b00c-45b5cb699fb6
+      m_Path: <Gamepad>/leftStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Joystick
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: a4611491-0552-43b8-bfd1-a8b15de5b563
+      m_Path: <Gamepad>/leftStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Left Joystick
+      m_Flags: 8
+    m_Flags: 0
+  rightJoystick:
+    m_Name: Right Joystick
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 22aeaac1-a6e0-4815-8860-2ff4f81484f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 1D Axis
+      m_Id: 907ee0c7-22c1-4c23-afbd-c7e9237b1091
+      m_Path: 1DAxis
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Joystick
+      m_Flags: 4
+    - m_Name: negative
+      m_Id: 72d1fdff-62b9-4d1d-b0f6-9e4abc3baf56
+      m_Path: <Gamepad>/rightStick/down
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Joystick
+      m_Flags: 8
+    - m_Name: positive
+      m_Id: 70275ff6-33ff-4fed-9212-3160ce599c68
+      m_Path: <Gamepad>/rightStick/up
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Right Joystick
+      m_Flags: 8
+    m_Flags: 0
 --- !u!212 &965730335
 SpriteRenderer:
   m_ObjectHideFlags: 0

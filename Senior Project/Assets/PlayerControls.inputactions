@@ -1,0 +1,56 @@
+{
+    "name": "PlayerControls",
+    "maps": [
+        {
+            "name": "PlayerControls",
+            "id": "8b50a33a-c378-4777-8ddf-d6362af01ea5",
+            "actions": [
+                {
+                    "name": "Bottom",
+                    "type": "Button",
+                    "id": "c48799bd-17c5-4ef8-bc2f-93d770f20549",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "17d6e848-dbc2-4983-bd6b-dfa54180e477",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bottom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dccf6f58-69d5-43de-85d3-3f1a3a2b762c",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bottom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2267498d-b10f-4840-8d05-5915bf3b0758",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bottom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

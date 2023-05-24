@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class JoystickControl : MonoBehaviour
 {
@@ -30,6 +31,21 @@ public class JoystickControl : MonoBehaviour
     public KeyCode west;
 
     private Vector3 initialPosition;
+
+    public InputAction leftJoystick;
+    public InputAction rightJoystick;
+
+    private void OnEnable()
+    {
+        leftJoystick.Enable();
+        rightJoystick.Enable();
+    }
+
+    private void OnDisable()
+    {
+        leftJoystick.Disable();
+        rightJoystick.Disable();
+    }
 
     void Awake()
     {
@@ -86,9 +102,9 @@ public class JoystickControl : MonoBehaviour
         maxDistanceFromCenter =
             Vector3.Distance(initialPosition, trackAbove.transform.position);
         if (joystickNum == 1)
-            verticalInput = Input.GetAxis("Vertical");
+            verticalInput = leftJoystick.ReadValue<float>();
         else
-            verticalInput = Input.GetAxis(joystickType);
+            verticalInput = rightJoystick.ReadValue<float>();
 
         joystickInput = new Vector3(0, verticalInput, 0);
 

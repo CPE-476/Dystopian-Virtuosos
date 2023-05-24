@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public enum HitCategory
 {
@@ -68,6 +69,18 @@ public class NoteTrigger : MonoBehaviour
     public bool flickUpRight = false;
 
     public bool flickDownRight = false;
+
+    public InputAction playerControls;
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
 
     void Start()
     {

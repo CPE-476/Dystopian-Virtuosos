@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -45,6 +46,18 @@ public class PlayerController : MonoBehaviour
     public float playerHeightOffset = 1.2f;
 
     private double lastNoteHitTime;
+
+    public InputActionMap playerControls;
+
+    private void OnEnable()
+    {
+        playerControls.Enable();
+    }
+
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
 
     // Start is called before the first frame update
     void Start()

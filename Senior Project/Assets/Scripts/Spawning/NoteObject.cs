@@ -47,7 +47,7 @@ public class NoteObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(index);
+        //Debug.Log(index);
         if(notetrigger.hit_notes[index][which_track])
         {
             Debug.Log("HERE\n");
