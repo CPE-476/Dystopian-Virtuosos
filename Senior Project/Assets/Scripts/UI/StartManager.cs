@@ -3,28 +3,40 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
+
+public enum CURRENTPAGE
+{
+    DEFAULT,
+    SYSTEM,
+    GRAPHIC,
+    SOUND,
+    CALIBRATE,
+    ABOUT
+}
 
 public class StartManager : MonoBehaviour
 {
-    public GameObject
 
-            launchButton,
-            aboutButton,
-            quitButton,
-            systemTitle,
-            systemLC,
-            systemBack;
+    public GameObject systemTitle;
+    public GameObject backButton;
 
-    GameObject Default;
+    public GameObject Default;
+    public GameObject Launch;
+    public GameObject System;
+    public GameObject Sound;
+    public GameObject Graphic;
+    public GameObject About;
 
-    GameObject Launch;
+    public GameObject systemLC;
 
-    GameObject stitle;
+    private GameObject graphicButton;
+    private GameObject soundButton;
+    private GameObject calibrationButton;
+
+
     GameObject sLC;
-    GameObject sBack;
     GameObject sLatency;
-
-    GameObject About;
 
     public GameObject Background;
 
@@ -43,6 +55,8 @@ public class StartManager : MonoBehaviour
     public GameObject optionsBackButton, firstButton, extraBackButton;
 
     public GameObject cursorImage;
+
+    public CURRENTPAGE currentPage;
 
     void Awake()
     {
@@ -110,11 +124,41 @@ public class StartManager : MonoBehaviour
         }
     }
 
+    public void init()
+    {
+        currentPage = CURRENTPAGE.DEFAULT;
+        systemTitle = GameObject.Find("SystemTitle");
+        sLC = GameObject.Find("LatencyCalibrator");
+        sLatency = GameObject.Find("Latency");
+
+        systemTitle.GetComponent<TextMeshProUGUI>().enabled = false;
+
+        graphicButton = GameObject.Find("GraphicButton");
+        graphicButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        graphicButton.GetComponent<Button>().interactable = false;
+
+        soundButton = GameObject.Find("SoundButton");
+        soundButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        soundButton.GetComponent<Button>().interactable = false;
+
+        calibrationButton = GameObject.Find("CalibrateButton");
+        calibrationButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        calibrationButton.GetComponent<Button>().interactable = false;
+
+        backButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        backButton.GetComponent<Button>().interactable = false;
+
+        Color c = fadeImage.color;
+        c.a = 0f;
+        fadeImage.color = c;
+        toDefault();
+    }
+
     public void toLaunch()
     {
         Default.SetActive(false);
         Launch.SetActive(true);
-        SetSystem(false);
+        SetCalibration(false);
         About.SetActive(false);
         cursorImage.SetActive(false);
         // Load the next scene
@@ -125,22 +169,158 @@ public class StartManager : MonoBehaviour
 
     public void toSystem()
     {
+        currentPage = CURRENTPAGE.SYSTEM;
         // Show the system settings UI
         Default.SetActive(false);
         Launch.SetActive(false);
-        SetSystem(true);
         About.SetActive(false);
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsBackButton);
+
+        systemTitle.GetComponent<TextMeshProUGUI>().enabled = true;
+        systemTitle.GetComponent<TextMeshProUGUI>().text = "SYSTEM";
+        graphicButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        graphicButton.GetComponent<Button>().interactable = true;
+
+        soundButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        soundButton.GetComponent<Button>().interactable = true;
+
+        calibrationButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        calibrationButton.GetComponent<Button>().interactable = true;
+
+        backButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        backButton.GetComponent<Button>().interactable = true;
+    }
+
+    public void back()
+    {
+        if (currentPage == CURRENTPAGE.SYSTEM)
+        {
+            // update title
+            systemTitle.GetComponent<TextMeshProUGUI>().enabled = false;
+
+            // disable buttons
+            graphicButton.GetComponent<TextMeshProUGUI>().enabled = false;
+            graphicButton.GetComponent<Button>().interactable = false;
+
+            soundButton.GetComponent<TextMeshProUGUI>().enabled = false;
+            soundButton.GetComponent<Button>().interactable = false;
+
+            calibrationButton.GetComponent<TextMeshProUGUI>().enabled = false;
+            calibrationButton.GetComponent<Button>().interactable = false;
+
+            backButton.GetComponent<TextMeshProUGUI>().enabled = false;
+            backButton.GetComponent<Button>().interactable = false;
+
+            // back to Default
+            toDefault();
+
+
+        }
+        else if (currentPage == CURRENTPAGE.ABOUT)
+        {
+            // update title
+            systemTitle.GetComponent<TextMeshProUGUI>().enabled = false;
+
+            // disable buttons
+            backButton.GetComponent<TextMeshProUGUI>().enabled = false;
+            backButton.GetComponent<Button>().interactable = false;
+
+            // back to Default
+            toDefault();
+        }
+        else if (currentPage == CURRENTPAGE.GRAPHIC || currentPage == CURRENTPAGE.SOUND || currentPage == CURRENTPAGE.CALIBRATE)
+        {
+            SetCalibration(false);
+            Sound.SetActive(false);
+            Graphic.SetActive(false);
+            toSystem();
+            
+        }
+        else
+        {
+            Debug.Log("Shouldn't be here");
+        }
+    }
+
+    public void toGraphic()
+    {
+        currentPage = CURRENTPAGE.GRAPHIC;
+        graphicButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        graphicButton.GetComponent<Button>().interactable = false;
+
+        soundButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        soundButton.GetComponent<Button>().interactable = false;
+
+        calibrationButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        calibrationButton.GetComponent<Button>().interactable = false;
+
+        systemTitle.GetComponent<TextMeshProUGUI>().text = "GRAPHIC";
+        Graphic.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsBackButton);
+    }
+
+        public void toSound()
+    {
+        currentPage = CURRENTPAGE.SOUND;
+
+        // disable buttons
+        graphicButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        graphicButton.GetComponent<Button>().interactable = false;
+
+        soundButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        soundButton.GetComponent<Button>().interactable = false;
+
+        calibrationButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        calibrationButton.GetComponent<Button>().interactable = false;
+
+        systemTitle.GetComponent<TextMeshProUGUI>().text = "SOUND";
+        Sound.SetActive(true);
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionsBackButton);
+    }
+
+    public void toCalibration()
+    {
+        currentPage = CURRENTPAGE.CALIBRATE;
+        // Show the calibration settings UI
+        SetCalibration(true);
+
+        // update title
+        systemTitle.GetComponent<TextMeshProUGUI>().text = "CALIBRATE";
+
+        // disable buttons
+        graphicButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        graphicButton.GetComponent<Button>().interactable = false;
+
+        soundButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        soundButton.GetComponent<Button>().interactable = false;
+
+        calibrationButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        calibrationButton.GetComponent<Button>().interactable = false;
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(optionsBackButton);
     }
 
     public void toAbout()
     {
+        currentPage = CURRENTPAGE.ABOUT;
         // Show the about UI
         Default.SetActive(false);
         Launch.SetActive(false);
-        SetSystem(false);
+        SetCalibration(false);
         About.SetActive(true);
+
+        systemTitle.GetComponent<TextMeshProUGUI>().enabled = true;
+        systemTitle.GetComponent<TextMeshProUGUI>().text = "ABOUT";
+
+        backButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        backButton.GetComponent<Button>().interactable = true;
+
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(extraBackButton);
     }
@@ -150,7 +330,7 @@ public class StartManager : MonoBehaviour
         // Show the default UI
         Default.SetActive(true);
         Launch.SetActive(false);
-        SetSystem(false);
+        SetCalibration(false);
         About.SetActive(false);
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstButton);
@@ -162,41 +342,22 @@ public class StartManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void init()
-    {
-        Default = GameObject.Find("Default");
-        Launch = GameObject.Find("Launch");
-        stitle = GameObject.Find("SystemTitle");
-        sLC = GameObject.Find("LatencyCalibrator");
-        sBack = GameObject.Find("BackButton");
-        sLatency = GameObject.Find("Latency");
-        About = GameObject.Find("About");
-        Color c = fadeImage.color;
-        c.a = 0f;
-        fadeImage.color = c;
-        toDefault();
-    }
-
-    void SetSystem(bool b)
+    void SetCalibration(bool b)
     {
         if (b)
         {
-            stitle.SetActive(true);
-            sBack.SetActive(true);
-            sLatency.SetActive(true);
+            sLatency.GetComponent<TextMeshProUGUI>().enabled = true;
             foreach (Transform child in sLC.transform)
             {
-                child.gameObject.SetActive(true);
+                child.gameObject.GetComponent<Image>().enabled = true;
             }
         }
         else
         {
-            stitle.SetActive(false);
-            sBack.SetActive(false);
-            sLatency.SetActive(false);
+            sLatency.GetComponent<TextMeshProUGUI>().enabled = false;
             foreach (Transform child in sLC.transform)
             {
-                child.gameObject.SetActive(false);
+                child.gameObject.GetComponent<Image>().enabled = false;
             }
         }
     }
