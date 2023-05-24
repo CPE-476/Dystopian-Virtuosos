@@ -22,7 +22,7 @@ public class LatencyCalibrator : MonoBehaviour
 
     int cur_index = 0;
 
-    float latency_offset = 0.0f;
+    public float latency_offset = 0.0f;
 
     public float amount = 0.08f;
 
@@ -32,10 +32,7 @@ public class LatencyCalibrator : MonoBehaviour
 
     bool doLerp;
 
-    float
-
-            time,
-            duration;
+    float time, duration;
 
     public GameObject trigger;
 
@@ -55,7 +52,7 @@ public class LatencyCalibrator : MonoBehaviour
         startTime = (double) AudioSettings.dspTime + bufferSchedulingOffset;
         beatLength = 60 / tempo;
 
-        audioSource = GetComponent<AudioSource>();
+        //audioSource = GetComponent<AudioSource>();
         audioSource.PlayScheduled (startTime);
 
         oldScale =
@@ -121,7 +118,7 @@ public class LatencyCalibrator : MonoBehaviour
 
             latency_offset = GetDesiredLatencyOffset();
             latencyText.text = latency_offset.ToString("0.00000");
-            PlayerPrefs.SetFloat("latency_offset", latency_offset);
+            //PlayerPrefs.SetFloat("latency_offset", latency_offset);
             //Debug.Log(latency_offset);
         }
 

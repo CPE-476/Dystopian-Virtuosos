@@ -25,6 +25,15 @@ public class Pause : MonoBehaviour
     [SerializeField]
     float moveSpeed;
 
+    [SerializeField]
+    Slider master;
+
+    [SerializeField]
+    Slider music;
+
+    [SerializeField]
+    Slider sfx;
+
     Coroutine resumeCountdownCoroutine;
 
     private TMP_Text countInText;
@@ -37,6 +46,10 @@ public class Pause : MonoBehaviour
     {
         originalPosition = comboHub.transform.position;
         hub = comboHub.GetComponent<Image>();
+
+        master.value = PlayerPrefs.GetFloat("master_volume");
+        music.value = PlayerPrefs.GetFloat("music_volume");
+        sfx.value = PlayerPrefs.GetFloat("sfx_volume");
     }
 
     void Update()

@@ -48,7 +48,7 @@ public class StartManager : MonoBehaviour
 
     public AnimationCurve zoomCurve;
 
-    private bool isLaunching = false;
+    public bool isLaunching = false;
 
     private float startTime;
 
