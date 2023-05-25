@@ -1596,11 +1596,6 @@ MonoBehaviour:
   joystickNum: 1
   trackAbove: {fileID: 1018172144}
   trackBelow: {fileID: 1229566511}
-  joystickType: 
-  north: 0
-  south: 0
-  east: 0
-  west: 0
   leftJoystick:
     m_Name: Left Joystick
     m_Type: 0
@@ -2831,12 +2826,11 @@ MonoBehaviour:
   reset: 0
   current_track_position: 0
   playerHeightOffset: 1.45
-  playerControls:
-    m_Name: 
-    m_Id: 
-    m_Asset: {fileID: 0}
-    m_Actions: []
-    m_Bindings: []
+  bottom: {fileID: -2194267773787383163, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  low: {fileID: 2351661342634373940, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  top: {fileID: -7708982789535392345, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  high: {fileID: -2570779792449804658, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  interact: {fileID: 7635315315951650691, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
 --- !u!114 &188014764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7211,15 +7205,10 @@ MonoBehaviour:
   flickDownLeft: 0
   flickUpRight: 0
   flickDownRight: 0
-  playerControls:
-    m_Name: 
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
+  bottomControls: {fileID: -2194267773787383163, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  lowControls: {fileID: 2351661342634373940, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  topControls: {fileID: -7708982789535392345, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  highControls: {fileID: -2570779792449804658, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
 --- !u!4 &577649643
 Transform:
   m_ObjectHideFlags: 0
@@ -12071,11 +12060,6 @@ MonoBehaviour:
   joystickNum: 2
   trackAbove: {fileID: 1794664646}
   trackBelow: {fileID: 525978114}
-  joystickType: 
-  north: 0
-  south: 0
-  east: 0
-  west: 0
   leftJoystick:
     m_Name: Left Joystick
     m_Type: 0
