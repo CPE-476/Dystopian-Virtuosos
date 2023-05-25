@@ -103,8 +103,9 @@ public class NoteTrigger : MonoBehaviour
         checkHit(lowControls, 2, low, 0.7f);
         checkHit(bottomControls, 3, bot, 0.7f);
 
+        Debug.Log("LOW READ VAL: " + lowControls.action.ReadValue<float>());
         //Update Hold Note Score
-        if (updateHold[0] && holdLengths[0] >= 1 && (highControls.action.IsPressed() || Input.GetAxis("Vertical") >= 0.7f))
+        if (updateHold[0] && holdLengths[0] >= 1 && (topControls.action.ReadValue<float>() > 0.0f || Input.GetAxis("Vertical") >= 0.7f))
         {
             var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -119,7 +120,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[0] = false;
             updateHold[0] = false;
         }
-        if (updateHold[1] && holdLengths[1] >= 1 && (Input.GetKey(KeyCode.J) /*|| Input.GetKey(controllerControl.north)*/ || -Input.GetAxis("Vertical") >= 0.7f))
+        if (updateHold[1] && holdLengths[1] >= 1 && (highControls.action.ReadValue<float>() > 0.0f) || -Input.GetAxis("Vertical") >= 0.7f)
         {
             var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -134,7 +135,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[1] = false;
             updateHold[1] = false;
         }
-        if (updateHold[2] && holdLengths[2] >= 1 && (Input.GetKey(KeyCode.K) /*|| Input.GetKey(controllerControl.east) || Input.GetAxis(controllerControl.joystickType) >= 0.7f*/))
+        if (updateHold[2] && holdLengths[2] >= 1 && (lowControls.action.ReadValue<float>() > 0.0f) /*|| Input.GetAxis(controllerControl.joystickType) >= 0.7f*/)
         {
             var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -149,7 +150,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[2] = false;
             updateHold[2] = false;
         }
-        if (updateHold[3] && holdLengths[3] >= 1 && (lowControls.action.ReadValue<float>() > 0.1 /*|| Input.GetKey(controllerControl.south) || -Input.GetAxis(controllerControl.joystickType) >= 0.7f*/))
+        if (updateHold[3] && holdLengths[3] >= 1 && (bottomControls.action.ReadValue<float>() > 0.0f /*|| -Input.GetAxis(controllerControl.joystickType) >= 0.7f*/))
         {
             var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
