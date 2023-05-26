@@ -391,7 +391,7 @@ public class NoteTrigger : MonoBehaviour
 
     // Checks for a hit on a given keycode.
     // Returns true if hit, false if not.
-    private bool checkHit(InputActionReference controls, int trackNumber, SpriteRenderer sprite, float pianoThreshold)
+    private void checkHit(InputActionReference controls, int trackNumber, SpriteRenderer sprite, float pianoThreshold)
     {
         float joystickAxis = 0.0f;
 
@@ -483,31 +483,20 @@ public class NoteTrigger : MonoBehaviour
                 {
                     case NoteType.NOTE:
                     {
-                        if(hit_category != HitCategory.MISS) {
+                        if(hit_category != HitCategory.MISS && !hit_notes[index][trackNumber]) {
                             ResolveHit(sprite, trackNumber, hit_category, false);
                             hit_notes[index][trackNumber] = true;
                         }
-                        return true;
-                    }
+                    } break;
                     case NoteType.HOLD:
                     {
-                        if(hit_category != HitCategory.MISS) {
+                        if(hit_category != HitCategory.MISS && !hit_notes[index][trackNumber]) {
                             ResolveHit(sprite, trackNumber, hit_category, true);
                             hit_notes[index][trackNumber] = true;
                         }
-                        return true;
-                    }
-                    case NoteType.OBSTACLE:
-                    {
-                        return true;
-                    }
-                    case NoteType.COLLECTIBLE:
-                    {
-                        return true;
-                    }
+                    } break;
                 }
             }
         }
-        return false;
     }
 }
