@@ -3198,9 +3198,11 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   isLaunching: 0
-  optionsBackButton: {fileID: 299424555}
-  firstButton: {fileID: 1125220066}
-  extraBackButton: {fileID: 0}
+  curGraphicsButton: {fileID: 1571667296}
+  curLaunchButton: {fileID: 1125220066}
+  curBackButton: {fileID: 299424555}
+  curFull: {fileID: 209051510}
+  curMaster: {fileID: 1897607312}
   cursorImage: {fileID: 1227003083}
   currentPage: 0
 --- !u!4 &1087331486
