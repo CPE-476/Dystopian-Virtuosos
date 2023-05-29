@@ -184,14 +184,17 @@ public class Conductor : MonoBehaviour
             }
             if(playL2Section1) {
                 playL2Section1 = false;
+                playL2BG1 = false;
                 l2_section1.PlayScheduled(nextStartTime);
             }
             if(playL2Section2) {
                 playL2Section2 = false;
+                playL2BG2 = false;
                 l2_section2.PlayScheduled(nextStartTime);
             }
             if(playL2End) {
                 playL2End = false;
+                playL2BG3 = false;
                 l2_end.PlayScheduled(nextStartTime);
             }
 

@@ -328,25 +328,16 @@ public class Spine : MonoBehaviour
             case GameplayAudio.S1:
                 {
                     conductor.playL2Section1 = true;
-                    conductor.playL2BG1 = false;
-                    conductor.playL2BG2 = false;
-                    conductor.playL2BG3 = false;
                 }
                 break;
             case GameplayAudio.S2:
                 {
                     conductor.playL2Section2 = true;
-                    conductor.playL2BG1 = false;
-                    conductor.playL2BG2 = false;
-                    conductor.playL2BG3 = false;
                 }
                 break;
             case GameplayAudio.END:
                 {
                     conductor.playL2End = true;
-                    conductor.playL2BG1 = false;
-                    conductor.playL2BG2 = false;
-                    conductor.playL2BG3 = false;
                 }
                 break;
         }
