@@ -147,6 +147,7 @@ public class NoteObject : MonoBehaviour
         {
             if(followers[0] != null)
             {
+                Destroy(gameObject);
                 Destroy(followers[0]);
                 Destroy(followers[1]);
                 Destroy(followers[2]);
