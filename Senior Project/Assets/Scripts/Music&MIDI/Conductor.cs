@@ -156,6 +156,19 @@ public class Conductor : MonoBehaviour
                 }
             }
 
+            if(playL2BG1) {
+                playL2BG1 = false;
+                l2_background1.PlayScheduled(nextStartTime);
+            }
+            if(playL2BG2) {
+                playL2BG2 = false;
+                l2_background2.PlayScheduled(nextStartTime);
+            }
+            if(playL2BG3) {
+                playL2BG3 = false;
+                l2_background3.PlayScheduled(nextStartTime);
+            }
+
             // Check for different tracks.
             if(playDrumsNextBar) {
                 playDrumsNextBar = false;
@@ -169,20 +182,6 @@ public class Conductor : MonoBehaviour
                 playPianoNextBar = false;
                 piano.PlayScheduled(nextStartTime);
             }
-            /*
-            if(playL2BG1) {
-                playL2BG1 = false;
-                l2_background1.PlayScheduled(nextStartTime);
-            }
-            if(playL2BG2) {
-                playL2BG2 = false;
-                l2_background2.PlayScheduled(nextStartTime);
-            }
-            if(playL2BG3) {
-                playL2BG3 = false;
-                l2_background3.PlayScheduled(nextStartTime);
-            }
-            */
             if(playL2Section1) {
                 playL2Section1 = false;
                 l2_section1.PlayScheduled(nextStartTime);

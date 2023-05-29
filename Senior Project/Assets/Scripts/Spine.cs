@@ -218,19 +218,19 @@ public class Spine : MonoBehaviour
                     GameplayAudio.S1,
                     1,
                     false,
-                    -16),
+                    -17),
                 new Section(first_dialogue, first_tutorial,
                     "Assets/Music/DV_L2_Section_2.mid",
                     GameplayAudio.S2,
                     2,
                     false,
-                    -16),
+                    -17),
                 new Section(first_dialogue, first_tutorial,
                     "Assets/Music/DV_L2_Section_2.mid",
                     GameplayAudio.END,
                     3,
                     false,
-                    -16),
+                    -17),
                 new Section(third_dialogue, third_tutorial,
                     "Assets/Music/DV_L1_guitar.mid",
                     GameplayAudio.GUITAR,
@@ -249,16 +249,6 @@ public class Spine : MonoBehaviour
                     0,
                     true,
                     -1),
-                new Section(second_dialogue, second_tutorial,
-                    "Assets/Music/DV_L1_piano.mid",
-                    GameplayAudio.PIANO,
-                    false,
-                    -17),
-                new Section(third_dialogue, third_tutorial,
-                    "Assets/Music/DV_L1_guitar.mid",
-                    GameplayAudio.GUITAR,
-                    true,
-                    -17)
             };
 
         image = fade.GetComponent<Image>();
@@ -285,6 +275,12 @@ public class Spine : MonoBehaviour
         if (sections[section_index].background_audio)
             conductor.playBackground = true;
 
+        if(sections[section_index].l2_background_audio == 1)
+            conductor.playL2BG1 = true;
+        if(sections[section_index].l2_background_audio == 2)
+            conductor.playL2BG2 = true;
+        if(sections[section_index].l2_background_audio == 3)
+            conductor.playL2BG3 = true;
 
         state = InterfaceState.DIALOGUE;
         dialogue.Enable();
@@ -332,16 +328,25 @@ public class Spine : MonoBehaviour
             case GameplayAudio.S1:
                 {
                     conductor.playL2Section1 = true;
+                    conductor.playL2BG1 = false;
+                    conductor.playL2BG2 = false;
+                    conductor.playL2BG3 = false;
                 }
                 break;
             case GameplayAudio.S2:
                 {
                     conductor.playL2Section2 = true;
+                    conductor.playL2BG1 = false;
+                    conductor.playL2BG2 = false;
+                    conductor.playL2BG3 = false;
                 }
                 break;
             case GameplayAudio.END:
                 {
                     conductor.playL2End = true;
+                    conductor.playL2BG1 = false;
+                    conductor.playL2BG2 = false;
+                    conductor.playL2BG3 = false;
                 }
                 break;
         }
