@@ -44,6 +44,7 @@ public class NoteObject : MonoBehaviour
             SpawnObject(2, spawnOffset * 3);
             SpawnObject(3, spawnOffset * 4);
         }
+        hit_mode = false;
     }
 
     // Update is called once per frame
@@ -52,6 +53,7 @@ public class NoteObject : MonoBehaviour
         interpRatio = ((float)conductor.GetSongPosition() - localSpot) / (conductor.spotLength * spawnmaster.noteSpeed);
 
         if(hit_mode) {
+            Debug.Log("here\n");
             float interpRatio2 = (interpRatio - 1) * 5;
             float interpedPostionX = Mathf.Lerp(notetrigger.transform.position.x, parentTransform.position.x, interpRatio2);
             float interpedPostionY = cos_interp(parentTransform.position.y, parentTransform.transform.position.y + 5f, interpRatio2);
@@ -63,74 +65,88 @@ public class NoteObject : MonoBehaviour
             // Make the object spin around the y-axis
             transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
             rotSpeed += 0.10f * Time.deltaTime;
-            return;
         }
-
-        Debug.Log(which_track);
-        if(notetrigger.hit_notes[index+20][which_track])
-        {
-            hit_mode = true;
-        }
-
-        Vector3 interpedPostion = Vector3.Lerp(parentTransform.position, new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), interpRatio);
-        transform.position = new Vector3(interpedPostion.x, interpedPostion.y + yOffset, interpedPostion.z);
-
-        if (gameObject != null && gameObject.CompareTag("Collect"))
-        {
-            // Make the object spin around the y-axis
-            transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
-            rotSpeed += 0.03f * Time.deltaTime;
-        }
-
-        if (interpRatio > 1.0f)
-        {
-            GetComponent<SpriteRenderer>().enabled = false;
-
-            // obstacle should go pass
-            if (gameObject.CompareTag("Obstacle"))
+        else {
+            Debug.Log(which_track);
+            if(notetrigger.hit_notes[index+20][which_track])
             {
-                GetComponent<SpriteRenderer>().enabled = true;
-                float interpRatio2 = interpRatio - 1;
-                Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
-                transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                hit_mode = true;
             }
 
-            // note should go off
-            else if (gameObject.CompareTag("Note"))
+            Vector3 interpedPostion = Vector3.Lerp(parentTransform.position, new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), interpRatio);
+            transform.position = new Vector3(interpedPostion.x, interpedPostion.y + yOffset, interpedPostion.z);
+
+            if (gameObject != null && gameObject.CompareTag("Collect"))
             {
-                GetComponent<SpriteRenderer>().enabled = true;
-                float interpRatio2 = interpRatio - 1;
-                Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
-                transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                // Make the object spin around the y-axis
+                transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
+                rotSpeed += 0.03f * Time.deltaTime;
             }
 
-            else if (gameObject.CompareTag("HoldNote"))
+            if (interpRatio > 1.0f)
             {
-                GetComponent<SpriteRenderer>().enabled = true;
-                float interpRatio2 = interpRatio - 1;
-                Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
-                transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                GetComponent<SpriteRenderer>().enabled = false;
+
+                if (followers[0] != null)
+                {
+                    float interpRatio2 = (interpRatio-1) * 10;
+
+                    Vector3 interpedPostionF1 = Vector3.Lerp(followers[0].transform.position, new Vector3(notetrigger.transform.position.x, followers[0].transform.position.y, 0f), interpRatio2);
+                    Vector3 interpedPostionF2 = Vector3.Lerp(followers[1].transform.position, new Vector3(notetrigger.transform.position.x, followers[1].transform.position.y, 0f), interpRatio2);
+                    Vector3 interpedPostionF3 = Vector3.Lerp(followers[2].transform.position, new Vector3(notetrigger.transform.position.x, followers[2].transform.position.y, 0f), interpRatio2);
+                    Vector3 interpedPostionF4 = Vector3.Lerp(followers[3].transform.position, new Vector3(notetrigger.transform.position.x, followers[3].transform.position.y, 0f), interpRatio2);
+                    followers[0].transform.position = interpedPostionF1;
+                    followers[1].transform.position = interpedPostionF2;
+                    followers[2].transform.position = interpedPostionF3;
+                    followers[3].transform.position = interpedPostionF4;
+                    //GetComponent<SpriteRenderer>().enabled = false;
+                }
+
+                // obstacle should go pass
+                if (gameObject.CompareTag("Obstacle"))
+                {
+                    GetComponent<SpriteRenderer>().enabled = true;
+                    float interpRatio2 = interpRatio - 1;
+                    Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
+                    transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                }
+
+                // note should go off
+                else if (gameObject.CompareTag("Note"))
+                {
+                    GetComponent<SpriteRenderer>().enabled = true;
+                    float interpRatio2 = interpRatio - 1;
+                    Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
+                    transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                }
+
+                else if (gameObject.CompareTag("HoldNote"))
+                {
+                    GetComponent<SpriteRenderer>().enabled = true;
+                    float interpRatio2 = interpRatio - 1;
+                    Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
+                    transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                }
+                else if (gameObject.CompareTag("HoldSquare"))
+                {
+                    GetComponent<SpriteRenderer>().enabled = true;
+                    float interpRatio2 = interpRatio - 1;
+                    Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
+                    transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                }
             }
-            else if (gameObject.CompareTag("HoldSquare"))
+
+            if(followers[0] != null && interpRatio < 1.0f)
             {
-                GetComponent<SpriteRenderer>().enabled = true;
-                float interpRatio2 = interpRatio - 1;
-                Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
-                transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
+                followers[0].transform.position = new Vector3(transform.position.x + spawnOffset, followers[0].transform.position.y, followers[0].transform.position.z);
+                followers[1].transform.position = new Vector3(transform.position.x + spawnOffset * 2, followers[1].transform.position.y, followers[1].transform.position.z);
+                followers[2].transform.position = new Vector3(transform.position.x + spawnOffset * 3, followers[2].transform.position.y, followers[2].transform.position.z);
+                followers[3].transform.position = new Vector3(transform.position.x + spawnOffset * 4, followers[3].transform.position.y, followers[3].transform.position.z);
             }
         }
 
-        if(followers[0] != null )//&& interpRatio < 1.0f)
+        if (interpRatio > 1.1f)
         {
-            followers[0].transform.position = new Vector3(transform.position.x + spawnOffset, followers[0].transform.position.y, followers[0].transform.position.z);
-            followers[1].transform.position = new Vector3(transform.position.x + spawnOffset * 2, followers[1].transform.position.y, followers[1].transform.position.z);
-            followers[2].transform.position = new Vector3(transform.position.x + spawnOffset * 3, followers[2].transform.position.y, followers[2].transform.position.z);
-            followers[3].transform.position = new Vector3(transform.position.x + spawnOffset * 4, followers[3].transform.position.y, followers[3].transform.position.z);
-        }
-
-        if (interpRatio > 2.0f)
-        {
-            Destroy(gameObject);
             if(followers[0] != null)
             {
                 Destroy(followers[0]);
@@ -139,7 +155,11 @@ public class NoteObject : MonoBehaviour
                 Destroy(followers[3]);
             }
         }
-            
+
+        if (interpRatio > 2.0f)
+        {
+            Destroy(gameObject);
+        }            
     }
 
     private void OnTriggerEnter2D(Collider2D other)

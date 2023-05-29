@@ -76,7 +76,6 @@ public class NoteTrigger : MonoBehaviour
     {
         holdLengths = new ushort[4];
         psmain = particles.main;
-        index = midiReader.index;
 
         hit_notes = new List<bool[]>();
         foreach(NoteType[] notes in midiReader.beatmap) {
@@ -92,6 +91,14 @@ public class NoteTrigger : MonoBehaviour
     {
         last_spot = conductor.spotLength;
         next_spot = conductor.spotLength + conductor.spotLength;
+        index = 0;
+
+        hit_notes = new List<bool[]>();
+        foreach(NoteType[] notes in midiReader.beatmap) {
+            bool[] current_spot_hit = new bool[4] {false, false, false, false};
+
+            hit_notes.Add(current_spot_hit);
+        }
     }
 
     void Update()
