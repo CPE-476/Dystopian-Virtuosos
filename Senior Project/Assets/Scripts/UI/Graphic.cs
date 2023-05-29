@@ -85,7 +85,7 @@ public class Graphic : MonoBehaviour
 
     public void updateResText()
     {
-        resText.text = resolutions[selectedRes].horizontal.ToString() + " ¡Á " + resolutions[selectedRes].vertical.ToString();
+        resText.text = resolutions[selectedRes].horizontal.ToString() + " X " + resolutions[selectedRes].vertical.ToString();
     }
 
     public void ApplyGraphics()
