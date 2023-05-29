@@ -23,6 +23,8 @@ public class NoteObject : MonoBehaviour
     private GameObject[] followers = new GameObject[4];
     public float interpRatio;
 
+    public bool hit_mode = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,28 +49,31 @@ public class NoteObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log(index);
-        if(notetrigger.hit_notes[index][which_track])
-        {
-            Debug.Log("HERE\n");
+        interpRatio = ((float)conductor.GetSongPosition() - localSpot) / (conductor.spotLength * spawnmaster.noteSpeed);
+
+        if(hit_mode) {
+            float interpRatio2 = (interpRatio - 1) * 5;
+            float interpedPostionX = Mathf.Lerp(notetrigger.transform.position.x, parentTransform.position.x, interpRatio2);
+            float interpedPostionY = cos_interp(parentTransform.position.y, parentTransform.transform.position.y + 5f, interpRatio2);
+
+            interpedPostionY *= 1f;
+
+            transform.position = new Vector3(interpedPostionX, interpedPostionY + yOffset, 0.0f);
+
+            // Make the object spin around the y-axis
+            transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
+            rotSpeed += 0.10f * Time.deltaTime;
+            return;
         }
 
-        interpRatio = ((float)conductor.GetSongPosition() - localSpot) / (conductor.spotLength * spawnmaster.noteSpeed);
+        Debug.Log(which_track);
+        if(notetrigger.hit_notes[index+20][which_track])
+        {
+            hit_mode = true;
+        }
 
         Vector3 interpedPostion = Vector3.Lerp(parentTransform.position, new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), interpRatio);
         transform.position = new Vector3(interpedPostion.x, interpedPostion.y + yOffset, interpedPostion.z);
-
-
-/*        if (gameObject.CompareTag("HoldNote"))
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.25f, transform.position.z);
-        }
-
-        if (gameObject.CompareTag("Obstacle"))
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y - 0.95f, transform.position.z);
-        }
-*/
 
         if (gameObject != null && gameObject.CompareTag("Collect"))
         {
@@ -113,31 +118,6 @@ public class NoteObject : MonoBehaviour
                 Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
                 transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
             }
-
-            /*
-                            if (notetrigger.hasBeenPressed[which_track] && !beenHit)
-                            {
-                                beenHit = true;
-                            }
-                            if (beenHit)
-                            {
-                                float interpRatio2 = (interpRatio - 1) * 5;
-                                float interpedPostionX = Mathf.Lerp(notetrigger.transform.position.x, parentTransform.position.x, interpRatio2);
-                                float interpedPostionY = cos_interp(parentTransform.position.y, parentTransform.transform.position.y + 5f, interpRatio2);
-
-                                interpedPostionY *= 1f;
-
-                                transform.position = new Vector3(interpedPostionX, interpedPostionY + yOffset, 0.0f);
-
-                                // Make the object spin around the y-axis
-                                transform.Rotate(Vector3.forward, rotSpeed * Time.deltaTime);
-                                rotSpeed += 0.10f * Time.deltaTime;
-                            }
-                            else if (interpRatio > 1.1)
-                            {
-                                GetComponent<SpriteRenderer>().enabled = false;
-                            }
-                        */
         }
 
         if(followers[0] != null )//&& interpRatio < 1.0f)

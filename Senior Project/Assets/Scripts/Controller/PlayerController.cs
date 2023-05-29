@@ -47,17 +47,7 @@ public class PlayerController : MonoBehaviour
 
     private double lastNoteHitTime;
 
-    public InputActionMap playerControls;
-
-    private void OnEnable()
-    {
-        playerControls.Enable();
-    }
-
-    private void OnDisable()
-    {
-        playerControls.Disable();
-    }
+    public InputActionReference bottom, low, top, high, interact;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +76,7 @@ public class PlayerController : MonoBehaviour
             case InterfaceState.DIALOGUE:
                 {
                     anim.SetBool("isRun", false);
-                    if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(controllerControl.south))
+                    if (interact.action.WasPressedThisFrame())
                     {
                         int result = dialogue.NextLine();
                         if (result == -1) spine.TutorialStart();
@@ -103,7 +93,8 @@ public class PlayerController : MonoBehaviour
                     {
                         tutorial.PrevVideo();
                     }
-                    else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(controllerControl.south)){
+                    else if (interact.action.WasPressedThisFrame())
+                    {
                         spine.GameplayStart();
                     }
                 }
@@ -151,10 +142,7 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         uint prev_track_pos = current_track_position;
-        if (
-            Input.GetKeyDown(controllerControl.west) ||
-            Input.GetKeyDown(KeyCode.H) && tracksController.currentInstrument == 3
-        )
+        if (top.action.WasPressedThisFrame())
         {
             transform.position =
                 new Vector3(0,
@@ -175,10 +163,7 @@ public class PlayerController : MonoBehaviour
             else if (prev_track_pos > current_track_position)
                 anim.SetTrigger("downAttack");
         }
-        if (
-            (Input.GetKeyDown(controllerControl.north) ||
-            Input.GetKeyDown(KeyCode.J)) && tracksController.currentInstrument != 1
-        )
+        if (high.action.WasPressedThisFrame())
         {
             transform.position =
                 new Vector3(0,
@@ -199,10 +184,7 @@ public class PlayerController : MonoBehaviour
             else if (prev_track_pos > current_track_position)
                 anim.SetTrigger("downAttack");
         }
-        if (
-            Input.GetKeyDown(controllerControl.east) ||
-            Input.GetKeyDown(KeyCode.K) || Input.GetKeyDown(KeyCode.Joystick1Button4)
-        )
+        if (low.action.WasPressedThisFrame())
         {
             transform.position =
                 new Vector3(0,
@@ -223,7 +205,7 @@ public class PlayerController : MonoBehaviour
             else if (prev_track_pos > current_track_position)
                 anim.SetTrigger("downAttack");
         }
-        if (Input.GetKeyDown(KeyCode.L) || Input.GetKeyDown(KeyCode.Joystick1Button5) || Input.GetKeyDown(controllerControl.south))
+        if (bottom.action.WasPressedThisFrame())
         {
             transform.position =
                 new Vector3(0,
@@ -248,9 +230,10 @@ public class PlayerController : MonoBehaviour
         if (
             conductor.GetSongPosition() - (conductor.spotLength * 4) >=
             lastNoteHitTime &&
-            !Input.GetKey(controllerControl.west) &&
-            !Input.GetKey(controllerControl.north) &&
-            !Input.GetKey(controllerControl.south)
+            !top.action.WasPressedThisFrame() &&
+            !high.action.WasPressedThisFrame() &&
+            !low.action.WasPressedThisFrame() &&
+            !bottom.action.WasPressedThisFrame()
         )
         {
             transform.position = new Vector3(0, -3.2f, 0);

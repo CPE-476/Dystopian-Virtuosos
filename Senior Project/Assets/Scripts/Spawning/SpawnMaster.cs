@@ -54,22 +54,27 @@ public class SpawnMaster : MonoBehaviour
             spawner1.Spawn(4, 0, index);
 
         // Note 2
-        if (curVal.two.velocity == 64)
+        if (curVal.two.velocity == 64) {
             spawner2.Spawn(1, 0, index);
-        else if (curVal.two.velocity == 72)
+        }
+        else if (curVal.two.velocity == 72) {
             spawner2.Spawn(2, curVal.two.length, index);
+        }
         else if (curVal.two.velocity == 80)
             spawner2.Spawn(3, 0, index);
         else if (curVal.two.velocity == 88)
             spawner2.Spawn(4, 0, index);
 
         // Note 3
-        if (curVal.three.velocity == 64)
+        if (curVal.three.velocity == 64) {
             spawner3.Spawn(1, 0, index);
-        else if (curVal.three.velocity == 72)
+        }
+        else if (curVal.three.velocity == 72) {
             spawner3.Spawn(2, curVal.three.length, index);
-        else if (curVal.three.velocity == 80)
+        }
+        else if (curVal.three.velocity == 80) {
             spawner3.Spawn(3, 0, index);
+        }
         else if (curVal.three.velocity == 88)
             spawner3.Spawn(4, 0, index);
 

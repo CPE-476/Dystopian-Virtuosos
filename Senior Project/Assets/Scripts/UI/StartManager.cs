@@ -48,11 +48,11 @@ public class StartManager : MonoBehaviour
 
     public AnimationCurve zoomCurve;
 
-    private bool isLaunching = false;
+    public bool isLaunching = false;
 
     private float startTime;
 
-    public GameObject optionsBackButton, firstButton, extraBackButton;
+    public GameObject curGraphicsButton, curLaunchButton, curBackButton, curFull, curMaster;
 
     public GameObject cursorImage;
 
@@ -62,7 +62,7 @@ public class StartManager : MonoBehaviour
     {
         init();
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstButton);
+        EventSystem.current.SetSelectedGameObject(curLaunchButton);
     }
 
     void Update()
@@ -73,7 +73,8 @@ public class StartManager : MonoBehaviour
         {
             RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
             RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
-            cursorRectTransform.position = new Vector3(currentButtonRectTransform.position.x - (currentButtonRectTransform.rect.width/2)*0.15f,
+            float leftmostX = currentButtonRectTransform.position.x - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
+            cursorRectTransform.position = new Vector3(leftmostX,
                                                        currentButtonRectTransform.position.y,
                                                        currentButtonRectTransform.position.z);
         }
@@ -174,9 +175,7 @@ public class StartManager : MonoBehaviour
         Default.SetActive(false);
         Launch.SetActive(false);
         About.SetActive(false);
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(optionsBackButton);
-
+ 
         systemTitle.GetComponent<TextMeshProUGUI>().enabled = true;
         systemTitle.GetComponent<TextMeshProUGUI>().text = "SYSTEM";
         graphicButton.GetComponent<TextMeshProUGUI>().enabled = true;
@@ -190,6 +189,8 @@ public class StartManager : MonoBehaviour
 
         backButton.GetComponent<TextMeshProUGUI>().enabled = true;
         backButton.GetComponent<Button>().interactable = true;
+
+        EventSystem.current.SetSelectedGameObject(curGraphicsButton);
     }
 
     public void back()
@@ -259,7 +260,7 @@ public class StartManager : MonoBehaviour
         Graphic.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(optionsBackButton);
+        EventSystem.current.SetSelectedGameObject(curFull);
     }
 
         public void toSound()
@@ -280,7 +281,7 @@ public class StartManager : MonoBehaviour
         Sound.SetActive(true);
 
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(optionsBackButton);
+        EventSystem.current.SetSelectedGameObject(curMaster);
     }
 
     public void toCalibration()
@@ -303,7 +304,7 @@ public class StartManager : MonoBehaviour
         calibrationButton.GetComponent<Button>().interactable = false;
 
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(optionsBackButton);
+        EventSystem.current.SetSelectedGameObject(curBackButton);
     }
 
     public void toAbout()
@@ -322,7 +323,7 @@ public class StartManager : MonoBehaviour
         backButton.GetComponent<Button>().interactable = true;
 
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(extraBackButton);
+        EventSystem.current.SetSelectedGameObject(curBackButton);
     }
 
     public void toDefault()
@@ -333,7 +334,7 @@ public class StartManager : MonoBehaviour
         SetCalibration(false);
         About.SetActive(false);
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstButton);
+        EventSystem.current.SetSelectedGameObject(curLaunchButton);
     }
 
     public void Quit()

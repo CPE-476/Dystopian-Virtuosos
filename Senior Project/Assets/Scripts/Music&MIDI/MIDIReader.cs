@@ -240,12 +240,18 @@ public class MIDIReader : MonoBehaviour
 
     public void updateTrackState()
     {
+        // NOTE (Alex): This is a weird bug, for some reason the conductor is
+        // off by one sometimes and gives us the wrong conductor spot twice in a
+        // row. For now, incrementing works fine.
+        index += 1;
+        /*
         index =
             conductor.barNumber *
             Conductor.BEATS_PER_BAR *
             Conductor.SPOTS_PER_BEAT +
             conductor.beatNumber * Conductor.SPOTS_PER_BEAT +
             conductor.spotNumber;
+            */
 
         if (index >= SpotTrack.Length)
         {

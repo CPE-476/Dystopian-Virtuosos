@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraAspectRatioScaler : MonoBehaviour {
 
@@ -7,10 +8,27 @@ public class CameraAspectRatioScaler : MonoBehaviour {
     [HideInInspector]
     public Vector3 OriginPosition;
     void Start () {
+
         OriginPosition = transform.position;
+
+        ReferenceResolution.x = PlayerPrefs.GetInt("screen_width");
+        ReferenceResolution.y = PlayerPrefs.GetInt("screen_height");
+
+        if (PlayerPrefs.GetInt("is_vsync") == 1)
+        {
+            QualitySettings.vSyncCount = 1;
+        }
+        else
+        {
+            QualitySettings.vSyncCount = 0;
+        }
+
+        bool is_fs = PlayerPrefs.GetInt("is_full_screen") != 0;
+
+        Screen.SetResolution(PlayerPrefs.GetInt("screen_width"), PlayerPrefs.GetInt("screen_height"), is_fs);
     }
 
-	void Update () {
+    void Update () {
 
         if (ReferenceResolution.y == 0 || ReferenceResolution.x == 0)
             return;
