@@ -224,7 +224,7 @@ public class Spine : MonoBehaviour
                     GameplayAudio.S2,
                     2,
                     false,
-                    -17),
+                    -1),
                 new Section(first_dialogue, first_tutorial,
                     "Assets/Music/DV_L2_Section_2.mid",
                     GameplayAudio.END,

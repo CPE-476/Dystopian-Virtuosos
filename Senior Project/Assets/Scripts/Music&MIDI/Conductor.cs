@@ -24,6 +24,9 @@ public class Conductor : MonoBehaviour
     AudioSource l2_background1;
     AudioSource l2_background2;
     AudioSource l2_background3;
+    AudioSource l2_background1alt;
+    AudioSource l2_background2alt;
+    AudioSource l2_background3alt;
     AudioSource l2_end;
 
     AudioSource l2_section1;
@@ -51,7 +54,7 @@ public class Conductor : MonoBehaviour
     double nextStartTime;
     double nextBackgroundOffset = 0.0;
 
-    public bool playBackground = true;
+    public bool playBackground;
 
     public bool playDrumsNextBar = false;
     public bool playGuitarNextBar = false;
@@ -82,18 +85,23 @@ public class Conductor : MonoBehaviour
         piano = audioSources[4];
 
         l2_background1 = audioSources[5];
-        l2_background2 = audioSources[6];
-        l2_background3 = audioSources[7];
-        l2_end = audioSources[8];
-        l2_section1 = audioSources[9];
-        l2_section2 = audioSources[10];
+        l2_background1alt = audioSources[6];
+        l2_background2 = audioSources[7];
+        l2_background2alt = audioSources[8];
+        l2_background3 = audioSources[9];
+        l2_background3alt = audioSources[10];
+        l2_end = audioSources[11];
+        l2_section1 = audioSources[12];
+        l2_section2 = audioSources[13];
 
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
+        l2_background1.PlayScheduled(startTime);
         //background.PlayScheduled(startTime);
 
         // Looping variables
         backgroundDuration = beatLength * 16;
         nextStartTime = startTime + backgroundDuration - nextBackgroundOffset;
+        l2_background1alt.PlayScheduled(nextStartTime);
         //background2.PlayScheduled(nextStartTime);
 
         latency_offset = PlayerPrefs.GetFloat("latency_offset");
@@ -156,17 +164,35 @@ public class Conductor : MonoBehaviour
                 }
             }
 
-            if(playL2BG1) {
-                playL2BG1 = false;
-                l2_background1.PlayScheduled(nextStartTime);
+            if(playBackground) {
+                if(current_background == 1) {
+                    l2_background1alt.PlayScheduled(nextStartTime);
+                    current_background = 2;
+                }
+                else {
+                    l2_background1.PlayScheduled(nextStartTime);
+                    current_background = 1;
+                }
             }
             if(playL2BG2) {
-                playL2BG2 = false;
-                l2_background2.PlayScheduled(nextStartTime);
+                if(current_background == 1) {
+                    l2_background2alt.PlayScheduled(nextStartTime);
+                    current_background = 2;
+                }
+                else {
+                    l2_background2.PlayScheduled(nextStartTime);
+                    current_background = 1;
+                }
             }
             if(playL2BG3) {
-                playL2BG3 = false;
-                l2_background3.PlayScheduled(nextStartTime);
+                if(current_background == 1) {
+                    l2_background3alt.PlayScheduled(nextStartTime);
+                    current_background = 2;
+                }
+                else {
+                    l2_background3.PlayScheduled(nextStartTime);
+                    current_background = 1;
+                }
             }
 
             // Check for different tracks.
