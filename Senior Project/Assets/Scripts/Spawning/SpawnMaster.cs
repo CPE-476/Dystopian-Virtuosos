@@ -10,7 +10,7 @@ public class SpawnMaster : MonoBehaviour
     public Spawner spawner4;
     public MIDIReader MIDIReader;
     public Conductor conductor;
-    public int noteSpeed = 20;
+    public int noteSpeed;
     private MIDIReader.SpotElement curVal;
     public ushort[] lengths;
 

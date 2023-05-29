@@ -16,7 +16,10 @@ public enum GameplayAudio
 {
     DRUMS,
     PIANO,
-    GUITAR
+    GUITAR,
+    S1,
+    S2,
+    END,
 }
 
 public enum Character
@@ -63,6 +66,8 @@ public struct Section
 
     public GameplayAudio audio_to_play;
 
+    public int l2_background_audio;
+
     public bool background_audio;
 
     public int beats_till_first_note;
@@ -72,6 +77,7 @@ public struct Section
         TutorialClip[] video_in,
         string midi_in,
         GameplayAudio audio_in,
+        int l2_background_audio_in,
         bool background_audio_in,
         int beats_till_in
     )
@@ -80,6 +86,7 @@ public struct Section
         tutorialVideos = video_in;
         midi_path = midi_in;
         audio_to_play = audio_in;
+        l2_background_audio = l2_background_audio_in;
         background_audio = background_audio_in;
         beats_till_first_note = beats_till_in;
     }
@@ -204,26 +211,42 @@ public class Spine : MonoBehaviour
     void Start()
     {
         sections =
-            new Section[4]
+            new Section[6]
             {
                 new Section(first_dialogue, first_tutorial,
-                    "Assets/Music/DV_L2_Section_2.mid",
-                    GameplayAudio.DRUMS,
+                    "Assets/Music/DV_L2_Section_1.mid",
+                    GameplayAudio.S1,
+                    1,
                     false,
-                    -1),
+                    -16),
+                new Section(first_dialogue, first_tutorial,
+                    "Assets/Music/DV_L2_Section_2.mid",
+                    GameplayAudio.S2,
+                    2,
+                    false,
+                    -16),
+                new Section(first_dialogue, first_tutorial,
+                    "Assets/Music/DV_L2_Section_2.mid",
+                    GameplayAudio.END,
+                    3,
+                    false,
+                    -16),
                 new Section(third_dialogue, third_tutorial,
                     "Assets/Music/DV_L1_guitar.mid",
                     GameplayAudio.GUITAR,
+                    0,
                     true,
                     -17),
                 new Section(second_dialogue, second_tutorial,
                     "Assets/Music/DV_L1_piano.mid",
                     GameplayAudio.PIANO,
+                    0,
                     false,
                     -17),
                 new Section(first_dialogue, first_tutorial,
                     "Assets/Music/DV_L1_drum.mid",
                     GameplayAudio.DRUMS,
+                    0,
                     true,
                     -1),
             };
@@ -251,6 +274,7 @@ public class Spine : MonoBehaviour
         // no-background section.
         if (sections[section_index].background_audio)
             conductor.playBackground = true;
+
 
         state = InterfaceState.DIALOGUE;
         dialogue.Enable();
@@ -295,11 +319,35 @@ public class Spine : MonoBehaviour
                     conductor.playGuitarNextBar = true;
                 }
                 break;
+            case GameplayAudio.S1:
+                {
+                    conductor.playL2Section1 = true;
+                }
+                break;
+            case GameplayAudio.S2:
+                {
+                    conductor.playL2Section2 = true;
+                }
+                break;
+            case GameplayAudio.END:
+                {
+                    conductor.playL2End = true;
+                }
+                break;
         }
         if (sections[section_index].background_audio)
             conductor.playBackground = true;
         else
             conductor.playBackground = false;
+
+        if(sections[section_index].l2_background_audio == 1)
+            conductor.playL2BG1 = true;
+
+        if(sections[section_index].l2_background_audio == 2)
+            conductor.playL2BG2 = true;
+
+        if(sections[section_index].l2_background_audio == 3)
+            conductor.playL2BG3 = true;
 
         noteTrigger.Reset();
         tutorial.Disable();

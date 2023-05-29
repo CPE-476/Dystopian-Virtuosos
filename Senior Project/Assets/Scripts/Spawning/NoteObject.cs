@@ -53,7 +53,6 @@ public class NoteObject : MonoBehaviour
         interpRatio = ((float)conductor.GetSongPosition() - localSpot) / (conductor.spotLength * spawnmaster.noteSpeed);
 
         if(hit_mode) {
-            Debug.Log("here\n");
             float interpRatio2 = (interpRatio - 1) * 5;
             float interpedPostionX = Mathf.Lerp(notetrigger.transform.position.x, parentTransform.position.x, interpRatio2);
             float interpedPostionY = cos_interp(parentTransform.position.y, parentTransform.transform.position.y + 5f, interpRatio2);
@@ -67,8 +66,7 @@ public class NoteObject : MonoBehaviour
             rotSpeed += 0.10f * Time.deltaTime;
         }
         else {
-            Debug.Log(which_track);
-            if(notetrigger.hit_notes[index+20][which_track])
+            if(notetrigger.hit_notes[index+spawnmaster.noteSpeed][which_track])
             {
                 hit_mode = true;
             }

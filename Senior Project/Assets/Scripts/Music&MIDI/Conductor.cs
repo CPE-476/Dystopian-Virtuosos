@@ -11,6 +11,7 @@ public class Conductor : MonoBehaviour
     public const int SPOTS_PER_BEAT = 4; // Sixteenth Notes
     public const int BEATS_PER_BAR = 4;  // 4/4 Time
 
+    // Level 1
     AudioSource background;
     AudioSource background2;
     public int current_background = 1;
@@ -18,6 +19,15 @@ public class Conductor : MonoBehaviour
     AudioSource drums;
     AudioSource guitar;
     AudioSource piano;
+
+    // Level 2
+    AudioSource l2_background1;
+    AudioSource l2_background2;
+    AudioSource l2_background3;
+    AudioSource l2_end;
+
+    AudioSource l2_section1;
+    AudioSource l2_section2;
 
     public float bpm;
     public float beatLength;
@@ -47,6 +57,13 @@ public class Conductor : MonoBehaviour
     public bool playGuitarNextBar = false;
     public bool playPianoNextBar = false;
 
+    public bool playL2BG1 = false;
+    public bool playL2Section1 = false;
+    public bool playL2BG2 = false;
+    public bool playL2Section2 = false;
+    public bool playL2BG3 = false;
+    public bool playL2End = false;
+
     void Start()
     {
         nextSpotTime = 0.0;
@@ -64,13 +81,20 @@ public class Conductor : MonoBehaviour
         guitar = audioSources[3];
         piano = audioSources[4];
 
+        l2_background1 = audioSources[5];
+        l2_background2 = audioSources[6];
+        l2_background3 = audioSources[7];
+        l2_end = audioSources[8];
+        l2_section1 = audioSources[9];
+        l2_section2 = audioSources[10];
+
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
-        background.PlayScheduled(startTime);
+        //background.PlayScheduled(startTime);
 
         // Looping variables
         backgroundDuration = beatLength * 16;
         nextStartTime = startTime + backgroundDuration - nextBackgroundOffset;
-        background2.PlayScheduled(nextStartTime);
+        //background2.PlayScheduled(nextStartTime);
 
         latency_offset = PlayerPrefs.GetFloat("latency_offset");
     }
@@ -144,6 +168,32 @@ public class Conductor : MonoBehaviour
             if(playPianoNextBar) {
                 playPianoNextBar = false;
                 piano.PlayScheduled(nextStartTime);
+            }
+            /*
+            if(playL2BG1) {
+                playL2BG1 = false;
+                l2_background1.PlayScheduled(nextStartTime);
+            }
+            if(playL2BG2) {
+                playL2BG2 = false;
+                l2_background2.PlayScheduled(nextStartTime);
+            }
+            if(playL2BG3) {
+                playL2BG3 = false;
+                l2_background3.PlayScheduled(nextStartTime);
+            }
+            */
+            if(playL2Section1) {
+                playL2Section1 = false;
+                l2_section1.PlayScheduled(nextStartTime);
+            }
+            if(playL2Section2) {
+                playL2Section2 = false;
+                l2_section2.PlayScheduled(nextStartTime);
+            }
+            if(playL2End) {
+                playL2End = false;
+                l2_end.PlayScheduled(nextStartTime);
             }
 
             nextStartTime = nextStartTime + backgroundDuration - nextBackgroundOffset;
