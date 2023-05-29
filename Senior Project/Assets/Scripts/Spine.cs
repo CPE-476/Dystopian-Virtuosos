@@ -207,7 +207,7 @@ public class Spine : MonoBehaviour
             new Section[4]
             {
                 new Section(first_dialogue, first_tutorial,
-                    "Assets/Music/DV_L2_Section_1.mid",
+                    "Assets/Music/DV_L2_Section_2.mid",
                     GameplayAudio.DRUMS,
                     false,
                     -1),
