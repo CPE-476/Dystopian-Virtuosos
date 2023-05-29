@@ -204,8 +204,13 @@ public class Spine : MonoBehaviour
     void Start()
     {
         sections =
-            new Section[3]
+            new Section[4]
             {
+                new Section(first_dialogue, first_tutorial,
+                    "Assets/Music/DV_L2_Section_1.mid",
+                    GameplayAudio.DRUMS,
+                    false,
+                    -1),
                 new Section(third_dialogue, third_tutorial,
                     "Assets/Music/DV_L1_guitar.mid",
                     GameplayAudio.GUITAR,
