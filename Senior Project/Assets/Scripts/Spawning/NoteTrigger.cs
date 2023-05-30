@@ -70,7 +70,7 @@ public class NoteTrigger : MonoBehaviour
 
     public bool flickDownRight = false;
 
-    public InputActionReference bottomControls, lowControls, topControls, highControls;
+    public InputActionReference bottomControls, lowControls, topControls, highControls, leftJoystick, rightJoystick;
 
     void Start()
     {
@@ -110,9 +110,9 @@ public class NoteTrigger : MonoBehaviour
         checkHit(lowControls, 2, low, 0.7f);
         checkHit(bottomControls, 3, bot, 0.7f);
 
-        Debug.Log("LOW READ VAL: " + lowControls.action.ReadValue<float>());
+        Debug.Log("leftJoystick VAL: " + leftJoystick.action.ReadValue<float>());
         //Update Hold Note Score
-        if (updateHold[0] && holdLengths[0] >= 1 && (topControls.action.ReadValue<float>() > 0.0f || Input.GetAxis("Vertical") >= 0.7f))
+        if (updateHold[0] && holdLengths[0] >= 1 && (topControls.action.ReadValue<float>() > 0.0f || leftJoystick.action.ReadValue<float>() >= 0.7))
         {
             var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -127,7 +127,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[0] = false;
             updateHold[0] = false;
         }
-        if (updateHold[1] && holdLengths[1] >= 1 && (highControls.action.ReadValue<float>() > 0.0f) || -Input.GetAxis("Vertical") >= 0.7f)
+        if (updateHold[1] && holdLengths[1] >= 1 && (highControls.action.ReadValue<float>() > 0.0f || -leftJoystick.action.ReadValue<float>() >= 0.7))
         {
             var em = high.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -142,7 +142,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[1] = false;
             updateHold[1] = false;
         }
-        if (updateHold[2] && holdLengths[2] >= 1 && (lowControls.action.ReadValue<float>() > 0.0f) /*|| Input.GetAxis(controllerControl.joystickType) >= 0.7f*/)
+        if (updateHold[2] && holdLengths[2] >= 1 && (lowControls.action.ReadValue<float>() > 0.0f || rightJoystick.action.ReadValue<float>() >= 0.7))
         {
             var em = low.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -157,7 +157,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[2] = false;
             updateHold[2] = false;
         }
-        if (updateHold[3] && holdLengths[3] >= 1 && (bottomControls.action.ReadValue<float>() > 0.0f /*|| -Input.GetAxis(controllerControl.joystickType) >= 0.7f*/))
+        if (updateHold[3] && holdLengths[3] >= 1 && (bottomControls.action.ReadValue<float>() > 0.0f || -rightJoystick.action.ReadValue<float>() >= 0.7))
         {
             var em = bot.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
@@ -406,22 +406,22 @@ public class NoteTrigger : MonoBehaviour
         if (trackNumber == 0)
         {
             pianoBool = flickUpLeft;
-            joystickAxis = Input.GetAxis("Vertical");
+            joystickAxis = leftJoystick.action.ReadValue<float>();
         }
         else if (trackNumber == 1)
         {
             pianoBool = flickDownLeft;
-            joystickAxis = -Input.GetAxis("Vertical");
+            joystickAxis = -leftJoystick.action.ReadValue<float>();
         }
         else if (trackNumber == 2)
         {
             pianoBool = flickUpRight;
-            joystickAxis = Input.GetAxis("Vertical");
+            joystickAxis = rightJoystick.action.ReadValue<float>();
         }
         else if (trackNumber == 3)
         {
             pianoBool = flickDownRight;
-            joystickAxis = -Input.GetAxis("Vertical");
+            joystickAxis = -rightJoystick.action.ReadValue<float>();
         }
 
         if (joystickAxis <= pianoThreshold)
