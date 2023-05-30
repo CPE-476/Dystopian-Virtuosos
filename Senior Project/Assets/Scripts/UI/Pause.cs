@@ -177,6 +177,7 @@ public class Pause : MonoBehaviour
     public void toStart(int id)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene (id);
+        AudioListener.pause = false;
+        SceneManager.LoadScene(id);
     }
 }

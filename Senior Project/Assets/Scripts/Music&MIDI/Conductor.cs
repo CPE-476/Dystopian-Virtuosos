@@ -151,6 +151,7 @@ public class Conductor : MonoBehaviour
 
     public void Update()
     {
+        Debug.Log(AudioSettings.dspTime);
         UpdateFields();
         if (AudioSettings.dspTime > nextStartTime - 3.0) {
             if(playBackground) {
