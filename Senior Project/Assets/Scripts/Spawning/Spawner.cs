@@ -45,6 +45,7 @@ public class Spawner : MonoBehaviour
             NoteObject clone = (NoteObject)Instantiate(holdsquare, transform);
             clone.transform.position = transform.position;
             clone.transform.rotation = Quaternion.identity;
+            clone.which_track = which_track;
             clone.index = newIndex;
             holdNum--;
             index = newIndex;
@@ -59,7 +60,6 @@ public class Spawner : MonoBehaviour
         clone.which_track = which_track;
         clone.index = index;
         clone.GetComponent<SpriteRenderer>().enabled = true;
-        //Destroy(clone.gameObject, 7f);
         spawnNum++;
     }
 

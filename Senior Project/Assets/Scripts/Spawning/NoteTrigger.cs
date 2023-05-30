@@ -42,7 +42,7 @@ public class NoteTrigger : MonoBehaviour
     public SFX sfx;
 
     private bool[] updateHold = { false, false, false, false };
-    private bool[] goodHold = { false, false, false, false };
+    public bool[] goodHold = { false, false, false, false };
     private ushort[] holdLengths;
     private int holdScore = 1;
 
@@ -110,7 +110,6 @@ public class NoteTrigger : MonoBehaviour
         checkHit(lowControls, 2, low, 0.7f);
         checkHit(bottomControls, 3, bot, 0.7f);
 
-        Debug.Log("leftJoystick VAL: " + leftJoystick.action.ReadValue<float>());
         //Update Hold Note Score
         if (updateHold[0] && holdLengths[0] >= 1 && (topControls.action.ReadValue<float>() > 0.0f || leftJoystick.action.ReadValue<float>() >= 0.7))
         {

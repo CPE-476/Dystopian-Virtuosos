@@ -85,7 +85,7 @@ public class NoteObject : MonoBehaviour
             {
                 GetComponent<SpriteRenderer>().enabled = false;
 
-                if (followers[0] != null)
+                if (followers[0] != null && notetrigger.goodHold[which_track])
                 {
                     float interpRatio2 = (interpRatio-1) * 10;
 
@@ -134,7 +134,7 @@ public class NoteObject : MonoBehaviour
                 }
             }
 
-            if(followers[0] != null && interpRatio < 1.0f)
+            if(followers[0] != null)
             {
                 followers[0].transform.position = new Vector3(transform.position.x + spawnOffset, followers[0].transform.position.y, followers[0].transform.position.z);
                 followers[1].transform.position = new Vector3(transform.position.x + spawnOffset * 2, followers[1].transform.position.y, followers[1].transform.position.z);
@@ -143,11 +143,15 @@ public class NoteObject : MonoBehaviour
             }
         }
 
-        if (interpRatio > 1.1f)
+        if(!notetrigger.goodHold[which_track])
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else if (interpRatio > 1.0f)
         {
             if(followers[0] != null)
             {
-                GetComponent<SpriteRenderer>().enabled = false;
+                Destroy(gameObject);
                 Destroy(followers[0]);
                 Destroy(followers[1]);
                 Destroy(followers[2]);

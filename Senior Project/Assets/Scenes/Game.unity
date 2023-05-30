@@ -8073,6 +8073,7 @@ MonoBehaviour:
   weak_color: {r: 0.35686275, g: 0.19215688, b: 0.23529413, a: 1}
   fail_color: {r: 1, g: 0, b: 0, a: 1}
   sfx: {fileID: 1920913753}
+  goodHold: 00000000
   scoreManager: {fileID: 1862443379}
   comboManager: {fileID: 1418723479}
   last_spot: 0
