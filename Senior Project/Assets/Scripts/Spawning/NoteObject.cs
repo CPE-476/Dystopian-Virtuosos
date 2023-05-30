@@ -18,7 +18,7 @@ public class NoteObject : MonoBehaviour
 
     public GameObject holdFollower;
     private GameObject spawner;
-    public float spawnOffset = 0.1f;
+    private float spawnOffset = 0.25f;
     public float yOffset;
     private GameObject[] followers = new GameObject[4];
     public float interpRatio;
@@ -127,7 +127,7 @@ public class NoteObject : MonoBehaviour
                 }
                 else if (gameObject.CompareTag("HoldSquare"))
                 {
-                    GetComponent<SpriteRenderer>().enabled = true;
+                    //GetComponent<SpriteRenderer>().enabled = true;
                     float interpRatio2 = interpRatio - 1;
                     Vector3 interpedPostionBehind = Vector3.Lerp(new Vector3(notetrigger.transform.position.x, parentTransform.position.y, 0f), new Vector3(notetrigger.transform.position.x - (parentTransform.position.x - notetrigger.transform.position.x), parentTransform.position.y, 0f), interpRatio2);
                     transform.position = new Vector3(interpedPostionBehind.x, interpedPostionBehind.y + yOffset, interpedPostionBehind.z);
@@ -147,7 +147,7 @@ public class NoteObject : MonoBehaviour
         {
             if(followers[0] != null)
             {
-                Destroy(gameObject);
+                GetComponent<SpriteRenderer>().enabled = false;
                 Destroy(followers[0]);
                 Destroy(followers[1]);
                 Destroy(followers[2]);
