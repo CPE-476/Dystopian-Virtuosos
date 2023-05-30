@@ -55,7 +55,7 @@ public class Graphic : MonoBehaviour
             selectedRes = resolutions.Count - 1;
             updateResText();
         }
-    }
+    }  
 
     // Update is called once per frame
     void Update()

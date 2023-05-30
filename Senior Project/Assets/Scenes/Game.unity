@@ -3710,6 +3710,7 @@ MonoBehaviour:
   top: {fileID: -7708982789535392345, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
   high: {fileID: -2570779792449804658, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
   interact: {fileID: 7635315315951650691, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  fallSpeed: 20
 --- !u!114 &188014764
 MonoBehaviour:
   m_ObjectHideFlags: 0

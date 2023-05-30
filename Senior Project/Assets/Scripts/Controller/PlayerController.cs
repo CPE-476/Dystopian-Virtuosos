@@ -49,6 +49,9 @@ public class PlayerController : MonoBehaviour
 
     public InputActionReference bottom, low, top, high, interact;
 
+    public float fallSpeed = 1f;
+    private float t = 0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -236,7 +239,12 @@ public class PlayerController : MonoBehaviour
             !bottom.action.WasPressedThisFrame()
         )
         {
-            transform.position = new Vector3(0, -3.2f, 0);
+            t = 0;
+            t += fallSpeed * Time.deltaTime;
+            t = Mathf.Clamp01(t);
+            //float curveT = Mathf.SmoothStep(0f, 1f, t);
+            //transform.position = new Vector3(0, -3.2f, 0);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(0, -3.2f, 0), t);
             collector.transform.position =
                 new Vector3(collector.transform.position.x,
                     tracksController.Track4.transform.position.y,
