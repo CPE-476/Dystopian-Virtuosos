@@ -89,7 +89,7 @@ public class NoteObject : MonoBehaviour
                 parentTransform.transform.position.y + 5f,
                 interpRatio2);
 
-            interpedPostionY *= 0.8f;
+            interpedPostionY *= Random.Range(0.65f, 0.85f);
 
             transform.position =
                 new Vector3(interpedPostionX, interpedPostionY + yOffset, 0.0f);
