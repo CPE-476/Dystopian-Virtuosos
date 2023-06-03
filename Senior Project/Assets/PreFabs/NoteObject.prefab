@@ -98,12 +98,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb22cae51bf5c0e46869115c1e98d740, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  beenHit: 0
+  parent: {fileID: 0}
+  parentTransform: {fileID: 0}
+  index: 0
   which_track: 0
   holdFollower: {fileID: 0}
-  Threshold: {fileID: 5009247933770246070, guid: 24160f6560b53df469a493647e72b822, type: 3}
-  spawnOffset: 0.1
   yOffset: 0
+  interpRatio: 0
+  hit_mode: 0
 --- !u!95 &-3599134465527122711
 Animator:
   serializedVersion: 4
