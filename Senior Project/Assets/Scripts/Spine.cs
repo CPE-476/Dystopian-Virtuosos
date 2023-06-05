@@ -143,6 +143,9 @@ public class Spine : MonoBehaviour
     {
         midiPath = Application.streamingAssetsPath + "/MIDIs/";
         videoPath = Application.streamingAssetsPath + "/videos/";
+
+        // ALEX TODO: dialogue reader
+        //dialoguePath = Application.streamingAssetsPath + "/dialogues/";
     }
 
     void Start()
