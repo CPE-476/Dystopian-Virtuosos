@@ -16,22 +16,6 @@ MonoBehaviour:
   intensity:
     m_OverrideState: 1
     m_Value: 0.12
---- !u!114 &-5603127445175981674
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
-  m_Name: Tonemapping
-  m_EditorClassIdentifier: 
-  active: 1
-  mode:
-    m_OverrideState: 1
-    m_Value: 2
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,9 +29,8 @@ MonoBehaviour:
   m_Name: Global Post-processing Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -5603127445175981674}
-  - {fileID: -8762408590943428337}
   - {fileID: 2463166904239493114}
+  - {fileID: -8762408590943428337}
   - {fileID: 2660245705823417333}
 --- !u!114 &2463166904239493114
 MonoBehaviour:
@@ -67,7 +50,7 @@ MonoBehaviour:
     m_Value: 0
   contrast:
     m_OverrideState: 1
-    m_Value: 5
+    m_Value: 15
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -92,7 +75,7 @@ MonoBehaviour:
   active: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.95
+    m_Value: 0.98
   intensity:
     m_OverrideState: 1
     m_Value: 0.65
