@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.SceneManagement;
 
 public enum InterfaceState
 {
@@ -268,6 +269,11 @@ public class Spine : MonoBehaviour
         {
             // END LEVEL HERE
             section_index = 0;
+        }
+
+        if (section_index == 1)
+        {
+            SceneManager.LoadScene("CutScene");
         }
 
         // NOTE: This is just for the sake of having background playing after a
