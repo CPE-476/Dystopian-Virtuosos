@@ -17022,6 +17022,26 @@ ScriptedImporter:
     flatten: 0
     isImported: 1
     isVisible: 1
+  - name: head
+    spriteName: head
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 3b6079436e50d8b4088d3306b99e97b0
+    layerID: 171
+    mosaicPosition: {x: 976, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: guitar
+    spriteName: guitar
+    isGroup: 0
+    parentIndex: 0
+    spriteID: a39356bab9b6d53498492521756d83e6
+    layerID: 192
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: torso
     spriteName: torso
     isGroup: 0
@@ -17029,6 +17049,16 @@ ScriptedImporter:
     spriteID: 3e83ee51643502344b7312bb251977b2
     layerID: 179
     mosaicPosition: {x: 4, y: 2632}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: right arm
+    spriteName: right arm
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 0507015a79bd46b4087219a060400785
+    layerID: 165
+    mosaicPosition: {x: 4, y: 1834}
     flatten: 0
     isImported: 1
     isVisible: 1
@@ -17059,36 +17089,6 @@ ScriptedImporter:
     spriteID: ed71dca4c85014e4d9ffb906c200527b
     layerID: 174
     mosaicPosition: {x: 577, y: 3285}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: head
-    spriteName: head
-    isGroup: 0
-    parentIndex: 0
-    spriteID: 3b6079436e50d8b4088d3306b99e97b0
-    layerID: 171
-    mosaicPosition: {x: 976, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: guitar
-    spriteName: guitar
-    isGroup: 0
-    parentIndex: 0
-    spriteID: a39356bab9b6d53498492521756d83e6
-    layerID: 192
-    mosaicPosition: {x: 4, y: 4}
-    flatten: 0
-    isImported: 1
-    isVisible: 1
-  - name: right arm
-    spriteName: right arm
-    isGroup: 0
-    parentIndex: 0
-    spriteID: 0507015a79bd46b4087219a060400785
-    layerID: 165
-    mosaicPosition: {x: 4, y: 1834}
     flatten: 0
     isImported: 1
     isVisible: 1
