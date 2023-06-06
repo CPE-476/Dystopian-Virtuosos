@@ -293,12 +293,14 @@ public class NoteTrigger : MonoBehaviour
             updateHold[trackNumber] = true;
             holdScore = 1;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
+            holdLengths[trackNumber]++;
         }
         else if (hitCategory == HitCategory.GOOD && isHold)
         {
             updateHold[trackNumber] = true;
             holdScore = 2;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
+            holdLengths[trackNumber]++;
         }
 
         if (hitCategory == HitCategory.WEAK)
@@ -357,6 +359,8 @@ public class NoteTrigger : MonoBehaviour
         comboManager.comboNumber = 0;
         character.curHealth -= 2;
         character.hb.setHealth(character.curHealth);
+        if (character.curHealth <= 0)
+            character.Die();
 
         // TODO (Alex): Should a miss incur a sound effect?
         sfx.sounds[3].pitch = Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
@@ -379,6 +383,8 @@ public class NoteTrigger : MonoBehaviour
 
         character.curHealth -= 5;
         character.hb.setHealth(character.curHealth);
+        if (character.curHealth <= 0)
+            character.Die();
 
         sfx.sounds[3].pitch =
             Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));

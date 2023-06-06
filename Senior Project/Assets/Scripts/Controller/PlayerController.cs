@@ -109,6 +109,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void Die()
+    {
+        Debug.Log("YOU DIED!");
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         anim.SetBool("isJump", false);
