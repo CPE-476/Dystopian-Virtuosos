@@ -153,7 +153,10 @@ public class Spine : MonoBehaviour
     {
         initDialogue();
         initTutorial();
-        initSection();
+        if(1 == PlayerPrefs.GetInt("level_number"))
+            initLevel1();
+        else 
+            initLevel2();
 
         image = fade.GetComponent<Image>();
         color = image.color;
@@ -161,8 +164,19 @@ public class Spine : MonoBehaviour
         DialogueStart();
     }
 
+    public void GoToLevel2() {
+        PlayerPrefs.SetInt("level_number", 2);
+        SceneManager.LoadScene("CutScene");
+    }
+
     public void DialogueStart()
     {
+        if(section_index == 1)
+        {
+            GoToLevel2();
+            return;
+        }
+
         color.a = 0.4f;
         image.color = color;
         healthBar.showHealthBar = false;
@@ -172,11 +186,6 @@ public class Spine : MonoBehaviour
         {
             // END LEVEL HERE
             section_index = 0;
-        }
-
-        if (section_index == 1)
-        {
-            SceneManager.LoadScene("CutScene");
         }
 
         // NOTE: This is just for the sake of having background playing after a
@@ -324,10 +333,36 @@ public class Spine : MonoBehaviour
 
     }
 
-    private void initSection()
+    private void initLevel1()
     {
         sections =
-            new Section[6]
+            new Section[3]
+            {
+                new Section(first_dialogue, first_tutorial,
+                    midiPath + "DV_L1_drum.mid",
+                    GameplayAudio.DRUMS,
+                    0,
+                    true,
+                    -1),
+                new Section(second_dialogue, second_tutorial,
+                    midiPath + "DV_L1_piano.mid",
+                    GameplayAudio.PIANO,
+                    0,
+                    false,
+                    -17),
+                new Section(third_dialogue, third_tutorial,
+                    midiPath + "DV_L1_guitar.mid",
+                    GameplayAudio.GUITAR,
+                    0,
+                    true,
+                    -17),
+            };
+    }
+
+    private void initLevel2()
+    {
+        sections =
+            new Section[3]
             {
                 new Section(first_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_1.mid",
@@ -346,24 +381,6 @@ public class Spine : MonoBehaviour
                     GameplayAudio.END,
                     3,
                     false,
-                    -17),
-                new Section(first_dialogue, first_tutorial,
-                    midiPath + "DV_L1_drum.mid",
-                    GameplayAudio.DRUMS,
-                    0,
-                    true,
-                    -1),
-                new Section(second_dialogue, second_tutorial,
-                    midiPath + "DV_L1_piano.mid",
-                    GameplayAudio.PIANO,
-                    0,
-                    false,
-                    -17),
-                new Section(third_dialogue, third_tutorial,
-                    midiPath + "DV_L1_guitar.mid",
-                    GameplayAudio.GUITAR,
-                    0,
-                    true,
                     -17),
             };
     }

@@ -137,7 +137,7 @@ public class Narrative : MonoBehaviour
         {
             AudioSource audioSource = FindObjectOfType<AudioSource>();
             GameObject musicGameObject = audioSource.gameObject;
-            Destroy (musicGameObject);
+            //Destroy(musicGameObject);
 
             SceneManager.LoadScene("Game");
         }
