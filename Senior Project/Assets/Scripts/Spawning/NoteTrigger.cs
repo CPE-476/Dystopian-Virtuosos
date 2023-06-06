@@ -293,12 +293,14 @@ public class NoteTrigger : MonoBehaviour
             updateHold[trackNumber] = true;
             holdScore = 1;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
+            holdLengths[trackNumber]++;
         }
         else if (hitCategory == HitCategory.GOOD && isHold)
         {
             updateHold[trackNumber] = true;
             holdScore = 2;
             holdLengths[trackNumber] = spawnMaster.lengths[trackNumber];
+            holdLengths[trackNumber]++;
         }
 
         if (hitCategory == HitCategory.WEAK)
