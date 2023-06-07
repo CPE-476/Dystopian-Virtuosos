@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 //using UnityEngine.UIElements;
+using System.IO;
 using UnityEngine.Video;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +12,7 @@ public enum InterfaceState
     GAMEPLAY,
     DIALOGUE,
     TUTORIAL,
+    RESULTS,
     GAME_OVER
 }
 
@@ -126,7 +128,7 @@ public class Spine : MonoBehaviour
 
     public string videoPath;
 
-    //public string dialoguePath;
+    public string dialoguePath;
 
     private Image image;
 
@@ -144,24 +146,35 @@ public class Spine : MonoBehaviour
     {
         midiPath = Application.streamingAssetsPath + "/MIDIs/";
         videoPath = Application.streamingAssetsPath + "/videos/";
-
-        // ALEX TODO: dialogue reader
-        //dialoguePath = Application.streamingAssetsPath + "/dialogues/";
+        dialoguePath = Application.streamingAssetsPath + "/Dialogue/";
     }
 
     void Start()
     {
-        initDialogue();
-        initTutorial();
-        if(1 == PlayerPrefs.GetInt("level_number"))
+        if(1 == PlayerPrefs.GetInt("level_number")) {
+            initDialogue1();
+            initTutorial();
             initLevel1();
-        else 
+        }
+        else {
+            initDialogue2();
+            initTutorial();
             initLevel2();
+        }
 
         image = fade.GetComponent<Image>();
         color = image.color;
 
         DialogueStart();
+    }
+
+    public void Update() {
+        if(state == InterfaceState.RESULTS) {
+            //hideStatsUI
+            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
+                GoToLevel2();
+            }
+        }
     }
 
     public void GoToLevel2() {
@@ -173,7 +186,9 @@ public class Spine : MonoBehaviour
     {
         if(section_index == 1)
         {
-            GoToLevel2();
+            state = InterfaceState.RESULTS;
+            // TODO: Lucas – Here's your stats UI page!
+            //displayStatsUI();
             return;
         }
 
@@ -280,41 +295,57 @@ public class Spine : MonoBehaviour
         ++section_index;
     }
 
-    private void initDialogue()
+    private List<DialogueLine> readDialogueFile(string file_name) 
     {
-        List<DialogueLine> dialogueList_1 = new List<DialogueLine>(first_dialogue);
+        List<DialogueLine> dialogueList = new List<DialogueLine>(first_dialogue);
 
-        dialogueList_1.Add(new DialogueLine(Character.RIKA,
-                            "Welcome to Virtuosos!"));
-        dialogueList_1.Add(new DialogueLine(Character.RIKA,
-                            "This is an early demo, so give whatever feedback you can. So let's get started!"));
-        dialogueList_1.Add(new DialogueLine(Character.RIKA,
-                            "There are two kinds of input: Keyboard and Controller."));
+        StreamReader inp_stm = new StreamReader(dialoguePath + file_name);
+        while(!inp_stm.EndOfStream)
+        {
+            string inp_ln = inp_stm.ReadLine();
+            if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
+                var splitted = inp_ln.Split(':', 2);
+                Character c = 0;
+                if(splitted[0] == "Rika")
+                    c = Character.RIKA;
+                else if(splitted[0] == "Bronte")
+                    c = Character.BRONTE;
+                else
+                    Debug.Log("Incorrect name: " + splitted[0] + " in dialogue file: " + file_name);
 
+                string text = splitted[1].Trim('\n');
+
+                dialogueList.Add(new DialogueLine(c, text.Trim(' ')));
+            }
+        }
+
+        inp_stm.Close();
+
+        return dialogueList;
+    }
+
+    private void initDialogue1()
+    {
+        List<DialogueLine> dialogueList_1 = readDialogueFile("dialogue_1.txt");
         first_dialogue = dialogueList_1.ToArray();
 
-        List<DialogueLine> dialogueList_2 = new List<DialogueLine>(second_dialogue);
-
-        dialogueList_2.Add(new DialogueLine(Character.RIKA,
-                            "Well done! That was the drummer mode."));
-        dialogueList_2.Add(new DialogueLine(Character.RIKA,
-                            "Next, we'll switch to another game mode: piano."));
-        dialogueList_2.Add(new DialogueLine(Character.RIKA,
-                            "The piano mode has hold notes. When you see a hold note, try to hit it on time, and hold it for as long as its tail lasts."));
-
+        List<DialogueLine> dialogueList_2 = readDialogueFile("dialogue_2.txt");
         second_dialogue = dialogueList_2.ToArray();
 
-        List<DialogueLine> dialogueList_3 = new List<DialogueLine>(third_dialogue);
-
-        dialogueList_3.Add(new DialogueLine(Character.RIKA,
-                            "Excellent!"));
-        dialogueList_3.Add(new DialogueLine(Character.RIKA,
-                            "Time for the final showdown. This time, we'll be in the last game mode: Guitar!"));
-        dialogueList_3.Add(new DialogueLine(Character.RIKA,
-                "Guitar mode is a combination of piano and drum modes. There are three tracks, and you can encounter both hit and hold notes at the same time."));
-
+        List<DialogueLine> dialogueList_3 = readDialogueFile("dialogue_3.txt");
         third_dialogue = dialogueList_3.ToArray();
+    }
 
+    private void initDialogue2()
+    {
+        List<DialogueLine> dialogueList_1 = readDialogueFile("dialogue_4.txt");
+        first_dialogue = dialogueList_1.ToArray();
+
+        List<DialogueLine> dialogueList_2 = readDialogueFile("dialogue_5.txt");
+        second_dialogue = dialogueList_2.ToArray();
+
+        List<DialogueLine> dialogueList_3 = readDialogueFile("dialogue_6.txt");
+        third_dialogue = dialogueList_3.ToArray();
     }
 
     private void initTutorial()
@@ -370,13 +401,13 @@ public class Spine : MonoBehaviour
                     1,
                     false,
                     -17),
-                new Section(first_dialogue, first_tutorial,
+                new Section(second_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.S2,
                     2,
                     false,
                     -1),
-                new Section(first_dialogue, first_tutorial,
+                new Section(third_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.END,
                     3,

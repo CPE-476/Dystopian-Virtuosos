@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class Narrative : MonoBehaviour
 
     public GameObject image;
 
-    public string[] narrative;
+    public string[] lines;
 
     public Sprite[] images;
 
@@ -37,15 +38,42 @@ public class Narrative : MonoBehaviour
 
     private bool sceneStarting = true;
 
+    private string dialoguePath;
+
     // Start is called before the first frame update
     void Start()
     {
+        dialoguePath = Application.streamingAssetsPath + "/Dialogue/";
+
         textComponment.text = string.Empty;
         fadePanel.color =
             new Color(fadePanel.color.r,
                 fadePanel.color.g,
                 fadePanel.color.b,
                 1.0f);
+
+        if(1 == PlayerPrefs.GetInt("level_number")) {
+            readNarrativeFile("cutscene_1.txt");
+        }
+        if(2 == PlayerPrefs.GetInt("level_number")) {
+            readNarrativeFile("cutscene_2.txt");
+        }
+    }
+
+    private void readNarrativeFile(string file_name)
+    {
+        List<string> list = new List<string>();
+        StreamReader inp_stm = new StreamReader(dialoguePath + file_name);
+        while(!inp_stm.EndOfStream)
+        {
+            string inp_ln = inp_stm.ReadLine();
+            if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
+                list.Add(inp_ln);
+            }
+        }
+        inp_stm.Close();
+
+        lines = list.ToArray();
     }
 
     public void Enable()
@@ -75,9 +103,13 @@ public class Narrative : MonoBehaviour
 
     public int NextLine()
     {
-        if (narrative_index < narrative.Length - 1)
+        if (narrative_index < lines.Length - 1)
         {
             narrative_index++;
+            if(lines[narrative_index] == "---") {
+                NextImage();
+                narrative_index++;
+            }
             textComponment.text = string.Empty;
             StopAllCoroutines();
             StartCoroutine(EmitLine());
@@ -88,7 +120,7 @@ public class Narrative : MonoBehaviour
 
     public IEnumerator EmitLine()
     {
-        char[] curLine = narrative[narrative_index].ToCharArray();
+        char[] curLine = lines[narrative_index].ToCharArray();
         foreach (char c in curLine)
         {
             textComponment.text += c;
@@ -173,18 +205,10 @@ public class Narrative : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
             int result = NextLine();
-            if (result == -1 || result == sectionBreak[currentSection])
+            if (result == -1)
             {
-                bool hasNext = NextImage();
-                if (hasNext)
-                {
-                    currentSection++;
-                }
-                else
-                {
-                    Disable();
-                    sceneStarting = false;
-                }
+                Disable();
+                sceneStarting = false;
             }
         }
     }

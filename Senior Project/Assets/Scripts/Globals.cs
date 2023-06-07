@@ -21,7 +21,7 @@ public class Globals : MonoBehaviour
     private const string music = "music_volume";
     private const string sfx = "sfx_volume";
     private const string level_number = "level_number";
-
+    
     // Start is called before the first frame update
     void Start()
     {
