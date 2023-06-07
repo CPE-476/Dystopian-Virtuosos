@@ -52,6 +52,7 @@ public class Conductor : MonoBehaviour
 
     double backgroundDuration;
     double nextStartTime;
+    double lastStartTime;
     double nextBackgroundOffset = 0.0;
 
     public bool playBackground;
@@ -67,8 +68,18 @@ public class Conductor : MonoBehaviour
     public bool playL2BG3 = false;
     public bool playL2End = false;
 
+    public bool should_end_section = false;
+    public bool ready_for_dialogue = false;
+
     void Start()
     {
+        if(PlayerPrefs.GetInt("level_number") == 1) {
+            bpm = 110;
+        }
+        else {
+            bpm = 100;
+        }
+
         nextSpotTime = 0.0;
         spotNumber = 0;
         beatNumber = 0;
@@ -95,14 +106,23 @@ public class Conductor : MonoBehaviour
         l2_section2 = audioSources[13];
 
         startTime = (double)AudioSettings.dspTime + bufferSchedulingOffset;
-        l2_background1.PlayScheduled(startTime);
-        //background.PlayScheduled(startTime);
+
+        if(PlayerPrefs.GetInt("level_number") == 1) {
+            background.PlayScheduled(startTime);
+        }
+        else {
+            l2_background1.PlayScheduled(startTime);
+        }
 
         // Looping variables
         backgroundDuration = beatLength * 16;
         nextStartTime = startTime + backgroundDuration - nextBackgroundOffset;
-        l2_background1alt.PlayScheduled(nextStartTime);
-        //background2.PlayScheduled(nextStartTime);
+        if(PlayerPrefs.GetInt("level_number") == 1) {
+            background2.PlayScheduled(nextStartTime);
+        }
+        else {
+            l2_background1alt.PlayScheduled(nextStartTime);
+        }
 
         latency_offset = PlayerPrefs.GetFloat("latency_offset");
     }
@@ -149,32 +169,53 @@ public class Conductor : MonoBehaviour
         }
     }
 
+    public void FadeAudioOut()
+    {
+        float fade_time = 1.0f;
+        // Increase the alpha of the panel by the amount of time that has passed
+        background.volume = Mathf.Lerp(background.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+        background2.volume = Mathf.Lerp(background2.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+
+        // Once the alpha is close to one, load the next scene
+        if(background.volume < 0.05f)
+        {
+            ready_for_dialogue = true;
+        }
+    }
+
     public void Update()
     {
         //Debug.Log(AudioSettings.dspTime);
+        if(should_end_section)
+        {
+            FadeAudioOut();
+        }
+
         UpdateFields();
         if (AudioSettings.dspTime > nextStartTime - 3.0) {
             if(playBackground) {
-                if(current_background == 1) {
-                    background2.PlayScheduled(nextStartTime);
-                    current_background = 2;
+                if(PlayerPrefs.GetInt("level_number") == 1) {
+                    if(current_background == 1) {
+                        background2.PlayScheduled(nextStartTime);
+                        current_background = 2;
+                    }
+                    else {
+                        background.PlayScheduled(nextStartTime);
+                        current_background = 1;
+                    }
                 }
                 else {
-                    background.PlayScheduled(nextStartTime);
-                    current_background = 1;
+                    if(current_background == 1) {
+                        l2_background1alt.PlayScheduled(nextStartTime);
+                        current_background = 2;
+                    }
+                    else {
+                        l2_background1.PlayScheduled(nextStartTime);
+                        current_background = 1;
+                    }
                 }
             }
 
-            if(playBackground) {
-                if(current_background == 1) {
-                    l2_background1alt.PlayScheduled(nextStartTime);
-                    current_background = 2;
-                }
-                else {
-                    l2_background1.PlayScheduled(nextStartTime);
-                    current_background = 1;
-                }
-            }
             if(playL2BG2) {
                 if(current_background == 1) {
                     l2_background2alt.PlayScheduled(nextStartTime);
@@ -225,6 +266,7 @@ public class Conductor : MonoBehaviour
                 l2_end.PlayScheduled(nextStartTime);
             }
 
+            lastStartTime = nextStartTime;
             nextStartTime = nextStartTime + backgroundDuration - nextBackgroundOffset;
         }
     }

@@ -20,7 +20,8 @@ public class Globals : MonoBehaviour
     private const string master = "master_volume";
     private const string music = "music_volume";
     private const string sfx = "sfx_volume";
-
+    private const string level_number = "level_number";
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +43,8 @@ public class Globals : MonoBehaviour
             PlayerPrefs.SetFloat(master, sounds.master_volume);
             PlayerPrefs.SetFloat(music, sounds.music_volume);
             PlayerPrefs.SetFloat(sfx, sounds.sfx_volume);
+
+            PlayerPrefs.SetInt(level_number, 1);
         }
     }
 }

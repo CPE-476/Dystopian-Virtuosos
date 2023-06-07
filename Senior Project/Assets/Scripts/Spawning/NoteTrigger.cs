@@ -105,7 +105,7 @@ public class NoteTrigger : MonoBehaviour
 
     void Update()
     {
-        if (spine.state != InterfaceState.GAMEPLAY) return;
+        if(spine.state != InterfaceState.GAMEPLAY) return;
 
         checkHit(topControls, 0, top, 0.7f);
         checkHit(highControls, 1, high, 0.7f);

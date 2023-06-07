@@ -243,7 +243,6 @@ public class MIDIReader : MonoBehaviour
         // NOTE (Alex): This is a weird bug, for some reason the conductor is
         // off by one sometimes and gives us the wrong conductor spot twice in a
         // row. For now, incrementing works fine.
-        index += 1;
         /*
         index =
             conductor.barNumber *
@@ -253,11 +252,19 @@ public class MIDIReader : MonoBehaviour
             conductor.spotNumber;
             */
 
-        if (index >= SpotTrack.Length)
+        if(index >= SpotTrack.Length - 3)
         {
-            spine.DialogueStart();
+            conductor.should_end_section = true;
+        }
+
+        if(index >= SpotTrack.Length - 1)
+        {
+            if(conductor.ready_for_dialogue)
+                spine.DialogueStart();
             return;
         }
+        index += 1;
+
 
         // TODO: Pull this out into the spine.
         SpotElement curVal = SpotTrack[index];
