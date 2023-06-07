@@ -93,7 +93,7 @@ public class Visualizer : MonoBehaviour
                 new Vector3(visualizerObjects[i].transform.localScale.x,
                     newSize.y,
                     visualizerObjects[i].transform.localScale.z);
-            if (stateInfo.IsName("Hurt"))
+            if (stateInfo.IsName("hurt"))
             {
                 visualizerObjects[i].GetComponent<SpriteRenderer>().color =
                     hurtColor;

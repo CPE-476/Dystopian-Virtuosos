@@ -28,6 +28,8 @@ public class NoteTrigger : MonoBehaviour
     public SpawnMaster spawnMaster;
 
     public Animator anim;
+    public Animator anim2;
+    public Animator anim3;
 
     public JoystickControl controllerControl;
 
@@ -110,13 +112,42 @@ public class NoteTrigger : MonoBehaviour
         checkHit(lowControls, 2, low, 0.7f);
         checkHit(bottomControls, 3, bot, 0.7f);
 
+        if(topControls.action.ReadValue<float>() > 0.0f || leftJoystick.action.ReadValue<float>() >= 0.7)
+        {
+            anim3.SetBool("isHold1", true);
+        }
+        else
+        {
+            anim3.SetBool("isHold1", false);
+        }
+        if (highControls.action.ReadValue<float>() > 0.0f || lowControls.action.ReadValue<float>() > 0.0f || -leftJoystick.action.ReadValue<float>() >= 0.7 || rightJoystick.action.ReadValue<float>() >= 0.7)
+        {
+            anim3.SetBool("isHold2", true);
+            anim2.SetBool("isHold2", true);
+        }
+        else
+        {
+            anim3.SetBool("isHold2", false);
+            anim2.SetBool("isHold2", false);
+        }
+        if (bottomControls.action.ReadValue<float>() > 0.0f || -rightJoystick.action.ReadValue<float>() >= 0.7)
+        {
+            anim3.SetBool("isHold3", true);
+            anim2.SetBool("isHold1", true);
+        }
+        else
+        {
+            anim3.SetBool("isHold3", false);
+            anim2.SetBool("isHold1", false);
+        }
+
         //Update Hold Note Score
         if (updateHold[0] && holdLengths[0] >= 1 && (topControls.action.ReadValue<float>() > 0.0f || leftJoystick.action.ReadValue<float>() >= 0.7))
         {
             var em = top.gameObject.transform.Find("HitSpot/HoldParticle").GetComponent<ParticleSystem>().emission;
             em.enabled = true;
             if (goodHold[0] == false) holdScore += 1;
-            goodHold[0] = true;
+            goodHold[0] = true; 
         }
         else
         {
@@ -356,6 +387,8 @@ public class NoteTrigger : MonoBehaviour
     private void ResolveMiss(SpriteRenderer sprite, int trackNumber)
     {
         anim.SetTrigger("hurt");
+        anim2.SetTrigger("hurt");
+        anim3.SetTrigger("hurt");
         comboManager.comboNumber = 0;
         character.curHealth -= 2;
         character.hb.setHealth(character.curHealth);
@@ -380,7 +413,8 @@ public class NoteTrigger : MonoBehaviour
     private void ResolveHitObstacle(SpriteRenderer sprite, int trackNumber)
     {
         anim.SetTrigger("hurt");
-
+        anim2.SetTrigger("hurt");
+        anim3.SetTrigger("hurt");
         character.curHealth -= 5;
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0)

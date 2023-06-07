@@ -16,6 +16,8 @@ public class TracksController : MonoBehaviour
 
     public GameObject Joystick2;
 
+    public PlayerController pc;
+
     [SerializeField]
     public float[] DrumPositions;
 
@@ -113,6 +115,9 @@ public class TracksController : MonoBehaviour
 
     public IEnumerator pianoSwitch(float duration)
     {
+        pc.drumXVal = -5;
+        pc.guitarXval = -10;
+        pc.pianoXval = 0;
         PianistTracks();
         currentInstrument = 3;
         float elapsedTime = 0.0f;
@@ -161,6 +166,9 @@ public class TracksController : MonoBehaviour
 
     public IEnumerator guitarSwitch(float duration)
     {
+        pc.drumXVal = -5;
+        pc.guitarXval = 0.2f;
+        pc.pianoXval = -5;
         GuitaristTracks();
         currentInstrument = 2;
 
@@ -200,6 +208,9 @@ public class TracksController : MonoBehaviour
 
     public IEnumerator drumSwitch(float duration)
     {
+        pc.drumXVal = 0;
+        pc.guitarXval = -10;
+        pc.pianoXval = -5;
         DrumerTracks();
         currentInstrument = 1;
 
