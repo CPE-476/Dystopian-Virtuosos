@@ -11,10 +11,9 @@ public class Dialogue : MonoBehaviour
     public TextMeshProUGUI textComponment;
     public TextMeshProUGUI name_field;
 
-    public Image rika_image;
+    public Image vento_image;
     public Image bronte_image;
-    public Image three_image;
-    public Image shopkeeper_image;
+    public Image dolce_image;
     public Image textbox;
 
     public float textSpeed;
@@ -33,10 +32,9 @@ public class Dialogue : MonoBehaviour
         audioSource.enabled = false;
         textbox.enabled = false;
 
-        rika_image.enabled = false;
+        vento_image.enabled = false;
         bronte_image.enabled = false;
-        three_image.enabled = false;
-        shopkeeper_image.enabled = false;
+        dolce_image.enabled = false;
     }
 
     public void Enable()
@@ -59,10 +57,9 @@ public class Dialogue : MonoBehaviour
         StopAllCoroutines();
         textComponment.text = string.Empty;
         name_field.enabled = false;
-        rika_image.enabled = false;
+        vento_image.enabled = false;
         bronte_image.enabled = false;
-        three_image.enabled = false;
-        shopkeeper_image.enabled = false;
+        dolce_image.enabled = false;
     }
 
     // Returns false if no lines left.
@@ -103,14 +100,12 @@ public class Dialogue : MonoBehaviour
     {
         switch (character)
         {
-            case Character.RIKA:
-                return "RIKA";
+            case Character.VENTO:
+                return "VENTO";
             case Character.BRONTE:
                 return "BRONTE";
-            case Character.THREE:
-                return "Three";
-            case Character.SHOPKEEPER:
-                return "Shopkeeper";
+            case Character.DOLCE:
+                return "DOLCE";
             default:
                 return "ERROR";
         }
@@ -120,16 +115,14 @@ public class Dialogue : MonoBehaviour
     {
         switch (character)
         {
-            case Character.RIKA:
-                return rika_image;
+            case Character.VENTO:
+                return vento_image;
             case Character.BRONTE:
                 return bronte_image;
-            case Character.THREE:
-                return three_image;
-            case Character.SHOPKEEPER:
-                return shopkeeper_image;
+            case Character.DOLCE:
+                return dolce_image;
             default:
-                return rika_image;
+                return bronte_image;
         }
     }
 }
