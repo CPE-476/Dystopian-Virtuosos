@@ -201,7 +201,9 @@ public class PlayerController : MonoBehaviour
 
             if (prev_track_pos == current_track_position)
             {
-                anim.SetTrigger("kickAttack");
+                float randomValue = Random.value;
+                string chosenString = randomValue < 0.5f ? "kickAttack" : "attack";
+                anim.SetTrigger(chosenString);
                 anim2.SetTrigger("attack2");
                 anim3.SetTrigger("attack");
             }
@@ -228,7 +230,9 @@ public class PlayerController : MonoBehaviour
 
             if (prev_track_pos == current_track_position)
             {
-                anim.SetTrigger("kickAttack");
+                float randomValue = Random.value;
+                string chosenString = randomValue < 0.5f ? "kickAttack" : "attack";
+                anim.SetTrigger(chosenString);
                 anim2.SetTrigger("attack2");
                 anim3.SetTrigger("attack");
             }
@@ -258,7 +262,9 @@ public class PlayerController : MonoBehaviour
 
             if (prev_track_pos == current_track_position)
             {
-                anim.SetTrigger("kickAttack");
+                float randomValue = Random.value;
+                string chosenString = randomValue < 0.5f ? "kickAttack" : "attack";
+                anim.SetTrigger(chosenString);
                 anim2.SetTrigger("attack2");
                 anim3.SetTrigger("attack");
             }
@@ -288,7 +294,9 @@ public class PlayerController : MonoBehaviour
 
             if (prev_track_pos == current_track_position)
             {
-                anim.SetTrigger("kickAttack");
+                float randomValue = Random.value;
+                string chosenString = randomValue < 0.5f ? "kickAttack" : "attack";
+                anim.SetTrigger(chosenString);
                 anim2.SetTrigger("attack2");
                 anim3.SetTrigger("attack");
             }
