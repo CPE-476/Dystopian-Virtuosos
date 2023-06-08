@@ -11944,10 +11944,9 @@ MonoBehaviour:
   spine: {fileID: 49557905}
   textComponment: {fileID: 347966884}
   name_field: {fileID: 37246555}
-  rika_image: {fileID: 1821401239}
+  vento_image: {fileID: 1821401239}
   bronte_image: {fileID: 1874742948}
-  three_image: {fileID: 268847209}
-  shopkeeper_image: {fileID: 1821401239}
+  dolce_image: {fileID: 268847209}
   textbox: {fileID: 997234489}
   textSpeed: 0.03
   line_index: 0
@@ -23389,7 +23388,7 @@ GameObject:
   - component: {fileID: 1821401239}
   - component: {fileID: 1821401241}
   m_Layer: 5
-  m_Name: Rika
+  m_Name: Vento
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23404,7 +23403,7 @@ RectTransform:
   m_GameObject: {fileID: 1821401236}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 15}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 802824392}
@@ -23412,8 +23411,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1024, y: 873}
+  m_AnchoredPosition: {x: 120, y: 0}
+  m_SizeDelta: {x: 1881, y: 1668}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1821401239
 MonoBehaviour:
@@ -23435,7 +23434,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9628e72c54a9d4cb195f1e63e67b2ea2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 619315ab6781048ed856267011f2d59e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24607,7 +24606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1dfa84d88cc514b068d13dd7c39eec99, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 738640bc2fe0c4b8cad988678324d2e7, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

@@ -28,10 +28,9 @@ public enum GameplayAudio
 
 public enum Character
 {
-    RIKA,
     BRONTE,
-    THREE,
-    SHOPKEEPER
+    VENTO,
+    DOLCE
 }
 
 public class DialogueLine
@@ -306,10 +305,12 @@ public class Spine : MonoBehaviour
             if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
                 var splitted = inp_ln.Split(':', 2);
                 Character c = 0;
-                if(splitted[0] == "Rika")
-                    c = Character.RIKA;
+                if(splitted[0] == "VENTO")
+                    c = Character.VENTO;
                 else if(splitted[0] == "Bronte")
                     c = Character.BRONTE;
+                else if(splitted[0] == "DOLCE")
+                    c = Character.DOLCE;
                 else
                     Debug.Log("Incorrect name: " + splitted[0] + " in dialogue file: " + file_name);
 
