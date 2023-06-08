@@ -47,7 +47,7 @@ public class Conductor : MonoBehaviour
 
     public float latency_offset;
 
-    private double bufferSchedulingOffset = 3.0;
+    private double bufferSchedulingOffset = 1.0;
     private double startTime;
 
     double backgroundDuration;

@@ -168,8 +168,10 @@ public class Narrative : MonoBehaviour
         if (fadePanel.color.a >= 0.95f)
         {
             AudioSource audioSource = FindObjectOfType<AudioSource>();
-            GameObject musicGameObject = audioSource.gameObject;
-            //Destroy(musicGameObject);
+            if(audioSource != null) {
+                GameObject musicGameObject = audioSource.gameObject;
+                Destroy(musicGameObject);
+            }
 
             SceneManager.LoadScene("Game");
         }
