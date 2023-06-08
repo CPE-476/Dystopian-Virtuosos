@@ -169,18 +169,26 @@ public class Conductor : MonoBehaviour
         }
     }
 
-    public void FadeAudioOut()
+    public bool FadeAudioOut()
     {
         float fade_time = 1.0f;
         // Increase the alpha of the panel by the amount of time that has passed
         background.volume = Mathf.Lerp(background.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
         background2.volume = Mathf.Lerp(background2.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
 
+        l2_background1.volume = Mathf.Lerp(l2_background1.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+        l2_background1alt.volume = Mathf.Lerp(l2_background1alt.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+        l2_background2.volume = Mathf.Lerp(l2_background2.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+        l2_background2alt.volume = Mathf.Lerp(l2_background2alt.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+        l2_background3.volume = Mathf.Lerp(l2_background3.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+        l2_background3alt.volume = Mathf.Lerp(l2_background3alt.volume, 0.0f, Time.deltaTime / (fade_time / 2.0f));
+
         // Once the alpha is close to one, load the next scene
         if(background.volume < 0.05f)
         {
-            ready_for_dialogue = true;
+            return true;
         }
+        return false;
     }
 
     public void Update()
@@ -188,7 +196,7 @@ public class Conductor : MonoBehaviour
         //Debug.Log(AudioSettings.dspTime);
         if(should_end_section)
         {
-            FadeAudioOut();
+            ready_for_dialogue = true;
         }
 
         UpdateFields();
