@@ -635,16 +635,7 @@ MonoBehaviour:
   textComponment: {fileID: 1151422557}
   textbox: {fileID: 754505177}
   image: {fileID: 1175090263}
-  narrative:
-  - testing cut scene 1_1
-  - testing cut scene 1_2
-  - testing cut scene 1_3
-  - testing cut scene 2_1
-  - testing cut scene 2_2
-  - testing cut scene 2_3
-  - testing cut scene 3_1
-  - testing cut scene 3_2
-  - testing cut scene 3_3
+  lines: []
   images:
   - {fileID: 21300000, guid: 7dc158cc9a7a94b40b459683d9c9d69a, type: 3}
   - {fileID: 21300000, guid: e6863935b654ddb49bbafa95b295571a, type: 3}
@@ -740,7 +731,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -823.82715, w: -100.054596}
+  m_margin: {x: 0, y: 0, z: -1352.508, w: -131.9577}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
