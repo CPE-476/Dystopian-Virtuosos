@@ -342,7 +342,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: seperated body part
+  m_Name: 2d_Character_In_Game_Bonte_
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: idle
