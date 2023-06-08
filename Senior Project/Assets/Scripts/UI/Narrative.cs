@@ -40,6 +40,8 @@ public class Narrative : MonoBehaviour
 
     private string dialoguePath;
 
+    public AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -164,15 +166,11 @@ public class Narrative : MonoBehaviour
                 Color.black,
                 Time.deltaTime / (fadeTime_2 / 2.0f));
 
+        audioSource.volume = Mathf.Lerp(audioSource.volume, 0.0f, Time.deltaTime / (fadeTime_2 / 2.0f));
+
         // Once the alpha is close to one, load the next scene
         if (fadePanel.color.a >= 0.95f)
         {
-            AudioSource audioSource = FindObjectOfType<AudioSource>();
-            if(audioSource != null) {
-                GameObject musicGameObject = audioSource.gameObject;
-                Destroy(musicGameObject);
-            }
-
             SceneManager.LoadScene("Game");
         }
     }

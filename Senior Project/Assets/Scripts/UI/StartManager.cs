@@ -58,6 +58,8 @@ public class StartManager : MonoBehaviour
 
     public CURRENTPAGE currentPage;
 
+    public AudioSource audioSource;
+
     void Awake()
     {
         init();
@@ -89,11 +91,15 @@ public class StartManager : MonoBehaviour
             //Debug.Log(Background.transform.localScale.x);
             if (Background.transform.localScale.x > 3.9f)
             {
+                GameObject musicGameObject = audioSource.gameObject;
+                Destroy(musicGameObject);
                 SceneManager.LoadScene("CutScene");
             }
-            if (Background.transform.localScale.x > 3.0f)
+            if(Background.transform.localScale.x > 3.0f)
             {
                 FadeOut();
+                float interp_factor = (Background.transform.localScale.x - 3.0f);
+                audioSource.volume = 1 - interp_factor;
             }
             //Debug.Log(bg_y);
             if (bg_y > max_zoom_y)

@@ -252,7 +252,7 @@ public class MIDIReader : MonoBehaviour
             conductor.spotNumber;
             */
 
-        if(index >= SpotTrack.Length - 1)
+        if(index >= SpotTrack.Length - 8)
         {
             conductor.should_end_section = true;
             if(conductor.ready_for_dialogue)
