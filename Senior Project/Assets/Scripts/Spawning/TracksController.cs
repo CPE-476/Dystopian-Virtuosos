@@ -115,9 +115,10 @@ public class TracksController : MonoBehaviour
 
     public IEnumerator pianoSwitch(float duration)
     {
-        pc.drumXVal = -5;
-        pc.guitarXval = -10;
-        pc.pianoXval = 0;
+        pc.drumEndPos = -5;
+        pc.guitarEndPos = -5;
+        pc.pianoEndPos = 0;
+        pc.switching = true;
         PianistTracks();
         currentInstrument = 3;
         float elapsedTime = 0.0f;
@@ -166,9 +167,10 @@ public class TracksController : MonoBehaviour
 
     public IEnumerator guitarSwitch(float duration)
     {
-        pc.drumXVal = -5;
-        pc.guitarXval = 0.2f;
-        pc.pianoXval = -5;
+        pc.drumEndPos = -5;
+        pc.guitarEndPos = 0.2f;
+        pc.pianoEndPos = -5;
+        pc.switching = true;
         GuitaristTracks();
         currentInstrument = 2;
 
@@ -208,9 +210,10 @@ public class TracksController : MonoBehaviour
 
     public IEnumerator drumSwitch(float duration)
     {
-        pc.drumXVal = 0;
-        pc.guitarXval = -10;
-        pc.pianoXval = -5;
+        pc.drumEndPos = 0;
+        pc.guitarEndPos = -5;
+        pc.pianoEndPos = -5;
+        pc.switching = true;
         DrumerTracks();
         currentInstrument = 1;
 
