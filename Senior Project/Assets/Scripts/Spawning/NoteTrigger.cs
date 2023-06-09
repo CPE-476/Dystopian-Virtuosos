@@ -207,8 +207,9 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             anim3.SetBool("isHold1", true);
+            anim3.SetTrigger("hold1");
         }
-        else
+        else if(leftJoystick.action.ReadValue<float>() <= 0.7 && !(topControls.action.ReadValue<float>() > 0.0f))
         {
             anim3.SetBool("isHold1", false);
         }
@@ -220,9 +221,14 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             anim3.SetBool("isHold2", true);
+            anim3.SetTrigger("hold2");
             anim2.SetBool("isHold2", true);
+            anim2.SetTrigger("hold2");
         }
-        else
+        else if (!(highControls.action.ReadValue<float>() > 0.0f) &&
+            !(lowControls.action.ReadValue<float>() > 0.0f) &&
+            -leftJoystick.action.ReadValue<float>() <= 0.7 &&
+            rightJoystick.action.ReadValue<float>() <= 0.7)
         {
             anim3.SetBool("isHold2", false);
             anim2.SetBool("isHold2", false);
@@ -233,9 +239,12 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             anim3.SetBool("isHold3", true);
+            anim3.SetTrigger("hold3");
             anim2.SetBool("isHold1", true);
+            anim2.SetTrigger("hold1");
         }
-        else
+        else if(!(bottomControls.action.ReadValue<float>() > 0.0f) &&
+            -rightJoystick.action.ReadValue<float>() <= 0.7)
         {
             anim3.SetBool("isHold3", false);
             anim2.SetBool("isHold1", false);
