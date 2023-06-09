@@ -194,7 +194,7 @@ public class NoteObject : MonoBehaviour
                             interpedPostionBehind.z);
                 }
                 else // note should go off
-                if (gameObject.CompareTag("Note"))
+                if (gameObject.CompareTag("Note") || gameObject.CompareTag("Collect"))
                 {
                     GetComponent<SpriteRenderer>().enabled = true;
                     float interpRatio2 = interpRatio - 1;
@@ -301,6 +301,10 @@ public class NoteObject : MonoBehaviour
 
         if (interpRatio > 2.0f)
         {
+            Destroy(followers[0]);
+            Destroy(followers[1]);
+            Destroy(followers[2]);
+            Destroy(followers[3]);
             Destroy (gameObject);
         }
     }
@@ -309,6 +313,8 @@ public class NoteObject : MonoBehaviour
     {
         collectables.collectableNum++;
         collectables.updateCollectables();
+        if (gameObject.CompareTag("Collect"))
+            Destroy(gameObject);
 
         //PLAY SFX
         //SPAWN PARTICLES

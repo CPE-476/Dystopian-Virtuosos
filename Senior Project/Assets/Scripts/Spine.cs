@@ -167,11 +167,19 @@ public class Spine : MonoBehaviour
         DialogueStart();
     }
 
+    private bool fading_out;
     public void Update() {
         if(state == InterfaceState.RESULTS) {
             //hideStatsUI
             if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
-                GoToLevel2();
+                fading_out = true;
+            }
+
+            if(fading_out) {
+                bool done = conductor.FadeAudioOut();
+
+                if(done)
+                    GoToLevel2();
             }
         }
     }
@@ -183,7 +191,7 @@ public class Spine : MonoBehaviour
 
     public void DialogueStart()
     {
-        if(section_index == 1)
+        if(section_index > 2)
         {
             state = InterfaceState.RESULTS;
             // TODO: Lucas – Here's your stats UI page!
@@ -396,18 +404,18 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
+                new Section(second_dialogue, first_tutorial,
+                    midiPath + "DV_L2_Section_2.mid",
+                    GameplayAudio.S2,
+                    2,
+                    false,
+                    0),
                 new Section(first_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_1.mid",
                     GameplayAudio.S1,
                     1,
                     false,
                     -17),
-                new Section(second_dialogue, first_tutorial,
-                    midiPath + "DV_L2_Section_2.mid",
-                    GameplayAudio.S2,
-                    2,
-                    false,
-                    -1),
                 new Section(third_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.END,

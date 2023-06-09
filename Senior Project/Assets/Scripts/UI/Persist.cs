@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Persist : MonoBehaviour
 {
-    public AudioSource bgm;
-
     public Slider master;
     public Slider music;
     public Slider sfx;
@@ -27,8 +25,5 @@ public class Persist : MonoBehaviour
         master_volume = master.value;
         music_volume = music.value;
         sfx_volume = sfx.value;
-
-        bgm.volume = master.value * music.value;
     }
-
 }
