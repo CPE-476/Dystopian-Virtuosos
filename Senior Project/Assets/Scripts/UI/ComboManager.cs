@@ -43,27 +43,27 @@ public class ComboManager : MonoBehaviour
                         comboHub.transform.position.z),
                     Time.deltaTime * moveSpeed);
             comboText = comboNumber.ToString();
-            if (comboNumber >= 30)
+            if (comboNumber >= 150)
             {
                 commentText = "MAESTRO!";
             }
-            else if (comboNumber >= 25)
+            else if (comboNumber >= 100)
             {
                 commentText = "VIRTUOSO!";
             }
-            else if (comboNumber >= 20)
+            else if (comboNumber >= 75)
             {
                 commentText = "GROOVIE!";
             }
-            else if (comboNumber >= 15)
+            else if (comboNumber >= 50)
             {
                 commentText = "ELITE!";
             }
-            else if (comboNumber >= 10)
+            else if (comboNumber >= 30)
             {
                 commentText = "RHYTHM!";
             }
-            else if (comboNumber >= 5)
+            else if (comboNumber >= 15)
             {
                 commentText = "FINESSE!";
             }

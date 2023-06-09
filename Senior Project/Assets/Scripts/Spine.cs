@@ -119,6 +119,8 @@ public class Spine : MonoBehaviour
 
     public ComboManager comboManager;
 
+    public StatsManager statsManager;
+
     public GameObject fade;
 
     public Tutorial tutorial;
@@ -178,8 +180,11 @@ public class Spine : MonoBehaviour
             if(fading_out) {
                 bool done = conductor.FadeAudioOut();
 
-                if(done)
+                if (done) 
+                {
+                    noteTrigger.StatsReset();
                     GoToLevel2();
+                }
             }
         }
     }
@@ -195,7 +200,7 @@ public class Spine : MonoBehaviour
         {
             state = InterfaceState.RESULTS;
             // TODO: Lucas – Here's your stats UI page!
-            //displayStatsUI();
+            StartCoroutine(statsManager.displayStatsUI(0.5f, 0.5f, 0.5f));
             return;
         }
 
@@ -204,6 +209,7 @@ public class Spine : MonoBehaviour
         healthBar.showHealthBar = false;
         scoreManager.showScoreBar = false;
         comboManager.showComboBar = false;
+        noteTrigger.HideHitbox();
         if (section_index >= sections.Length)
         {
             // END LEVEL HERE
@@ -243,6 +249,7 @@ public class Spine : MonoBehaviour
         healthBar.showHealthBar = true;
         scoreManager.showScoreBar = true;
         comboManager.showComboBar = true;
+        noteTrigger.showHitbox();
         state = InterfaceState.GAMEPLAY;
 
         conductor.Reset();
