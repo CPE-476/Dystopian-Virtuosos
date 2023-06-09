@@ -204,11 +204,6 @@ public class Spine : MonoBehaviour
         healthBar.showHealthBar = false;
         scoreManager.showScoreBar = false;
         comboManager.showComboBar = false;
-        if (section_index >= sections.Length)
-        {
-            // END LEVEL HERE
-            section_index = 0;
-        }
 
         // NOTE: This is just for the sake of having background playing after a
         // no-background section.
@@ -404,18 +399,18 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
-                new Section(second_dialogue, first_tutorial,
-                    midiPath + "DV_L2_Section_2.mid",
-                    GameplayAudio.S2,
-                    2,
-                    false,
-                    0),
                 new Section(first_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_1.mid",
                     GameplayAudio.S1,
                     1,
                     false,
                     -17),
+                new Section(second_dialogue, first_tutorial,
+                    midiPath + "DV_L2_Section_2.mid",
+                    GameplayAudio.S2,
+                    2,
+                    false,
+                    -1),
                 new Section(third_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.END,
