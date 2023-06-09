@@ -3800,8 +3800,8 @@ MonoBehaviour:
   controllerControl: {fileID: 49855402}
   movePower: 4
   jumpPower: 5
-  maxHealth: 10
-  curHealth: 10
+  maxHealth: 20
+  curHealth: 20
   hb: {fileID: 816987385}
   anim: {fileID: 188014761}
   anim2: {fileID: 885476714}
