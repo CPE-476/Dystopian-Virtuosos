@@ -93,9 +93,9 @@ public class PlayerController : MonoBehaviour
             pianoXVal = Mathf.Lerp(pianoStartPos, pianoEndPos, timer);
             guitarXVal = Mathf.Lerp(guitarStartPos, guitarEndPos, timer);
             timer += Time.deltaTime * 0.5f;
-            transform.position = new Vector3(drumXVal, transform.position.y, transform.position.z);
+            transform.position = new Vector3(drumXVal, -3.2f, transform.position.z);
             pianist.transform.position = new Vector3(pianoXVal, -0.45f, 0);
-            guitarist.transform.position = new Vector3(guitarXVal, guitarist.transform.position.y, guitarist.transform.position.z);
+            guitarist.transform.position = new Vector3(guitarXVal, -3.0f, guitarist.transform.position.z);
         }
         if(timer/2 >= 1)
         {
