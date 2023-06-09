@@ -90,6 +90,7 @@ ScriptedImporter:
     tessellationDetail: 0
     parentGroupIndex: -1
     uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
   - name: face hurt
@@ -2491,7 +2492,8 @@ ScriptedImporter:
     - {x: 22, y: 130}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -723, y: 2347}
+    uvTransform: {x: 4, y: 3750}
+    spritePosition: {x: 727, y: 1403}
   - name: face attack
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -4855,7 +4857,8 @@ ScriptedImporter:
     - {x: 80, y: 189}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 593, y: 241}
+    uvTransform: {x: 1320, y: 1633}
+    spritePosition: {x: 727, y: 1392}
   - name: face blink
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -7403,7 +7406,8 @@ ScriptedImporter:
     - {x: 92, y: 93}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 590, y: -435}
+    uvTransform: {x: 1320, y: 965}
+    spritePosition: {x: 730, y: 1400}
   - name: face normal
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -8645,7 +8649,8 @@ ScriptedImporter:
     - {x: 100, y: 101}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 592, y: -101}
+    uvTransform: {x: 1320, y: 1299}
+    spritePosition: {x: 728, y: 1400}
   - name: guitar
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -10270,7 +10275,8 @@ ScriptedImporter:
     - {x: 124, y: 125}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -1365, y: -399}
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 1369, y: 403}
   - name: left arm
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -11146,7 +11152,8 @@ ScriptedImporter:
     - {x: 55, y: 56}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -195, y: 2409}
+    uvTransform: {x: 4, y: 3285}
+    spritePosition: {x: 199, y: 876}
   - name: torso
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -12188,7 +12195,8 @@ ScriptedImporter:
     - {x: 83, y: 84}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -635, y: 1818}
+    uvTransform: {x: 4, y: 2632}
+    spritePosition: {x: 639, y: 814}
   - name: hip
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -12930,7 +12938,8 @@ ScriptedImporter:
     - {x: 53, y: 54}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -184, y: 1944}
+    uvTransform: {x: 512, y: 2632}
+    spritePosition: {x: 696, y: 688}
   - name: left leg
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -13838,7 +13847,8 @@ ScriptedImporter:
     - {x: 67, y: 68}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 369, y: 786}
+    uvTransform: {x: 976, y: 965}
+    spritePosition: {x: 607, y: 179}
   - name: right leg
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -14740,7 +14750,8 @@ ScriptedImporter:
     - {x: 62, y: 63}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -335, y: 3106}
+    uvTransform: {x: 577, y: 3285}
+    spritePosition: {x: 912, y: 179}
   - name: head
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -15808,7 +15819,8 @@ ScriptedImporter:
     - {x: 87, y: 88}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: 587, y: -1323}
+    uvTransform: {x: 976, y: 4}
+    spritePosition: {x: 389, y: 1327}
   - name: right arm
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -16715,7 +16727,8 @@ ScriptedImporter:
     - {x: 56, y: 57}
     tessellationDetail: 0
     parentGroupIndex: -1
-    uvTransform: {x: -987, y: 787}
+    uvTransform: {x: 4, y: 1834}
+    spritePosition: {x: 991, y: 1047}
   characterData:
     bones:
     - name: bone_1
