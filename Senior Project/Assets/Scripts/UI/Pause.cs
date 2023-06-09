@@ -11,6 +11,9 @@ public class Pause : MonoBehaviour
     GameObject pauseMenu;
 
     [SerializeField]
+    GameObject deathMenu;
+
+    [SerializeField]
     GameObject System;
 
     [SerializeField]
@@ -33,6 +36,9 @@ public class Pause : MonoBehaviour
 
     [SerializeField]
     Slider sfx;
+
+    [SerializeField]
+    PlayerController player;
 
     Coroutine resumeCountdownCoroutine;
 
@@ -60,6 +66,11 @@ public class Pause : MonoBehaviour
         )
         {
             toPause();
+        }
+
+        if(player.curHealth <= 0)
+        {
+            toDeath();
         }
     }
 
@@ -112,7 +123,12 @@ public class Pause : MonoBehaviour
         Base.SetActive(true);
     }
 
-    IEnumerator ResumeCountdownCoroutine()
+    public void toDeath()
+    {
+        deathMenu.SetActive(true);
+    }
+
+        IEnumerator ResumeCountdownCoroutine()
     {
         const float countdownTime = 3.0f; // Countdown time in seconds
         float remainingTime = countdownTime;

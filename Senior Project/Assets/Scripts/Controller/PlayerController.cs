@@ -93,9 +93,9 @@ public class PlayerController : MonoBehaviour
             pianoXVal = Mathf.Lerp(pianoStartPos, pianoEndPos, timer);
             guitarXVal = Mathf.Lerp(guitarStartPos, guitarEndPos, timer);
             timer += Time.deltaTime * 0.5f;
-            transform.position = new Vector3(drumXVal, transform.position.y, transform.position.z);
+            transform.position = new Vector3(drumXVal, -3.2f, transform.position.z);
             pianist.transform.position = new Vector3(pianoXVal, -0.45f, 0);
-            guitarist.transform.position = new Vector3(guitarXVal, guitarist.transform.position.y, guitarist.transform.position.z);
+            guitarist.transform.position = new Vector3(guitarXVal, -3.0f, guitarist.transform.position.z);
         }
         if(timer/2 >= 1)
         {
@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
             case InterfaceState.GAMEPLAY:
                 {
                     anim.SetBool("isRun", true);
+                    anim2.SetBool("isRun", true);
                     Attack();
                     Jump();
                     Run();
@@ -120,6 +121,8 @@ public class PlayerController : MonoBehaviour
             case InterfaceState.DIALOGUE:
                 {
                     anim.SetBool("isRun", false);
+                    anim2.SetBool("isRun", false);
+                    anim2.SetTrigger("idle");
                     if (interact.action.WasPressedThisFrame())
                     {
                         int result = dialogue.NextLine();
@@ -191,7 +194,7 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         uint prev_track_pos = current_track_position;
-        if (top.action.WasPressedThisFrame())
+        if (top.action.WasPressedThisFrame() || (current_track_position != 3 && top.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
@@ -220,7 +223,7 @@ public class PlayerController : MonoBehaviour
                 anim3.SetTrigger("attack");
             }
         }
-        if (high.action.WasPressedThisFrame())
+        if (high.action.WasPressedThisFrame() || (current_track_position != 2 && high.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
@@ -249,7 +252,7 @@ public class PlayerController : MonoBehaviour
                 anim3.SetTrigger("attack");
             }
         }
-        if (low.action.WasPressedThisFrame())
+        if (low.action.WasPressedThisFrame() || (current_track_position != 1 && low.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
@@ -281,7 +284,7 @@ public class PlayerController : MonoBehaviour
                 anim3.SetTrigger("attack");
             }
         }
-        if (bottom.action.WasPressedThisFrame())
+        if (bottom.action.WasPressedThisFrame() || (current_track_position != 0 && bottom.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
