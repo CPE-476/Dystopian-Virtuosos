@@ -3936,7 +3936,7 @@ MonoBehaviour:
   controllerControl: {fileID: 49855402}
   movePower: 4
   jumpPower: 5
-  maxHealth: 5
+  maxHealth: 100
   curHealth: 5
   hb: {fileID: 816987385}
   anim: {fileID: 188014761}
@@ -3950,6 +3950,7 @@ MonoBehaviour:
   drumEndPos: 0
   guitarEndPos: -5
   pianoEndPos: -5
+  isDead: 0
   switching: 0
   startX: 0
   reset: 0
