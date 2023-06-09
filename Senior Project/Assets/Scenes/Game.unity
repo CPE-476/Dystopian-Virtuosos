@@ -12317,7 +12317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: YOU SUCK
+  m_text: YOU DIED
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 94da9ed38ec9a4c0680772833ffda661, type: 2}
   m_sharedMaterial: {fileID: 2803792959420452392, guid: 94da9ed38ec9a4c0680772833ffda661, type: 2}
