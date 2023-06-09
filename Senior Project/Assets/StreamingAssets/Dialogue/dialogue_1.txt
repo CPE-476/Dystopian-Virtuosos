@@ -1,7 +1,7 @@
 # Version 1
 
 BRONTE: Calling in Captain Nova... Captain, do you copy?
-RADIO: *static*
+*static*
 BRONTE: ...Captain?
 VENTO: Damn it! We've lost him. Can't get any signal out here! 
 BRONTE: We'll need to meet him there. Dolce, set the ship coordinates to Planet F Major.

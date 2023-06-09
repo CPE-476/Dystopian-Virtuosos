@@ -28,6 +28,7 @@ public enum GameplayAudio
 
 public enum Character
 {
+    NONE,
     BRONTE,
     VENTO,
     DOLCE
@@ -306,20 +307,24 @@ public class Spine : MonoBehaviour
         {
             string inp_ln = inp_stm.ReadLine();
             if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
-                var splitted = inp_ln.Split(':', 2);
-                Character c = 0;
-                if(splitted[0] == "VENTO")
-                    c = Character.VENTO;
-                else if(splitted[0] == "Bronte")
-                    c = Character.BRONTE;
-                else if(splitted[0] == "DOLCE")
-                    c = Character.DOLCE;
-                else
-                    Debug.Log("Incorrect name: " + splitted[0] + " in dialogue file: " + file_name);
+                if(inp_ln.Contains(':')) {
+                    var splitted = inp_ln.Split(':', 2);
+                    Character c = Character.NONE;
+                    if(splitted[0] == "VENTO")
+                        c = Character.VENTO;
+                    else if(splitted[0] == "BRONTE")
+                        c = Character.BRONTE;
+                    else if(splitted[0] == "DOLCE")
+                        c = Character.DOLCE;
+                    else
+                        Debug.Log("Unknown name: " + splitted[0] + " in dialogue file: " + file_name);
+                    string text = splitted[1].Trim('\n');
 
-                string text = splitted[1].Trim('\n');
-
-                dialogueList.Add(new DialogueLine(c, text.Trim(' ')));
+                    dialogueList.Add(new DialogueLine(c, text.Trim(' ')));
+                }
+                else {
+                    dialogueList.Add(new DialogueLine(Character.NONE, inp_ln.Trim(' ')));
+                }
             }
         }
 
