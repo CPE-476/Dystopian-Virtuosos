@@ -40,6 +40,9 @@ public class Pause : MonoBehaviour
     [SerializeField]
     PlayerController player;
 
+    [SerializeField]
+    Spine spine;
+
     Coroutine resumeCountdownCoroutine;
 
     private TMP_Text countInText;
@@ -47,6 +50,7 @@ public class Pause : MonoBehaviour
     private Vector3 originalPosition;
 
     private Image hub;
+    bool isDead = false;
 
     public void Start()
     {
@@ -68,9 +72,10 @@ public class Pause : MonoBehaviour
             toPause();
         }
 
-        if(player.curHealth <= 0)
+        if(player.curHealth <= 0 && !isDead)
         {
             toDeath();
+            isDead = true;
         }
     }
 
@@ -126,9 +131,18 @@ public class Pause : MonoBehaviour
     public void toDeath()
     {
         deathMenu.SetActive(true);
+        spine.GameOverStart();
+        player.anim.SetTrigger("die");
+        player.anim2.SetTrigger("die");
+        player.anim3.SetTrigger("die");
     }
 
-        IEnumerator ResumeCountdownCoroutine()
+    public void toRestart()
+    {
+
+    }
+
+    IEnumerator ResumeCountdownCoroutine()
     {
         const float countdownTime = 3.0f; // Countdown time in seconds
         float remainingTime = countdownTime;
