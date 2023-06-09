@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         uint prev_track_pos = current_track_position;
-        if (top.action.WasPressedThisFrame())
+        if (top.action.WasPressedThisFrame() || (current_track_position != 3 && top.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track1.transform.position.y - playerHeightOffset, 0);
@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
                 anim3.SetTrigger("attack");
             }
         }
-        if (high.action.WasPressedThisFrame())
+        if (high.action.WasPressedThisFrame() || (current_track_position != 2 && high.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track2.transform.position.y - playerHeightOffset, 0);
@@ -249,7 +249,7 @@ public class PlayerController : MonoBehaviour
                 anim3.SetTrigger("attack");
             }
         }
-        if (low.action.WasPressedThisFrame())
+        if (low.action.WasPressedThisFrame() || (current_track_position != 1 && low.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track3.transform.position.y - playerHeightOffset, 0);
@@ -281,7 +281,7 @@ public class PlayerController : MonoBehaviour
                 anim3.SetTrigger("attack");
             }
         }
-        if (bottom.action.WasPressedThisFrame())
+        if (bottom.action.WasPressedThisFrame() || (current_track_position != 0 && bottom.action.ReadValue<float>() > 0.0f && guitarEndPos == 0.2f))
         {
             transform.position = new Vector3(drumXVal, tracksController.Track4.transform.position.y - playerHeightOffset, 0);
             guitarist.transform.position = new Vector3(guitarXVal, tracksController.Track4.transform.position.y - playerHeightOffset, 0);

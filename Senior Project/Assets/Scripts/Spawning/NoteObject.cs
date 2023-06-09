@@ -301,6 +301,10 @@ public class NoteObject : MonoBehaviour
 
         if (interpRatio > 2.0f)
         {
+            Destroy(followers[0]);
+            Destroy(followers[1]);
+            Destroy(followers[2]);
+            Destroy(followers[3]);
             Destroy (gameObject);
         }
     }
