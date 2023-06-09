@@ -140,7 +140,7 @@ public class Pause : MonoBehaviour
 
     public void toRestart()
     {
-
+        //Restart the the current section you are on
     }
 
     IEnumerator ResumeCountdownCoroutine()
