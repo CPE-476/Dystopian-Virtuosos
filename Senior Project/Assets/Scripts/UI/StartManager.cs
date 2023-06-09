@@ -61,8 +61,6 @@ public class StartManager : MonoBehaviour
 
     public AudioSource audioSource;
 
-    private Gamepad gamepad;
-
     void Awake()
     {
         init();
@@ -70,32 +68,6 @@ public class StartManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(curLaunchButton);
     }
 
-    private void Start()
-    {
-        gamepad = Gamepad.current;
-        if (gamepad != null)
-        {
-            // Check if the controller is Xbox
-            if (gamepad.displayName.Contains("Xbox"))
-            {
-                Debug.Log("Controller is Xbox");
-            }
-            // Check if the controller is PS4
-            else if (gamepad.displayName.Contains("Sony DualShock"))
-            {
-                Debug.Log("Controller is PS4");
-            }
-            // Controller is not recognized as Xbox or PS4
-            else
-            {
-                Debug.Log("Unknown controller type");
-            }
-        }
-        else
-        {
-            Debug.Log("No gamepad connected");
-        }
-    }
 
     void Update()
     {
