@@ -111,6 +111,7 @@ public class PlayerController : MonoBehaviour
             case InterfaceState.GAMEPLAY:
                 {
                     anim.SetBool("isRun", true);
+                    anim2.SetBool("isRun", true);
                     Attack();
                     Jump();
                     Run();
@@ -120,6 +121,8 @@ public class PlayerController : MonoBehaviour
             case InterfaceState.DIALOGUE:
                 {
                     anim.SetBool("isRun", false);
+                    anim2.SetBool("isRun", false);
+                    anim2.SetTrigger("idle");
                     if (interact.action.WasPressedThisFrame())
                     {
                         int result = dialogue.NextLine();
