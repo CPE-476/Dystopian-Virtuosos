@@ -183,8 +183,8 @@ public class Spine : MonoBehaviour
 
                 if (done) 
                 {
-                    noteTrigger.StatsReset();
                     GoToLevel2();
+                    noteTrigger.StatsReset();
                 }
             }
         }

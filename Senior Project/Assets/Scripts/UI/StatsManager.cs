@@ -45,10 +45,10 @@ public class StatsManager : MonoBehaviour
         missText.text = noteTrigger.missNum.ToString();
         maxcomboText.text = noteTrigger.maxCombo.ToString();
         accuracyText.text = noteTrigger.accuracy.ToString("0.#") + " %";
-/*        if (Input.GetKeyDown(KeyCode.Return)) 
+        if (Input.GetKeyDown(KeyCode.Return)) 
         {
             StartCoroutine(displayStatsUI(0.5f, 0.5f, 0.5f));
-        }*/
+        }
     }
 
     public void EnableStats()
@@ -92,11 +92,14 @@ public class StatsManager : MonoBehaviour
 
             float t = Mathf.Clamp01(timer / duration);
 
-            Vector3 startPannelPosition = gameObject.transform.GetChild(0).transform.position;
-            Vector3 endPannelPosition = new Vector3(targetPannelPos,
-                                                gameObject.transform.GetChild(0).transform.position.y,
+            for (int i = 0; i < 2; i++)
+            {
+                Vector3 startPannelPosition = gameObject.transform.GetChild(i).transform.position;
+                Vector3 endPannelPosition = new Vector3(targetPannelPos,
+                                                gameObject.transform.GetChild(i).transform.position.y,
                                                 startPannelPosition.z);
-            gameObject.transform.GetChild(0).transform.position = Vector3.Lerp(startPannelPosition, endPannelPosition, t);
+                gameObject.transform.GetChild(i).transform.position = Vector3.Lerp(startPannelPosition, endPannelPosition, t);
+            }
 
             yield return null;
         }
@@ -112,7 +115,7 @@ public class StatsManager : MonoBehaviour
 
             float t = Mathf.Clamp01(timer / duration);
 
-            for (int i = 1; i < 5; i++)
+            for (int i = 2; i < 6; i++)
             {
                 Vector3 startLeftPosition = gameObject.transform.GetChild(i).transform.position;
                 Vector3 endLeftPosition = new Vector3(targetLeftPos,
@@ -135,7 +138,7 @@ public class StatsManager : MonoBehaviour
 
             float t = Mathf.Clamp01(timer / duration);
 
-            for (int i = 5; i < 7; i++)
+            for (int i = 6; i < 8; i++)
             {
                 Vector3 startRightPosition = gameObject.transform.GetChild(i).transform.position;
                 Vector3 endRightPosition = new Vector3(targetRightPos,
