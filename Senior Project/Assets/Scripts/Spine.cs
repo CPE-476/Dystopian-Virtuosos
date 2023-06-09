@@ -201,9 +201,9 @@ public class Spine : MonoBehaviour
         {
             state = InterfaceState.RESULTS;
             // TODO: Lucas – Here's your stats UI page!
-            if (comboManager.comboNumber > maxCombo)
+            if (comboManager.comboNumber > noteTrigger.maxCombo)
             {
-                maxCombo = comboManager.comboNumber;
+                noteTrigger.maxCombo = comboManager.comboNumber;
             }
             StartCoroutine(statsManager.displayStatsUI(0.5f, 0.5f, 0.5f));
             return;
