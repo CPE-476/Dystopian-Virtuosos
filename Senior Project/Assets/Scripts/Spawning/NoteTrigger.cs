@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public enum HitCategory
 {
@@ -84,6 +85,15 @@ public class NoteTrigger : MonoBehaviour
 
     public float good;
 
+    public int perfectNum;
+    public int goodNum;
+    public int missNum;
+    public int maxCombo;
+    public float goodWeight;
+    public float accuracy;
+
+    public int totalNote;
+
     int transpose = 0;
 
     int[] notes = new int[] { 7, 4, 0, -12 };
@@ -92,13 +102,13 @@ public class NoteTrigger : MonoBehaviour
 
     public int index;
 
-    public bool flickUpLeft = false;
+    private bool flickUpLeft = false;
 
-    public bool flickDownLeft = false;
+    private bool flickDownLeft = false;
 
-    public bool flickUpRight = false;
+    private bool flickUpRight = false;
 
-    public bool flickDownRight = false;
+    private bool flickDownRight = false;
 
     public InputActionReference
 
@@ -122,8 +132,9 @@ public class NoteTrigger : MonoBehaviour
 
             hit_notes.Add (current_spot_hit);
         }
-
-        Reset();
+        HideHitbox();
+        // Lucas: This is double called also in spine
+        //Reset();
     }
 
     public void Reset()
@@ -138,8 +149,26 @@ public class NoteTrigger : MonoBehaviour
             bool[] current_spot_hit =
                 new bool[4] { false, false, false, false };
 
+            foreach (NoteType note in notes)
+            {
+                if (note == NoteType.NOTE || note == NoteType.HOLD)
+                {
+                    totalNote++;
+                }
+            }
+
             hit_notes.Add (current_spot_hit);
         }
+    }
+
+    public void StatsReset()
+    {
+        scoreManager.score = 0;
+        totalNote = 0;
+        perfectNum = 0;
+        goodNum = 0;
+        missNum = 0;
+        accuracy = 0;
     }
 
     void Update()
@@ -473,6 +502,7 @@ public class NoteTrigger : MonoBehaviour
 
             midiReader.updateTrackState();
             spawnMaster.SpawnNotes();
+            accuracy = (perfectNum + (goodNum * goodWeight)) / totalNote * 100;
         }
     }
 
@@ -524,6 +554,7 @@ public class NoteTrigger : MonoBehaviour
             Destroy(clone.gameObject, 0.5f);
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 1;
+            goodNum++;
         }
         else if (hitCategory == HitCategory.GOOD)
         {
@@ -553,6 +584,7 @@ public class NoteTrigger : MonoBehaviour
             Destroy(clone.gameObject, 0.5f);
             Destroy(clone2.gameObject, 1.0f);
             scoreManager.score += 2;
+            perfectNum++;
         }
         else if (hitCategory == HitCategory.MISS)
         {
@@ -569,6 +601,11 @@ public class NoteTrigger : MonoBehaviour
         anim.SetTrigger("hurt");
         anim2.SetTrigger("hurt");
         anim3.SetTrigger("hurt");
+        missNum++;
+        if (comboManager.comboNumber > maxCombo)
+        {
+            maxCombo = comboManager.comboNumber;
+        }
         comboManager.comboNumber = 0;
         character.curHealth -= 2;
         character.hb.setHealth(character.curHealth);
@@ -776,5 +813,29 @@ public class NoteTrigger : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void showHitbox()
+    {
+        top.GetComponent<SpriteRenderer>().enabled = true;
+        top.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        high.GetComponent<SpriteRenderer>().enabled = true;
+        high.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        low.GetComponent<SpriteRenderer>().enabled = true;
+        low.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+        bot.GetComponent<SpriteRenderer>().enabled = true;
+        bot.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public void HideHitbox()
+    {
+        top.GetComponent<SpriteRenderer>().enabled = false;
+        top.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        high.GetComponent<SpriteRenderer>().enabled = false;
+        high.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        low.GetComponent<SpriteRenderer>().enabled = false;
+        low.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+        bot.GetComponent<SpriteRenderer>().enabled = false;
+        bot.transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
     }
 }
