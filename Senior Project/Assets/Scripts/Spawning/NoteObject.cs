@@ -194,7 +194,7 @@ public class NoteObject : MonoBehaviour
                             interpedPostionBehind.z);
                 }
                 else // note should go off
-                if (gameObject.CompareTag("Note"))
+                if (gameObject.CompareTag("Note") || gameObject.CompareTag("Collect"))
                 {
                     GetComponent<SpriteRenderer>().enabled = true;
                     float interpRatio2 = interpRatio - 1;
@@ -313,6 +313,8 @@ public class NoteObject : MonoBehaviour
     {
         collectables.collectableNum++;
         collectables.updateCollectables();
+        if (gameObject.CompareTag("Collect"))
+            Destroy(gameObject);
 
         //PLAY SFX
         //SPAWN PARTICLES
