@@ -243,6 +243,14 @@ public class Spine : MonoBehaviour
         dialogue.Disable();
     }
 
+    public void GameOverStart()
+    {
+        state = InterfaceState.GAME_OVER;
+        comboManager.showComboBar = false;
+        cam.isMoving = false;
+
+    }
+
     public void GameplayStart()
     {
         color.a = 0.0f;

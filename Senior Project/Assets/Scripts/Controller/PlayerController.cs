@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (isDead && switching)
         {
-            transform.position = Vector3.Lerp(new Vector3(drumXVal, transform.position.y, transform.position.z), new Vector3(drumXVal, -3.2f, 0), timer);
+            transform.position = Vector3.Lerp(new Vector3(drumXVal, transform.position.y, transform.position.z), new Vector3(drumXVal, -3.65f, 0), timer);
             pianist.transform.position = Vector3.Lerp(new Vector3(pianoXVal, pianist.transform.position.y, transform.position.z), new Vector3(pianoXVal, -3.2f, 0), timer);
             guitarist.transform.position = Vector3.Lerp(new Vector3(guitarXVal, guitarist.transform.position.y, transform.position.z), new Vector3(guitarXVal, -3.2f, 0), timer);
             timer += Time.deltaTime * 0.5f;
