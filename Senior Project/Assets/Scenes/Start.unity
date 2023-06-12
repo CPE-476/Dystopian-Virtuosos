@@ -3246,6 +3246,7 @@ MonoBehaviour:
   Sound: {fileID: 1172133564}
   Graphic: {fileID: 703034349}
   About: {fileID: 81057091}
+  creditscroll: {fileID: 1320842349}
   systemLC: {fileID: 1515738883}
   Background: {fileID: 870591618}
   zoomAmount: 2
