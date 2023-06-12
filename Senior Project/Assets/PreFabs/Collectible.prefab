@@ -108,6 +108,7 @@ MonoBehaviour:
   yOffset: 0
   interpRatio: 0
   hit_mode: 0
+  particles: {fileID: 5667863053512256358, guid: 761bad68aa6355c46af9aa5e6ae1202d, type: 3}
 --- !u!61 &7766053524077237433
 BoxCollider2D:
   m_ObjectHideFlags: 0
