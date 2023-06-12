@@ -602,7 +602,6 @@ public class NoteTrigger : MonoBehaviour
         }
         else if (hitCategory == HitCategory.GOOD)
         {
-
             sfx.sounds[0].Play();
             perfect_color.a = 1f;
             psmain.startColor = perfect_color;
@@ -653,11 +652,8 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
-        // TODO (Alex): Should a miss incur a sound effect?
-        sfx.sounds[3].pitch =
-            Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-        //sfx.sounds[3].Play();
+        sfx.sounds[3].Play();
+        sfx.sounds[3].Play();
         psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)
@@ -686,10 +682,7 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
-        sfx.sounds[3].pitch =
-            Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-        //sfx.sounds[3].Play();
+        sfx.sounds[3].Play();
         psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)
