@@ -252,7 +252,6 @@ public class Spine : MonoBehaviour
         state = InterfaceState.GAME_OVER;
         comboManager.showComboBar = false;
         cam.isMoving = false;
-
     }
 
     public void GameplayStart()

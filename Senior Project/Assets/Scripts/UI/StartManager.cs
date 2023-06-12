@@ -28,6 +28,7 @@ public class StartManager : MonoBehaviour
     public GameObject Sound;
     public GameObject Graphic;
     public GameObject About;
+    public creditscroll creditscroll;
 
     public GameObject systemLC;
 
@@ -235,6 +236,9 @@ public class StartManager : MonoBehaviour
             backButton.GetComponent<TextMeshProUGUI>().enabled = false;
             backButton.GetComponent<Button>().interactable = false;
 
+            cursorImage.SetActive(true);
+            creditscroll.Reset();
+
             // back to Default
             toDefault();
         }
@@ -324,8 +328,10 @@ public class StartManager : MonoBehaviour
         SetCalibration(false);
         About.SetActive(true);
 
+        cursorImage.SetActive(false);
+
         systemTitle.GetComponent<TextMeshProUGUI>().enabled = true;
-        systemTitle.GetComponent<TextMeshProUGUI>().text = "ABOUT";
+        systemTitle.GetComponent<TextMeshProUGUI>().text = "";
 
         backButton.GetComponent<TextMeshProUGUI>().enabled = true;
         backButton.GetComponent<Button>().interactable = true;
