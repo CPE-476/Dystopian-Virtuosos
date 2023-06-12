@@ -252,7 +252,6 @@ public class Spine : MonoBehaviour
         state = InterfaceState.GAME_OVER;
         comboManager.showComboBar = false;
         cam.isMoving = false;
-
     }
 
     public void GameplayStart()
@@ -407,7 +406,7 @@ public class Spine : MonoBehaviour
                     GameplayAudio.DRUMS,
                     0,
                     true,
-                    -1),
+                    -17),
                 new Section(second_dialogue, second_tutorial,
                     midiPath + "DV_L1_piano.mid",
                     GameplayAudio.PIANO,
