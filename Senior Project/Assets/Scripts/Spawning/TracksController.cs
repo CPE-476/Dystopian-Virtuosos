@@ -28,6 +28,8 @@ public class TracksController : MonoBehaviour
     public float[] PianoPositions;
 
     public int currentInstrument = 0;
+    public bool spawnBoss = false;
+    private bool hasDrummed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -118,7 +120,10 @@ public class TracksController : MonoBehaviour
         pc.drumEndPos = -5;
         pc.guitarEndPos = -5;
         pc.pianoEndPos = 0;
-        pc.bossEndPos = 0;
+        if(spawnBoss && hasDrummed)
+            pc.bossEndPos = 0;
+        else
+            pc.bossEndPos = 10;
         pc.switching = true;
         PianistTracks();
         currentInstrument = 3;
@@ -171,6 +176,7 @@ public class TracksController : MonoBehaviour
         pc.drumEndPos = -5;
         pc.guitarEndPos = 0.2f;
         pc.pianoEndPos = -5;
+        pc.bossEndPos = 10;
         pc.switching = true;
         GuitaristTracks();
         currentInstrument = 2;
@@ -214,6 +220,12 @@ public class TracksController : MonoBehaviour
         pc.drumEndPos = 0;
         pc.guitarEndPos = -5;
         pc.pianoEndPos = -5;
+        if (spawnBoss && hasDrummed)
+            pc.bossEndPos = 0;
+        else if (spawnBoss)
+            hasDrummed = true;
+        else
+            pc.bossEndPos = 10;
         pc.switching = true;
         DrumerTracks();
         currentInstrument = 1;

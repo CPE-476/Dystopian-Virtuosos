@@ -119,6 +119,7 @@ public class PlayerController : MonoBehaviour
             drumStartPos = drumEndPos;
             guitarStartPos = guitarEndPos;
             pianoStartPos = pianoEndPos;
+            bossStartPos = bossEndPos;
             timer = 0;
             switching = false;
         }
