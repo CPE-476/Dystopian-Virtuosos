@@ -428,6 +428,12 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
+                new Section(third_dialogue, first_tutorial,
+                    midiPath + "DV_L2_Section_2.mid",
+                    GameplayAudio.END,
+                    3,
+                    false,
+                    -17),
                 new Section(first_dialogue, first_tutorial,
                     midiPath + "DV_L2_Section_1.mid",
                     GameplayAudio.S1,
@@ -440,12 +446,7 @@ public class Spine : MonoBehaviour
                     2,
                     false,
                     -1),
-                new Section(third_dialogue, first_tutorial,
-                    midiPath + "DV_L2_Section_2.mid",
-                    GameplayAudio.END,
-                    3,
-                    false,
-                    -17),
+           
             };
     }
 }
