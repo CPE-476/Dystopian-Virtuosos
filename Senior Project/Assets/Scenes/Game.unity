@@ -2353,6 +2353,7 @@ MonoBehaviour:
   cam: {fileID: 510236666}
   dialogue: {fileID: 802824393}
   noteTrigger: {fileID: 577649642}
+  tracksController: {fileID: 1488642359}
   healthBar: {fileID: 816987385}
   scoreManager: {fileID: 1862443379}
   comboManager: {fileID: 1418723479}
@@ -22240,6 +22241,7 @@ MonoBehaviour:
   - -0.15
   - -1.75
   currentInstrument: 0
+  spawnBoss: 0
 --- !u!1 &1505532891
 GameObject:
   m_ObjectHideFlags: 0
