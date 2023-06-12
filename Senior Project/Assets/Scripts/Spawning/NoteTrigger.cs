@@ -110,6 +110,8 @@ public class NoteTrigger : MonoBehaviour
 
     private bool flickDownRight = false;
 
+    private bool hold_sfx_playing = false;
+
     public InputActionReference
 
             bottomControls,
@@ -260,6 +262,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.sounds[2].Play();
+                hold_sfx_playing = true;
+            }
             var em =
                 top
                     .gameObject
@@ -273,6 +279,11 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+            if (hold_sfx_playing){
+                sfx.sounds[2].Stop();
+                hold_sfx_playing = false;
+            }
+
             var em =
                 top
                     .gameObject
@@ -295,6 +306,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.sounds[2].Play();
+                hold_sfx_playing = true;
+            }
             var em =
                 high
                     .gameObject
@@ -308,6 +323,11 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+            if (hold_sfx_playing){
+                sfx.sounds[2].Stop();
+                hold_sfx_playing = false;
+            }
+
             var em =
                 high
                     .gameObject
@@ -330,6 +350,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.sounds[2].Play();
+                hold_sfx_playing = true;
+            }
             var em =
                 low
                     .gameObject
@@ -343,6 +367,11 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+            if (hold_sfx_playing){
+                sfx.sounds[2].Stop();
+                hold_sfx_playing = false;
+            }
+
             var em =
                 low
                     .gameObject
@@ -365,6 +394,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.sounds[2].Play();
+                hold_sfx_playing = true;
+            }
             var em =
                 bot
                     .gameObject
@@ -378,6 +411,11 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+            if (hold_sfx_playing){
+                sfx.sounds[2].Stop();
+                hold_sfx_playing = false;
+            }
+            
             var em =
                 bot
                     .gameObject
@@ -539,10 +577,7 @@ public class NoteTrigger : MonoBehaviour
 
         if (hitCategory == HitCategory.WEAK)
         {
-            sfx.sounds[1].pitch =
-                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-            //sfx.sounds[1].Play();
+            sfx.sounds[1].Play();
             psmain.startColor = weak_color;
             ParticleSystem clone =
                 (ParticleSystem)
@@ -567,10 +602,8 @@ public class NoteTrigger : MonoBehaviour
         }
         else if (hitCategory == HitCategory.GOOD)
         {
-            sfx.sounds[1].pitch =
-                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
 
-            //sfx.sounds[1].Play();
+            sfx.sounds[0].Play();
             perfect_color.a = 1f;
             psmain.startColor = perfect_color;
             ParticleSystem clone =
