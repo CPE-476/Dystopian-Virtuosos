@@ -41,16 +41,20 @@ public class PlayerController : MonoBehaviour
 
     public GameObject guitarist;
     public GameObject pianist;
+    public GameObject boss;
 
     public float drumStartPos = 0;
     public float guitarStartPos = -5f;
     public float pianoStartPos = -5;
+    public float bossStartPos = 10;
     public float drumEndPos = 0;
     public float guitarEndPos = -5;
     public float pianoEndPos = -5;
+    public float bossEndPos = 10;
     float drumXVal = 0;
     float pianoXVal = -5;
     float guitarXVal = -5;
+    float bossXVal = 10;
 
     public bool isDead = false;
 
@@ -58,6 +62,7 @@ public class PlayerController : MonoBehaviour
 
     public bool switching = false;
 
+    public bool isBoss = false;
 
     bool isJumping = false;
 
@@ -94,16 +99,19 @@ public class PlayerController : MonoBehaviour
             drumXVal = Mathf.Lerp(drumStartPos, drumEndPos, timer);
             pianoXVal = Mathf.Lerp(pianoStartPos, pianoEndPos, timer);
             guitarXVal = Mathf.Lerp(guitarStartPos, guitarEndPos, timer);
+            bossXVal = Mathf.Lerp(bossStartPos, bossEndPos, timer);
             timer += Time.deltaTime * 0.5f;
             transform.position = new Vector3(drumXVal, -3.2f, transform.position.z);
             pianist.transform.position = new Vector3(pianoXVal, -0.45f, 0);
             guitarist.transform.position = new Vector3(guitarXVal, -3.0f, guitarist.transform.position.z);
+            boss.transform.position = new Vector3(bossXVal, boss.transform.position.y, boss.transform.position.z);
         }
         else if (isDead && switching)
         {
             transform.position = Vector3.Lerp(new Vector3(drumXVal, transform.position.y, transform.position.z), new Vector3(drumXVal, -3.65f, 0), timer);
             pianist.transform.position = Vector3.Lerp(new Vector3(pianoXVal, pianist.transform.position.y, transform.position.z), new Vector3(pianoXVal, -3.2f, 0), timer);
             guitarist.transform.position = Vector3.Lerp(new Vector3(guitarXVal, guitarist.transform.position.y, transform.position.z), new Vector3(guitarXVal, -3.2f, 0), timer);
+            boss.transform.position = Vector3.Lerp(new Vector3(bossXVal, boss.transform.position.y, transform.position.z), new Vector3(bossXVal, -3.2f, 0), timer);
             timer += Time.deltaTime * 0.5f;
         }
         if(timer/2 >= 1)

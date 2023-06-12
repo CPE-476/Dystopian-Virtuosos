@@ -118,6 +118,7 @@ public class TracksController : MonoBehaviour
         pc.drumEndPos = -5;
         pc.guitarEndPos = -5;
         pc.pianoEndPos = 0;
+        pc.bossEndPos = 0;
         pc.switching = true;
         PianistTracks();
         currentInstrument = 3;
