@@ -38,6 +38,8 @@ public class NoteObject : MonoBehaviour
 
     public bool hit_mode = false;
 
+    public ParticleSystem particles;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -314,7 +316,10 @@ public class NoteObject : MonoBehaviour
         collectables.collectableNum++;
         collectables.updateCollectables();
         if (gameObject.CompareTag("Collect"))
+        {
+            ParticleSystem clone =(ParticleSystem)Instantiate(particles, new Vector3(notetrigger.transform.position.x, transform.position.y, -6), Quaternion.identity);
             Destroy(gameObject);
+        }
 
         //PLAY SFX
         //SPAWN PARTICLES

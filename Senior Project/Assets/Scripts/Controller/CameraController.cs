@@ -15,8 +15,4 @@ public class CameraController : MonoBehaviour
         cameraX = transform.position.x;
         farBackgroundSpeed = 0.03f;
     }
-
-    void Update()
-    {
-    }
 }
