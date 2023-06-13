@@ -22115,7 +22115,7 @@ MonoBehaviour:
   Track4: {fileID: 1273228632}
   Joystick1: {fileID: 49855399}
   Joystick2: {fileID: 965730331}
-  pc: {fileID: 0}
+  pc: {fileID: 393148429}
   DrumPositions:
   - 0.25
   - -1.75
