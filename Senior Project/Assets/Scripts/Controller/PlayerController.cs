@@ -43,6 +43,8 @@ public class PlayerController : MonoBehaviour
     public GameObject pianist;
     public GameObject boss;
 
+    public SFX sfx;
+
     public float drumStartPos = 0;
     public float guitarStartPos = -5f;
     public float pianoStartPos = -5;
@@ -143,6 +145,7 @@ public class PlayerController : MonoBehaviour
                     anim2.SetTrigger("idle");
                     if (interact.action.WasPressedThisFrame())
                     {
+                        sfx.Playdialog();
                         int result = dialogue.NextLine();
                         if (result == -1) spine.TutorialStart();
                     }

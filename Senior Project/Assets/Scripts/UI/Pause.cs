@@ -43,6 +43,8 @@ public class Pause : MonoBehaviour
     [SerializeField]
     Spine spine;
 
+    public SFX soundfx;
+
     Coroutine resumeCountdownCoroutine;
 
     private TMP_Text countInText;
@@ -159,6 +161,8 @@ public class Pause : MonoBehaviour
                 1f + (0.8f * (countdownTime - remainingTime)) / countdownTime;
             countInText.transform.localScale = new Vector3(scale, scale, scale);
 
+            string prev_count = countInText.text;
+
             // Check if the remaining time has changed since the last frame
             if (
                 Mathf.FloorToInt(remainingTime + 0.48f) !=
@@ -174,6 +178,20 @@ public class Pause : MonoBehaviour
             }
 
             countInText.text = remainingTime.ToString("F0");
+
+/*            if (!string.Equals(prev_count, countInText.text))
+            {
+                if (countInText.text != "1")
+                {
+                    soundfx.Playcount();
+                }
+                else
+                {
+                    soundfx.Playcount_done();
+                }
+            }*/
+            
+
             yield return new WaitForSecondsRealtime(0.1f); // Update the remaining time every 0.1 seconds
             remainingTime -= 0.1f;
         }

@@ -94,7 +94,7 @@ public class NoteTrigger : MonoBehaviour
 
     public int totalNote;
 
-    int transpose = 0;
+    //int transpose = 0;
 
     int[] notes = new int[] { 7, 4, 0, -12 };
 
@@ -252,6 +252,7 @@ public class NoteTrigger : MonoBehaviour
             anim2.SetBool("isHold1", false);
         }
 
+
         //Update Hold Note Score
         if (
             updateHold[0] &&
@@ -279,10 +280,6 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
-            if (hold_sfx_playing){
-                sfx.Stophold_hit();
-                hold_sfx_playing = false;
-            }
 
             var em =
                 top
@@ -307,7 +304,7 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             if (!hold_sfx_playing){
-                //sfx.sounds[2].Play();
+                sfx.Playhold_hit();
                 hold_sfx_playing = true;
             }
             var em =
@@ -323,10 +320,6 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
-            if (hold_sfx_playing){
-                //sfx.sounds[2].Stop();
-                hold_sfx_playing = false;
-            }
 
             var em =
                 high
@@ -351,7 +344,7 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             if (!hold_sfx_playing){
-                //sfx.sounds[2].Play();
+                sfx.Playhold_hit();
                 hold_sfx_playing = true;
             }
             var em =
@@ -367,10 +360,6 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
-            if (hold_sfx_playing){
-                //sfx.sounds[2].Stop();
-                hold_sfx_playing = false;
-            }
 
             var em =
                 low
@@ -395,7 +384,7 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             if (!hold_sfx_playing){
-                //sfx.sounds[2].Play();
+                sfx.Playhold_hit();
                 hold_sfx_playing = true;
             }
             var em =
@@ -411,11 +400,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
-            if (hold_sfx_playing){
-                //sfx.sounds[2].Stop();
-                hold_sfx_playing = false;
-            }
-            
+
             var em =
                 bot
                     .gameObject
@@ -429,6 +414,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[3] = false;
             updateHold[3] = false;
         }
+
 
         if (midiReader.index == 0)
         {
@@ -453,6 +439,11 @@ public class NoteTrigger : MonoBehaviour
                 scoreManager.score += holdScore;
                 index = newIndex;
             }
+        }
+        else
+        {
+            sfx.Stophold_hit();
+            hold_sfx_playing = false;
         }
 
         // Set the next beat when current beat is over.
@@ -652,7 +643,7 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
-        //sfx.sounds[3].Play();
+        sfx.Playmiss();
         psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)
@@ -681,7 +672,7 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
-        //sfx.sounds[3].Play();
+        sfx.Playmiss();
         psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)

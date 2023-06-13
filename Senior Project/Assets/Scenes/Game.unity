@@ -3946,6 +3946,7 @@ MonoBehaviour:
   guitarist: {fileID: 885476712}
   pianist: {fileID: 1048155147}
   boss: {fileID: 1846763180}
+  sfx: {fileID: 1920913753}
   drumStartPos: 0
   guitarStartPos: -5
   pianoStartPos: -5
@@ -22847,6 +22848,7 @@ MonoBehaviour:
   sfx: {fileID: 334255606}
   player: {fileID: 188014763}
   spine: {fileID: 49557905}
+  soundfx: {fileID: 1920913753}
 --- !u!1 &1590828967
 GameObject:
   m_ObjectHideFlags: 0
@@ -27786,8 +27788,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1920913752}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.52303, y: -0.6454122, z: -17.186558}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 5.5230293, y: -0.6454122, z: -17.186558}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -27806,7 +27808,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b4580600501e74fd6ac7f1e932e78351, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -27902,7 +27904,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0f659321247e14a1bafd9834eeca305e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -28094,7 +28096,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: dad46e2e28c9b46dfb33a6668f809019, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -28190,7 +28192,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ac8a2600293ca4d198108589d4077c37, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -28478,7 +28480,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4e694f7c0900c44c7a63df311fb9b919, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.67
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -28574,7 +28576,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 17dee52cd9a7a4a8aa94c111b60295ab, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.61
   m_Pitch: 1
   Loop: 0
   Mute: 0
