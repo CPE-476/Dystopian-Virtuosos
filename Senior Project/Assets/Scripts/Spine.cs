@@ -405,18 +405,19 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
-                new Section(second_dialogue, second_tutorial,
-                    midiPath + "DV_L1_piano.mid",
-                    GameplayAudio.PIANO,
-                    0,
-                    false,
-                    -17),
                 new Section(first_dialogue, first_tutorial,
                     midiPath + "DV_L1_drum.mid",
                     GameplayAudio.DRUMS,
                     0,
                     true,
                     -17),
+                new Section(second_dialogue, second_tutorial,
+                    midiPath + "DV_L1_piano.mid",
+                    GameplayAudio.PIANO,
+                    0,
+                    false,
+                    -17),
+                
                 
                 new Section(third_dialogue, third_tutorial,
                     midiPath + "DV_L1_guitar.mid",
