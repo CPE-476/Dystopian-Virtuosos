@@ -43,7 +43,7 @@ public class Pause : MonoBehaviour
     [SerializeField]
     Spine spine;
 
-    public SFX soundfx;
+    public GameSFX soundfx;
 
     Coroutine resumeCountdownCoroutine;
 

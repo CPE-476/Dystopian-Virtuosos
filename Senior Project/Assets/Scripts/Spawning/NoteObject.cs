@@ -42,7 +42,7 @@ public class NoteObject : MonoBehaviour
 
     public ParticleSystem particles;
 
-    public SFX sfx;
+    public GameSFX sfx;
 
     // Start is called before the first frame update
     void Start()
@@ -64,7 +64,7 @@ public class NoteObject : MonoBehaviour
                 .GetComponent("CollectableUI");
         spawner = GameObject.Find("/Tracks/BottomTrack/Spawner4");
 
-        sfx = (SFX)GameObject.Find("/SFX").GetComponent("SFX");
+        sfx = (GameSFX)GameObject.Find("/SFX").GetComponent("GameSFX");
         parentTransform = transform.parent;
         parentTransform = transform.parent;
         localSpot = notetrigger.last_spot;

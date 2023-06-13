@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
     public GameObject pianist;
     public GameObject boss;
 
-    public SFX sfx;
+    public GameSFX sfx;
 
     public float drumStartPos = 0;
     public float guitarStartPos = -5f;

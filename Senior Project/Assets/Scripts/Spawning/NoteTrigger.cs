@@ -63,7 +63,7 @@ public class NoteTrigger : MonoBehaviour
 
     public Color piano_perfect_color;
 
-    public SFX sfx;
+    public GameSFX sfx;
 
     private bool[] updateHold = { false, false, false, false };
 

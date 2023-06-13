@@ -42,6 +42,8 @@ public class Narrative : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public CutSceneSFX sfx;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -204,6 +206,7 @@ public class Narrative : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
+            sfx.Playdialog();
             int result = NextLine();
             if (result == -1)
             {
