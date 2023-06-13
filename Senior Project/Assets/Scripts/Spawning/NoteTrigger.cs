@@ -263,7 +263,7 @@ public class NoteTrigger : MonoBehaviour
         )
         {
             if (!hold_sfx_playing){
-                //sfx.sounds[2].Play();
+                sfx.Playhold_hit();
                 hold_sfx_playing = true;
             }
             var em =
@@ -280,7 +280,7 @@ public class NoteTrigger : MonoBehaviour
         else
         {
             if (hold_sfx_playing){
-                //sfx.sounds[2].Stop();
+                sfx.Stophold_hit();
                 hold_sfx_playing = false;
             }
 
@@ -577,7 +577,7 @@ public class NoteTrigger : MonoBehaviour
 
         if (hitCategory == HitCategory.WEAK)
         {
-            sfx.hit_2.Play();
+            sfx.Playhit_2();
             psmain.startColor = weak_color;
             ParticleSystem clone =
                 (ParticleSystem)
@@ -602,7 +602,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else if (hitCategory == HitCategory.GOOD)
         {
-            sfx.hit_1.Play();
+            sfx.Playhit_1();
             perfect_color.a = 1f;
             psmain.startColor = perfect_color;
             ParticleSystem clone =
