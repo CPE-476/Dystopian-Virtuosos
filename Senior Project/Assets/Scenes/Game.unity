@@ -6917,6 +6917,7 @@ MonoBehaviour:
   guitarist: {fileID: 885476712}
   pianist: {fileID: 1048155147}
   boss: {fileID: 1846763180}
+  sfx: {fileID: 1920913753}
   drumStartPos: 0
   guitarStartPos: -5
   pianoStartPos: -5
@@ -22765,6 +22766,7 @@ MonoBehaviour:
   sfx: {fileID: 334255606}
   player: {fileID: 393148429}
   spine: {fileID: 49557905}
+  soundfx: {fileID: 0}
 --- !u!1 &1590828967
 GameObject:
   m_ObjectHideFlags: 0
@@ -27754,7 +27756,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: b4580600501e74fd6ac7f1e932e78351, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -27850,7 +27852,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 0f659321247e14a1bafd9834eeca305e, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -27946,7 +27948,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d7e6495de7e1543adbfdc5774f27a073, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -28330,7 +28332,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 066e4d60684984b45baa0bc250b9800b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
