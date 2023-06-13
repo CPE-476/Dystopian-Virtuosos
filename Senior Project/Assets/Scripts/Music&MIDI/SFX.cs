@@ -4,12 +4,20 @@ using UnityEngine;
 
 public class SFX : MonoBehaviour
 {
-    public AudioSource[] sounds;
+    public AudioSource hit_1;
+    public AudioSource hit_2;
+    public AudioSource hold_hit;
+    public AudioSource miss;
+    public AudioSource collect;
+    public AudioSource light;
+    public AudioSource dialog;
+    public AudioSource count;
+    public AudioSource count_done;
 
     // Start is called before the first frame update
     void Start()
     {
-        sounds = GetComponents<AudioSource>(); 
+        
     }
 
     // Update is called once per frame
