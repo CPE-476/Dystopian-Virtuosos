@@ -77,6 +77,8 @@ public class NoteTrigger : MonoBehaviour
 
     public ComboManager comboManager;
 
+    public CollectableUI collectableUI;
+
     public float last_spot;
 
     public float next_spot;
@@ -169,6 +171,7 @@ public class NoteTrigger : MonoBehaviour
         totalNote = 0;
         perfectNum = 0;
         goodNum = 0;
+        collectableUI.collectableNum = 0;
         missNum = 0;
         accuracy = 0;
     }

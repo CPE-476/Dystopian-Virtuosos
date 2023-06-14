@@ -202,6 +202,7 @@ public class Spine : MonoBehaviour
 
                 if (done)
                 {
+                    noteTrigger.StatsReset();
                     GoToLevel2();
                 }
             }
@@ -282,7 +283,6 @@ public class Spine : MonoBehaviour
         scoreManager.showScoreBar = true;
         comboManager.showComboBar = true;
         noteTrigger.showHitbox();
-        noteTrigger.StatsReset();
         state = InterfaceState.GAMEPLAY;
 
         conductor.Reset();
