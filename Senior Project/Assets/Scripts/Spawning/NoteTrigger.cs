@@ -63,7 +63,7 @@ public class NoteTrigger : MonoBehaviour
 
     public Color piano_perfect_color;
 
-    public SFX sfx;
+    public GameSFX sfx;
 
     private bool[] updateHold = { false, false, false, false };
 
@@ -94,7 +94,7 @@ public class NoteTrigger : MonoBehaviour
 
     public int totalNote;
 
-    int transpose = 0;
+    //int transpose = 0;
 
     int[] notes = new int[] { 7, 4, 0, -12 };
 
@@ -109,6 +109,8 @@ public class NoteTrigger : MonoBehaviour
     private bool flickUpRight = false;
 
     private bool flickDownRight = false;
+
+    private bool hold_sfx_playing = false;
 
     public InputActionReference
 
@@ -250,6 +252,7 @@ public class NoteTrigger : MonoBehaviour
             anim2.SetBool("isHold1", false);
         }
 
+
         //Update Hold Note Score
         if (
             updateHold[0] &&
@@ -260,6 +263,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.Playhold_hit();
+                hold_sfx_playing = true;
+            }
             var em =
                 top
                     .gameObject
@@ -273,6 +280,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+
             var em =
                 top
                     .gameObject
@@ -295,6 +303,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.Playhold_hit();
+                hold_sfx_playing = true;
+            }
             var em =
                 high
                     .gameObject
@@ -308,6 +320,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+
             var em =
                 high
                     .gameObject
@@ -330,6 +343,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.Playhold_hit();
+                hold_sfx_playing = true;
+            }
             var em =
                 low
                     .gameObject
@@ -343,6 +360,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+
             var em =
                 low
                     .gameObject
@@ -365,6 +383,10 @@ public class NoteTrigger : MonoBehaviour
             )
         )
         {
+            if (!hold_sfx_playing){
+                sfx.Playhold_hit();
+                hold_sfx_playing = true;
+            }
             var em =
                 bot
                     .gameObject
@@ -378,6 +400,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else
         {
+
             var em =
                 bot
                     .gameObject
@@ -391,6 +414,7 @@ public class NoteTrigger : MonoBehaviour
             goodHold[3] = false;
             updateHold[3] = false;
         }
+
 
         if (midiReader.index == 0)
         {
@@ -415,6 +439,11 @@ public class NoteTrigger : MonoBehaviour
                 scoreManager.score += holdScore;
                 index = newIndex;
             }
+        }
+        else
+        {
+            sfx.Stophold_hit();
+            hold_sfx_playing = false;
         }
 
         // Set the next beat when current beat is over.
@@ -539,10 +568,7 @@ public class NoteTrigger : MonoBehaviour
 
         if (hitCategory == HitCategory.WEAK)
         {
-            sfx.sounds[1].pitch =
-                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-            //sfx.sounds[1].Play();
+            sfx.Playhit_2();
             psmain.startColor = weak_color;
             ParticleSystem clone =
                 (ParticleSystem)
@@ -567,10 +593,7 @@ public class NoteTrigger : MonoBehaviour
         }
         else if (hitCategory == HitCategory.GOOD)
         {
-            sfx.sounds[1].pitch =
-                Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-            //sfx.sounds[1].Play();
+            sfx.Playhit_1();
             perfect_color.a = 1f;
             psmain.startColor = perfect_color;
             ParticleSystem clone =
@@ -620,11 +643,7 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
-        // TODO (Alex): Should a miss incur a sound effect?
-        sfx.sounds[3].pitch =
-            Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-        //sfx.sounds[3].Play();
+        sfx.Playmiss();
         psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)
@@ -653,10 +672,7 @@ public class NoteTrigger : MonoBehaviour
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
-        sfx.sounds[3].pitch =
-            Mathf.Pow(2, (float)((notes[trackNumber] + transpose) / 12.0));
-
-        //sfx.sounds[3].Play();
+        sfx.Playmiss();
         psmain.startColor = fail_color;
         ParticleSystem clone =
             (ParticleSystem)

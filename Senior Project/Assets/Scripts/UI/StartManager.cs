@@ -56,17 +56,24 @@ public class StartManager : MonoBehaviour
 
     private float startTime;
 
+    private bool zoomed;
+
     public GameObject curGraphicsButton, curLaunchButton, curBackButton, curFull, curMaster;
 
     public GameObject cursorImage;
 
     public CURRENTPAGE currentPage;
 
-    public AudioSource audioSource;
+    public AudioSource BGM;
+
+    public StartSFX sfx;
+
 
     void Awake()
     {
         init();
+
+        zoomed = false;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(curLaunchButton);
     }
@@ -78,16 +85,93 @@ public class StartManager : MonoBehaviour
 
         if (currentButton != null)
         {
-            RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
-            RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
-            float leftmostX = currentButtonRectTransform.position.x - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
-            cursorRectTransform.position = new Vector3(leftmostX,
-                                                       currentButtonRectTransform.position.y,
-                                                       currentButtonRectTransform.position.z);
+            // button selected
+            if (currentButton.GetComponent<Button>() != null && currentPage != CURRENTPAGE.GRAPHIC)
+            {
+                currentButton.GetComponent<Button>().Select();
+                RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
+                RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                float leftmostX = currentButtonRectTransform.position.x 
+                                    + Screen.width * 0.02f 
+                                    - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
+                cursorRectTransform.position = new Vector3(leftmostX,
+                                                           currentButtonRectTransform.position.y,
+                                                           currentButtonRectTransform.position.z);
+            }
+            // toggle selected
+            else if (currentButton.GetComponent<Toggle>() != null)
+            {
+                GameObject parentObject = currentButton.transform.parent.gameObject;
+                RectTransform currentButtonParentRectTransform = parentObject.GetComponent<RectTransform>();
+                RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                float leftmostX = currentButtonParentRectTransform.position.x
+                                    + Screen.width * 0.02f
+                                    - currentButtonParentRectTransform.rect.width/2;
+                                    
+                cursorRectTransform.position = new Vector3(leftmostX,
+                                                           currentButtonParentRectTransform.position.y,
+                                                           currentButtonParentRectTransform.position.z);
+            }
+            // sound selected
+            else if (currentButton.GetComponent<Slider>() != null)
+            {
+                Transform parent = currentButton.transform.parent;
+                int currentIndex = currentButton.transform.GetSiblingIndex();
+                Transform aboveTransform = parent.GetChild(currentIndex - 1);
+                GameObject aboveGameObject = aboveTransform.gameObject;
+
+                RectTransform currentButtonParentRectTransform = aboveGameObject.GetComponent<RectTransform>();
+                RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                float leftmostX = currentButtonParentRectTransform.position.x
+                                    + Screen.width * 0.02f
+                                    - currentButtonParentRectTransform.rect.width / 2;
+
+                cursorRectTransform.position = new Vector3(leftmostX,
+                                                           currentButtonParentRectTransform.position.y,
+                                                           currentButtonParentRectTransform.position.z);
+            }
+            // GRAPHIC selected
+            else
+            {
+                if (currentPage == CURRENTPAGE.GRAPHIC)
+                {
+                    if (currentButton.GetComponent<Button>() != null && currentButton.transform.parent.name != "Resolution") 
+                    {
+                        currentButton.GetComponent<Button>().Select();
+                        RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
+                        RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                        float leftmostX = currentButtonRectTransform.position.x
+                                            + Screen.width * 0.02f
+                                            - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
+                        cursorRectTransform.position = new Vector3(leftmostX,
+                                                                   currentButtonRectTransform.position.y,
+                                                                   currentButtonRectTransform.position.z);
+                    }
+                    else
+                    {
+                        GameObject parentObject = currentButton.transform.parent.gameObject;
+                        RectTransform currentButtonParentRectTransform = parentObject.GetComponent<RectTransform>();
+                        RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                        float leftmostX = currentButtonParentRectTransform.position.x
+                                            + Screen.width * 0.02f
+                                            - currentButtonParentRectTransform.rect.width / 2;
+
+                        cursorRectTransform.position = new Vector3(leftmostX,
+                                                                   currentButtonParentRectTransform.position.y,
+                                                                   currentButtonParentRectTransform.position.z);
+                    }
+                }
+                
+            }
         }
         if (isLaunching)
         {
-            //Debug.Log(Background);
+            if (!zoomed)
+            {
+                sfx.Playzoom();
+                zoomed = true;
+            }
+
             float bg_y = Background.transform.position.y;
 
             float max_zoom_y = 250f;
@@ -96,15 +180,17 @@ public class StartManager : MonoBehaviour
             //Debug.Log(Background.transform.localScale.x);
             if (Background.transform.localScale.x > 3.9f)
             {
-                GameObject musicGameObject = audioSource.gameObject;
-                Destroy(musicGameObject);
+                Destroy(BGM);
                 SceneManager.LoadScene("CutScene");
             }
-            if(Background.transform.localScale.x > 3.0f)
+            if(Background.transform.localScale.x > 2.8f)
             {
                 FadeOut();
-                float interp_factor = (Background.transform.localScale.x - 3.0f);
-                audioSource.volume = 1 - interp_factor;
+                if (BGM.volume > 0)
+                {
+                    //Debug.Log(BGM.bgm.clip.name);
+                    BGM.volume -= Time.deltaTime * 0.35f;
+                }
             }
             //Debug.Log(bg_y);
             if (bg_y > max_zoom_y)
@@ -138,6 +224,10 @@ public class StartManager : MonoBehaviour
 
     public void init()
     {
+        VideoPlayer backgroundClip = Background.GetComponent<VideoPlayer>();
+        backgroundClip.source = VideoSource.Url;
+        backgroundClip.url =  Application.streamingAssetsPath + "/videos/start_background.mp4";
+
         currentPage = CURRENTPAGE.DEFAULT;
         systemTitle = GameObject.Find("SystemTitle");
         sLC = GameObject.Find("LatencyCalibrator");
@@ -165,8 +255,8 @@ public class StartManager : MonoBehaviour
         fadeImage.color = c;
         toDefault();
 
-        player.source = VideoSource.Url;
-        player.url = Application.streamingAssetsPath + "/videos/test_1.mp4";
+        //player.source = VideoSource.Url;
+        //player.url = Application.streamingAssetsPath + "/videos/test_1.mp4";
     }
 
     public void toLaunch()
@@ -327,6 +417,8 @@ public class StartManager : MonoBehaviour
     public void toAbout()
     {
         currentPage = CURRENTPAGE.ABOUT;
+
+        creditscroll.Reset();
         // Show the about UI
         Default.SetActive(false);
         Launch.SetActive(false);
@@ -338,13 +430,13 @@ public class StartManager : MonoBehaviour
         systemTitle.GetComponent<TextMeshProUGUI>().enabled = true;
         systemTitle.GetComponent<TextMeshProUGUI>().text = "";
 
-        backButton.GetComponent<TextMeshProUGUI>().enabled = true;
-        backButton.GetComponent<Button>().interactable = true;
+        /*backButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        backButton.GetComponent<Button>().interactable = true;*/
 
+/*
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(curBackButton);
-
-        player.Play();
+*/
     }
 
     public void toDefault()

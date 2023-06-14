@@ -24,6 +24,8 @@ public class Dialogue : MonoBehaviour
     // Implementation Variables
     public int line_index = -1;
 
+    public Image cont;
+
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
@@ -69,6 +71,7 @@ public class Dialogue : MonoBehaviour
     // Returns false if no lines left.
     public int NextLine()
     {
+        cont.GetComponent<Image>().enabled = false;
         if (line_index < spine.sections[spine.section_index].conversation.Length - 1)
         {
             if (line_index >= 0) GetImage(spine.sections[spine.section_index].conversation[line_index].character).enabled = false;
@@ -108,6 +111,7 @@ public class Dialogue : MonoBehaviour
             textComponment.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        cont.GetComponent<Image>().enabled = true;
         audioSource.Pause();
     }
 

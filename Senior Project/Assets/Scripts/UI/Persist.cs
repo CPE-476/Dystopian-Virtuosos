@@ -14,16 +14,11 @@ public class Persist : MonoBehaviour
     public float sfx_volume;
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     void Update()
     {
         master_volume = master.value;
         music_volume = music.value;
         sfx_volume = sfx.value;
+
     }
 }

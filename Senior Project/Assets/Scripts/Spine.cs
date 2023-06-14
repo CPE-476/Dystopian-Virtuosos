@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
 //using UnityEngine.UIElements;
 using System.IO;
-using UnityEngine.Video;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public enum InterfaceState
 {
@@ -23,7 +23,7 @@ public enum GameplayAudio
     GUITAR,
     S1,
     S2,
-    END,
+    END
 }
 
 public enum Character
@@ -114,6 +114,8 @@ public class Spine : MonoBehaviour
 
     public NoteTrigger noteTrigger;
 
+    public TracksController tracksController;
+
     public HealthBar healthBar;
 
     public ScoreManager scoreManager;
@@ -137,13 +139,17 @@ public class Spine : MonoBehaviour
     private Color color;
 
     DialogueLine[] first_dialogue = new DialogueLine[0];
+
     DialogueLine[] second_dialogue = new DialogueLine[0];
+
     DialogueLine[] third_dialogue = new DialogueLine[0];
-    DialogueLine[] fourth_dialogue = new DialogueLine[0];
 
     TutorialClip[] first_tutorial = new TutorialClip[0];
+
     TutorialClip[] second_tutorial = new TutorialClip[0];
+
     TutorialClip[] third_tutorial = new TutorialClip[0];
+
     void Awake()
     {
         midiPath = Application.streamingAssetsPath + "/MIDIs/";
@@ -153,12 +159,14 @@ public class Spine : MonoBehaviour
 
     void Start()
     {
-        if(1 == PlayerPrefs.GetInt("level_number")) {
+        if (1 == PlayerPrefs.GetInt("level_number"))
+        {
             initDialogue1();
             initTutorial();
             initLevel1();
         }
-        else {
+        else
+        {
             initDialogue2();
             initTutorial();
             initLevel2();
@@ -171,35 +179,47 @@ public class Spine : MonoBehaviour
     }
 
     private bool fading_out;
-    public void Update() {
-        if(state == InterfaceState.RESULTS) {
+
+    public void Update()
+    {
+        if (section_index == 2 && PlayerPrefs.GetInt("level_number") == 2)
+            tracksController.spawnBoss = true;
+        if (state == InterfaceState.RESULTS)
+        {
             //hideStatsUI
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1)) {
+            if (
+                Input.GetKeyDown(KeyCode.Space) ||
+                Input.GetKeyDown(KeyCode.Joystick1Button0) ||
+                Input.GetKeyDown(KeyCode.Joystick1Button1)
+            )
+            {
                 fading_out = true;
             }
 
-            if(fading_out) {
+            if (fading_out)
+            {
                 bool done = conductor.FadeAudioOut();
 
-                if (done) 
+                if (done)
                 {
                     GoToLevel2();
-                    noteTrigger.StatsReset();
                 }
             }
         }
     }
 
-    public void GoToLevel2() {
+    public void GoToLevel2()
+    {
         PlayerPrefs.SetInt("level_number", 2);
         SceneManager.LoadScene("CutScene");
     }
 
     public void DialogueStart()
     {
-        if(section_index > 2)
+        if (section_index > 2)
         {
             state = InterfaceState.RESULTS;
+
             // TODO: Lucas – Here's your stats UI page!
             if (comboManager.comboNumber > noteTrigger.maxCombo)
             {
@@ -262,6 +282,7 @@ public class Spine : MonoBehaviour
         scoreManager.showScoreBar = true;
         comboManager.showComboBar = true;
         noteTrigger.showHitbox();
+        noteTrigger.StatsReset();
         state = InterfaceState.GAMEPLAY;
 
         conductor.Reset();
@@ -321,32 +342,42 @@ public class Spine : MonoBehaviour
         ++section_index;
     }
 
-    private List<DialogueLine> readDialogueFile(string file_name) 
+    private List<DialogueLine> readDialogueFile(string file_name)
     {
-        List<DialogueLine> dialogueList = new List<DialogueLine>(first_dialogue);
+        List<DialogueLine> dialogueList =
+            new List<DialogueLine>(first_dialogue.Length);
 
         StreamReader inp_stm = new StreamReader(dialoguePath + file_name);
-        while(!inp_stm.EndOfStream)
+        while (!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
-            if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
-                if(inp_ln.Contains(':')) {
+            if (inp_ln.Length != 0 && (inp_ln[0] != '#'))
+            {
+                if (inp_ln.Contains(':'))
+                {
                     var splitted = inp_ln.Split(':', 2);
                     Character c = Character.NONE;
-                    if(splitted[0] == "VENTO")
+                    if (splitted[0] == "VENTO")
                         c = Character.VENTO;
-                    else if(splitted[0] == "BRONTE")
+                    else if (splitted[0] == "BRONTE")
                         c = Character.BRONTE;
-                    else if(splitted[0] == "DOLCE")
+                    else if (splitted[0] == "DOLCE")
                         c = Character.DOLCE;
                     else
-                        Debug.Log("Unknown name: " + splitted[0] + " in dialogue file: " + file_name);
+                        Debug
+                            .Log("Unknown name: " +
+                            splitted[0] +
+                            " in dialogue file: " +
+                            file_name);
                     string text = splitted[1].Trim('\n');
 
                     dialogueList.Add(new DialogueLine(c, text.Trim(' ')));
                 }
-                else {
-                    dialogueList.Add(new DialogueLine(Character.NONE, inp_ln.Trim(' ')));
+                else
+                {
+                    dialogueList
+                        .Add(new DialogueLine(Character.NONE,
+                            inp_ln.Trim(' ')));
                 }
             }
         }
@@ -382,18 +413,16 @@ public class Spine : MonoBehaviour
 
     private void initTutorial()
     {
-        List<TutorialClip> tutorialList_1 = new List<TutorialClip>(first_tutorial);
+        List<TutorialClip> tutorialList_1 =
+            new List<TutorialClip>(first_tutorial);
 
-        tutorialList_1.Add(new TutorialClip("OBSTACLE",
-                               videoPath + "test_1.mp4"));
-        tutorialList_1.Add(new TutorialClip("NOTE",
-                            videoPath + "test_2.mp4"));
-        tutorialList_1.Add(new TutorialClip("CONTROL",
-                            videoPath + "test_3.mp4"));
+        tutorialList_1
+            .Add(new TutorialClip("OBSTACLE", videoPath + "test_1.mp4"));
+        tutorialList_1.Add(new TutorialClip("NOTE", videoPath + "test_2.mp4"));
+        tutorialList_1
+            .Add(new TutorialClip("CONTROL", videoPath + "test_3.mp4"));
 
         first_tutorial = tutorialList_1.ToArray();
-
-
     }
 
     private void initLevel1()
@@ -401,24 +430,27 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
-                new Section(first_dialogue, first_tutorial,
+                new Section(first_dialogue,
+                    first_tutorial,
                     midiPath + "DV_L1_drum.mid",
                     GameplayAudio.DRUMS,
                     0,
                     true,
                     -17),
-                new Section(second_dialogue, second_tutorial,
+                new Section(second_dialogue,
+                    second_tutorial,
                     midiPath + "DV_L1_piano.mid",
                     GameplayAudio.PIANO,
                     0,
                     false,
                     -17),
-                new Section(third_dialogue, third_tutorial,
+                new Section(third_dialogue,
+                    third_tutorial,
                     midiPath + "DV_L1_guitar.mid",
                     GameplayAudio.GUITAR,
                     0,
                     true,
-                    -17),
+                    -17)
             };
     }
 
@@ -427,24 +459,27 @@ public class Spine : MonoBehaviour
         sections =
             new Section[3]
             {
-                new Section(first_dialogue, first_tutorial,
+                new Section(first_dialogue,
+                    first_tutorial,
                     midiPath + "DV_L2_Section_1.mid",
                     GameplayAudio.S1,
                     1,
                     false,
                     -17),
-                new Section(second_dialogue, first_tutorial,
+                new Section(second_dialogue,
+                    first_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.S2,
                     2,
                     false,
                     -1),
-                new Section(third_dialogue, first_tutorial,
+                new Section(third_dialogue,
+                    first_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.END,
                     3,
                     false,
-                    -17),
+                    -17)
             };
     }
 }

@@ -42,6 +42,12 @@ public class Narrative : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public CutSceneSFX sfx;
+
+    public Image cont;
+
+    private bool leadin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,12 +60,15 @@ public class Narrative : MonoBehaviour
                 fadePanel.color.b,
                 1.0f);
 
-        if(1 == PlayerPrefs.GetInt("level_number")) {
+        leadin = false;
+
+        if (1 == PlayerPrefs.GetInt("level_number")) {
             readNarrativeFile("cutscene_1.txt");
         }
         if(2 == PlayerPrefs.GetInt("level_number")) {
             readNarrativeFile("cutscene_2.txt");
         }
+
     }
 
     private void readNarrativeFile(string file_name)
@@ -105,6 +114,7 @@ public class Narrative : MonoBehaviour
 
     public int NextLine()
     {
+        cont.GetComponent<Image>().enabled = false;
         if (narrative_index < lines.Length - 1)
         {
             narrative_index++;
@@ -128,6 +138,7 @@ public class Narrative : MonoBehaviour
             textComponment.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        cont.GetComponent<Image>().enabled = true;
     }
 
     public bool NextImage()
@@ -178,6 +189,11 @@ public class Narrative : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!leadin)
+        {
+            NextLine();
+            leadin = true;
+        }
         if (sceneStarting)
         {
             // Fade the panel out over the specified duration
@@ -204,6 +220,7 @@ public class Narrative : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1))
         {
+            sfx.Playdialog();
             int result = NextLine();
             if (result == -1)
             {
