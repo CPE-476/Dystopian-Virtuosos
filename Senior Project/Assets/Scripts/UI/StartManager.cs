@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.Video;
 
 public enum CURRENTPAGE
 {
@@ -208,6 +209,10 @@ public class StartManager : MonoBehaviour
 
     public void init()
     {
+        VideoPlayer backgroundClip = Background.GetComponent<VideoPlayer>();
+        backgroundClip.source = VideoSource.Url;
+        backgroundClip.url =  Application.streamingAssetsPath + "/videos/start_background.mp4";
+
         currentPage = CURRENTPAGE.DEFAULT;
         systemTitle = GameObject.Find("SystemTitle");
         sLC = GameObject.Find("LatencyCalibrator");
