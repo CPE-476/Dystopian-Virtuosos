@@ -46,6 +46,8 @@ public class Narrative : MonoBehaviour
 
     public Image cont;
 
+    private bool leadin;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -58,12 +60,15 @@ public class Narrative : MonoBehaviour
                 fadePanel.color.b,
                 1.0f);
 
-        if(1 == PlayerPrefs.GetInt("level_number")) {
+        leadin = false;
+
+        if (1 == PlayerPrefs.GetInt("level_number")) {
             readNarrativeFile("cutscene_1.txt");
         }
         if(2 == PlayerPrefs.GetInt("level_number")) {
             readNarrativeFile("cutscene_2.txt");
         }
+
     }
 
     private void readNarrativeFile(string file_name)
@@ -184,6 +189,11 @@ public class Narrative : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!leadin)
+        {
+            NextLine();
+            leadin = true;
+        }
         if (sceneStarting)
         {
             // Fade the panel out over the specified duration

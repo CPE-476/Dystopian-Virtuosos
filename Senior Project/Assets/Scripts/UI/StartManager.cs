@@ -55,17 +55,24 @@ public class StartManager : MonoBehaviour
 
     private float startTime;
 
+    private bool zoomed;
+
     public GameObject curGraphicsButton, curLaunchButton, curBackButton, curFull, curMaster;
 
     public GameObject cursorImage;
 
     public CURRENTPAGE currentPage;
 
-    public AudioSource audioSource;
+    public AudioSource BGM;
+
+    public StartSFX sfx;
+
 
     void Awake()
     {
         init();
+
+        zoomed = false;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(curLaunchButton);
     }
@@ -158,7 +165,12 @@ public class StartManager : MonoBehaviour
         }
         if (isLaunching)
         {
-            //Debug.Log(Background);
+            if (!zoomed)
+            {
+                sfx.Playzoom();
+                zoomed = true;
+            }
+
             float bg_y = Background.transform.position.y;
 
             float max_zoom_y = 250f;
@@ -167,15 +179,17 @@ public class StartManager : MonoBehaviour
             //Debug.Log(Background.transform.localScale.x);
             if (Background.transform.localScale.x > 3.9f)
             {
-                GameObject musicGameObject = audioSource.gameObject;
-                Destroy(musicGameObject);
+                Destroy(BGM);
                 SceneManager.LoadScene("CutScene");
             }
-            if(Background.transform.localScale.x > 3.0f)
+            if(Background.transform.localScale.x > 2.8f)
             {
                 FadeOut();
-                float interp_factor = (Background.transform.localScale.x - 3.0f);
-                audioSource.volume = 1 - interp_factor;
+                if (BGM.volume > 0)
+                {
+                    //Debug.Log(BGM.bgm.clip.name);
+                    BGM.volume -= Time.deltaTime * 0.35f;
+                }
             }
             //Debug.Log(bg_y);
             if (bg_y > max_zoom_y)
