@@ -12,11 +12,13 @@ public class StatsManager : MonoBehaviour
 {
     public NoteTrigger noteTrigger;
     public ScoreManager scoreManager;
+    public CollectableUI Collectable;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI perfectText;
     public TextMeshProUGUI goodText;
     public TextMeshProUGUI missText;
+    public TextMeshProUGUI collectText;
     public TextMeshProUGUI maxcomboText;
     public TextMeshProUGUI accuracyText;
 
@@ -43,6 +45,7 @@ public class StatsManager : MonoBehaviour
         perfectText.text = noteTrigger.perfectNum.ToString();
         goodText.text = noteTrigger.goodNum.ToString();
         missText.text = noteTrigger.missNum.ToString();
+        collectText.text = Collectable.collectableNum.ToString() + " / 10";
         maxcomboText.text = noteTrigger.maxCombo.ToString();
         accuracyText.text = noteTrigger.accuracy.ToString("0.#") + " %";
         if (Input.GetKeyDown(KeyCode.Return)) 
@@ -138,7 +141,7 @@ public class StatsManager : MonoBehaviour
 
             float t = Mathf.Clamp01(timer / duration);
 
-            for (int i = 6; i < 8; i++)
+            for (int i = 6; i < 9; i++)
             {
                 Vector3 startRightPosition = gameObject.transform.GetChild(i).transform.position;
                 Vector3 endRightPosition = new Vector3(targetRightPos,
