@@ -44,6 +44,8 @@ public class Narrative : MonoBehaviour
 
     public CutSceneSFX sfx;
 
+    public Image cont;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -107,6 +109,7 @@ public class Narrative : MonoBehaviour
 
     public int NextLine()
     {
+        cont.GetComponent<Image>().enabled = false;
         if (narrative_index < lines.Length - 1)
         {
             narrative_index++;
@@ -130,6 +133,7 @@ public class Narrative : MonoBehaviour
             textComponment.text += c;
             yield return new WaitForSeconds(textSpeed);
         }
+        cont.GetComponent<Image>().enabled = true;
     }
 
     public bool NextImage()

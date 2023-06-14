@@ -188,6 +188,7 @@ public class Spine : MonoBehaviour
                 if (done) 
                 {
                     GoToLevel2();
+                    statsManager.DisableStats();
                     noteTrigger.StatsReset();
                 }
             }
