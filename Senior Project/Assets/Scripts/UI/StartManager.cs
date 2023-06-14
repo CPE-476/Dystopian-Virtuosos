@@ -429,8 +429,8 @@ public class StartManager : MonoBehaviour
         /*backButton.GetComponent<TextMeshProUGUI>().enabled = true;
         backButton.GetComponent<Button>().interactable = true;*/
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(curBackButton);
+        /*EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(curBackButton);*/
     }
 
     public void toDefault()

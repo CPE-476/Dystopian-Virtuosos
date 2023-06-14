@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 
 public class creditscroll : MonoBehaviour
@@ -30,6 +31,9 @@ public class creditscroll : MonoBehaviour
         {
             StartManager.backButton.GetComponent<TextMeshProUGUI>().enabled = true;
             StartManager.backButton.GetComponent<Button>().interactable = true;
+            StartManager.cursorImage.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(StartManager.curBackButton);
         }
     }
 
