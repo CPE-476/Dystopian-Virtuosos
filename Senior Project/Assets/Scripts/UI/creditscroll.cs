@@ -1,6 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+
 
 public class creditscroll : MonoBehaviour
 {
@@ -8,20 +9,34 @@ public class creditscroll : MonoBehaviour
 
     private float initial_y_point;
 
+
     // Start is called before the first frame update
+    public StartManager StartManager;
+    public TextMeshProUGUI credit;
+    public float changeRatio;
     void Start()
     {
-        initial_y_point = transform.position.y;        
+        initial_y_point = credit.transform.position.y;
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(0,scroll_speed,0);
+        if (credit.transform.position.y < Screen.height * changeRatio)
+        {
+            credit.transform.Translate(0,scroll_speed,0);
+        }
+        else
+        {
+            StartManager.backButton.GetComponent<TextMeshProUGUI>().enabled = true;
+            StartManager.backButton.GetComponent<Button>().interactable = true;
+        }
     }
 
     public void Reset()
     {
-        transform.position = new Vector3(transform.position.x, initial_y_point, transform.position.y);
+        StartManager.backButton.GetComponent<TextMeshProUGUI>().enabled = false;
+        StartManager.backButton.GetComponent<Button>().interactable = false;
+        credit.transform.position = new Vector3(credit.transform.position.x, initial_y_point, credit.transform.position.y);
     }
 }

@@ -76,12 +76,84 @@ public class StartManager : MonoBehaviour
 
         if (currentButton != null)
         {
-            RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
-            RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
-            float leftmostX = currentButtonRectTransform.position.x - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
-            cursorRectTransform.position = new Vector3(leftmostX,
-                                                       currentButtonRectTransform.position.y,
-                                                       currentButtonRectTransform.position.z);
+            // button selected
+            if (currentButton.GetComponent<Button>() != null && currentPage != CURRENTPAGE.GRAPHIC)
+            {
+                currentButton.GetComponent<Button>().Select();
+                RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
+                RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                float leftmostX = currentButtonRectTransform.position.x 
+                                    + Screen.width * 0.02f 
+                                    - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
+                cursorRectTransform.position = new Vector3(leftmostX,
+                                                           currentButtonRectTransform.position.y,
+                                                           currentButtonRectTransform.position.z);
+            }
+            // toggle selected
+            else if (currentButton.GetComponent<Toggle>() != null)
+            {
+                GameObject parentObject = currentButton.transform.parent.gameObject;
+                RectTransform currentButtonParentRectTransform = parentObject.GetComponent<RectTransform>();
+                RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                float leftmostX = currentButtonParentRectTransform.position.x
+                                    + Screen.width * 0.02f
+                                    - currentButtonParentRectTransform.rect.width/2;
+                                    
+                cursorRectTransform.position = new Vector3(leftmostX,
+                                                           currentButtonParentRectTransform.position.y,
+                                                           currentButtonParentRectTransform.position.z);
+            }
+            // sound selected
+            else if (currentButton.GetComponent<Slider>() != null)
+            {
+                Transform parent = currentButton.transform.parent;
+                int currentIndex = currentButton.transform.GetSiblingIndex();
+                Transform aboveTransform = parent.GetChild(currentIndex - 1);
+                GameObject aboveGameObject = aboveTransform.gameObject;
+
+                RectTransform currentButtonParentRectTransform = aboveGameObject.GetComponent<RectTransform>();
+                RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                float leftmostX = currentButtonParentRectTransform.position.x
+                                    + Screen.width * 0.02f
+                                    - currentButtonParentRectTransform.rect.width / 2;
+
+                cursorRectTransform.position = new Vector3(leftmostX,
+                                                           currentButtonParentRectTransform.position.y,
+                                                           currentButtonParentRectTransform.position.z);
+            }
+            // GRAPHIC selected
+            else
+            {
+                if (currentPage == CURRENTPAGE.GRAPHIC)
+                {
+                    if (currentButton.GetComponent<Button>() != null && currentButton.transform.parent.name != "Resolution") 
+                    {
+                        currentButton.GetComponent<Button>().Select();
+                        RectTransform currentButtonRectTransform = currentButton.GetComponent<RectTransform>();
+                        RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                        float leftmostX = currentButtonRectTransform.position.x
+                                            + Screen.width * 0.02f
+                                            - (currentButtonRectTransform.pivot.x * currentButtonRectTransform.rect.width);
+                        cursorRectTransform.position = new Vector3(leftmostX,
+                                                                   currentButtonRectTransform.position.y,
+                                                                   currentButtonRectTransform.position.z);
+                    }
+                    else
+                    {
+                        GameObject parentObject = currentButton.transform.parent.gameObject;
+                        RectTransform currentButtonParentRectTransform = parentObject.GetComponent<RectTransform>();
+                        RectTransform cursorRectTransform = cursorImage.GetComponent<RectTransform>();
+                        float leftmostX = currentButtonParentRectTransform.position.x
+                                            + Screen.width * 0.02f
+                                            - currentButtonParentRectTransform.rect.width / 2;
+
+                        cursorRectTransform.position = new Vector3(leftmostX,
+                                                                   currentButtonParentRectTransform.position.y,
+                                                                   currentButtonParentRectTransform.position.z);
+                    }
+                }
+                
+            }
         }
         if (isLaunching)
         {
@@ -322,6 +394,8 @@ public class StartManager : MonoBehaviour
     public void toAbout()
     {
         currentPage = CURRENTPAGE.ABOUT;
+
+        creditscroll.Reset();
         // Show the about UI
         Default.SetActive(false);
         Launch.SetActive(false);
@@ -333,8 +407,8 @@ public class StartManager : MonoBehaviour
         systemTitle.GetComponent<TextMeshProUGUI>().enabled = true;
         systemTitle.GetComponent<TextMeshProUGUI>().text = "";
 
-        backButton.GetComponent<TextMeshProUGUI>().enabled = true;
-        backButton.GetComponent<Button>().interactable = true;
+        /*backButton.GetComponent<TextMeshProUGUI>().enabled = true;
+        backButton.GetComponent<Button>().interactable = true;*/
 
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(curBackButton);

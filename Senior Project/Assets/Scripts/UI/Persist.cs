@@ -13,6 +13,8 @@ public class Persist : MonoBehaviour
     public float music_volume;
     public float sfx_volume;
 
+    public AudioSource bgm;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,5 +27,7 @@ public class Persist : MonoBehaviour
         master_volume = master.value;
         music_volume = music.value;
         sfx_volume = sfx.value;
+
+        bgm.volume = master_volume * music_volume;
     }
 }
