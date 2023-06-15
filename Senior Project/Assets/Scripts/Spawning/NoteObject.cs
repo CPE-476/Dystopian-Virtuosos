@@ -38,7 +38,7 @@ public class NoteObject : MonoBehaviour
 
     public bool hit_mode = false;
 
-    ParticleSystem.MainModule psmain;
+    //ParticleSystem.MainModule psmain;
 
     public ParticleSystem particles;
 
@@ -47,7 +47,7 @@ public class NoteObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        psmain = particles.main;
+        //psmain = particles.main;
         parent = transform.parent.gameObject;
         conductor =
             (Conductor) GameObject.Find("/Conductor").GetComponent("Conductor");
@@ -324,7 +324,7 @@ public class NoteObject : MonoBehaviour
         collectables.updateCollectables();
         if (gameObject.CompareTag("Collect"))
         {
-            psmain.startColor = notetrigger.perfect_color;
+            //psmain.startColor = notetrigger.perfect_color;
             ParticleSystem clone =(ParticleSystem)Instantiate(particles, new Vector3(notetrigger.transform.position.x, transform.position.y, -6), Quaternion.identity);
             Destroy(gameObject);
         }
