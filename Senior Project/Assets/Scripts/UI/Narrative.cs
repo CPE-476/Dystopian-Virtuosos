@@ -177,7 +177,24 @@ public class Narrative : MonoBehaviour
                 narrative_index++;
             }
 
-            if (characters[narrative_index] != "")
+            Debug.Log(narrative_index);
+            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 4)
+            {
+                sfx.Playfire();
+            }
+
+            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 12)
+            {
+                sfx.Stopfire();
+            }
+
+            // crashing
+            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 14)
+            {
+                sfx.Playcrashing();
+            }
+
+                if (characters[narrative_index] != "")
             {
                 textComponment.margin = new Vector4(0, 0, -600, -131);
                 if (characters[narrative_index] == "Dolce") {

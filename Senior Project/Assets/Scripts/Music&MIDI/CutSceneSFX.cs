@@ -23,4 +23,9 @@ public class CutSceneSFX : MonoBehaviour
         fire.Play();
     }
 
+    public void Stopfire()
+    {
+        fire.Stop();
+    }
+
 }
