@@ -430,9 +430,6 @@ public class Spine : MonoBehaviour
 
         List<DialogueLine> dialogueList_2 = readDialogueFile("dialogue_5.txt");
         second_dialogue = dialogueList_2.ToArray();
-
-        List<DialogueLine> dialogueList_3 = readDialogueFile("dialogue_6.txt");
-        third_dialogue = dialogueList_3.ToArray();
     }
 
     private void initTutorial()
