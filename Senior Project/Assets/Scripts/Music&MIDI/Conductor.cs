@@ -201,7 +201,8 @@ public class Conductor : MonoBehaviour
 
         UpdateFields();
         if (AudioSettings.dspTime > nextStartTime - 3.0) {
-            if(playBackground) {
+            if(playBackground) 
+            {
                 if(PlayerPrefs.GetInt("level_number") == 1) {
                     if(current_background == 1) {
                         background2.PlayScheduled(nextStartTime);
@@ -212,7 +213,7 @@ public class Conductor : MonoBehaviour
                         current_background = 1;
                     }
                 }
-                else {
+                /*else {
                     if(current_background == 1) {
                         l2_background1alt.PlayScheduled(nextStartTime);
                         current_background = 2;
@@ -221,7 +222,22 @@ public class Conductor : MonoBehaviour
                         l2_background1.PlayScheduled(nextStartTime);
                         current_background = 1;
                     }
+                }*/
+            }
+            
+            if (playL2BG1)
+            {
+                if (current_background == 1)
+                {
+                    l2_background1alt.PlayScheduled(nextStartTime);
+                    current_background = 2;
                 }
+                else
+                {
+                    l2_background1.PlayScheduled(nextStartTime);
+                    current_background = 1;
+                }
+                
             }
 
             if(playL2BG2) {

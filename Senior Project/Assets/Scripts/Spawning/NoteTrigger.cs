@@ -680,7 +680,7 @@ public class NoteTrigger : MonoBehaviour
             maxCombo = comboManager.comboNumber;
         }
         comboManager.comboNumber = 0;
-        character.curHealth -= 0;
+        character.curHealth -= 2;
         character.hb.setHealth(character.curHealth);
         if (character.curHealth <= 0) character.Die();
 
