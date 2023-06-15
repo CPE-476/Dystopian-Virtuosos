@@ -7168,6 +7168,8 @@ MonoBehaviour:
   high: {fileID: -2570779792449804658, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
   interact: {fileID: 7635315315951650691, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
   fallSpeed: 20
+  explosion: {fileID: 5631424593820709739, guid: cb10a698df020d043bf6dd62333ad63e, type: 3}
+  sparks: {fileID: 4697660038993845421, guid: e3b180ba0661e734788922a9e214bd8d, type: 3}
 --- !u!114 &393148430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10064,8 +10066,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 80, y: 0}
-  m_SizeDelta: {x: 27, y: 32}
+  m_AnchoredPosition: {x: 125, y: 0}
+  m_SizeDelta: {x: 60, y: 42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588272502
 MonoBehaviour:
@@ -10143,7 +10145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1896fe88f3952469082f63c2489d27ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e6320cffabbb4c34aa7ea3699bb1495, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14613,8 +14615,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -80, y: 0}
-  m_SizeDelta: {x: 27, y: 32}
+  m_AnchoredPosition: {x: -125, y: 0}
+  m_SizeDelta: {x: 60, y: 42}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &870585723
 MonoBehaviour:
@@ -14692,7 +14694,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1896fe88f3952469082f63c2489d27ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2e6320cffabbb4c34aa7ea3699bb1495, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -22777,6 +22779,8 @@ MonoBehaviour:
   left: {fileID: 588272500}
   cont: {fileID: 1026679171}
   clipName: {fileID: 500388074}
+  tutLeft: {fileID: -3910077695956122419, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
+  tutRight: {fileID: -2495437856560336100, guid: 71602431614ce3a43915c33dbe4e3782, type: 3}
 --- !u!114 &1575194915
 MonoBehaviour:
   m_ObjectHideFlags: 0

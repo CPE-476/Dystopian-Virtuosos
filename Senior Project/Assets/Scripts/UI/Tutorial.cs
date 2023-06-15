@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class Tutorial : MonoBehaviour
 {
@@ -20,6 +22,8 @@ public class Tutorial : MonoBehaviour
     private Image left_image;
     private Button right_button;
     private Button left_button;
+
+    public InputActionReference tutLeft, tutRight;
 
     // Start is called before the first frame update
     void Start()
@@ -43,7 +47,14 @@ public class Tutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(tutLeft.action.WasPressedThisFrame() && spine.state == InterfaceState.TUTORIAL)
+        {
+            PrevVideo();
+        }
+        if (tutRight.action.WasPressedThisFrame() && spine.state == InterfaceState.TUTORIAL)
+        {
+            NextVideo();
+        }
     }
 
     public void Enable()
@@ -77,6 +88,8 @@ public class Tutorial : MonoBehaviour
 
     public void NextVideo(){
         videoIndex++;
+        if (videoIndex > spine.sections[spine.section_index].tutorialVideos.Length-1)
+            videoIndex = spine.sections[spine.section_index].tutorialVideos.Length -1;
         checkArrow();
         if (videoIndex < spine.sections[spine.section_index].tutorialVideos.Length){
             player.url = spine.sections[spine.section_index].tutorialVideos[videoIndex].video_path;
@@ -91,6 +104,8 @@ public class Tutorial : MonoBehaviour
 
     public void PrevVideo(){
         videoIndex--;
+        if (videoIndex < 0)
+            videoIndex = 0;
         checkArrow();
         if (videoIndex >= 0){
             player.url = spine.sections[spine.section_index].tutorialVideos[videoIndex].video_path;
