@@ -8025,7 +8025,7 @@ MonoBehaviour:
   Graphic: {fileID: 703034349}
   About: {fileID: 81057091}
   creditscroll: {fileID: 1320842349}
-  player: {fileID: 1326003043}
+  player: {fileID: 0}
   systemLC: {fileID: 1515738883}
   Background: {fileID: 870591618}
   zoomAmount: 2
@@ -11263,7 +11263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d507b8b116e04f06b7c5958c3d7693b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scroll_speed: 0.17
+  scroll_speed: 10
   StartManager: {fileID: 1087331485}
   credit: {fileID: 315133890}
   changeRatio: 5.22
