@@ -6867,7 +6867,7 @@ VideoPlayer:
   m_ControlledAudioTrackCount: 1
   m_PlayOnAwake: 0
   m_SkipOnDrop: 1
-  m_Looping: 1
+  m_Looping: 0
   m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
@@ -11263,7 +11263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d507b8b116e04f06b7c5958c3d7693b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scroll_speed: 0.15
+  scroll_speed: 0.17
   StartManager: {fileID: 1087331485}
   credit: {fileID: 315133890}
   changeRatio: 5.22

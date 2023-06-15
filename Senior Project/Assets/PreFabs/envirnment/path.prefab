@@ -27040,8 +27040,38 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6949267950976713239, guid: 69d1db83dfb86794996f83b4378e8e2d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69d1db83dfb86794996f83b4378e8e2d, type: 3}
+--- !u!1 &5007030119069982678 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2879797657920964701, guid: 69d1db83dfb86794996f83b4378e8e2d, type: 3}
+  m_PrefabInstance: {fileID: 7100931875605616523}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &7129030367967776582
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5007030119069982678}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!4 &7676116327672470099 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 580006447367507416, guid: 69d1db83dfb86794996f83b4378e8e2d, type: 3}

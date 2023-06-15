@@ -39,6 +39,8 @@ public class PlayerController : MonoBehaviour
 
     public Animator anim3;
 
+    public Animator animBoss;
+
     public GameObject guitarist;
     public GameObject pianist;
     public GameObject boss;
@@ -59,6 +61,7 @@ public class PlayerController : MonoBehaviour
     float bossXVal = 10;
 
     public bool isDead = false;
+    public bool endGame = false;
 
     private float timer = 0;
 
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (switching && !isDead)
+        if (switching && !isDead && !endGame)
         {
             drumXVal = Mathf.Lerp(drumStartPos, drumEndPos, timer);
             pianoXVal = Mathf.Lerp(pianoStartPos, pianoEndPos, timer);
@@ -114,6 +117,11 @@ public class PlayerController : MonoBehaviour
             pianist.transform.position = Vector3.Lerp(new Vector3(pianoXVal, pianist.transform.position.y, transform.position.z), new Vector3(pianoXVal, -3.2f, 0), timer);
             guitarist.transform.position = Vector3.Lerp(new Vector3(guitarXVal, guitarist.transform.position.y, transform.position.z), new Vector3(guitarXVal, -3.2f, 0), timer);
             boss.transform.position = Vector3.Lerp(new Vector3(bossXVal, boss.transform.position.y, transform.position.z), new Vector3(bossXVal, -3.2f, 0), timer);
+            timer += Time.deltaTime * 0.5f;
+        }
+        else if(endGame && switching)
+        {
+            boss.transform.position = Vector3.Lerp(new Vector3(bossXVal, boss.transform.position.y, transform.position.z), new Vector3(bossXVal, -2.0f, 0), timer);
             timer += Time.deltaTime * 0.5f;
         }
         if(timer/2 >= 1)

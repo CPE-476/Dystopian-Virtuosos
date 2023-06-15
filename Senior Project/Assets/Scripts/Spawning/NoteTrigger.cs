@@ -26,8 +26,11 @@ public class NoteTrigger : MonoBehaviour
     public TracksController trackController;
 
     ParticleSystem.MainModule psmain;
+    ParticleSystem.MainModule npsmain;
 
     public ParticleSystem particles;
+    public ParticleSystem circleParticle;
+    public ParticleSystem nutParticle;
 
     public ParticleSystem hittext;
 
@@ -127,6 +130,7 @@ public class NoteTrigger : MonoBehaviour
     {
         holdLengths = new ushort[4];
         psmain = particles.main;
+        npsmain = nutParticle.main;
 
         hit_notes = new List<bool[]>();
         foreach (NoteType[] notes in midiReader.beatmap)
@@ -573,6 +577,7 @@ public class NoteTrigger : MonoBehaviour
         {
             sfx.Playhit_2();
             psmain.startColor = weak_color;
+            npsmain.startColor = weak_color * 1.2f;
             ParticleSystem clone =
                 (ParticleSystem)
                 Instantiate(particles,
@@ -588,9 +593,25 @@ public class NoteTrigger : MonoBehaviour
                     sprite.transform.position.y,
                     -6),
                 Quaternion.identity);
+            ParticleSystem clone3 =
+                (ParticleSystem)
+                Instantiate(circleParticle,
+                new Vector3(sprite.transform.position.x,
+                    sprite.transform.position.y,
+                    -6),
+                Quaternion.identity);
+            ParticleSystem clone4 =
+                (ParticleSystem)
+                Instantiate(nutParticle,
+                new Vector3(sprite.transform.position.x,
+                    sprite.transform.position.y,
+                    -6),
+                Quaternion.identity);
             sprite.color = weak_color;
             Destroy(clone.gameObject, 0.5f);
             Destroy(clone2.gameObject, 1.0f);
+            Destroy(clone3.gameObject, 1.0f);
+            Destroy(clone4.gameObject, 1.0f);
             scoreManager.score += 1;
             goodNum++;
         }
@@ -599,6 +620,7 @@ public class NoteTrigger : MonoBehaviour
             sfx.Playhit_1();
             perfect_color.a = 1f;
             psmain.startColor = perfect_color;
+            npsmain.startColor = perfect_color * 1.2f;
             ParticleSystem clone =
                 (ParticleSystem)
                 Instantiate(particles,
@@ -614,10 +636,26 @@ public class NoteTrigger : MonoBehaviour
                     sprite.transform.position.y,
                     -6),
                 Quaternion.identity);
+            ParticleSystem clone3 =
+                (ParticleSystem)
+                Instantiate(circleParticle,
+                new Vector3(sprite.transform.position.x,
+                    sprite.transform.position.y,
+                    -6),
+                Quaternion.identity);
+            ParticleSystem clone4 =
+                (ParticleSystem)
+                Instantiate(nutParticle,
+                new Vector3(sprite.transform.position.x,
+                    sprite.transform.position.y,
+                    -6),
+                Quaternion.identity);
             perfect_color.a = 0.75f;
             sprite.color = perfect_color;
             Destroy(clone.gameObject, 0.5f);
             Destroy(clone2.gameObject, 1.0f);
+            Destroy(clone3.gameObject, 1.0f);
+            Destroy(clone4.gameObject, 1.0f);
             scoreManager.score += 2;
             perfectNum++;
         }

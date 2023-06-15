@@ -29,7 +29,7 @@ public class creditscroll : MonoBehaviour
         initial_y_point = credit.transform.position.y;
         CreditClip = clip.GetComponentInChildren<VideoPlayer>();
         CreditClip.source = VideoSource.Url;
-        CreditClip.url = Application.streamingAssetsPath + "/videos/test_1.mp4";
+        CreditClip.url = Application.streamingAssetsPath + "/videos/credits.mp4";
 
         leadin = false;
     }
