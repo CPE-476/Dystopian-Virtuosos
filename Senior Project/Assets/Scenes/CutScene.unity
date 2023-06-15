@@ -1205,6 +1205,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d02da531ea4f74218a44bfbf2cbe5976, type: 3}
   - {fileID: 21300000, guid: 5b4c4d9bceae64a16a69a5a4997ba520, type: 3}
   - {fileID: 21300000, guid: 7eae82fb7c95144a68e82d85430d4e1c, type: 3}
+  images3:
+  - {fileID: 21300000, guid: 8c379356596b848afaa0c1e1d0098fad, type: 3}
+  - {fileID: 21300000, guid: d7efc4e8ceee047c4bff4782323e8c70, type: 3}
+  - {fileID: 21300000, guid: 86262a89593254debb55b29dacd8bfd2, type: 3}
   fadePanel: {fileID: 100615765}
   sectionBreak: 030000000600000009000000
   currentSection: 0
