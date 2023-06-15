@@ -9,16 +9,20 @@ using UnityEngine.UI;
 public class Narrative : MonoBehaviour
 {
     public TextMeshProUGUI textComponment;
-
-    public Image textbox;
+    public TextMeshProUGUI name_field;
 
     public GameObject image;
 
     public string[] lines;
+    public string[] characters;
 
     public Sprite[] images;
     public Sprite[] images2;
     public Sprite[] images3;
+
+    public Image vento_image;
+    public Image bronte_image;
+    public Image dolce_image;
 
     public Image fadePanel;
 
@@ -50,12 +54,20 @@ public class Narrative : MonoBehaviour
 
     private bool leadin;
 
+    public Image textbox;
+    public Image dialoguebox;
+
     // Start is called before the first frame update
     void Start()
     {
+        vento_image.enabled = false;
+        bronte_image.enabled = false;
+        dolce_image.enabled = false;
+
         dialoguePath = Application.streamingAssetsPath + "/Dialogue/";
 
         textComponment.text = string.Empty;
+        name_field.text = string.Empty;
         fadePanel.color =
             new Color(fadePanel.color.r,
                 fadePanel.color.g,
@@ -76,28 +88,55 @@ public class Narrative : MonoBehaviour
             readNarrativeFile("cutscene_3.txt");
             image.GetComponent<Image>().sprite = images3[0];
         }
+
+        dialoguebox.enabled = false;
+        textbox.enabled = false;
     }
 
     private void readNarrativeFile(string file_name)
     {
         List<string> list = new List<string>();
+        List<string> character_list = new List<string>();
         StreamReader inp_stm = new StreamReader(dialoguePath + file_name);
         while(!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
             if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
-                list.Add(inp_ln);
+                if (inp_ln.Contains(':')) {
+                    string [] parts = inp_ln.Split(':');
+                    list.Add(parts[1]);
+                    if(parts[0] == "DOLCE") {
+                        character_list.Add("Dolce");
+                    }
+                    else if(parts[0] == "BRONTE") {
+                        character_list.Add("Bronte");
+                    }
+                    else if(parts[0] == "VENTO") {
+                        character_list.Add("Vento");
+                    }
+                }
+                else {
+                    list.Add(inp_ln);
+                    character_list.Add("");
+                }
             }
         }
         inp_stm.Close();
 
         lines = list.ToArray();
+        characters = character_list.ToArray();
     }
 
     public void Enable()
     {
+        vento_image.enabled = false;
+        bronte_image.enabled = false;
+        dolce_image.enabled = false;
+
         textComponment.enabled = true;
+        name_field.enabled = true;
         textbox.enabled = true;
+        dialoguebox.enabled = true;
 
         if (currentSection != 0)
         {
@@ -113,15 +152,23 @@ public class Narrative : MonoBehaviour
 
     public void Disable()
     {
+        vento_image.enabled = false;
+        bronte_image.enabled = false;
+        dolce_image.enabled = false;
+
         textComponment.enabled = false;
+        name_field.enabled = false;
         textbox.enabled = false;
+        dialoguebox.enabled = false;
         StopAllCoroutines();
         textComponment.text = string.Empty;
+        name_field.text = string.Empty;
     }
 
     public int NextLine()
     {
         cont.GetComponent<Image>().enabled = false;
+
         if (narrative_index < lines.Length - 1)
         {
             narrative_index++;
@@ -129,6 +176,40 @@ public class Narrative : MonoBehaviour
                 NextImage();
                 narrative_index++;
             }
+
+            if (characters[narrative_index] != "")
+            {
+                textComponment.margin = new Vector4(0, 0, -600, -131);
+                if (characters[narrative_index] == "Dolce") {
+                    dolce_image.enabled = true;
+                    vento_image.enabled = false;
+                    bronte_image.enabled = false;
+                }
+                else if (characters[narrative_index] == "Bronte") {
+                    bronte_image.enabled = true;
+                    vento_image.enabled = false;
+                    dolce_image.enabled = false;
+                }
+                else if (characters[narrative_index] == "Vento") {
+                    vento_image.enabled = true;
+                    bronte_image.enabled = false;
+                    dolce_image.enabled = false;
+                }
+
+                name_field.text = characters[narrative_index];
+                dialoguebox.enabled = true;
+                textbox.enabled = false;
+            }
+            else {
+                textComponment.margin = new Vector4(0, 0, -1400, -131);
+                name_field.text = string.Empty;
+                dialoguebox.enabled = false;
+                textbox.enabled = true;
+                dolce_image.enabled = false;
+                bronte_image.enabled = false;
+                vento_image.enabled = false;
+            }
+
             textComponment.text = string.Empty;
             StopAllCoroutines();
             StartCoroutine(EmitLine());

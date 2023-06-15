@@ -29,8 +29,10 @@ BRONTE: …Captain?
 VENTO: No! We’ve lost him! Can’t get any signal out here! 
 BRONTE: We’ll need to meet him there. Dolce, set the ship coordinates to Planet F Major.
 DOLCE: ‘Please’?
-VENTO: Alright you two, we don’t have time for bickering. Were you not listening to what Captain said? We’re gonna need to flank the west side of the Planet Fanel and shoot down any defenses there ASAP, remember? 
-VENTO: So, point being, we can’t afford you both to mess things up. And I’m hungry, so we'd better get there soon, because I need me a nice, juicy beetle pickles burger! Ah, I can almost taste it now!
+VENTO: Alright you two, we don’t have time for bickering. Were you not listening to what Captain said?
+VENTO: We’re gonna need to flank the west side of the Planet Fanel and shoot down any defenses there ASAP, remember? 
+VENTO: So, point being, we can’t afford you both to mess things up. And I’m hungry, so we'd better get there soon, because I need me a nice, juicy beetle pickles burger! 
+VENTO: Ah, I can almost taste it now!
 BRONTE: Don’t get it twisted, punk. I’m not even sure why I’m stuck with you fools. You’ll just get in the way - I'm just hitching a ride to the next stop.
 DOLCE: Hmph. Really? 
 BRONTE: Don’t you scoff at me, you arrogant little--
