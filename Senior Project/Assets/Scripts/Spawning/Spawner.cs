@@ -34,7 +34,6 @@ public class Spawner : MonoBehaviour
     }
     private void Update()
     {
-        // TODO: Alex --- WHAT THE FUCK IS THIS? Just call a function like a normal person...
         newIndex = midiReader.index;
 
         if (midiReader.index == 0)
