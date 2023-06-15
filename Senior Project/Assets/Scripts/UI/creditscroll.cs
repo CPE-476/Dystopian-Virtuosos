@@ -52,7 +52,7 @@ public class creditscroll : MonoBehaviour
             {
                 cur_speed *= 10.0f;
             }
-            credit.transform.Translate(0, cur_speed, 0);
+            credit.transform.Translate(0, cur_speed * Time.deltaTime * 10.0f, 0);
         }
         else
         {

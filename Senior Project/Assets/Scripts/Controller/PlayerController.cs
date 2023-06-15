@@ -86,6 +86,9 @@ public class PlayerController : MonoBehaviour
     public float fallSpeed = 1f;
     private float t = 0f;
 
+    public ParticleSystem explosion;
+    public ParticleSystem sparks;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -123,6 +126,25 @@ public class PlayerController : MonoBehaviour
         {
             boss.transform.position = Vector3.Lerp(new Vector3(bossXVal, boss.transform.position.y, transform.position.z), new Vector3(bossXVal, -2.0f, 0), timer);
             timer += Time.deltaTime * 0.5f;
+            if(timer > 1)
+            {
+                ParticleSystem clone =
+                (ParticleSystem)
+                Instantiate(explosion,
+                new Vector3(13.5f,
+                    -0.8f,
+                    -6),
+                Quaternion.identity);
+                Destroy(clone.gameObject, 5.0f);
+                ParticleSystem clone2 =
+                (ParticleSystem)
+                Instantiate(sparks,
+                new Vector3(13.5f,
+                    -0.8f,
+                    -6),
+                Quaternion.identity);
+                Destroy(clone2.gameObject, 5.0f);
+            }
         }
         if(timer/2 >= 1)
         {
