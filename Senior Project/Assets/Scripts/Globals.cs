@@ -44,7 +44,7 @@ public class Globals : MonoBehaviour
             PlayerPrefs.SetFloat(music, sounds.music_volume);
             PlayerPrefs.SetFloat(sfx, sounds.sfx_volume);
 
-            PlayerPrefs.SetInt(level_number, 2);
+            PlayerPrefs.SetInt(level_number, 1);
         }
     }
 }

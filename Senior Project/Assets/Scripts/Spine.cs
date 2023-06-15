@@ -152,6 +152,10 @@ public class Spine : MonoBehaviour
 
     TutorialClip[] third_tutorial = new TutorialClip[0];
 
+    TutorialClip[] fourth_tutorial = new TutorialClip[0];
+
+    TutorialClip[] fifth_tutorial = new TutorialClip[0];
+
     void Awake()
     {
         midiPath = Application.streamingAssetsPath + "/MIDIs/";
@@ -164,13 +168,13 @@ public class Spine : MonoBehaviour
         if (1 == PlayerPrefs.GetInt("level_number"))
         {
             initDialogue1();
-            initTutorial();
+            initTutorial_level1();
             initLevel1();
         }
         else
         {
             initDialogue2();
-            initTutorial();
+            initTutorial_level2();
             initLevel2();
         }
 
@@ -432,18 +436,55 @@ public class Spine : MonoBehaviour
         second_dialogue = dialogueList_2.ToArray();
     }
 
-    private void initTutorial()
+    private void initTutorial_level1()
     {
         List<TutorialClip> tutorialList_1 =
             new List<TutorialClip>(first_tutorial);
 
         tutorialList_1
-            .Add(new TutorialClip("OBSTACLE", videoPath + "test_1.mp4"));
-        tutorialList_1.Add(new TutorialClip("NOTE", videoPath + "test_2.mp4"));
+            .Add(new TutorialClip("OBSTACLE", videoPath + "t1.mp4"));
+        tutorialList_1.Add(new TutorialClip("DRUM", videoPath + "t2.mp4"));
         tutorialList_1
-            .Add(new TutorialClip("CONTROL", videoPath + "test_3.mp4"));
+            .Add(new TutorialClip("SCREW", videoPath + "t3.mp4"));
 
         first_tutorial = tutorialList_1.ToArray();
+
+        List<TutorialClip> tutorialList_2 =
+            new List<TutorialClip>(second_tutorial);
+
+        tutorialList_2
+            .Add(new TutorialClip("PIANO", videoPath + "t4.mp4"));
+
+        second_tutorial = tutorialList_2.ToArray();
+
+        List<TutorialClip> tutorialList_3 =
+            new List<TutorialClip>(third_tutorial);
+
+        tutorialList_3
+            .Add(new TutorialClip("GUITAR", videoPath + "t5.mp4"));
+
+        third_tutorial = tutorialList_3.ToArray();
+    }
+
+    private void initTutorial_level2()
+    {
+        List<TutorialClip> tutorialList_4 =
+            new List<TutorialClip>(fourth_tutorial);
+
+        tutorialList_4
+            .Add(new TutorialClip("SWITCH", videoPath + "t6.mp4"));
+
+
+        fourth_tutorial = tutorialList_4.ToArray();
+
+        List<TutorialClip> tutorialList_5 =
+            new List<TutorialClip>(fifth_tutorial);
+
+        tutorialList_5
+            .Add(new TutorialClip("BOSS", videoPath + "t7.mp4"));
+
+        fifth_tutorial = tutorialList_5.ToArray();
+
     }
 
     private void initLevel1()
@@ -481,14 +522,14 @@ public class Spine : MonoBehaviour
             new Section[2]
             {
                 new Section(first_dialogue,
-                    first_tutorial,
+                    fourth_tutorial,
                     midiPath + "DV_L2_Section_1.mid",
                     GameplayAudio.S1,
                     1,
                     false,
                     -17),
                 new Section(second_dialogue,
-                    first_tutorial,
+                    fifth_tutorial,
                     midiPath + "DV_L2_Section_2.mid",
                     GameplayAudio.S2,
                     2,

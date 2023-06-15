@@ -138,7 +138,7 @@ public class NoteObject : MonoBehaviour
 
             if (interpRatio > 1.0f)
             {
-                GetComponent<SpriteRenderer>().enabled = false;
+                //GetComponent<SpriteRenderer>().enabled = false;
 
                 if (followers[0] != null && notetrigger.goodHold[which_track])
                 {
