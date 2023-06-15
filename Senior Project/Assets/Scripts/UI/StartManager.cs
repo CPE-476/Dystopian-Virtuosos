@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.Video;
 using UnityEngine.InputSystem;
 using TMPro;
-using UnityEngine.Video;
 
 public enum CURRENTPAGE
 {
@@ -30,6 +30,7 @@ public class StartManager : MonoBehaviour
     public GameObject Graphic;
     public GameObject About;
     public creditscroll creditscroll;
+    public VideoPlayer player;
 
     public GameObject systemLC;
 
@@ -253,6 +254,9 @@ public class StartManager : MonoBehaviour
         c.a = 0f;
         fadeImage.color = c;
         toDefault();
+
+        //player.source = VideoSource.Url;
+        //player.url = Application.streamingAssetsPath + "/videos/test_1.mp4";
     }
 
     public void toLaunch()
@@ -429,8 +433,10 @@ public class StartManager : MonoBehaviour
         /*backButton.GetComponent<TextMeshProUGUI>().enabled = true;
         backButton.GetComponent<Button>().interactable = true;*/
 
-        /*EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(curBackButton);*/
+/*
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(curBackButton);
+*/
     }
 
     public void toDefault()

@@ -8025,6 +8025,7 @@ MonoBehaviour:
   Graphic: {fileID: 703034349}
   About: {fileID: 81057091}
   creditscroll: {fileID: 1320842349}
+  player: {fileID: 1326003043}
   systemLC: {fileID: 1515738883}
   Background: {fileID: 870591618}
   zoomAmount: 2

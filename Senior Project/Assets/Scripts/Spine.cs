@@ -146,8 +146,6 @@ public class Spine : MonoBehaviour
 
     DialogueLine[] third_dialogue = new DialogueLine[0];
 
-    DialogueLine[] fourth_dialogue = new DialogueLine[0];
-
     TutorialClip[] first_tutorial = new TutorialClip[0];
 
     TutorialClip[] second_tutorial = new TutorialClip[0];
@@ -359,7 +357,7 @@ public class Spine : MonoBehaviour
     private List<DialogueLine> readDialogueFile(string file_name)
     {
         List<DialogueLine> dialogueList =
-            new List<DialogueLine>(first_dialogue);
+            new List<DialogueLine>(first_dialogue.Length);
 
         StreamReader inp_stm = new StreamReader(dialoguePath + file_name);
         while (!inp_stm.EndOfStream)

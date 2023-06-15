@@ -1,22 +1,16 @@
-# Version 1
+# Version FINAL
 
-BRONTE: Calling in Captain Nova... Captain, do you copy?
-*static*
-BRONTE: ...Captain?
-VENTO: Damn it! We've lost him. Can't get any signal out here! 
-BRONTE: We'll need to meet him there. Dolce, set the ship coordinates to Planet F Major.
-DOLCE: 'Please'?
-VENTO: Alright you two, we don't have time for bickering. Were you not listening to what Captain said?
-VENTO: We're gonna need to flank the west side of the Planet Fanel and shoot down any defenses there ASAP, remember?
-VENTO: So, point being, we can't afford you both to mess things up.
-VENTO: And I'm hungry so we better get there soon, because I need me a nice, juicy beetle pickles burger! Ah, I can almost taste it now!
-BRONTE: Don't get it all mixed up, punk. I'm not even sure why I'm stuck with you fools.
-BRONTE: You'll just get in the way - I was fine to steal the Dolce shit on my own.
-DOLCE: Hmph. Really? 
-BRONTE: Don't you dare scoff at me, you arrogant little-
-DOLCE: I'm just being practical. There's no way you'd be able to execute the mission alone. It's much more than just 'stealing' the potion.
-DOLCE: Acquiring the potions securely and smuggling it back through the homeland’s security? That takes much more than a half-wit like you could do.
-BRONTE: 'Half-wit'?! You-
-VENTO: STOP!! Do you hear that?
-
-
+WARNING. WARNING. TRESPASSING PLANET. TURN AROUND YOUR SHIP NOW OR WE WILL ENGAGE IN COMBAT.
+VENTO: This planet's got an expensive security system!!
+BRONTE: You think?? Get our escape pods ready! And send a transmission to Captain, NOW!
+VENTO: You really don’t know how to ask nicely, huh? What, you can’t do anything without Cappy’s permission?
+BRONTE: This is NOT the time!
+DOLCE: Both of you are useless! Move out of the way!...Looks like Captain’s sent us something through the Teleportation Port. His transmission reads, “S.O.S. …CRASHED AT 35.3050° N, 120.6625° W AND FOUND WEAPONS…ONLY WAY TO DEFEAT THEM”
+VENTO: Incoming enemies! A whole army of ‘em—seems to me that they’re all robots, or skilled fighters, probably hired from all over the galaxy. We’re surrounded!
+DOLCE: They’re attacking in some sort of pattern, l-like a rhythm? It’s some complex musical pattern! Makes sense, considering Wisteria is the land of music and everything. I can only hold them off for so long with our ship’s lasers, and our machinery’s destroyed...
+DOLCE: What are we going to do? We're out of parts to make repairs with... Oh, and we’ll also have to worry about cushioning the crash...
+BRONTE: Panicking won’t solve our problems, Dolce! You heard the message, didn’t you? Captain gave us a ticket out of this so we can save him! Hand over the weapons! I’ll take the lead.
+DOLCE: Fine! Just don't forget about the ship's repairs, we'll need to pick up as many spare parts and screws as we can!
+BRONTE: It’s a drum hammer weapon. Hm…perfect, this way, I can beat the living crap out of these robots. I'll go first.
+VENTO: Fine by me, you'll be a punching bag for those enemies.
+BRONTE: “Punching Bag”, huh? Watch this, I’m going to tear ‘em up, beat by beat!

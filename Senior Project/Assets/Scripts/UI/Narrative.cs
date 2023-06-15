@@ -17,6 +17,7 @@ public class Narrative : MonoBehaviour
     public string[] lines;
 
     public Sprite[] images;
+    public Sprite[] images2;
 
     public Image fadePanel;
 
@@ -69,6 +70,7 @@ public class Narrative : MonoBehaviour
             readNarrativeFile("cutscene_2.txt");
         }
 
+        image.GetComponent<Image>().sprite = images[0];
     }
 
     private void readNarrativeFile(string file_name)
@@ -143,13 +145,26 @@ public class Narrative : MonoBehaviour
 
     public bool NextImage()
     {
-        if (image_index < images.Length - 1)
+        Debug.Log("HERE\n");
+        if(1 == PlayerPrefs.GetInt("level_number"))
         {
-            image_index++;
-            image.GetComponent<Image>().sprite = images[image_index];
-            return true;
+            if (image_index < images.Length - 1)
+            {
+                image_index++;
+                image.GetComponent<Image>().sprite = images[image_index];
+                return true;
+            }
+            return false;
         }
-        return false;
+        else {
+            if (image_index < images2.Length - 1)
+            {
+                image_index++;
+                image.GetComponent<Image>().sprite = images2[image_index];
+                return true;
+            }
+            return false;
+        }
     }
 
     public void FadeToClear()
