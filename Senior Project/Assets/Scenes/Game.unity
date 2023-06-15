@@ -2393,6 +2393,7 @@ MonoBehaviour:
   midiReader: {fileID: 1263251599}
   cam: {fileID: 510236666}
   dialogue: {fileID: 802824393}
+  player: {fileID: 393148429}
   noteTrigger: {fileID: 577649642}
   tracksController: {fileID: 1488642359}
   healthBar: {fileID: 816987385}
@@ -7140,6 +7141,7 @@ MonoBehaviour:
   anim: {fileID: 393148431}
   anim2: {fileID: 885476714}
   anim3: {fileID: 1048155149}
+  animBoss: {fileID: 1846763181}
   guitarist: {fileID: 885476712}
   pianist: {fileID: 1048155147}
   boss: {fileID: 1846763180}
@@ -7153,6 +7155,7 @@ MonoBehaviour:
   pianoEndPos: -5
   bossEndPos: 10
   isDead: 0
+  endGame: 0
   switching: 0
   isBoss: 0
   startX: 0
@@ -9968,6 +9971,8 @@ MonoBehaviour:
   character: {fileID: 393148429}
   trackController: {fileID: 1488642359}
   particles: {fileID: 5667863053512256358, guid: 761bad68aa6355c46af9aa5e6ae1202d, type: 3}
+  circleParticle: {fileID: 390340303652082718, guid: 9dd1289aa89bba543b3492d1bb961651, type: 3}
+  nutParticle: {fileID: 862624425734344706, guid: f1b14a90fb362d443ba47346d47ce87b, type: 3}
   hittext: {fileID: 50980574913718436, guid: a366393305929f64999735c165cc4a05, type: 3}
   text: {fileID: 1263531863}
   spawnMaster: {fileID: 1448182217}

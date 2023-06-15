@@ -112,6 +112,8 @@ public class Spine : MonoBehaviour
 
     public Dialogue dialogue;
 
+    public PlayerController player;
+
     public NoteTrigger noteTrigger;
 
     public TracksController tracksController;
@@ -219,7 +221,7 @@ public class Spine : MonoBehaviour
 
     public void DialogueStart()
     {
-        if (section_index > 2)
+        if (section_index > 2 || (PlayerPrefs.GetInt("level_number") == 2 && section_index > 1))
         {
             state = InterfaceState.RESULTS;
 
@@ -228,7 +230,17 @@ public class Spine : MonoBehaviour
             {
                 noteTrigger.maxCombo = comboManager.comboNumber;
             }
-            StartCoroutine(statsManager.displayStatsUI(0.5f, 0.5f, 0.5f));
+            if(PlayerPrefs.GetInt("level_number") != 2)
+                StartCoroutine(statsManager.displayStatsUI(0.5f, 0.5f, 0.5f, 0.0f));
+            else
+            {
+                player.animBoss.SetTrigger("die");
+                player.endGame = true;
+                player.switching = true;
+                cam.isMoving = false;
+                player.anim.SetTrigger("idle");
+                StartCoroutine(statsManager.displayStatsUI(0.5f, 0.5f, 0.5f, 2.0f));
+            }
             return;
         }
 

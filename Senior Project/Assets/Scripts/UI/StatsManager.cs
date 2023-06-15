@@ -50,7 +50,7 @@ public class StatsManager : MonoBehaviour
         accuracyText.text = noteTrigger.accuracy.ToString("0.#") + " %";
         if (Input.GetKeyDown(KeyCode.Return)) 
         {
-            StartCoroutine(displayStatsUI(0.5f, 0.5f, 0.5f));
+            StartCoroutine(displayStatsUI(0.5f, 0.5f, 0.5f, 0.0f));
         }
     }
 
@@ -156,8 +156,9 @@ public class StatsManager : MonoBehaviour
 
 
 
-    public IEnumerator displayStatsUI(float t1, float t2, float t3)
+    public IEnumerator displayStatsUI(float t1, float t2, float t3, float t4)
     {
+        yield return new WaitForSeconds(t4);
         StartCoroutine(displayPannel(t1));
         yield return new WaitForSeconds(t1);
         StartCoroutine(displayRight(t2));
