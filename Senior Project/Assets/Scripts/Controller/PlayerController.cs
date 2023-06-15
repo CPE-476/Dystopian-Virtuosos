@@ -144,6 +144,7 @@ public class PlayerController : MonoBehaviour
                     -6),
                 Quaternion.identity);
                 Destroy(clone2.gameObject, 5.0f);
+                timer = 0;
             }
         }
         if(timer/2 >= 1)
