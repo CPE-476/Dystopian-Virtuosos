@@ -202,8 +202,13 @@ public class Spine : MonoBehaviour
 
                 if (done)
                 {
+                    if(PlayerPrefs.GetInt("level_number") == 1) {
+                        GoToLevel2();
+                    }
+                    else {
+                        GoToLevel3();
+                    }
                     noteTrigger.StatsReset();
-                    GoToLevel2();
                 }
             }
         }
@@ -215,9 +220,16 @@ public class Spine : MonoBehaviour
         SceneManager.LoadScene("CutScene");
     }
 
+    public void GoToLevel3()
+    {
+        PlayerPrefs.SetInt("level_number", 3);
+        SceneManager.LoadScene("CutScene");
+    }
+
     public void DialogueStart()
     {
-        if (section_index > 2)
+        if (section_index > 1 && PlayerPrefs.GetInt("level_number") == 2 ||
+            section_index > 2)
         {
             state = InterfaceState.RESULTS;
 
@@ -457,7 +469,7 @@ public class Spine : MonoBehaviour
     private void initLevel2()
     {
         sections =
-            new Section[3]
+            new Section[2]
             {
                 new Section(first_dialogue,
                     first_tutorial,
@@ -473,13 +485,6 @@ public class Spine : MonoBehaviour
                     2,
                     false,
                     -1),
-                new Section(third_dialogue,
-                    first_tutorial,
-                    midiPath + "DV_L2_Section_2.mid",
-                    GameplayAudio.END,
-                    3,
-                    false,
-                    -17)
             };
     }
 }

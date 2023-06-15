@@ -18,6 +18,7 @@ public class Narrative : MonoBehaviour
 
     public Sprite[] images;
     public Sprite[] images2;
+    public Sprite[] images3;
 
     public Image fadePanel;
 
@@ -65,12 +66,16 @@ public class Narrative : MonoBehaviour
 
         if (1 == PlayerPrefs.GetInt("level_number")) {
             readNarrativeFile("cutscene_1.txt");
+            image.GetComponent<Image>().sprite = images[0];
         }
         if(2 == PlayerPrefs.GetInt("level_number")) {
             readNarrativeFile("cutscene_2.txt");
+            image.GetComponent<Image>().sprite = images2[0];
         }
-
-        image.GetComponent<Image>().sprite = images[0];
+        if(3 == PlayerPrefs.GetInt("level_number")) {
+            readNarrativeFile("cutscene_3.txt");
+            image.GetComponent<Image>().sprite = images3[0];
+        }
     }
 
     private void readNarrativeFile(string file_name)
@@ -145,7 +150,6 @@ public class Narrative : MonoBehaviour
 
     public bool NextImage()
     {
-        Debug.Log("HERE\n");
         if(1 == PlayerPrefs.GetInt("level_number"))
         {
             if (image_index < images.Length - 1)
@@ -156,11 +160,20 @@ public class Narrative : MonoBehaviour
             }
             return false;
         }
-        else {
+        else if (2 == PlayerPrefs.GetInt("level_number")) {
             if (image_index < images2.Length - 1)
             {
                 image_index++;
                 image.GetComponent<Image>().sprite = images2[image_index];
+                return true;
+            }
+            return false;
+        }
+        else {
+            if (image_index < images3.Length - 1)
+            {
+                image_index++;
+                image.GetComponent<Image>().sprite = images3[image_index];
                 return true;
             }
             return false;
@@ -197,7 +210,12 @@ public class Narrative : MonoBehaviour
         // Once the alpha is close to one, load the next scene
         if (fadePanel.color.a >= 0.95f)
         {
-            SceneManager.LoadScene("Game");
+            if (PlayerPrefs.GetInt("level_number") != 3) {
+                SceneManager.LoadScene("Game");
+            }
+            else {
+                SceneManager.LoadScene("Start");
+            }
         }
     }
 
