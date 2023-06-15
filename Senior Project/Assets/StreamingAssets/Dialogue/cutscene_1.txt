@@ -50,3 +50,4 @@ DOLCE: …What?!
 BRONTE: The engine’s blown! Gah, I can’t get the throttles to work, we’re headed straight for that planet!
 
 DOLCE: Ah, um, coordinates, checking the coordinates! T-that’s, ah – what was it called? Wisteria! And we’re going to crash right into the center of that city!
+...

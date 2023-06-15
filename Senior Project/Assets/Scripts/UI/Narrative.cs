@@ -169,10 +169,10 @@ public class Narrative : MonoBehaviour
     {
         cont.GetComponent<Image>().enabled = false;
 
-        if (narrative_index < lines.Length - 1)
+        if (narrative_index < lines.Length - 2)
         {
             narrative_index++;
-            if(lines[narrative_index] == "---") {
+            if (lines[narrative_index] == "---") {
                 NextImage();
                 narrative_index++;
             }

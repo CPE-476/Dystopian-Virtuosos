@@ -176,7 +176,7 @@ public class NoteObject : MonoBehaviour
                     followers[1].transform.position = interpedPostionF2;
                     followers[2].transform.position = interpedPostionF3;
                     followers[3].transform.position = interpedPostionF4;
-                    //GetComponent<SpriteRenderer>().enabled = false;
+                    GetComponent<SpriteRenderer>().enabled = false;
                 }
 
                 // obstacle should go pass
@@ -249,7 +249,7 @@ public class NoteObject : MonoBehaviour
                 }
                 else if (gameObject.CompareTag("HoldSquare"))
                 {
-                    //GetComponent<SpriteRenderer>().enabled = true;
+                    GetComponent<SpriteRenderer>().enabled = true;
                     float interpRatio2 = interpRatio - 1;
                     Vector3 interpedPostionBehind =
                         Vector3
