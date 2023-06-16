@@ -23,8 +23,6 @@ public class PlayerController : MonoBehaviour
 
     public float movePower = 2f;
 
-    public float jumpPower = 5f; //Set Gravity Scale in Rigidbody2D Component to 5
-
     public int maxHealth;
 
     public int curHealth;
@@ -243,9 +241,6 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.velocity = Vector2.zero;
-
-        //Vector2 jumpVelocity = new Vector2(0, jumpPower);
-        //rb.AddForce(jumpVelocity, ForceMode2D.Impulse);
         isJumping = false;
     }
 
