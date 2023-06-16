@@ -1,27 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
-using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Narrative : MonoBehaviour
 {
     public TextMeshProUGUI textComponment;
+
     public TextMeshProUGUI name_field;
 
     public GameObject image;
 
     public string[] lines;
+
     public string[] characters;
 
     public Sprite[] images;
+
     public Sprite[] images2;
+
     public Sprite[] images3;
 
     public Image vento_image;
+
     public Image bronte_image;
+
     public Image dolce_image;
 
     public Image fadePanel;
@@ -55,6 +61,7 @@ public class Narrative : MonoBehaviour
     private bool leadin;
 
     public Image textbox;
+
     public Image dialoguebox;
 
     // Start is called before the first frame update
@@ -76,15 +83,18 @@ public class Narrative : MonoBehaviour
 
         leadin = false;
 
-        if (1 == PlayerPrefs.GetInt("level_number")) {
+        if (1 == PlayerPrefs.GetInt("level_number"))
+        {
             readNarrativeFile("cutscene_1.txt");
             image.GetComponent<Image>().sprite = images[0];
         }
-        if(2 == PlayerPrefs.GetInt("level_number")) {
+        if (2 == PlayerPrefs.GetInt("level_number"))
+        {
             readNarrativeFile("cutscene_2.txt");
             image.GetComponent<Image>().sprite = images2[0];
         }
-        if(3 == PlayerPrefs.GetInt("level_number")) {
+        if (3 == PlayerPrefs.GetInt("level_number"))
+        {
             readNarrativeFile("cutscene_3.txt");
             image.GetComponent<Image>().sprite = images3[0];
         }
@@ -98,25 +108,31 @@ public class Narrative : MonoBehaviour
         List<string> list = new List<string>();
         List<string> character_list = new List<string>();
         StreamReader inp_stm = new StreamReader(dialoguePath + file_name);
-        while(!inp_stm.EndOfStream)
+        while (!inp_stm.EndOfStream)
         {
             string inp_ln = inp_stm.ReadLine();
-            if(inp_ln.Length != 0 && (inp_ln[0] != '#')) {
-                if (inp_ln.Contains(':')) {
-                    string [] parts = inp_ln.Split(':');
+            if (inp_ln.Length != 0 && (inp_ln[0] != '#'))
+            {
+                if (inp_ln.Contains(':'))
+                {
+                    string[] parts = inp_ln.Split(':');
                     list.Add(parts[1]);
-                    if(parts[0] == "DOLCE") {
+                    if (parts[0] == "DOLCE")
+                    {
                         character_list.Add("Dolce");
                     }
-                    else if(parts[0] == "BRONTE") {
+                    else if (parts[0] == "BRONTE")
+                    {
                         character_list.Add("Bronte");
                     }
-                    else if(parts[0] == "VENTO") {
+                    else if (parts[0] == "VENTO")
+                    {
                         character_list.Add("Vento");
                     }
                 }
-                else {
-                    list.Add(inp_ln);
+                else
+                {
+                    list.Add (inp_ln);
                     character_list.Add("");
                 }
             }
@@ -172,42 +188,48 @@ public class Narrative : MonoBehaviour
         if (narrative_index < lines.Length - 2)
         {
             narrative_index++;
-            if (lines[narrative_index] == "---") {
+            if (lines[narrative_index] == "---")
+            {
                 NextImage();
                 narrative_index++;
             }
 
-            Debug.Log(narrative_index);
+            Debug.Log (narrative_index);
             if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 4)
             {
                 sfx.Playfire();
             }
 
-            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 12)
+            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 12
+            )
             {
                 sfx.Stopfire();
             }
 
             // crashing
-            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 14)
+            if (1 == PlayerPrefs.GetInt("level_number") && narrative_index == 32
+            )
             {
                 sfx.Playcrashing();
             }
 
-                if (characters[narrative_index] != "")
+            if (characters[narrative_index] != "")
             {
                 textComponment.margin = new Vector4(0, 0, -600, -131);
-                if (characters[narrative_index] == "Dolce") {
+                if (characters[narrative_index] == "Dolce")
+                {
                     dolce_image.enabled = true;
                     vento_image.enabled = false;
                     bronte_image.enabled = false;
                 }
-                else if (characters[narrative_index] == "Bronte") {
+                else if (characters[narrative_index] == "Bronte")
+                {
                     bronte_image.enabled = true;
                     vento_image.enabled = false;
                     dolce_image.enabled = false;
                 }
-                else if (characters[narrative_index] == "Vento") {
+                else if (characters[narrative_index] == "Vento")
+                {
                     vento_image.enabled = true;
                     bronte_image.enabled = false;
                     dolce_image.enabled = false;
@@ -217,7 +239,8 @@ public class Narrative : MonoBehaviour
                 dialoguebox.enabled = true;
                 textbox.enabled = false;
             }
-            else {
+            else
+            {
                 textComponment.margin = new Vector4(0, 0, -1400, -131);
                 name_field.text = string.Empty;
                 dialoguebox.enabled = false;
@@ -248,7 +271,7 @@ public class Narrative : MonoBehaviour
 
     public bool NextImage()
     {
-        if(1 == PlayerPrefs.GetInt("level_number"))
+        if (1 == PlayerPrefs.GetInt("level_number"))
         {
             if (image_index < images.Length - 1)
             {
@@ -258,7 +281,8 @@ public class Narrative : MonoBehaviour
             }
             return false;
         }
-        else if (2 == PlayerPrefs.GetInt("level_number")) {
+        else if (2 == PlayerPrefs.GetInt("level_number"))
+        {
             if (image_index < images2.Length - 1)
             {
                 image_index++;
@@ -267,7 +291,8 @@ public class Narrative : MonoBehaviour
             }
             return false;
         }
-        else {
+        else
+        {
             if (image_index < images3.Length - 1)
             {
                 image_index++;
@@ -303,15 +328,21 @@ public class Narrative : MonoBehaviour
                 Color.black,
                 Time.deltaTime / (fadeTime_2 / 2.0f));
 
-        audioSource.volume = Mathf.Lerp(audioSource.volume, 0.0f, Time.deltaTime / (fadeTime_2 / 2.0f));
+        audioSource.volume =
+            Mathf
+                .Lerp(audioSource.volume,
+                0.0f,
+                Time.deltaTime / (fadeTime_2 / 2.0f));
 
         // Once the alpha is close to one, load the next scene
         if (fadePanel.color.a >= 0.95f)
         {
-            if (PlayerPrefs.GetInt("level_number") != 3) {
+            if (PlayerPrefs.GetInt("level_number") != 3)
+            {
                 SceneManager.LoadScene("Game");
             }
-            else {
+            else
+            {
                 SceneManager.LoadScene("Start");
             }
         }
@@ -349,7 +380,11 @@ public class Narrative : MonoBehaviour
             textbox.GetComponent<Image>().color = color;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Joystick1Button0) || Input.GetKeyDown(KeyCode.Joystick1Button1))
+        if (
+            Input.GetKeyDown(KeyCode.Space) ||
+            Input.GetKeyDown(KeyCode.Joystick1Button0) ||
+            Input.GetKeyDown(KeyCode.Joystick1Button1)
+        )
         {
             sfx.Playdialog();
             int result = NextLine();
