@@ -198,7 +198,7 @@ public class PlayerController : MonoBehaviour
                     {
                         tutorial.PrevVideo();
                     }
-                    else if (interact.action.WasPressedThisFrame())
+                    else if (interact.action.WasPressedThisFrame() && tutorial.cont.activeSelf)
                     {
                         spine.GameplayStart();
                     }

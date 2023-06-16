@@ -120,6 +120,11 @@ public class Tutorial : MonoBehaviour
             right_button.interactable = true;
             left_image.enabled = false;
             left_button.interactable = false;
+            if (spine.sections[spine.section_index].tutorialVideos.Length <= 1)
+            {
+                right_image.enabled = false;
+                right_button.interactable = false;
+            }
         }
         else if (videoIndex == spine.sections[spine.section_index].tutorialVideos.Length - 1){
             right_image.enabled = false;
